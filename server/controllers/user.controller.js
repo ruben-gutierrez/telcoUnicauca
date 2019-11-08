@@ -8,6 +8,9 @@ userController.getUsers= async(req, res) => {
 
 userController.createUser=async(req, res) => {
     const user = new User(req.body);
+    // console.log(user);
+    user.password = await user.encryptPass(user.password);
+    console.log(user.password);
     await user.save();
     res.json(
         {status:"User saved"}
