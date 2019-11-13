@@ -1,0 +1,33 @@
+<div class="container my-5">
+    <h3>Nuevo usuario</h3>
+    <form (ngSubmit)="newUser(formNewUser)" #formNewUser="ngForm" novalidate>
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre" ngModel required>
+          <small id="nameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <!-- <div class="form-group">
+          <label for="username">Nombre de usuario</label>
+          <input type="email" class="form-control" name="username" ngModel aria-describedby="usernameHelp" placeholder="Ingrese nombre de usuario" ngModel required>
+          <small id="usernameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div> -->
+        <div class="form-group">
+          <label for="email">Correo</label>
+          <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Ingrese correo" ngModel required>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="pass">Contraseña</label>
+          <input type="password" class="form-control" name="pass" placeholder="Ingrese contraseña" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="pass2">Contraseña nuevamente</label>
+          <input type="password" class="form-control" name="pass2" placeholder="Password" ngModel required>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" name="notifications" ngModel required>
+          <label class="form-check-label" for="notifications">Acepto notificaciones via correo electronico</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>

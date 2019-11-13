@@ -1,0 +1,1 @@
+- atention whit CORS in the navigator
