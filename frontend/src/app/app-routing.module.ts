@@ -15,6 +15,8 @@ import { CountComponent } from './components/count/count.component';
 import { AdminUsersComponent } from './components/console/admin-users/admin-users.component';
 import { AdminUserComponent } from './components/console/admin-users/admin-user/admin-user.component';
 import { AdminNewUserComponent } from './components/console/admin-users/admin-new-user/admin-new-user.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 
 const routes: Routes = [
@@ -35,6 +37,10 @@ const routes: Routes = [
   {path: 'proyects', component: ProyectsComponent },
   {path: 'ims', component: IMSComponent },
   
+  
+  {path: 'signin', component: SigninComponent },
+  {path: 'signup', component: SignupComponent },
+
   {path: 'count', component: CountComponent },
   {path: '**', pathMatch: 'full',redirectTo: 'home' },
  

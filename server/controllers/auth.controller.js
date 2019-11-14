@@ -8,8 +8,9 @@ const config = require('../config');
 const authController={};
 
 authController.signin= async(req, res) => {
-    const { email, username, password } = req.body;
-    const user = await User.findOne({ username: username});
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email});
+    console.log(user);
     if(!user){
         return res.status(404).json({ auth: false, token: null});
     };

@@ -33,6 +33,8 @@ import { PoliticsComponent } from './components/about/politics/politics.componen
 import { HttpClientModule } from '@angular/common/http';
 import { AdminUserComponent } from './components/console/admin-users/admin-user/admin-user.component';
 import { AdminNewUserComponent } from './components/console/admin-users/admin-new-user/admin-new-user.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 //services
 
@@ -64,7 +66,9 @@ import { AdminNewUserComponent } from './components/console/admin-users/admin-ne
     IMSComponent,
     PoliticsComponent,
     AdminUserComponent,
-    AdminNewUserComponent
+    AdminNewUserComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

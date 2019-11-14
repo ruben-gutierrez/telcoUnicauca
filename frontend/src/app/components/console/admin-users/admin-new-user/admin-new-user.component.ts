@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
+import { UsersService } from 'src/app/services/users.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-admin-new-user',
@@ -8,12 +10,25 @@ import { NgForm } from "@angular/forms";
 })
 export class AdminNewUserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _users: UsersService ) { 
+    
+
+  }
 
   ngOnInit() {
   }
-  newUser( dataForm:NgForm ){
-    console.log(dataForm.value)
+
+  resetForm(form?:NgForm){
+    if (form){
+      form.reset();
+      this._users.selectedUser = new User();
+    }
+  }
+  createUser(dataform:NgForm){
+    this._users.createUser(dataform.value)
+      .subscribe(res =>{
+        this.resetForm(dataform);
+      })
   }
 
 }

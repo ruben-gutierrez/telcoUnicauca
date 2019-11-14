@@ -16,8 +16,13 @@ export class AdminUsersComponent  {
         this.users = data;
       });
   }
-  
-
-  
-
+  deleteuser(id:string){
+    // console.log(id);
+    this._users.deleteUser(id)
+      .subscribe( res =>{
+        var i = this.users.indexOf( id );
+        this.users.splice( i, 1 );
+        console.log(this.users);
+      });
+  }
 }

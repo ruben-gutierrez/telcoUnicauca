@@ -19,10 +19,12 @@
     </li>
     <li *ngFor="let user of users" class="list-group-item">
         <div class="row">
-            <div class="col">{{ user.username }}</div>
+            <div class="col">{{ user.name }}</div>
             <div class="col">{{ user.email }}</div>
             <div class="col">{{user.role}}</div>
-            <div class="col"> <a [routerLink]="['admin-user', user._id ]" class="btn btn-outline-success mr-2">Ver</a><button class="btn btn-outline-danger">Eliminar</button> </div>
+            <div class="col"> 
+                <a [routerLink]="['admin-user', user._id ]" class="btn btn-outline-success mr-2"><i class="fa fa-eye"></i></a>
+                <button class="btn btn-outline-danger" (click)="deleteuser(user._id)"> <i class="fa fa-trash" aria-hidden="true"></i> </button> </div>
         </div>
     </li>
 </ul>
