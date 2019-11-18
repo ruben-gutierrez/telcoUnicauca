@@ -10,7 +10,6 @@ const authController={};
 authController.signin= async(req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email});
-    console.log(user);
     if(!user){
         return res.status(404).json({ auth: false, token: null});
     };
@@ -20,10 +19,11 @@ authController.signin= async(req, res) => {
         return res.status(404).json({ auth: false, token: null});
         // return res.status(404).send("The pass incorrect");
     }
+    user.password = "";
     const token = jwt.sign({id: user._id}, config.secret,{
         expiresIn: 60 * 60 * 1
     })
-    res.json({ auth: true, token: token});
+    res.json({ auth: true, token: token, user});
 };
 
 
@@ -36,17 +36,15 @@ authController.signup= async(req, res) => {
     })
     res.json(
         {
-            auth:"200",
+            auth:"true",
             token: token
         }
     );
 };
 authController.me= async(req, res) => {
-    
-   
     const user = await User.findById(req.userId, {password:0});
     if (!user) {
-        return res.status(404).send("No user Found");
+        return res.error(404).send("No user Found");
     }
     res.json(
         {
@@ -55,6 +53,7 @@ authController.me= async(req, res) => {
         }
     );
 };
+
 
 
 module.exports = authController;

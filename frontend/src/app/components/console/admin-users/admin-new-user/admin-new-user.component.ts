@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/user';
+import { AdminUsersComponent } from '../admin-users.component';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-new-user',
@@ -10,9 +13,9 @@ import { User } from 'src/app/models/user';
 })
 export class AdminNewUserComponent implements OnInit {
 
-  constructor(private _users: UsersService ) { 
-    
-
+  constructor(private _users: UsersService, 
+              private toastr: ToastrService,
+              private router:Router ) { 
   }
 
   ngOnInit() {
@@ -28,6 +31,9 @@ export class AdminNewUserComponent implements OnInit {
     this._users.createUser(dataform.value)
       .subscribe(res =>{
         this.resetForm(dataform);
+        this.toastr.success('Usuario creado');
+        this.router.navigate(["/console"]);
+        // AdminUsersComponent.getUsers();
       })
   }
 

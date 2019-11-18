@@ -6,7 +6,7 @@ function verifyToken (req, res, next ){
     if (!token) {
         return res.status(401).json({
             auth:false,
-            status: "402",
+            status: "401",
             message: "error Token"
         });
     }

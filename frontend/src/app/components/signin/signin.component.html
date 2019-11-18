@@ -17,7 +17,7 @@
                   <label for="password">Contraseña</label>
                   <input type="password" class="form-control" name="password" #password="ngModel"placeholder="Password" 
                         ngModel 
-                        minlength="8"
+                        minlength="3"
                         required>
                         <small *ngIf="password.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
                         <small *ngIf="password.errors?.minlength" id="nameHelp" class="form-text text-muted">Mínimo {{ password.errors.minlength.requiredLength }} carácteres</small>

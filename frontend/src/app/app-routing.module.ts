@@ -17,6 +17,8 @@ import { AdminUserComponent } from './components/console/admin-users/admin-user/
 import { AdminNewUserComponent } from './components/console/admin-users/admin-new-user/admin-new-user.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { VerifyTokenGuard } from './guards/verify-token.guard';
+
 
 
 const routes: Routes = [
@@ -29,7 +31,7 @@ const routes: Routes = [
     {path: 'politics', component: PoliticsComponent },
   {path: 'comunity', component: ComunityComponent },
     {path: 'comunity', component: ComunityComponent },
-  {path: 'console', component: ConsoleComponent },
+  {path: 'console', component: ConsoleComponent ,canActivate:[VerifyTokenGuard]},
     {path: 'admin-users', component: AdminUsersComponent },
     {path: 'console/admin-user/:id', component: AdminUserComponent },
     {path: 'console/admin-new-user', component: AdminNewUserComponent },

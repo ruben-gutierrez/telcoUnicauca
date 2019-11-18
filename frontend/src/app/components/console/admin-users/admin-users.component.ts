@@ -10,11 +10,14 @@ export class AdminUsersComponent  {
   users: any[] = [];
   
   constructor( private _users: UsersService ) { 
+    this.getUsers();
+  }
+  getUsers(){
     this._users.getUsers()
       .subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         this.users = data;
-      });
+    });  
   }
   deleteuser(id:string){
     // console.log(id);
