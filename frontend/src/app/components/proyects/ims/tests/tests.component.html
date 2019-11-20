@@ -1,0 +1,31 @@
+<div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <h3>Bienvenido al ambiente de prueba IMS</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum temporibus amet dicta veniam eaque autem officia! Ducimus recusandae facere tenetur deserunt. Laudantium omnis voluptas dolor minima aliquid numquam vel error?</p>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i><br>Reservadas</a>
+                        <a [routerLink]="['/ims/tests']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
+                        <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div>
+        <div class="card-columns">
+            <div *ngFor="let test of tests" class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"> {{ test.name }} </h5>
+                    <h6 class="card-subtitle mb-2 text-muted"> {{ test.arquitecture.name }} </h6>
+                    <p class="card-text"> {{ test.description }} </p>
+                    <a [routerLink]="[ test._id ]" class="card-link">Ver más...</a>
+                    <a href="#" class="card-link">Ejecutar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

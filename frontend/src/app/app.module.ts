@@ -37,6 +37,16 @@ import { AdminUserComponent } from './components/console/admin-users/admin-user/
 import { AdminNewUserComponent } from './components/console/admin-users/admin-new-user/admin-new-user.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { AvailableComponent } from './components/proyects/ims/available/available.component';
+import { ReservedComponent } from './components/proyects/ims/reserved/reserved.component';
+import { TestsComponent } from './components/proyects/ims/tests/tests.component';
+import { TestComponent } from './components/proyects/ims/test/test.component';
+import { NewTestComponent } from './components/proyects/ims/new-test/new-test.component';
+import { GraphicsComponent } from './components/proyects/ims/graphics/graphics.component';
+import { GraphComponent } from './components/proyects/ims/graph/graph.component';
+import { NewGraphComponent } from './components/proyects/ims/new-graph/new-graph.component';
+import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture-ims/arquitecture-ims.component';
+
 
 //services
 
@@ -70,7 +80,16 @@ import { SignupComponent } from './components/signup/signup.component';
     AdminUserComponent,
     AdminNewUserComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    AvailableComponent,
+    ReservedComponent,
+    TestsComponent,
+    TestComponent,
+    NewTestComponent,
+    GraphicsComponent,
+    GraphComponent,
+    NewGraphComponent,
+    ArquitectureImsComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 
 
+
 const { mongoose } = require('./database');
 //Settings
 app.set('port', process.env.PORT || 3000 );
@@ -12,7 +13,8 @@ app.set('port', process.env.PORT || 3000 );
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors({origin: 'http://localhost:4200'}))
+app.use(cors({origin: ['http://192.168.0.13:4200','http://localhost:4200']}))
+
 
 //Routes
 

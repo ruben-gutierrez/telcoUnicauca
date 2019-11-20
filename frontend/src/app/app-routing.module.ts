@@ -18,6 +18,13 @@ import { AdminNewUserComponent } from './components/console/admin-users/admin-ne
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { VerifyTokenGuard } from './guards/verify-token.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { AvailableComponent } from './components/proyects/ims/available/available.component';
+import { ReservedComponent } from './components/proyects/ims/reserved/reserved.component';
+import { TestComponent } from './components/proyects/ims/test/test.component';
+import { GraphicsComponent } from './components/proyects/ims/graphics/graphics.component';
+import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture-ims/arquitecture-ims.component';
+import { TestsComponent } from './components/proyects/ims/tests/tests.component';
 
 
 
@@ -31,13 +38,20 @@ const routes: Routes = [
     {path: 'politics', component: PoliticsComponent },
   {path: 'comunity', component: ComunityComponent },
     {path: 'comunity', component: ComunityComponent },
-  {path: 'console', component: ConsoleComponent ,canActivate:[VerifyTokenGuard]},
+  {path: 'console', component: ConsoleComponent ,canActivate:[VerifyTokenGuard, AdminGuard]},
     {path: 'admin-users', component: AdminUsersComponent },
     {path: 'console/admin-user/:id', component: AdminUserComponent },
     {path: 'console/admin-new-user', component: AdminNewUserComponent },
   {path: 'contact', component: ContactComponent },
   {path: 'proyects', component: ProyectsComponent },
-  {path: 'ims', component: IMSComponent },
+    {path: 'ims', component: IMSComponent },
+      {path: 'ims/available', component: AvailableComponent },
+      {path: 'ims/reserved', component: ReservedComponent },
+      {path: 'ims/reserved/:id', component: ArquitectureImsComponent },
+      {path: 'ims/tests', component: TestsComponent },
+        {path: 'ims/tests/:id', component: TestComponent },
+      {path: 'ims/graphics', component: GraphicsComponent },
+      
   
   
   {path: 'signin', component: SigninComponent },

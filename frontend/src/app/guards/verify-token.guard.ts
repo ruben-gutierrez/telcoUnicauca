@@ -53,7 +53,7 @@ export class VerifyTokenGuard implements CanActivate {
    }else{
      if (answer['auth'] == 200) {
        this._users.userActive=this._users.getCurrentUser();
-      console.log(this._users.getCurrentUser());
+      // console.log(this._users.getCurrentUser());
         return true;
 
      }

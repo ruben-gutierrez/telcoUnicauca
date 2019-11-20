@@ -1,0 +1,44 @@
+<div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <h3>Arquitectura </h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum temporibus amet dicta veniam eaque autem officia! Ducimus recusandae facere tenetur deserunt. Laudantium omnis voluptas dolor minima aliquid numquam vel error?</p>
+            </div>
+            <div class="col">
+                <div class="row">
+                        <div class="col">
+                            <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
+                            <!-- <a [routerLink]="['/ims/available']" class="btn btn-outline-success mx-1"> <i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a> -->
+                            <a [routerLink]="['/ims/test']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
+                            <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    <div>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">VM</th>
+                    <th scope="col">Acciones</th>
+                    <th scope="col">Consola</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vm of vm_core" >
+                        <th scope="row"> {{ vm.name }} </th>
+                        <td>
+                            <button class="btn btn-primary">Encender</button>
+                            <button class="btn btn-secondary">Instantanea</button>
+                            <button class="btn btn-danger">Eliminar</button>
+                            <button class="btn btn-warning">Modificar</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-success">Consola</button>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+                </table>
+    </div>
+</div>
