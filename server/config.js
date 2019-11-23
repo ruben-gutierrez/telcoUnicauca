@@ -1,3 +1,5 @@
 module.exports={
-    secret: 'rootPassToken'
+    secret: 'rootPassToken',
+    tokenOpenStack: '',
+    ipOpenstack: 'restcountries.eu'
 };
