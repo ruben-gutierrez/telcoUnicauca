@@ -49,8 +49,10 @@ const routes: Routes = [
       {path: 'ims/reserved', component: ReservedComponent },
       {path: 'ims/reserved/:id', component: ArquitectureImsComponent },
       {path: 'ims/tests', component: TestsComponent },
-        {path: 'ims/tests/:id', component: TestComponent },
+        {path: 'ims/tests/:id', component: TestsComponent },
+        {path: 'ims/test/:id', component: TestComponent },
       {path: 'ims/graphics', component: GraphicsComponent },
+        {path: 'ims/graphics/:id', component: GraphicsComponent },
       
   
   

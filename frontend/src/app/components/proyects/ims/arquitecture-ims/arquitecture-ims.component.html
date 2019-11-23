@@ -9,7 +9,7 @@
                         <div class="col">
                             <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
                             <!-- <a [routerLink]="['/ims/available']" class="btn btn-outline-success mx-1"> <i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a> -->
-                            <a [routerLink]="['/ims/test']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
+                            <a [routerLink]="['/ims/tests/'+vms_core[1].arquitecture]" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
                             <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
                         </div>
                 </div>
@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let vm of vm_core" >
+                    <tr *ngFor="let vm of vms_core" >
                         <th scope="row"> {{ vm.name }} </th>
                         <td>
                             <button class="btn btn-primary">Encender</button>

@@ -1,23 +1,77 @@
 <div class="container my-5">
-        <div class="row">
-            <div class="col">
-                <h3>Bienvenido al ambiente de prueba IMS</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum temporibus amet dicta veniam eaque autem officia! Ducimus recusandae facere tenetur deserunt. Laudantium omnis voluptas dolor minima aliquid numquam vel error?</p>
-            </div>
-            <div class="col">
-                <div class="row">
-                        <div class="col">
-                            <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i> <br> Reservadas</a>
-                            <a [routerLink]="['/ims/tests']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
-                            <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
-                        </div>
-                        
-                </div>
+    <div class="row">
+        <div class="col">
+            <h3>Gráficas</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum temporibus amet dicta veniam eaque autem officia! Ducimus recusandae facere tenetur deserunt. Laudantium omnis voluptas dolor minima aliquid numquam vel error?</p>
+        </div>
+        <div class="col">
+            <div class="row">
+                    <div class="col">
+                        <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i> <br> Reservadas</a>
+                        <a [routerLink]="['/ims/tests']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
+                        <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                    </div>
+                    
             </div>
         </div>
-    <div>
-        <h4>Contenido</h4>
+    </div>
+  <div class="row">
+    <h5>Filtrar</h5>
+    <div class="col">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Palabra clave" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option>Listar </option>
+                <option>Hosts</option>
+                <option>Arquitecturas</option>
+                <option>Fecha</option>
+                <option>Todos</option>
+            </select>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+            </div>
+          </div>
+    </div>
+    <div class="col">
+      <h6>Filtros</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div style="width: 300px;">
+        <canvas baseChart width="40" height="40"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
+    <div style="width: 300px;">
+        <canvas baseChart width="40" height="40"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
+    <div style="width: 300px;">
+        <canvas baseChart width="40" height="40"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
+
     </div>
     
-
+      
 </div>

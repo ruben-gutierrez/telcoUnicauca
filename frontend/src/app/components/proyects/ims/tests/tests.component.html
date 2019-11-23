@@ -21,7 +21,7 @@
                     <h5 class="card-title"> {{ test.name }} </h5>
                     <h6 class="card-subtitle mb-2 text-muted"> {{ test.arquitecture.name }} </h6>
                     <p class="card-text"> {{ test.description }} </p>
-                    <a [routerLink]="[ test._id ]" class="card-link">Ver más...</a>
+                    <a [routerLink]="[ '/ims/test/' + test._id ]" class="card-link">Ver más...</a>
                     <a href="#" class="card-link">Ejecutar</a>
                 </div>
             </div>

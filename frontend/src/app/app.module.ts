@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ChartsModule } from "ng2-charts";
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,6 +49,7 @@ import { GraphicsComponent } from './components/proyects/ims/graphics/graphics.c
 import { GraphComponent } from './components/proyects/ims/graph/graph.component';
 import { NewGraphComponent } from './components/proyects/ims/new-graph/new-graph.component';
 import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture-ims/arquitecture-ims.component';
+
 
 
 //services
@@ -96,6 +100,7 @@ import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ChartsModule, 
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut:1500,
