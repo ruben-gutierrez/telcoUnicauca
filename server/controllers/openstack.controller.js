@@ -1,8 +1,5 @@
-// const Auth = require('../models/auth');
-// const User = require('../models/user');
-// const jwt = require('jsonwebtoken');
+const Arquitecture = require('../models/arquitecture');
 const config = require('../config');
-var Request = require("request");
 const axios = require("axios");
 
 const OpenStackController={};
@@ -32,23 +29,64 @@ OpenStackController.consoleVM= async(req, res) => {
 
     //answer of controller
     res.json(answer);
-
-
 };
+OpenStackController.getArquitectures= async(req, res) => {
+    const arquitecture = await Arquitecture.find();
+    res.json(arquitecture);
+};
+OpenStackController.createArquitecture= async(req, res) => {
+    const arquitecture = new Arquitecture(req.body);
+    await arquitecture.save();
+    res.json(
+        {
+            status:'200',
+            answer:"Arquitecture Created"
+        }
+    );
+};
+OpenStackController.showArquitecture= async(req, res) => {
+    const arquitecture = await Arquitecture.findById(req.params.id);
+    res.json(arquitecture);
+};
+OpenStackController.updateArquitecture=async(req, res) => {
+    const idArquitecture = req.params.id;
+    const arquitecture = new Arquitecture(req.body);
+    await Arquitecture.findByIdAndUpdate(idArquitecture, {$set: arquitecture },{ new: true});
+    res.json(
+        {
+            status:'200',
+            answer:"Arquitecture Updated"
+        }
+    );
+};
+OpenStackController.deleteArquitecture=async(req, res) => {
+    await Arquitecture.findByIdAndDelete(req.params.id);
+    res.json(
+        {
+            status:'200',
+            answer:"Arquitecture Delete"
+        }
+    );
+};
+
 
 
 OpenStackController.getNetworks= async(req, res) => {
     answer = await getData(':9696/v2.0/networks');
-    //guardar los datos
-
-    //answer of controller
     res.json(answer);
     
 };
+
 OpenStackController.showNetwork= async(req, res) => {
     
 };
 OpenStackController.createNetwork= async(req, res) => {
+    
+    const arquitecture = new Arquitecture(req.body);
+    await arquitecture.save();
+    res.json(
+        {status:"User saved"}
+    );
     
 };
 OpenStackController.deleteNetwork= async(req, res) => {

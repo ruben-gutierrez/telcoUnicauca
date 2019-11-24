@@ -4,9 +4,10 @@ const openstackController = require('../controllers/openstack.controller');
 
 router.get('/test',openstackController.test);
 
+
 router.get('/networks',openstackController.getNetworks);
 router.get('/network/:id',openstackController.showNetwork);
-router.post('/network/:id',openstackController.createNetwork);
+router.post('/network',openstackController.createNetwork);
 router.delete('/network/:id',openstackController.deleteNetwork);
 router.put('/network:id',openstackController.updateNetwork);
 
