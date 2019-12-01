@@ -7,30 +7,41 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i><br>Reservadas</a>
-                        <a [routerLink]="['/ims/tests']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
-                        <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                        <a [routerLink]="['/ims/reserved/'+idArquitecture]" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i><br>Reservadas</a>
+                        <a [routerLink]="['/ims/tests/']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
+                        <a [routerLink]="['/ims/graphics/'+idArquitecture]" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
                     </div>
                 </div>
             </div>
         </div>
     <div>
         <div class="row">
-            <div *ngFor="let arquitecture of arquitectures" class="card-columns my-2" >
-                
-                <div *ngFor="let test of arquitecture.tests" class="card" >
+            <div *ngIf="idArquitecture == ''">
+                <div  *ngFor="let arquitecture of arquitectures" class="card-columns my-2" >
+                    <div *ngFor="let test of arquitecture.tests" class="card" >
                         <div class="card-body">
                             <h5 class="card-title"> {{ test.name }} <br>
                                 <small> {{arquitecture.name}} </small></h5>
                             <h6 class="card-subtitle mb-2 text-muted"> {{ test.id }} </h6>
-                            <!-- <p class="card-text"> {{ test.description }} </p> -->
+                            <p class="card-text"> {{ test.description }} </p>
                             <a [routerLink]="[ '/ims/test/' + test.id ]" class="card-link">Ver más...</a>
                             <a href="#" class="card-link">Ejecutar</a>
                         </div>
+                    </div>
                 </div>
-            
-                
             </div>
+            <div *ngIf="idArquitecture != ''">
+                <div *ngFor="let test of arquitectures.tests" class="card" >
+                    <div class="card-body">
+                        <h5 class="card-title"> {{ test.name }} <br></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"> {{ test.id }} </h6>
+                        <p class="card-text"> {{ test.description }} </p>
+                        <a [routerLink]="[ '/ims/test/' + test.id ]" class="card-link">Ver más...</a>
+                        <a href="#" class="card-link">Ejecutar</a>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>

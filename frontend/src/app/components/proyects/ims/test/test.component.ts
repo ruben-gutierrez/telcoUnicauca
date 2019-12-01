@@ -17,6 +17,7 @@ export class TestComponent implements OnInit {
   idTest:string;
   test:any;
   fileContent:any;
+  flatExecuteTest:boolean=true;
   constructor( private _user:UsersService,
                 private _arquitecture:ArquitectureService,
                 private _test:TestService,
@@ -38,24 +39,17 @@ export class TestComponent implements OnInit {
     this.http.get("assets/filesXML/testBONO.xml", { responseType: 'text' }).subscribe(data => {
       this.fileContent=data;
     })
-    // this.http.get('assets/filesXML/testBONO.xml')
-    //   .subscribe(data => {
-    //         console.log( 'data', data);
-    //   },error=>{
-    //     console.log(error)
-    //   })
-    
-  //   this._test.getTests()
-  //     .subscribe( data => {
-  //       console.log(data)
-  //     })
-  // this.arquitectures = await this.getArquitectures(this._user.userActive._id);
+  }
 
-    
-  // console.log(this.arquitectures)
+  editTest(){
+    if (this.flatExecuteTest == true) {
+      this.flatExecuteTest=false
+    }else{
+      this.flatExecuteTest=true
+    }
+  }
+
+  saveTest(){
 
   }
-  // async getArquitectures(idUser){
-  //   return await this._arquitecture.getArquitecturesOfUser(idUser);
-  // }
 }

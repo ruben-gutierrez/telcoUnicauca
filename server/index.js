@@ -49,9 +49,6 @@ app.listen(app.get('port'), () => {
             }};
       }
     );
-    console.log('token');
-    console.log(config.tokenOpenStack);
-    console.log('headers' + config.headersOpenStack)
 
     var task = cron.schedule('* * * * *', () =>  {
         exec('sh server/scripts/createToken.sh',
