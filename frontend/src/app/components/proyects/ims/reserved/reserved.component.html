@@ -16,11 +16,13 @@
         </div>
     <div>
             <div class="card-columns">
-                    <div *ngFor="let arq of arquitectures_reserved" class="card">
+                    <div *ngFor="let arq of arquitectures" class="card">
                       <div class="card-body">
                         <h5 class="card-title"> {{arq.name}} </h5>
-                        <p class="card-text"> {{ arq.descriptionUser }} </p>
-                        <a [routerLink]="[arq._id]" class="btn btn-outline-success">Acceder</a>
+                        <small> {{arq.domain}} </small> <br>
+                        <!-- <p class="card-text"> {{ arq.descriptionUser }} </p> -->
+                        <a [routerLink]="[arq._id]" class="btn btn-outline-success mx-1">Acceder</a>
+                        <button class="btn btn-outline-warning mx-1" (click)="dropArq(arq._id)">Liberar</button>
                       </div>
                     </div>
             </div>

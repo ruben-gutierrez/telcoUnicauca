@@ -9,13 +9,16 @@
                         <div class="col">
                             <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
                             <!-- <a [routerLink]="['/ims/available']" class="btn btn-outline-success mx-1"> <i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a> -->
-                            <a [routerLink]="['/ims/tests/'+vms_core[1].arquitecture]" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
+                            <a [routerLink]="['/ims/tests/'+arquitecture._id]" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
                             <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
                         </div>
                 </div>
             </div>
         </div>
     <div>
+        
+            
+
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -25,19 +28,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let vm of vms_core" >
-                        <th scope="row"> {{ vm.name }} </th>
+                    <tr *ngFor="let vm of vmsCore" >
+                        <th scope="row"> {{vm.name}}  </th>
                         <td>
-                            <button class="btn btn-primary">Encender</button>
-                            <button class="btn btn-secondary">Instantanea</button>
-                            <button class="btn btn-danger">Eliminar</button>
-                            <button class="btn btn-warning">Modificar</button>
+                            <mat-slide-toggle color="primary" (click)="[powerServer(vm.id)]" [checked]=" status? 'true':'false'">Alimentación</mat-slide-toggle>
+                            <!-- <button class="btn btn-primary" (click)="[powerServer(vm.id)]">Encender</button> -->
+                            <!-- <button type="button" class="btn btn-primary btn-sm mx-1  " data-toggle="button" aria-pressed="false" autocomplete="off">On</button> -->
+                            <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm.id)]">Instantanea</button>
+                            <button class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm.id)]">Regresar</button>
+                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm.id)]">Eliminar</button>
+                            <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm.id}}" (click)="[seeFormEditVm(vm.id)]" >Redimencionar</button>
+                            <div class="row" id="divRedimencion{{vm.id}}" style="display:none">
+                                <form action="" class="m-1">
+                                    <input class="mx-1" type="number" name="cpu" placeholder="CPU">
+                                    <input class="mx-1" type="number" name="ram" placeholder="RAM">
+                                    <input class="mx-1" type="number" name="hdd" placeholder="HDD">
+                                    <button class="btn btn-primary btn-sm mx-1" (click)="resizeServer(vm.id)">Editar</button>
+                                    <button class="btn btn-danger btn-sm mx-1" (click)="hideFormEditVm(vm.id)">Cancel</button>
+                                </form>
+                            </div>
                         </td>
                         <td>
-                            <button class="btn btn-success">Consola</button>
+                            <button class="btn btn-success" (click)="[consoleServer(vm.id)]">Consola</button>
                         </td>
                     </tr>
-                    
                 </tbody>
                 </table>
     </div>

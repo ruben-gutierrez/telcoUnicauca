@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ChartsModule } from "ng2-charts";
-
-
+import { MatSlideToggleModule } from "@angular/material/slide-toggle"
+import { MatSliderModule } from '@angular/material/slider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -101,6 +101,8 @@ import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture
     HttpClientModule,
     FormsModule,
     ChartsModule, 
+    MatSlideToggleModule,
+    MatSliderModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut:1500,

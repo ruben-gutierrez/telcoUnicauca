@@ -18,8 +18,14 @@ const getData = async url => {
   };
 
 OpenStackController.test= async(req, res) => {
-    answer = await getData('/rest/v2/lang/es');
-    res.json(answer);
+    await axios.get('http://10.55.2.24/compute/v2.1/flavors/detail', config.headersOpenStack )
+      .then(function (response) {
+        res.json(response.data);
+      })
+      .catch(error =>{
+          res.json({'status': '401',
+                    'content': error})
+    });
 };
 
 

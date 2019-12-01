@@ -1,7 +1,7 @@
 <div class="container my-5">
         <div class="row">
             <div class="col">
-                <h3>Bienvenido al ambiente de prueba IMS</h3>
+                <h3>Pruebas</h3>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum temporibus amet dicta veniam eaque autem officia! Ducimus recusandae facere tenetur deserunt. Laudantium omnis voluptas dolor minima aliquid numquam vel error?</p>
             </div>
             <div class="col">
@@ -15,15 +15,21 @@
             </div>
         </div>
     <div>
-        <div class="card-columns">
-            <div *ngFor="let test of tests" class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title"> {{ test.name }} </h5>
-                    <h6 class="card-subtitle mb-2 text-muted"> {{ test.arquitecture.name }} </h6>
-                    <p class="card-text"> {{ test.description }} </p>
-                    <a [routerLink]="[ '/ims/test/' + test._id ]" class="card-link">Ver más...</a>
-                    <a href="#" class="card-link">Ejecutar</a>
+        <div class="row">
+            <div *ngFor="let arquitecture of arquitectures" class="card-columns my-2" >
+                
+                <div *ngFor="let test of arquitecture.tests" class="card" >
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ test.name }} <br>
+                                <small> {{arquitecture.name}} </small></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"> {{ test.id }} </h6>
+                            <!-- <p class="card-text"> {{ test.description }} </p> -->
+                            <a [routerLink]="[ '/ims/test/' + test.id ]" class="card-link">Ver más...</a>
+                            <a href="#" class="card-link">Ejecutar</a>
+                        </div>
                 </div>
+            
+                
             </div>
         </div>
     </div>
