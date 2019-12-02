@@ -50,7 +50,7 @@ app.listen(app.get('port'), () => {
       }
     );
 
-    var task = cron.schedule('* * * * *', () =>  {
+    var task = cron.schedule('59 * * * *', () =>  {
         exec('sh server/scripts/createToken.sh',
           (error, stdout, stderr) => {
               // console.log(`${stdout}`);

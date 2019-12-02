@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { User } from '../models/user';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +22,7 @@ export class UsersService {
       return this.http.get(this.URL_API_USERS);
   }
 
-  createUser(user:User){
+  createUser(user:any){
     return this.http.post(this.URL_API_USERS, user)
   }
 

@@ -22,7 +22,7 @@ router.put('/subnet/:id',openstackController.updateSubnet);
 
 router.get('/routers',openstackController.getRouters);
 router.get('/router/:id',openstackController.showRouter);
-router.post('/router/:id',openstackController.createRouter);
+router.post('/router',openstackController.createRouter);
 router.delete('/router/:id',openstackController.deleteRouter);
 router.put('/router/:id',openstackController.updateRouter);
 router.put('/router/:id/conectPublicNet/:idnet',openstackController.conectPublicRouter);

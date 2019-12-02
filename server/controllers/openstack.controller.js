@@ -44,10 +44,11 @@ OpenStackController.showNetwork= async(req, res) => {
                 "content": "Function available in next update"})
 };
 OpenStackController.createNetwork= async(req, res) => {
+    // console.log(req.body.nameNet)
     data={
         "network": {
-            "name": req.nameNet, 
-            "description": req.descriptionNet,
+            "name": req.body.nameNet, 
+            "description": req.body.descriptionNet,
             "admin_state_up": true
         }
     }
@@ -61,8 +62,8 @@ OpenStackController.createNetwork= async(req, res) => {
                     'content': error
                 })
       });
-    
 };
+
 OpenStackController.deleteNetwork= async(req, res) => {
     await axios.delete('http://'+config.ipOpenstack+':9696/v2.0/networks/'+req.params.id, config.headersOpenStack )
       .then(function (response) {
@@ -93,7 +94,7 @@ OpenStackController.showRouter= async(req, res) => {
 OpenStackController.createRouter= async(req, res) => {
     data={
         "router": {
-            "name": req.nameRouter, 
+            "name": req.body.nameRouter, 
             "admin_state_up": true
         }
     }
@@ -616,7 +617,7 @@ OpenStackController.createAndLinkIpfloat= async(req, res) => {
                     'content': error
                 })
       });
-};
+}; 
 // const getData = async url => {
 //     let data;
 //     try {
@@ -667,7 +668,8 @@ OpenStackController.createAndLinkIpfloat= async(req, res) => {
 //     );
 // };
 OpenStackController.test= async(req, res) => {
-    console.log(req.params.id)
+    console.log(req.params.id);
+    console.log(config.tokenOpenStack)
 };
 
 

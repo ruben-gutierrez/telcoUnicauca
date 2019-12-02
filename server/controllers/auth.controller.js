@@ -28,6 +28,7 @@ authController.signin= async(req, res) => {
 
 
 authController.signup= async(req, res) => {
+    console.log("new user")
     const user = new User(req.body);
     user.password = await user.encryptPass(user.password);
     await user.save();
