@@ -49,11 +49,14 @@ import { GraphicsComponent } from './components/proyects/ims/graphics/graphics.c
 import { GraphComponent } from './components/proyects/ims/graph/graph.component';
 import { NewGraphComponent } from './components/proyects/ims/new-graph/new-graph.component';
 import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture-ims/arquitecture-ims.component';
+import { AdminNewProyectComponent } from './components/console/admin-proyects/admin-new-proyect/admin-new-proyect.component';
+import { AdminProyectComponent } from './components/console/admin-proyects/admin-proyect/admin-proyect.component';
 
 
 
 //services
-
+import { OpenstackQueriesService } from './services/openstack-queries.service';
+import { AdminNewArquitectureComponent } from './components/console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component'
 
 @NgModule({
   declarations: [
@@ -93,7 +96,10 @@ import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture
     GraphicsComponent,
     GraphComponent,
     NewGraphComponent,
-    ArquitectureImsComponent
+    ArquitectureImsComponent,
+    AdminNewProyectComponent,
+    AdminProyectComponent,
+    AdminNewArquitectureComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +116,9 @@ import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture
       preventDuplicates: false
     })
   ],
-  providers: [],
+  providers: [
+    OpenstackQueriesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

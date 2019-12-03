@@ -1,0 +1,35 @@
+<div class="container my-5">
+    <div>
+        <div class="row my-2">
+                <div class="col">
+                    <div class="row">
+            
+                        <i class="fa fa-project-diagram fa-2x mr-2"></i><h4>Arquitecturas</h4>
+                    </div>
+                </div>
+                <div class="col d-flex justify-content-end"> <a [routerLink]="['new-arquitecture']" class="btn btn-primary">Nuevo</a> </div>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col">Nombre</div>
+                        <div class="col">Dominio</div>
+                        <div class="col">Estado</div>
+                        <div class="col">Opciones</div>
+                    </div>
+            
+                </li>
+                <li *ngFor="let arquitecture of arquitectures; let i = index" class="list-group-item">
+                    <div class="row">
+                        <div class="col">{{ arquitecture.name }}</div>
+                        <div class="col">{{ arquitecture.domain }}</div>
+                        <div class="col">{{ arquitecture.status }}</div>
+                        <div class="col"> 
+                            <!-- <a [routerLink]="['admin-proyect', proyect._id ]" class="btn btn-outline-success mr-2"><i class="fa fa-eye"></i></a>
+                            <button class="btn btn-outline-danger" (click)="deleteProyect(proyect._id, i)"> <i class="fa fa-trash" aria-hidden="true"></i> </button>  -->
+                        </div>
+                    </div>
+                </li>
+            </ul>
+    </div>
+</div>

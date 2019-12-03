@@ -33,6 +33,7 @@ export class ArquitectureService {
   }
 
   createArquitecture(arquitecture:Arquitecture){
+    
     return this.http.post(this.URL_API_ARQUTIECTURE, arquitecture)
   }
 

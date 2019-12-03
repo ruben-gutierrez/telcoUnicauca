@@ -1,0 +1,83 @@
+<div class="container my-5">
+        <div class="row">
+          <div class="col">
+          </div>
+          <div class="col">
+
+            <h3>Nueva Arquitectura</h3>
+            <form (ngSubmit)="createProyect(formNewArquitecture)" #formNewArquitecture="ngForm" novalidate>
+                <div class="form-group">
+                  <label for="name">Nombre</label>
+                  <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre" 
+                        #name="ngModel"
+                        ngModel 
+                        required>
+                  <small *ngIf="name.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
+                </div>
+                <div class="form-group">
+                  <label for="domain">Dirección de red</label>
+                  <input type="text" class="form-control" name="domain"  aria-describedby="domainHelp" placeholder="xxx.xxx.xxx.0" 
+                        #domain="ngModel"
+                        pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([0])$"
+                        ngModel 
+                        required>
+                  <small *ngIf="domain.errors?.required" id="domainHelp" class="form-text text-muted">Campo requerido</small>
+                  <small *ngIf="domain.errors?.pattern" id="domainHelp" class="form-text text-muted">Formato inválido</small>
+                </div>
+                <div class="form-group">
+                        <label for="type">Tipo</label>
+                        <select class="form-control"  id="type" name="type" #type="ngModel" ngModel>
+                          <option value='1'>Todo en Uno</option>
+                          <option value="2">Distribuido</option>
+                          <option value="3">Distribuido + PSTN</option>
+                        </select>
+                </div>
+                <div class="row">
+
+                    <div class="form-group">
+                            <label for="maxRAM">RAM</label>
+                            <input type="number" class="form-control" name="maxRAM"  aria-describedby="maxRAMHelp" placeholder="Gb" 
+                                  #maxRAM="ngModel"
+                                  pattern="^([0-9])$"
+                                  ngModel   
+                                  required>
+                            <small *ngIf="maxRAM.errors?.required" id="maxRAMHelp" class="form-text text-muted">Campo requerido</small>
+                            <small *ngIf="maxRAM.errors?.pattern" id="maxRAMHelp" class="form-text text-muted">Excede el valor permitido</small>
+                    </div>
+                    <div class="form-group">
+                            <label for="maxHDD">Almacenamiento</label>
+                            <input type="number" class="form-control" name="maxHDD"  aria-describedby="maxHDDHelp" placeholder="Gb" 
+                                  #maxHDD="ngModel"
+                                  pattern="^([0-9])$"
+                                  ngModel   
+                                  required>
+                            <small *ngIf="maxHDD.errors?.required" id="maxHDDHelp" class="form-text text-muted">Campo requerido</small>
+                            <small *ngIf="maxHDD.errors?.pattern" id="maxHDDHelp" class="form-text text-muted">Excede el valor permitido</small>
+                    </div>
+                    <div class="form-group">
+                            <label for="maxCore">Procesadores</label>
+                            <input type="number" class="form-control" name="maxCore"  aria-describedby="maxCoreHelp" placeholder="Gb" 
+                                  #maxCore="ngModel"
+                                  pattern="^([0-9])$"
+                                  ngModel   
+                                  required>
+                            <small *ngIf="maxCore.errors?.required" id="maxCoreHelp" class="form-text text-muted">Campo requerido</small>
+                            <small *ngIf="maxCore.errors?.pattern" id="maxCoreHelp" class="form-text text-muted">Excede el valor permitido</small>
+                    </div>
+                    <div class="form-group">
+                            <label for="maxVM">VM Adicionales</label>
+                            <input type="number" class="form-control" name="maxVM"  aria-describedby="maxVMHelp" placeholder="Gb" 
+                                  #maxVM="ngModel"
+                                  pattern="^([0-9])$"
+                                  ngModel   
+                                  required>
+                            <small *ngIf="maxVM.errors?.required" id="maxVMHelp" class="form-text text-muted">Campo requerido</small>
+                            <small *ngIf="maxVM.errors?.pattern" id="maxVMHelp" class="form-text text-muted">Excede el valor permitido</small>
+                    </div>
+                    <input type="hidden" name="status" value="online" #status="ngModel"  ngModel>
+                </div>
+                <button  [disabled]="!formNewArquitecture.valid " type="submit" class="btn btn-primary">Crear</button>
+            </form>
+          </div>
+        </div>
+      </div> 

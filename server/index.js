@@ -25,6 +25,7 @@ app.use(cors({origin: ['http://192.168.0.13:4200','http://localhost:4200']}))
 app.use('/api/users', require('./routes/user.routes'));
 app.use('/auth', require('./routes/auth.routes'));
 app.use('/openstack', require('./routes/openstack.routes'));
+app.use('/', require('./routes/proyectTelco.routes'));
 app.use('/ims/', require('./routes/arquitecture.routes'));
 app.use('/ims/', require('./routes/test.routes'));
 app.use('/ims/', require('./routes/graph.routes'));
