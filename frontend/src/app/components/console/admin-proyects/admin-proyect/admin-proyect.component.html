@@ -24,9 +24,10 @@
                         <div class="col">{{ arquitecture.name }}</div>
                         <div class="col">{{ arquitecture.domain }}</div>
                         <div class="col">{{ arquitecture.status }}</div>
-                        <div class="col"> 
-                            <!-- <a [routerLink]="['admin-proyect', proyect._id ]" class="btn btn-outline-success mr-2"><i class="fa fa-eye"></i></a>
-                            <button class="btn btn-outline-danger" (click)="deleteProyect(proyect._id, i)"> <i class="fa fa-trash" aria-hidden="true"></i> </button>  -->
+                        <div class="col">
+                            <a [routerLink]="['edit-arquitecture', arquitecture._id ]" class="btn btn-outline-warning btn-sm mr-2" title="Editar arquitectura"><i class="fa fa-edit"></i></a>
+                            <button class="btn btn-outline-danger btn-sm mr-2" (click)="deleteArquitecture(arquitecture._id, i)" title="Eliminarr arquitectura"> <i class="fa fa-trash" aria-hidden="true"></i> </button> 
+                            <button class="btn btn-outline-success btn-sm mr-2" (click)="freeArquitecture(arquitecture._id, i)" title="Liberar arquitectura" > <i class="fa fa-unlink" aria-hidden="true"></i> </button> 
                         </div>
                     </div>
                 </li>

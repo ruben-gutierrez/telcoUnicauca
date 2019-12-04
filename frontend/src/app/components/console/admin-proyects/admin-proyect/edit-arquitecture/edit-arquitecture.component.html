@@ -1,42 +1,40 @@
 <div class="container my-5">
         <div class="row">
-          <div class="col">
-          </div>
+          
           <div class="col">
 
-            <h3>Nueva Arquitectura</h3>
-            <form (ngSubmit)="createProyect(formNewArquitecture)" #formNewArquitecture="ngForm" novalidate>
+            <h3>Editar Arquitectura</h3>
+            <form (ngSubmit)="editArquitecture(formEditArquitecture)" #formEditArquitecture="ngForm" novalidate>
                 <div class="form-group">
                   <label for="name">Nombre</label>
-                  <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre"  
+                  <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre" 
                         #name="ngModel"
-                        [(ngModel)]="arquitectureTest.name"
                         ngModel 
                         required>
                   <small *ngIf="name.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
                 </div>
                 <div class="form-group">
                   <label for="domain">Dirección de red</label>
-                  <input type="text" class="form-control" name="domain"  aria-describedby="domainHelp" placeholder="xxx.xxx.xxx.0" 
+                  <input type="text" class="form-control" name="domain"  aria-describedby="domainHelp" placeholder="xxx.xxx.xxx.0" disabled 
+
                         #domain="ngModel"
-                        [(ngModel)]="arquitectureTest.ipNet"
                         pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([0])$"
-                        ngModel 
+                        ngModel
                         required>
                   <small *ngIf="domain.errors?.required" id="domainHelp" class="form-text text-muted">Campo requerido</small>
                   <small *ngIf="domain.errors?.pattern" id="domainHelp" class="form-text text-muted">Formato inválido</small>
                 </div>
                 <div class="form-group">
                         <label for="type">Tipo</label>
-                        <select class="form-control"  id="type" name="type" [(ngModel)]="arquitectureTest.type" #type="ngModel" ngModel>
+                        <select class="form-control"  id="type" name="type" #type="ngModel" ngModel disabled>
                           <option value='1'>Todo en Uno</option>
                           <option value="2">Distribuido</option>
                           <option value="3">Distribuido + PSTN</option>
                         </select>
-                </div>  
+                </div>
                 <div class="form-group">
                         <label for="status">Estado</label>
-                        <select class="form-control"  id="status" name="status" [(ngModel)]="arquitectureTest.status" #status="ngModel" ngModel>
+                        <select class="form-control"  id="status" name="status" #status="ngModel" ngModel>
                           <option value='public'>Publico</option>
                           <option value="private">Privado</option>
                           
@@ -46,7 +44,7 @@
 
                     <div class="form-group">
                             <label for="maxRAM">RAM</label>
-                            <input type="number" class="form-control" name="maxRAM" [(ngModel)]="arquitectureTest.ram" aria-describedby="maxRAMHelp" placeholder="Gb" 
+                            <input type="number" class="form-control" name="maxRAM"  aria-describedby="maxRAMHelp" placeholder="Gb" 
                                   #maxRAM="ngModel"
                                   pattern="^([0-9])$"
                                   ngModel   
@@ -56,7 +54,7 @@
                     </div>
                     <div class="form-group">
                             <label for="maxHDD">Almacenamiento</label>
-                            <input type="number" class="form-control" name="maxHDD" [(ngModel)]="arquitectureTest.hdd" aria-describedby="maxHDDHelp" placeholder="Gb" 
+                            <input type="number" class="form-control" name="maxHDD"  aria-describedby="maxHDDHelp" placeholder="Gb" 
                                   #maxHDD="ngModel"
                                   pattern="^([0-9])$"
                                   ngModel   
@@ -66,7 +64,7 @@
                     </div>
                     <div class="form-group">
                             <label for="maxCore">Procesadores</label>
-                            <input type="number" class="form-control" name="maxCore" [(ngModel)]="arquitectureTest.cpu" aria-describedby="maxCoreHelp" placeholder="Gb" 
+                            <input type="number" class="form-control" name="maxCore"  aria-describedby="maxCoreHelp" placeholder="Gb" 
                                   #maxCore="ngModel"
                                   pattern="^([0-9])$"
                                   ngModel   
@@ -76,7 +74,7 @@
                     </div>
                     <div class="form-group">
                             <label for="maxVM">VM Adicionales</label>
-                            <input type="number" class="form-control" name="maxVM" [(ngModel)]="arquitectureTest.vms" aria-describedby="maxVMHelp" placeholder="Gb" 
+                            <input type="number" class="form-control" name="maxVM"  aria-describedby="maxVMHelp" placeholder="Gb" 
                                   #maxVM="ngModel"
                                   pattern="^([0-9])$"
                                   ngModel   
@@ -86,8 +84,10 @@
                     </div>
                    
                 </div>
-                <button  [disabled]="!formNewArquitecture.valid " type="submit" class="btn btn-primary">Crear</button>
+                <button  [disabled]="!formEditArquitecture.valid " type="submit" class="btn btn-primary">Editar</button>
             </form>
           </div>
+          <div class="col">
+            </div>
         </div>
       </div> 

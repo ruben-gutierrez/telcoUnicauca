@@ -56,7 +56,8 @@ import { AdminProyectComponent } from './components/console/admin-proyects/admin
 
 //services
 import { OpenstackQueriesService } from './services/openstack-queries.service';
-import { AdminNewArquitectureComponent } from './components/console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component'
+import { AdminNewArquitectureComponent } from './components/console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component';
+import { EditArquitectureComponent } from './components/console/admin-proyects/admin-proyect/edit-arquitecture/edit-arquitecture.component'
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { AdminNewArquitectureComponent } from './components/console/admin-proyec
     ArquitectureImsComponent,
     AdminNewProyectComponent,
     AdminProyectComponent,
-    AdminNewArquitectureComponent
+    AdminNewArquitectureComponent,
+    EditArquitectureComponent
   ],
   imports: [
     BrowserModule,

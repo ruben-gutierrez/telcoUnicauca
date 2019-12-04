@@ -15,7 +15,8 @@ const ArquitectureSchema = new Schema ({
     vmAditionals: { type: Object},
     tests: { type: Object},
     graphs: { type: Object},
-    status: { type: String, required:true}
+    status: { type: String, required:true},
+    detail: { type: Object,required:false}
 });
 
 module.exports = mongoose.model('Arquitecture', ArquitectureSchema);

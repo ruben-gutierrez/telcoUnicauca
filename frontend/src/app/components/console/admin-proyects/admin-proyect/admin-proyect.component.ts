@@ -17,5 +17,15 @@ export class AdminProyectComponent implements OnInit {
       })
       
   }
+  deleteArquitecture(id,index){
+    this._arquitectures.deleteArquitecture(id)
+      .subscribe( data =>{
+        this.arquitectures.splice(index, 1 );
+      })
+  }
+  freeArquitecture(id, index){
+    this.arquitectures[index].status='public'
+    console.log(this.arquitectures[index])
+  }
 
 }

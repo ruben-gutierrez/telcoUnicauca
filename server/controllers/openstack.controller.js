@@ -44,11 +44,11 @@ OpenStackController.showNetwork= async(req, res) => {
                 "content": "Function available in next update"})
 };
 OpenStackController.createNetwork= async(req, res) => {
-    // console.log(req.body.nameNet)
+
     data={
         "network": {
-            "name": req.body.nameNet, 
-            "description": req.body.descriptionNet,
+            "name": req.body.name, 
+            "description": "telcoIMS",
             "admin_state_up": true
         }
     }
@@ -58,8 +58,9 @@ OpenStackController.createNetwork= async(req, res) => {
       })
       .catch(error =>{
           res.json(
-              {'status': '401',
-                    'content': error
+              {
+                  'status': '401',
+                  'content': error
                 })
       });
 };
@@ -668,8 +669,8 @@ OpenStackController.createAndLinkIpfloat= async(req, res) => {
 //     );
 // };
 OpenStackController.test= async(req, res) => {
-    console.log(req.params.id);
-    console.log(config.tokenOpenStack)
+    console.log(req);
+    // console.log(config.tokenOpenStack)
 };
 
 

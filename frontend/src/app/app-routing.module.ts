@@ -29,6 +29,7 @@ import { AdminProyectsComponent } from './components/console/admin-proyects/admi
 import { AdminNewProyectComponent } from './components/console/admin-proyects/admin-new-proyect/admin-new-proyect.component';
 import { AdminProyectComponent } from './components/console/admin-proyects/admin-proyect/admin-proyect.component';
 import { AdminNewArquitectureComponent } from './components/console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component';
+import { EditArquitectureComponent } from './components/console/admin-proyects/admin-proyect/edit-arquitecture/edit-arquitecture.component';
 
 
 
@@ -46,6 +47,7 @@ const routes: Routes = [
     {path: 'admin-proyects', component: AdminProyectsComponent ,canActivate:[VerifyTokenGuard, AdminGuard]},
       {path: 'console/admin-new-proyect', component: AdminNewProyectComponent ,canActivate:[VerifyTokenGuard, AdminGuard]},
       {path: 'console/admin-proyect/:id', component: AdminProyectComponent ,canActivate:[VerifyTokenGuard, AdminGuard]},
+      {path: 'console/admin-proyect/:id/edit-arquitecture/:idArquitecture', component: EditArquitectureComponent ,canActivate:[VerifyTokenGuard, AdminGuard]},
         {path: 'console/admin-proyect/:id/new-arquitecture', component: AdminNewArquitectureComponent ,canActivate:[VerifyTokenGuard, AdminGuard]},
     {path: 'admin-users', component: AdminUsersComponent },
       {path: 'console/admin-user/:id', component: AdminUserComponent },

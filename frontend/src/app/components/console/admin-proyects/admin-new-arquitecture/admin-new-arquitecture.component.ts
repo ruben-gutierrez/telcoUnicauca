@@ -12,6 +12,16 @@ import {Location} from '@angular/common';
 })
 export class AdminNewArquitectureComponent implements OnInit {
   route:any;
+  arquitectureTest:any={
+    name:"aiotest",
+    ipNet:"10.55.5.0",
+    type:"1",
+    status:"public",
+    ram:"9",
+    cpu:"9",
+    hdd:"9",
+    vms:"9"
+  }
   constructor( 
       private _arquitecture:ArquitectureService,
       private toastr: ToastrService,
@@ -30,8 +40,7 @@ export class AdminNewArquitectureComponent implements OnInit {
     }
   }
   createProyect(dataform:NgForm){
-    dataform.value.status='online';
-    this._arquitecture.createArquitecture(dataform.value)
+     this._arquitecture.createArquitecture(dataform.value)
       .subscribe(res =>{
         console.log(res)
         this.resetForm(dataform);
