@@ -1,6 +1,7 @@
 const Server = require('../models/server');
 const config = require('../config');
 const axios = require("axios");
+const openstack = require('../functions/openstack');
 
 const ServerController={};
 
@@ -42,5 +43,44 @@ ServerController.deleteServer=async(req, res) => {
         }
     );
 };
+ServerController.actionsServer=async(req, res) => {
+    const server = await Server.findById(req.params.id);
+    switch (req.body.action) {
+        case 'on/off':
+                // consolse.log(server['infoServer'].id)
+                if (await openstack.onOffServer(server['infoServer'].id) == 'ok'){
+
+                    res.json(
+                        {
+                            status:'200',
+                            answer:'action server'
+                        }
+                    );
+                }else{
+                    res.status(
+                        {
+                            status:'300',
+                            answer:'fail action'
+                        }
+                    );
+                }
+            break;
+        case '2':
+                
+            break;
+        case '3':
+               
+            break;
+    
+        default:
+            console.log('error tipo de arquitectura')
+            break;
+    }
+
+   
+    
+};
+
+
 
 module.exports = ServerController;

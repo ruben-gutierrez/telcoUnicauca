@@ -29,15 +29,16 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let vm of vmsCore" >
-                        <th scope="row"> {{vm.name}}  </th>
+
+                        <th scope="row"> {{vm['infoServer'].status}}  </th>
                         <td>
-                            <mat-slide-toggle color="primary" (click)="[powerServer(vm.id)]" [checked]=" status? 'true':'false'">Alimentación</mat-slide-toggle>
+                            <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm['infoServer'].status=='ACTIVE'? 'true':'false'">Alimentación</mat-slide-toggle>
                             <!-- <button class="btn btn-primary" (click)="[powerServer(vm.id)]">Encender</button> -->
                             <!-- <button type="button" class="btn btn-primary btn-sm mx-1  " data-toggle="button" aria-pressed="false" autocomplete="off">On</button> -->
-                            <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm.id)]">Instantanea</button>
-                            <button class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm.id)]">Regresar</button>
-                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm.id)]">Eliminar</button>
-                            <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm.id}}" (click)="[seeFormEditVm(vm.id)]" >Redimencionar</button>
+                            <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id)]">Instantanea</button>
+                            <button class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Regresar</button>
+                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id)]">Eliminar</button>
+                            <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id)]" >Redimencionar</button>
                             <div class="row" id="divRedimencion{{vm.id}}" style="display:none">
                                 <form action="" class="m-1">
                                     <input class="mx-1" type="number" name="cpu" placeholder="CPU">

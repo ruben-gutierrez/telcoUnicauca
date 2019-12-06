@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ArquitectureService } from 'src/app/services/arquitectures.service';
 import { UsersService } from 'src/app/services/users.service';
+import { ServersService } from 'src/app/services/servers.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { async } from 'q';
 
@@ -23,6 +24,7 @@ export class ArquitectureImsComponent implements OnInit {
   constructor( private router: Router, 
               private _arquitecture:ArquitectureService, 
               private _user:UsersService,
+              private _server:ServersService,
               private activatedRouter:ActivatedRoute,
               private toastr:ToastrService ) 
     {
@@ -34,8 +36,10 @@ export class ArquitectureImsComponent implements OnInit {
   async ngOnInit() {
 
     await this.getArquitecture(this.idArquitecture);
-    console.log(this.arquitecture.vmCoreIMS);
-    this.vmsCore=this.arquitecture.vmCoreIMS;
+    // console.log(this.arquitecture.vmCoreIMS); 
+    this.vmsCore=this.arquitecture['vmCoreIMS'];
+    console.log('vmsssssss')
+    console.log(this.vmsCore)
     this.vmsAditionals=this.arquitecture.vmAditionals;
   }
 
@@ -44,12 +48,20 @@ export class ArquitectureImsComponent implements OnInit {
          .toPromise( )
          .then(data =>{
           this.arquitecture = data;
-          // console.log(this.arquitecture)
+          console.log(data)
          })
   }
 
   powerServer(id){
-    console.log(id)
+    this._server.actionsServer(id,'on/off')
+      .subscribe( data =>{
+        this.toastr.success('Accion exitosa')
+      }, error=>{
+        
+      })
+      
+      
+      
   }
   instantServer(id){
     console.log(id)

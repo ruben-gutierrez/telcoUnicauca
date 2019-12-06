@@ -51,13 +51,14 @@ import { NewGraphComponent } from './components/proyects/ims/new-graph/new-graph
 import { ArquitectureImsComponent } from './components/proyects/ims/arquitecture-ims/arquitecture-ims.component';
 import { AdminNewProyectComponent } from './components/console/admin-proyects/admin-new-proyect/admin-new-proyect.component';
 import { AdminProyectComponent } from './components/console/admin-proyects/admin-proyect/admin-proyect.component';
+import { AdminNewArquitectureComponent } from './components/console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component';
+import { EditArquitectureComponent } from './components/console/admin-proyects/admin-proyect/edit-arquitecture/edit-arquitecture.component'
 
 
 
 //services
 import { OpenstackQueriesService } from './services/openstack-queries.service';
-import { AdminNewArquitectureComponent } from './components/console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component';
-import { EditArquitectureComponent } from './components/console/admin-proyects/admin-proyect/edit-arquitecture/edit-arquitecture.component'
+import { ServersService } from './services/servers.service';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { EditArquitectureComponent } from './components/console/admin-proyects/a
     })
   ],
   providers: [
-    OpenstackQueriesService
+    OpenstackQueriesService,
+    ServersService
   ],
   bootstrap: [AppComponent]
 })

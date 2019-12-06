@@ -245,20 +245,22 @@ OpenStackController.showServer= async(req, res) => {
     });
 };
 OpenStackController.createServer= async(req, res) => {
+    
     data={
         "server": {
-            "name": req.nameServer, 
-            "imageRef": req.idImage, 
-            "key_name": req.nameKey, 
-            "flavorRef": req.idFlavor, 
+            "name": req.body.name, 
+            "imageRef": req.body.idImage, 
+            // "key_name": req.body.nameKey, 
+            "flavorRef": req.body.idFlavor, 
             "max_count": 1, 
             "min_count": 1, 
-            "networks": [{"uuid": req.idNet}]
+            "networks": [{"uuid": req.body.idNet}]
         }
     }
-    await axios.post('http://'+config.ipOpenstack+':9696/compute/v2.1/servers', data,config.headersOpenStack )
+
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers', data,config.headersOpenStack )
       .then(function (response) {
-        res.json(response.data);
+        res.json(response.data); 
       })
       .catch(error =>{
           res.json(

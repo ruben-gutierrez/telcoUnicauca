@@ -7,6 +7,6 @@ router.post('/server',ServerController.createServer);
 router.get('/server/:id',ServerController.showServer);
 router.put('/server/:id',ServerController.updateServer);
 router.delete('/server/:id',ServerController.deleteServer);
-
+router.post('/server/:id',ServerController.actionsServer);
 
 module.exports = router;

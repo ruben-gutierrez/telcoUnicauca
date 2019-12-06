@@ -11,12 +11,14 @@ const ArquitectureSchema = new Schema ({
     maxCore: { type: String, required:true},
     maxVM: { type: String, required:true},
     maxHDD: { type: String, required:true},
-    vmCoreIMS: { type: Object},
-    vmAditionals: { type: Object},
+    vmCoreIMS: { type: Array},
+    vmAditionals: { type: Array},
     tests: { type: Object},
     graphs: { type: Object},
     status: { type: String, required:true},
-    detail: { type: Object,required:false}
+    detailNetwork: { type: Object,required:false},
+    detailSubnetwork: { type: Object,required:false},
+    detailRouter: { type: Object,required:false}
 });
 
 module.exports = mongoose.model('Arquitecture', ArquitectureSchema);

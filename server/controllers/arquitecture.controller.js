@@ -14,32 +14,113 @@ ArquitectureController.createArquitecture= async(req, res) => {
     //create net
     let network= await openstack.createNetwork(req.body.name);
     if (network != 'error') {
-        arquitecture.detail=network.network;
-        let subnet= await openstack.createSubnet(arquitecture.detail.id, req.body.domain, req.body.name);
+        arquitecture.detailNetwork=network.network;
+        let subnet= await openstack.createSubnet(arquitecture.detailNetwork.id, req.body.domain, req.body.name);
         if (subnet != 'error') {
+            arquitecture.detailSubnetwork=subnet.subnet;
+            let router= await openstack.createRouter(req.body.name);
+            
+            if (router != 'error') {
+                arquitecture.detailRouter=router.router;
+                let conect = await openstack.conectPublicRouter( arquitecture.detailRouter.id );
+                
 
+                if (conect != 'error') {
+                    arquitecture.detailRouter=conect.router;
+                    let conectPrivate = await openstack.conectPrivateRouter( arquitecture.detailRouter.id,arquitecture.detailSubnetwork.id );
+                    // console.log(conectPrivate)
+                    if ( conectPrivate != 'error') {
+                        switch (arquitecture.type) {
+                            case '1':
+                                    
+                                    let coreAIO = await openstack.createCoreIMS(config.VMcoreIMS.aio , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
+                                    arquitecture.vmCoreIMS=coreAIO;
+                                break;
+                            case '2':
+                                    let coreDIST = await openstack.createCoreIMS(config.VMcoreIMS.distributed , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
+                                    arquitecture.vmCoreIMS=coreDIST;
+                                break;
+                            case '3':
+                                    let coreDISTPSTN = await openstack.createCoreIMS(config.VMcoreIMS.distributedPSTN , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
+                                    arquitecture.vmCoreIMS=coreDISTPSTN;
+                                break;
+                        
+                            default:
+                                console.log('error tipo de arquitectura')
+                                break;
+                        }
+                        
+                        await arquitecture.save();
+                        res.json(
+                            {
+                                status:'200',
+                                answer:"Arquitecture Created"
+                            }
+                        );
+
+                        
+                    }else{
+                        //borrar network, subnet and router
+                        console.log('error conectando router')
+                        res.status(
+                            {
+                                status:'403',
+                                answer:"Error conect router"
+                            }
+                        );
+
+                    }
+                }else{
+                     //borrar network, subnet and router
+                     console.log('error conectando router');
+                     res.status(
+                        {
+                            status:'403',
+                            answer:"Error conect router"
+                        }
+                    );
+                }
+            }else{
+                //borrar network, subnet and router
+                console.log('error creando router');
+                res.status(
+                    {
+                        status:'403',
+                        answer:"Error create router"
+                    }
+                );
+            }
         }else{
-            return 'error al crear la subred'
+            //borrar red
+            console.log('error creando subnet');
+            res.status(
+                {
+                    status:'403',
+                    answer:"Error create subnet"
+                }
+            );
         }
     }else{
-        return 'error al crear la red'
+        console.log('error creando red router');
+        res.status(
+            {
+                status:'403',
+                answer:"Error create network"
+            }
+        );
     }
     
-        
     
-    //create router
-    //conect router
-    //create vms
-    await arquitecture.save();
-    res.json(
-        {
-            status:'200',
-            answer:"Arquitecture Created"
-        }
-    );
 };
 ArquitectureController.showArquitecture= async(req, res) => {
     const arquitecture = await Arquitecture.findById(req.params.id);
+    let vmupdate;
+    let coreupdate=[];
+    for ( vm of arquitecture.vmCoreIMS){
+       vmupdate= await openstack.consultServer(vm['infoServer'].id);
+       coreupdate.push(vmupdate.server);
+    }
+    arquitecture.vmCoreIMS=coreupdate;
     res.json(arquitecture);
 };
 ArquitectureController.updateArquitecture=async(req, res) => {
