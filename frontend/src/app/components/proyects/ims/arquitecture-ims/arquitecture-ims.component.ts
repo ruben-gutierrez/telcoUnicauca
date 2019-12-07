@@ -38,7 +38,6 @@ export class ArquitectureImsComponent implements OnInit {
     await this.getArquitecture(this.idArquitecture);
     // console.log(this.arquitecture.vmCoreIMS); 
     this.vmsCore=this.arquitecture['vmCoreIMS'];
-    console.log('vmsssssss')
     console.log(this.vmsCore)
     this.vmsAditionals=this.arquitecture.vmAditionals;
   }
@@ -48,7 +47,6 @@ export class ArquitectureImsComponent implements OnInit {
          .toPromise( )
          .then(data =>{
           this.arquitecture = data;
-          console.log(data)
          })
   }
 

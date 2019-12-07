@@ -17,12 +17,12 @@
         </div>
     <div>
         
-            
+           
 
-            <table class="table">
-                <thead class="thead-dark">
+                <table class="table">
+                    <thead class="thead-dark">
                     <tr>
-                    <th scope="col">VM</th>
+                    <th scope="col">VM      </th>
                     <th scope="col">Acciones</th>
                     <th scope="col">Consola</th>
                     </tr>
@@ -30,9 +30,10 @@
                 <tbody>
                     <tr *ngFor="let vm of vmsCore" >
 
-                        <th scope="row"> {{vm['infoServer'].status}}  </th>
+                        <th scope="row"> {{vm.name}}  </th>
                         <td>
-                            <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm['infoServer'].status=='ACTIVE'? 'true':'false'">Alimentación</mat-slide-toggle>
+                            
+                            <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Alimentación</mat-slide-toggle>
                             <!-- <button class="btn btn-primary" (click)="[powerServer(vm.id)]">Encender</button> -->
                             <!-- <button type="button" class="btn btn-primary btn-sm mx-1  " data-toggle="button" aria-pressed="false" autocomplete="off">On</button> -->
                             <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id)]">Instantanea</button>
@@ -40,17 +41,17 @@
                             <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id)]">Eliminar</button>
                             <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id)]" >Redimencionar</button>
                             <div class="row" id="divRedimencion{{vm.id}}" style="display:none">
-                                <form action="" class="m-1">
+                                <form action="" class="m-1">    
                                     <input class="mx-1" type="number" name="cpu" placeholder="CPU">
                                     <input class="mx-1" type="number" name="ram" placeholder="RAM">
                                     <input class="mx-1" type="number" name="hdd" placeholder="HDD">
-                                    <button class="btn btn-primary btn-sm mx-1" (click)="resizeServer(vm.id)">Editar</button>
-                                    <button class="btn btn-danger btn-sm mx-1" (click)="hideFormEditVm(vm.id)">Cancel</button>
-                                </form>
+                                    <button class="btn btn-primary btn-sm mx-1" (click)="resizeServer(vm._id)">Editar</button>
+                                    <button class="btn btn-danger btn-sm mx-1" (click)="hideFormEditVm(vm._id)">Cancel</button>
+                                </form> 
                             </div>
                         </td>
                         <td>
-                            <button class="btn btn-success" (click)="[consoleServer(vm.id)]">Consola</button>
+                            <button class="btn btn-success" (click)="[consoleServer(vm.infoServer.id)]">Consola</button>
                         </td>
                     </tr>
                 </tbody>

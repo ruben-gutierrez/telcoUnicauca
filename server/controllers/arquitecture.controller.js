@@ -118,9 +118,11 @@ ArquitectureController.showArquitecture= async(req, res) => {
     let coreupdate=[];
     for ( vm of arquitecture.vmCoreIMS){
        vmupdate= await openstack.consultServer(vm['infoServer'].id);
-       coreupdate.push(vmupdate.server);
+       vm['infoServer']=vmupdate.server;
+    //    coreupdate.push(vmupdate.server);
     }
-    arquitecture.vmCoreIMS=coreupdate;
+    // arquitectu   re.vmCoreIMS=coreupdate;
+    console.log(arquitecture)
     res.json(arquitecture);
 };
 ArquitectureController.updateArquitecture=async(req, res) => {

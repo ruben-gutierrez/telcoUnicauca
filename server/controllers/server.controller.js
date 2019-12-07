@@ -47,7 +47,8 @@ ServerController.actionsServer=async(req, res) => {
     const server = await Server.findById(req.params.id);
     switch (req.body.action) {
         case 'on/off':
-                // consolse.log(server['infoServer'].id)
+    //             consolse.log(server['infoServer'].id)
+                console.log(server);
                 if (await openstack.onOffServer(server['infoServer'].id) == 'ok'){
 
                     res.json(
