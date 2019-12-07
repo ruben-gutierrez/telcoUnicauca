@@ -40,6 +40,7 @@ app.listen(app.get('port'), () => {
       (error, stdout, stderr) => {
             // console.log(`${stdout}`);
             config.tokenOpenStack = stdout.replace('\r', '');
+            console.log(stdout.replace('\r', ''));
             config.headersOpenStack = { headers:{
               'X-Auth-Token': config.tokenOpenStack, 
               'Content-Type': 'application/json', 
