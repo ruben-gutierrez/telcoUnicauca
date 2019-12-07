@@ -10,9 +10,10 @@ export class ServersService {
   readonly URL_API_SERVER:string = `http://localhost:3000/ims/server`;
   constructor(  private http: HttpClient ) { }
 
-  actionsServer(idServer, action){
+  actionsServer(idServer, action, dataForm={}){
     let data={
-      'action':action
+      'action':action,
+      'dataForm': dataForm
     }
     return this.http.post(this.URL_API_SERVER  + `/${idServer}`, data)
   }

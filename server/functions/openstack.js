@@ -146,6 +146,138 @@ async function consultServer( idServer ) {
     });
     return server;
 }
+async function deleteServer( idServer ) {
+    let server;
+    let answer;
+    server = await consultServer(idServer); 
+    await axios.delete('http://'+config.ipOpenstack+':9696/compute/v2.1/servers/'+server['server'].id, config.headersOpenStack )
+      .then(function (response) {
+       answer = 'ok'
+      })
+      .catch(error =>{
+          answer = 'error'
+      });
+    return answer;
+}
+async function instantServer( idServer ) {
+    let server;
+    let answer;
+    server = await consultServer(idServer); 
+    data={
+        "createBackup": {
+            "backup_type": "", 
+            "rotation": 1, 
+            "name": server['server'].name
+        }
+    }
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server['server'].id+'/action', data,config.headersOpenStack )
+      .then(function (response) {
+        answer= 'ok'
+      })
+      .catch(error =>{
+          answer = 'error'
+      });
+    return answer;
+}
+async function rebuildServer( idServer ) {
+    let server;
+    let answer;
+    server = await consultServer(idServer); 
+    data={
+        "rebuild": {
+            "imageRef": server['idImageRebuild']
+        }
+    }
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server['infoServer'].id+'/action', data,config.headersOpenStack )
+      .then(function (response) {
+        answer = 'ok'
+      })
+      .catch(error =>{
+          answer = 'error'
+      });
+    return answer;
+}
+async function consoleServer( idServer ) {
+    let server;
+    let answer;
+    server = await consultServer(idServer); 
+    data={
+        "os-getVNCConsole": {
+            "type": "novnc"
+        }
+    }
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server['infoServer'].id +'/action', data,config.headersOpenStack )
+      .then(function (response) {
+        answer = response;
+      })
+      .catch(error =>{
+          answer = 'error';
+      });
+    return answer;
+}
+async function resizeServer( idServer,dataForm ) {
+    let server;
+    let answer;
+    let answer2;
+    let idFlavor;
+    server = await consultServer(idServer);  
+
+    //consult flavor
+    idFlavor= await consultFlavor(dataForm);
+    data={
+        "resize": {
+            "flavorRef": idFlavor
+        }
+    }
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server['infoServer'].id +'/action', data,config.headersOpenStack )
+      .then(function (response) {
+        answer='ok'
+      })
+      .catch(error =>{
+          answer='error'
+      });
+    if (anwer == 'ok') {
+        await sleep(10)
+        data={
+            "confirmResize": null
+        }
+        await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server['infoServer'].id +'/action', data,config.headersOpenStack )
+        .then(function (response) {
+            answer='ok'
+        })
+        .catch(error =>{
+            answer='error'
+        });
+    }
+    
+    return answer;
+}
+async function consultFlavor( dataform ) {
+    let idflavor='-';
+    let flavors;
+    await axios.get('http://'+config.ipOpenstack+'/compute/v2.1/flavors/detail', config.headersOpenStack )
+      .then(function (response) {
+        flavors = response.flavors;
+      })
+      .catch(error =>{
+          flavors='error';
+    });
+    for await ( flavor of flavors){
+        if (flavor.ram == dataform.ram) {
+            if (flavor.disk == dataform.disk) {
+                if (flavor.disk == dataform.disk) {
+                    idflavor=flavor.id;
+                }
+            }
+        }
+    }
+
+    if ( idflavor == '-' ) {
+        idflavor = await creteFlavor(dataform.ram, dataform.disk, dataform.vcpus)
+    }
+
+    return idflavor;
+}
 async function onOffServer( idServer ) {
     let server;
     let answer;
@@ -155,12 +287,12 @@ async function onOffServer( idServer ) {
             "os-stop": null
         }
         
-        console.log('apagar maquina')
+        // console.log('apagar maquina')
     }else{
         data={
             "os-start": null
         }
-        console.log('encender maquina')
+        // console.log('encender maquina')
     }
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ idServer +'/action', data,config.headersOpenStack )
           .then(function (response) {
@@ -170,6 +302,31 @@ async function onOffServer( idServer ) {
               answer= 'error'
           });
     return answer;
+}
+
+async function creteFlavor(ram, disk, vcpus){
+    let idflavor;
+    data={
+        "flavor": {
+            "vcpus": vcpus, 
+            "disk": disk, 
+            "name": ram+'-'+disk+'-'+vcpus, 
+            "os-flavor-access:is_public": true, 
+            "rxtx_factor": 1.0, 
+            "OS-FLV-EXT-DATA:ephemeral": 0, 
+            "ram": ram, 
+            "id": null, 
+            "swap": 0
+        }
+    }
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/flavors', data,config.headersOpenStack )
+      .then(function (response) {
+        idflavor=response.data.id;
+      })
+      .catch(error =>{
+          idflvor='error';
+      });
+      return idflavor;
 }
 
 
@@ -185,3 +342,8 @@ exports.createServer=createServer;
 exports.createCoreIMS=createCoreIMS;
 exports.consultServer=consultServer;
 exports.onOffServer=onOffServer;
+exports.deleteServer=deleteServer;
+exports.instantServer=instantServer;
+exports.rebuildServer=rebuildServer;
+exports.consoleServer=consoleServer;
+exports.resizeServer=resizeServer;

@@ -55,28 +55,58 @@ export class ArquitectureImsComponent implements OnInit {
       .subscribe( data =>{
         this.toastr.success('Accion exitosa')
       }, error=>{
-        
+        this.toastr.error('Error al apagar la máquina')
       })
       
       
       
   }
   instantServer(id){
-    console.log(id)
+    this._server.actionsServer(id,'instant')
+      .subscribe( data =>{
+        this.toastr.success('Accion exitosa');
+      }, error=>{
+        this.toastr.error('Error al tomar instantanea la máquina');
+      })
   }
   deleteServer(id){
-    console.log(id)
+    this._server.actionsServer(id,'delete')
+      .subscribe( data =>{
+        this.toastr.success('Accion exitosa');
+      }, error=>{
+        this.toastr.error('Error al eliminar la máquina');
+      })
   }
   returnServer(id){
-    console.log(id)
+    this._server.actionsServer(id,'rebuild')
+      .subscribe( data =>{
+        this.toastr.success('Accion exitosa');
+      }, error=>{
+        this.toastr.error('Error al reestablecer la máquina');
+      })
   }
   resizeServer(id){
-    console.log(id)
+    // console.log(id)
+    let dataForm = {};
+    this._server.actionsServer(id,'rebuild',dataForm)
+      .subscribe( data =>{
+        this.toastr.success('Accion exitosa');
+      }, error=>{
+        this.toastr.error('Error al reestablecer la máquina');
+      })
+
+
     document.getElementById('divRedimencion'+id).style.display="none";
     document.getElementById('btnRedimencion'+id).style.display = "";
   }
   consoleServer(id){
-    console.log(id)
+    this._server.actionsServer(id,'console')
+      .subscribe( data =>{
+        console.log(data);
+        this.toastr.success('Consola valida por 1 Hora');
+      }, error=>{
+        this.toastr.error('Error al lanzar la consola');
+      })
   }
   seeFormEditVm(id){
     document.getElementById('btnRedimencion'+id).style.display="none";

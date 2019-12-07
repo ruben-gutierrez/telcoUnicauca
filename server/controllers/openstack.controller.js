@@ -298,7 +298,7 @@ OpenStackController.updateServer= async(req, res) => {
                 })
       });
 
-    sleep(10)
+    await sleep(10)
     data={
         "confirmResize": null
     }
@@ -412,9 +412,9 @@ OpenStackController.showFlavor= async(req, res) => {
 OpenStackController.createFlavor= async(req, res) => {
     data={
         "flavor": {
-            "vcpus": req.vpcus, 
+            "vcpus": req.vcpus, 
             "disk": req.disk, 
-            "name": req.nameFlavor, 
+            "name": req.ram+'-'+req.disk+'-'+req.vcpus, 
             "os-flavor-access:is_public": true, 
             "rxtx_factor": 1.0, 
             "OS-FLV-EXT-DATA:ephemeral": 0, 

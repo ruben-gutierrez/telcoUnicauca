@@ -42,9 +42,9 @@
                             <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id)]" >Redimencionar</button>
                             <div class="row" id="divRedimencion{{vm.id}}" style="display:none">
                                 <form action="" class="m-1">    
-                                    <input class="mx-1" type="number" name="cpu" placeholder="CPU">
+                                    <input class="mx-1" type="number" name="vcpus" placeholder="CPU">
                                     <input class="mx-1" type="number" name="ram" placeholder="RAM">
-                                    <input class="mx-1" type="number" name="hdd" placeholder="HDD">
+                                    <input class="mx-1" type="number" name="disk" placeholder="HDD">
                                     <button class="btn btn-primary btn-sm mx-1" (click)="resizeServer(vm._id)">Editar</button>
                                     <button class="btn btn-danger btn-sm mx-1" (click)="hideFormEditVm(vm._id)">Cancel</button>
                                 </form> 
