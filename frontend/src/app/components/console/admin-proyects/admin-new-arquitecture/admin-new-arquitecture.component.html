@@ -48,7 +48,7 @@
                             <label for="maxRAM">RAM</label>
                             <input type="number" class="form-control" name="maxRAM" [(ngModel)]="arquitectureTest.ram" aria-describedby="maxRAMHelp" placeholder="Gb" 
                                   #maxRAM="ngModel"
-                                  pattern="^([0-9])$"
+                                  pattern="^([1-9][0-9]{0,3})$"
                                   ngModel   
                                   required>
                             <small *ngIf="maxRAM.errors?.required" id="maxRAMHelp" class="form-text text-muted">Campo requerido</small>
@@ -58,7 +58,7 @@
                             <label for="maxHDD">Almacenamiento</label>
                             <input type="number" class="form-control" name="maxHDD" [(ngModel)]="arquitectureTest.hdd" aria-describedby="maxHDDHelp" placeholder="Gb" 
                                   #maxHDD="ngModel"
-                                  pattern="^([0-9])$"
+                                  pattern="^([1-9][0-9]{0,2}|1000)$"
                                   ngModel   
                                   required>
                             <small *ngIf="maxHDD.errors?.required" id="maxHDDHelp" class="form-text text-muted">Campo requerido</small>
@@ -68,7 +68,7 @@
                             <label for="maxCore">Procesadores</label>
                             <input type="number" class="form-control" name="maxCore" [(ngModel)]="arquitectureTest.cpu" aria-describedby="maxCoreHelp" placeholder="Gb" 
                                   #maxCore="ngModel"
-                                  pattern="^([0-9])$"
+                                  pattern="^([1-9])$"
                                   ngModel   
                                   required>
                             <small *ngIf="maxCore.errors?.required" id="maxCoreHelp" class="form-text text-muted">Campo requerido</small>
@@ -78,7 +78,7 @@
                             <label for="maxVM">VM Adicionales</label>
                             <input type="number" class="form-control" name="maxVM" [(ngModel)]="arquitectureTest.vms" aria-describedby="maxVMHelp" placeholder="Gb" 
                                   #maxVM="ngModel"
-                                  pattern="^([0-9])$"
+                                  pattern="^([1-9])$"
                                   ngModel   
                                   required>
                             <small *ngIf="maxVM.errors?.required" id="maxVMHelp" class="form-text text-muted">Campo requerido</small>

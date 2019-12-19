@@ -32,17 +32,23 @@ ArquitectureController.createArquitecture= async(req, res) => {
                     if ( conectPrivate != 'error') {
                         switch (arquitecture.type) {
                             case '1':
-                                    
+                                        
                                     let coreAIO = await openstack.createCoreIMS(config.VMcoreIMS.aio , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
-                                    arquitecture.vmCoreIMS=coreAIO;
+                                    if (coreAIO != 'error') {
+                                        arquitecture.vmCoreIMS=coreAIO;
+                                    }
                                 break;
                             case '2':
                                     let coreDIST = await openstack.createCoreIMS(config.VMcoreIMS.distributed , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
-                                    arquitecture.vmCoreIMS=coreDIST;
+                                    if (coreAIO != 'error') {
+                                        arquitecture.vmCoreIMS=coreDIST;
+                                    }
                                 break;
                             case '3':
                                     let coreDISTPSTN = await openstack.createCoreIMS(config.VMcoreIMS.distributedPSTN , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
-                                    arquitecture.vmCoreIMS=coreDISTPSTN;
+                                    if (coreAIO != 'error') {
+                                        arquitecture.vmCoreIMS=coreDISTPSTN;
+                                    }
                                 break;
                         
                             default:
@@ -50,17 +56,32 @@ ArquitectureController.createArquitecture= async(req, res) => {
                                 break;
                         }
                         
-                        await arquitecture.save();
-                        res.json(
-                            {
-                                status:'200',
-                                answer:"Arquitecture Created"
-                            }
-                        );
+                        if (arquitecture.vmCoreIMS.length === 0 ) {
+                            await openstack.deleteRouter(arquitecture.detailRouter.id)
+                            openstack.deleteNetwork(arquitecture.detailNetwork.id)
+                            res.status(
+                                {
+                                    status:'300',
+                                    answer:"Arquitecture Not Created"
+                                }
+                            );
+                        }else{
+
+                            await arquitecture.save();
+                            res.json(
+                                {
+                                    status:'200',
+                                    answer:"Arquitecture Created"
+                                }
+                            );
+                        }
 
                         
                     }else{
-                        //borrar network, subnet and router
+                        
+                        await openstack.deleteRouter(arquitecture.detailRouter.id)
+                        openstack.deleteNetwork(arquitecture.detailNetwork.id)
+
                         console.log('error conectando router')
                         res.status(
                             {
@@ -71,7 +92,9 @@ ArquitectureController.createArquitecture= async(req, res) => {
 
                     }
                 }else{
-                     //borrar network, subnet and router
+                     
+                     await openstack.deleteRouter(arquitecture.detailRouter.id)
+                    openstack.deleteNetwork(arquitecture.detailNetwork.id)
                      console.log('error conectando router');
                      res.status(
                         {
@@ -81,7 +104,9 @@ ArquitectureController.createArquitecture= async(req, res) => {
                     );
                 }
             }else{
-                //borrar network, subnet and router
+                
+                await openstack.deleteRouter(arquitecture.detailRouter.id)
+                openstack.deleteNetwork(arquitecture.detailNetwork.id)
                 console.log('error creando router');
                 res.status(
                     {
@@ -91,7 +116,8 @@ ArquitectureController.createArquitecture= async(req, res) => {
                 );
             }
         }else{
-            //borrar red
+            
+            openstack.deleteNetwork(arquitecture.detailNetwork.id)
             console.log('error creando subnet');
             res.status(
                 {
@@ -101,7 +127,7 @@ ArquitectureController.createArquitecture= async(req, res) => {
             );
         }
     }else{
-        console.log('error creando red router');
+        console.log('error creando red red');
         res.status(
             {
                 status:'403',
@@ -115,14 +141,28 @@ ArquitectureController.createArquitecture= async(req, res) => {
 ArquitectureController.showArquitecture= async(req, res) => {
     const arquitecture = await Arquitecture.findById(req.params.id);
     let vmupdate;
+    let delarray=[];
     let coreupdate=[];
-    for ( vm of arquitecture.vmCoreIMS){
+    for await ( [i, vm] of arquitecture.vmCoreIMS.entries()){
+       
        vmupdate= await openstack.consultServer(vm['infoServer'].id);
-       vm['infoServer']=vmupdate.server;
-    //    coreupdate.push(vmupdate.server);
+
+        if (vmupdate == 'error') {
+            delarray.push(i);
+        }else{
+
+            vm['infoServer']=vmupdate.server;
+        }
+       
+    
     }
-    // arquitectu   re.vmCoreIMS=coreupdate;
-    console.log(arquitecture)
+    
+
+    for (var i = delarray.length - 1; i>=0 ;i--){
+        arquitecture.vmCoreIMS.splice(i,1);
+    }
+    let update=await openstack.updateArquitecture(arquitecture);
+    
     res.json(arquitecture);
 };
 ArquitectureController.updateArquitecture=async(req, res) => {

@@ -25,17 +25,15 @@
   </style>
   
   <!-- Toolbar -->
-  <div class="toolbar" role="banner">
-      <app-navbar></app-navbar>
+  <div class="fixed-top" >
+      <app-navbar ></app-navbar>
   </div>
-  <!-- <div style="height: 75px;">
-      telco
-  </div> -->
-  <!-- Content -->
-  <div class="section animated fadeIn" role="main">
+
+
+  <div class="section" role="main" style="margin-top: 100px;">
       <router-outlet></router-outlet>
   </div>
-  <div class="section bg-dark text-white">
+  <div class="section bg-dark text-white" >
       <app-footer></app-footer>
    
   </div>

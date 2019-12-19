@@ -45,10 +45,11 @@ ServerController.deleteServer=async(req, res) => {
 };
 ServerController.actionsServer=async(req, res) => {
     const server = await Server.findById(req.params.id);
+
     switch (req.body.action) {
         case 'on/off':
     //             consolse.log(server['infoServer'].id)
-                console.log(server);
+                // console.log(server);
                 if (await openstack.onOffServer(server['infoServer'].id) == 'ok'){
 
                     res.json(
@@ -66,15 +67,108 @@ ServerController.actionsServer=async(req, res) => {
                     );
                 }
             break;
-        case '2':
+        case 'delete':
+            if (await openstack.deleteServer(server['infoServer'].id) == 'ok'){
+                Server.findByIdAndDelete(req.params.id);
                 
+                res.json(
+                    {
+                        status:'200',
+                        answer:'action server'
+                    }
+                );
+            }else{
+                res.status(
+                    {
+                        status:'300',
+                        answer:'fail action'
+                    }
+                );
+            }
             break;
-        case '3':
+        case 'instant':
+            if (await openstack.instantServer(server['infoServer'].id, req.params.id) == 'ok'){
+                res.json(
+                    {
+                        status:'200',
+                        answer:'action server'
+                    }
+                );
+            }else{
+                res.status(
+                    {
+                        status:'300',
+                        answer:'fail action'
+                    }
+                );
+            }
+            break;
+        case 'rebuild':
+            if (await openstack.rebuildServer(server['infoServer'].id, server.idImageRebuild) == 'ok'){
+                res.json(
+                    {
+                        status:'200',
+                        answer:'action server'
+                    }
+                );
+            }else{
+                res.status(
+                    {
+                        status:'300',
+                        answer:'fail action'
+                    }
+                );
+            }
+            break;
+        case 'console':
+            let consoleVm = await openstack.consoleServer(server['infoServer'].id);
+            if ( consoleVm != 'error'){
+                res.json(
+                    {
+                        status:'200',
+                        answer:'action server',
+                        consoleLink: consoleVm
+                    }
+                );
+            }else{
+                res.status(
+                    {
+                        status:'300',
+                        answer:'fail action'
+                    }
+                );
+            }
+            break;
+    
+        case 'resize':
+           
+            if(await openstack.resizeServer(server['infoServer'].id, req.body.dataForm) == 'ok'){
+                
+                res.json(
+                    {
+                        status:'200',
+                        answer:'action server'
+                    }
+                );
+            }else{
                
+                res.status(
+                    {
+                        status:'400',
+                        answer:'fail action'
+                    }
+                );
+            }
+            
             break;
     
         default:
-            console.log('error tipo de arquitectura')
+                res.status(
+                    {
+                        status:'300',
+                        answer:'fail action'
+                    }
+                );
             break;
     }
 

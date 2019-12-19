@@ -17,10 +17,10 @@ export class AdminNewArquitectureComponent implements OnInit {
     ipNet:"10.55.5.0",
     type:"1",
     status:"public",
-    ram:"9",
-    cpu:"9",
-    hdd:"9",
-    vms:"9"
+    ram:"4096",
+    cpu:"8", 
+    hdd:"20",
+    vms:"5"
   }
   constructor( 
       private _arquitecture:ArquitectureService,
@@ -48,6 +48,7 @@ export class AdminNewArquitectureComponent implements OnInit {
         this._location.back();
       },
       error=>{
+        this.toastr.error('Error al crear la arquitectura');
         console.log(error)
       })
       

@@ -1,5 +1,5 @@
 export  class Arquitecture {
-    constructor(_id='', name='', domain='', type='', maxRAM='', maxVM='', maxCore='', maxHDD='', status=''){
+    constructor(_id='', name='', domain='', type='', maxRAM=0, maxVM=0, maxCore=0, maxHDD=0, status=''){
         this._id=_id;
         this.name=name;
         this.domain= domain;
@@ -14,10 +14,10 @@ export  class Arquitecture {
     name:string;
     domain:string;
     type:string;
-    maxRAM: string;
-    maxCore: string;
-    maxVM: string;
-    maxHDD: string;
+    maxRAM: number;
+    maxCore: number;
+    maxVM: number;
+    maxHDD: number;
     status: string
 
 }

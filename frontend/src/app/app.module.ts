@@ -7,6 +7,7 @@ import { ChartsModule } from "ng2-charts";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { MatSliderModule } from '@angular/material/slider';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';

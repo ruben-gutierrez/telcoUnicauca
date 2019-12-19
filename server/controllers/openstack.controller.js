@@ -18,6 +18,7 @@ OpenStackController.consoleVM= async(req, res) => {
     }
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+req.params.id+'/action', data,config.headersOpenStack )
       .then(function (response) {
+          console.log(response)
         res.json(response.data);
       })
       .catch(error =>{
@@ -298,7 +299,7 @@ OpenStackController.updateServer= async(req, res) => {
                 })
       });
 
-    sleep(10)
+    await sleep(10)
     data={
         "confirmResize": null
     }
@@ -406,16 +407,26 @@ OpenStackController.getFlavors= async(req, res) => {
     });
 };
 OpenStackController.showFlavor= async(req, res) => {
-    res.json({ "status": "300",
-                "content": "Function available in next update"})
+    
+
+    await axios.get('http://'+config.ipOpenstack+'/compute/v2.1/flavors/'+req.params.id, config.headersOpenStack )
+      .then(function (response) {   
+        res.json(response.data);
+      })
+      .catch(error =>{
+          res.json({'status': '401',
+                    'content': error})
+    });
 };
 OpenStackController.createFlavor= async(req, res) => {
     console.log(req.body)
     data={
         "flavor": {
+
             "vcpus": req.body.vpcus, 
             "disk": req.body.disk, 
             "name": req.body.nameFlavor, 
+
             "os-flavor-access:is_public": true, 
             "rxtx_factor": 1.0, 
             "OS-FLV-EXT-DATA:ephemeral": 0, 

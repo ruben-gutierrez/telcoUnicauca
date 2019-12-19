@@ -1,4 +1,75 @@
+
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nueva máquina virtual</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="resourcesDisp.status">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <form>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="email" class="form-control" id="name" name="name" placeholder="" ngModel>
+                          </div>
+                          <div class="form-group">
+                            <label for="description">Descripción</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                          </div>
+                    </div>
+                    <div class="col">
+
+                        
+                      
+                        <div class="form-group">
+                            <label for="formControlRange">Procesadores</label>
+                            <mat-slider
+                                thumbLabel
+                                [displayWith]="formatLabel"
+                                tickInterval="1000"
+                                min="1"
+                                max="9"></mat-slider>
+                          </div>
+                          <div class="form-group">
+                            <label for="formControlRange">RAM</label>
+                            <mat-slider
+                                thumbLabel
+                                [displayWith]="formatLabel"
+                                tickInterval="1000"
+                                min="1"
+                                max="100000"></mat-slider>
+                          </div>
+                          <div class="form-group">
+                            <label for="formControlRange">Almacenamiento</label>
+                            <mat-slider
+                                thumbLabel
+                                [displayWith]="formatLabel"
+                                tickInterval="1000"
+                                min="1"
+                                max="100000"></mat-slider>
+                          </div>
+                        
+                    </div>
+                </div>
+                    
+                   
+                    
+                 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Crear</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
 <div class="container my-5">
+
         <div class="row">
             <div class="col">
                 <h3>Arquitectura </h3>
@@ -16,9 +87,24 @@
             </div>
         </div>
     <div>
-        
-           
+        <div class="row my-2">
 
+            <div class="col d-flex justify-content-end">
+                <button class="btn btn-success"> 
+                    <i class="fas fa-network-wired">Núcleo IMS</i>
+               </button> 
+            </div>
+            <div class="col d-flex justify-content-start">
+                <button class="btn btn-outline-secondary"> 
+                    <i class="fas fa-network-wired">VM Adicionales</i>
+               </button> 
+            </div>  
+            <div class="col">
+                <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#modelId">
+                    <i class="fa fa-desktop" aria-hidden="true">Nuevo</i> 
+               </button> 
+            </div>
+        </div>
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
@@ -33,28 +119,34 @@
                         <th scope="row"> {{vm.name}}  </th>
                         <td>
                             
-                            <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Alimentación</mat-slide-toggle>
+                            <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
                             <!-- <button class="btn btn-primary" (click)="[powerServer(vm.id)]">Encender</button> -->
                             <!-- <button type="button" class="btn btn-primary btn-sm mx-1  " data-toggle="button" aria-pressed="false" autocomplete="off">On</button> -->
                             <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id)]">Instantanea</button>
                             <button class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Regresar</button>
-                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id)]">Eliminar</button>
+                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture)]">Eliminar</button>
                             <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id)]" >Redimencionar</button>
-                            <div class="row" id="divRedimencion{{vm.id}}" style="display:none">
-                                <form action="" class="m-1">    
-                                    <input class="mx-1" type="number" name="cpu" placeholder="CPU">
-                                    <input class="mx-1" type="number" name="ram" placeholder="RAM">
-                                    <input class="mx-1" type="number" name="hdd" placeholder="HDD">
-                                    <button class="btn btn-primary btn-sm mx-1" (click)="resizeServer(vm._id)">Editar</button>
+                            <div class="row" id="divRedimencion{{vm._id}}" style="display:none">
+                                <form (ngSubmit)='resizeServer(dataFormEdit, vm._id)'  #dataFormEdit="ngForm" class="m-1" novalidate>    
+                                    <input class="mx-1" type="hidden" name="server" #server="ngModel" [(ngModel)]="vm._id" ngModel placeholder="CPU">
+                                    <input class="mx-1" type="number" name="vcpus" #vcpus="ngModel" ngModel placeholder="CPU">
+                                    <input class="mx-1" type="number" name="ram" #ram="ngModel" ngModel placeholder="RAM">
+                                    <input class="mx-1" type="number" name="disk" #disk="ngModel" ngModel placeholder="HDD">
+                                    <button class="btn btn-primary btn-sm mx-1" type="submit">Editar</button>
                                     <button class="btn btn-danger btn-sm mx-1" (click)="hideFormEditVm(vm._id)">Cancel</button>
                                 </form> 
                             </div>
                         </td>
                         <td>
-                            <button class="btn btn-success" (click)="[consoleServer(vm.infoServer.id)]">Consola</button>
+                            <button class="btn btn-success" (click)="[consoleServer(vm._id)]">Consola</button>
                         </td>
                     </tr>
                 </tbody>
                 </table>
     </div>
 </div>
+
+
+
+
+  

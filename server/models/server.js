@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 
 const ServerSchema = new Schema ({
     name: { type: String, required:true},   
+    idImageRebuild: { type: String},   
     infoServer: { type: Object}
 });
 
