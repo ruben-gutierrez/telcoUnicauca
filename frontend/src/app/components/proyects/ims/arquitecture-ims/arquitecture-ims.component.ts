@@ -17,7 +17,7 @@ import { async } from 'q';
 export class ArquitectureImsComponent implements OnInit {
 
   arquitecture: any;
-  vmsCore: any;
+ 
   vmsAditionals: any;
   idArquitecture:string;
   status:boolean=true;
@@ -47,7 +47,7 @@ export class ArquitectureImsComponent implements OnInit {
   async ngOnInit() {
     await this.getArquitecture(this.idArquitecture);
     console.log(this.arquitecture)
-    this.vmsCore=this.arquitecture['vmCoreIMS'];
+    
     this.vmsAditionals=this.arquitecture.vmAditionals;
     
     this.resourcesDisp=await this.resourceDisp(this.arquitecture);
@@ -105,12 +105,13 @@ export class ArquitectureImsComponent implements OnInit {
         this.toastr.error('Error al tomar instantanea la máquina');
       })
   }
-  deleteServer(id,idArquitecture){
-    console.log(id)
+  async deleteServer(id,idArquitecture,index){
+    // console.log(id)
     this._server.actionsServer(id,'delete',idArquitecture)
       .subscribe( data =>{
-        this.toastr.success('Accion exitosa');
-        this.getArquitecture(this.idArquitecture)
+        this.toastr.success('VM '+id+' Eliminada');
+        this.arquitecture.vmCoreIMS.splice( index, 1 ); 
+        // this.getArquitecture(idArquitecture)
       }, error=>{
         this.toastr.error('Error al eliminar la máquina');
       })

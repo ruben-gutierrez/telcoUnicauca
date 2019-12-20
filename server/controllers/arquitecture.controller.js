@@ -13,42 +13,38 @@ ArquitectureController.createArquitecture= async(req, res) => {
     const arquitecture = new Arquitecture(req.body);
     //create net
     let network= await openstack.createNetwork(req.body.name);
-    if (network != 'error') {
-        arquitecture.detailNetwork=network.network;
+    // console.logs(network)
+   
+    if (network.status == 200 ) {
+        arquitecture.detailNetwork=network.content;
         let subnet= await openstack.createSubnet(arquitecture.detailNetwork.id, req.body.domain, req.body.name);
-        if (subnet != 'error') {
-            arquitecture.detailSubnetwork=subnet.subnet;
+        
+        if (subnet.status == 200) {
+            arquitecture.detailSubnetwork=subnet.content;
             let router= await openstack.createRouter(req.body.name);
             
-            if (router != 'error') {
-                arquitecture.detailRouter=router.router;
+            if (router.status == 200) {
+                arquitecture.detailRouter=router.content;
+               
                 let conect = await openstack.conectPublicRouter( arquitecture.detailRouter.id );
-                
-
-                if (conect != 'error') {
-                    arquitecture.detailRouter=conect.router;
+                if (conect.status == 200) {
+                    arquitecture.detailRouter=conect.content;
+                    
                     let conectPrivate = await openstack.conectPrivateRouter( arquitecture.detailRouter.id,arquitecture.detailSubnetwork.id );
-                    // console.log(conectPrivate)
-                    if ( conectPrivate != 'error') {
+                    if ( conectPrivate != 'error' ) {
+                        
                         switch (arquitecture.type) {
                             case '1':
-                                        
                                     let coreAIO = await openstack.createCoreIMS(config.VMcoreIMS.aio , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
-                                    if (coreAIO != 'error') {
-                                        arquitecture.vmCoreIMS=coreAIO;
-                                    }
+                                    arquitecture.vmCoreIMS=coreAIO;
                                 break;
-                            case '2':
+                            case '2': 
                                     let coreDIST = await openstack.createCoreIMS(config.VMcoreIMS.distributed , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
-                                    if (coreAIO != 'error') {
                                         arquitecture.vmCoreIMS=coreDIST;
-                                    }
                                 break;
                             case '3':
                                     let coreDISTPSTN = await openstack.createCoreIMS(config.VMcoreIMS.distributedPSTN , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
-                                    if (coreAIO != 'error') {
-                                        arquitecture.vmCoreIMS=coreDISTPSTN;
-                                    }
+                                    arquitecture.vmCoreIMS=coreDISTPSTN;
                                 break;
                         
                             default:
@@ -57,16 +53,18 @@ ArquitectureController.createArquitecture= async(req, res) => {
                         }
                         
                         if (arquitecture.vmCoreIMS.length === 0 ) {
-                            await openstack.deleteRouter(arquitecture.detailRouter.id)
-                            openstack.deleteNetwork(arquitecture.detailNetwork.id)
-                            res.status(
-                                {
-                                    status:'300',
-                                    answer:"Arquitecture Not Created"
-                                }
-                            );
-                        }else{
+                            let answererror = await openstack.deleteRouter(arquitecture.detailRouter.id)
+                            answererror = await openstack.deleteNetwork(arquitecture.detailNetwork.id)
 
+                            console.log('error conectando router')
+                            res.json(
+                                {
+                                    status:'403',
+                                    answer:"Error conect router"
+                                }
+                            );      
+
+                        }else{
                             await arquitecture.save();
                             res.json(
                                 {
@@ -79,8 +77,8 @@ ArquitectureController.createArquitecture= async(req, res) => {
                         
                     }else{
                         
-                        await openstack.deleteRouter(arquitecture.detailRouter.id)
-                        openstack.deleteNetwork(arquitecture.detailNetwork.id)
+                        let answererror = await openstack.deleteRouter(arquitecture.detailRouter.id)
+                        answererror = await openstack.deleteNetwork(arquitecture.detailNetwork.id)
 
                         console.log('error conectando router')
                         res.status(
@@ -89,14 +87,13 @@ ArquitectureController.createArquitecture= async(req, res) => {
                                 answer:"Error conect router"
                             }
                         );
-
                     }
                 }else{
                      
-                     await openstack.deleteRouter(arquitecture.detailRouter.id)
-                    openstack.deleteNetwork(arquitecture.detailNetwork.id)
+                    let answererror = await openstack.deleteRouter(arquitecture.detailRouter.id)
+                    answererror = await openstack.deleteNetwork(arquitecture.detailNetwork.id)
                      console.log('error conectando router');
-                     res.status(
+                     res.json(
                         {
                             status:'403',
                             answer:"Error conect router"
@@ -105,34 +102,32 @@ ArquitectureController.createArquitecture= async(req, res) => {
                 }
             }else{
                 
-                await openstack.deleteRouter(arquitecture.detailRouter.id)
-                openstack.deleteNetwork(arquitecture.detailNetwork.id)
+                
+                answererror = await openstack.deleteNetwork(arquitecture.detailNetwork.id)
                 console.log('error creando router');
-                res.status(
+                res.json(
                     {
                         status:'403',
-                        answer:"Error create router"
+                        content:"Error create router"
                     }
                 );
             }
         }else{
             
-            openstack.deleteNetwork(arquitecture.detailNetwork.id)
+            let answererror = await openstack.deleteNetwork(arquitecture.detailNetwork.id)
             console.log('error creando subnet');
-            res.status(
+            // console.log(answererror)
+            res.json(
                 {
                     status:'403',
-                    answer:"Error create subnet"
+                    content:"Error create subnet"
                 }
             );
         }
     }else{
-        console.log('error creando red red');
+        console.log('error creando red');
         res.status(
-            {
-                status:'403',
-                answer:"Error create network"
-            }
+            network
         );
     }
     
@@ -144,15 +139,19 @@ ArquitectureController.showArquitecture= async(req, res) => {
     let delarray=[];
     let coreupdate=[];
     for await ( [i, vm] of arquitecture.vmCoreIMS.entries()){
-       
-       vmupdate= await openstack.consultServer(vm['infoServer'].id);
+        if (vm.infoServer) {
+            vmupdate= await openstack.consultServer(vm['infoServer'].id);
 
-        if (vmupdate == 'error') {
-            delarray.push(i);
-        }else{
-
-            vm['infoServer']=vmupdate.server;
+            if (vmupdate == 'error') {
+                delarray.push(i);
+            }else{
+    
+                vm['infoServer']=vmupdate;
+            }
         }
+       
+       
+       
        
     
     }
@@ -168,6 +167,7 @@ ArquitectureController.showArquitecture= async(req, res) => {
 ArquitectureController.updateArquitecture=async(req, res) => {
     const idArquitecture = req.params.id;
     const arquitecture = new Arquitecture(req.body);
+    console.log(req.body)
     await Arquitecture.findByIdAndUpdate(idArquitecture, {$set: arquitecture },{ new: true});
     res.json(
         {

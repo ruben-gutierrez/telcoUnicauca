@@ -39,7 +39,7 @@ export class AdminNewArquitectureComponent implements OnInit {
       form.reset();
     }
   }
-  createProyect(dataform:NgForm){
+  createArquitecture(dataform:NgForm){
      this._arquitecture.createArquitecture(dataform.value)
       .subscribe(res =>{
         console.log(res)

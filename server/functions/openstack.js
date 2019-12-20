@@ -14,7 +14,12 @@ async function updateArquitecture(data) {
     return 'ok'
 }
 async function createNetwork(nameNet) {
-    let network;
+    let answer={
+        'status': 400,
+        'content' :'Bad Request',
+        'error': null
+    } 
+    
     data={
         "network": {
             "name": nameNet, 
@@ -24,17 +29,32 @@ async function createNetwork(nameNet) {
     }
     await axios.post('http://'+config.ipOpenstack+':9696/v2.0/networks', data,config.headersOpenStack )
       .then(function (response) {
-        //   console.log(response.data)
-        network=response.data;
+        if (response.data.network) {
+            answer.status = 200
+           answer.content=response.data.network
+           
+        }else{
+            answer.status = 401
+            answer.content=null
+            answer.error=response.data
+        }
+        
       })
       .catch(error =>{
-          netwotk='error'
+        answer.status = 400
+        answer.content=response.data
+        answer.error=error
       });
-      return network;
+    return answer
+
     
 }
 async function createSubnet(idNet,ipNet,name) {
-    let subnet;
+    let answer={
+        'status': 400,
+        'content' :'Bad Request',
+        'error': null
+    } 
     data={
         "subnet": {
             "ip_version": '4', 
@@ -46,16 +66,32 @@ async function createSubnet(idNet,ipNet,name) {
     }
     await axios.post('http://'+config.ipOpenstack+':9696/v2.0/subnets', data,config.headersOpenStack )
       .then(function (response) {
-        subnet=response.data;
+        //   console.log(response.data)
+
+        if (response.data.subnet) {
+            answer.status = 200
+           answer.content=response.data.subnet
+           answer.error=null
+        }else{
+            answer.status = 401
+            answer.content=null
+            answer.error=response.data
+        }
       })
       .catch(error =>{
-          subnet="error";
+        answer.status = 400
+        answer.content=null
+        answer.error=error
       });
-      return subnet;
+      return answer;
     
 }
 async function createRouter(name) {
-    let router;
+    let answer={
+        'status': 400,
+        'content' :'Bad Request',
+        'error': null
+    } 
     data={
         "router": {
             "name": name, 
@@ -64,15 +100,30 @@ async function createRouter(name) {
     }
     await axios.post('http://'+config.ipOpenstack+':9696/v2.0/routers', data,config.headersOpenStack )
       .then(function (response) {
-        router=response.data;
+        if (response.data.router) {
+            answer.status = 200
+           answer.content=response.data.router
+           answer.error=null
+        }else{
+            answer.status = 401
+            answer.content=null
+            answer.error=response.data
+        }
       })
       .catch(error =>{
-        router='error';
+        answer.status = 400
+        answer.content=null
+        answer.error=error
       });
-      return router;
+      return answer;
 }
 async function conectPublicRouter( idrouter ) {
-    let conect;
+    let answer={
+        'status': 400,
+        'content' :'Bad Request',
+        'error': null
+    }
+    let conect
     data={
         "router": {
             "external_gateway_info": {
@@ -82,13 +133,22 @@ async function conectPublicRouter( idrouter ) {
     }
     await axios.put('http://'+config.ipOpenstack+':9696/v2.0/routers/'+ idrouter , data,config.headersOpenStack )
       .then(function (response) {
-       conect=response.data;
-       
+        if (response.data.router) {
+            answer.status = 200
+           answer.content=response.data.router
+           answer.error=null
+        }else{
+            answer.status = 401
+            answer.content=null
+            answer.error=response.data
+        }
       })
       .catch(error =>{
-          conect="error";
+        answer.status = 400
+        answer.content=null
+        answer.error=error
       });
-      return conect;
+      return answer;
 }
 async function conectPrivateRouter( idrouter,idSubnet ) {
     let conect;
@@ -98,6 +158,7 @@ async function conectPrivateRouter( idrouter,idSubnet ) {
     await axios.put('http://'+config.ipOpenstack+':9696/v2.0/routers/'+  idrouter  +'/add_router_interface' , data,config.headersOpenStack )
       .then(function (response) {
         conect=response.data;
+        
       })
       .catch(error =>{
          conect='error'
@@ -107,85 +168,67 @@ async function conectPrivateRouter( idrouter,idSubnet ) {
 
 async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
     let server;
-    let body;
-    
-       body = await fs.readFile('server/scripts/coreIMS/'+ name +'.sh', 'utf-8', (err, data) => {
-            if(err) {
-               return {
-                    "server": {
-                        "name": name, 
-                        "imageRef": idImage, 
-                        // "key_name": nameKey, 
-                        "flavorRef": idFlavor, 
-                        "max_count": 1, 
-                        "min_count": 1, 
-                        "networks": [{"uuid": idNet}]
-                       
-                    }
-                }
-               
-            } else {
-                return {
-                    "server": {
-                        "name": name, 
-                        "imageRef": idImage, 
-                        // "key_name": nameKey, 
-                        "flavorRef": idFlavor, 
-                        "max_count": 1, 
-                        "min_count": 1, 
-                        "networks": [{"uuid": idNet}],
-                        "personality":[{"path":"/", "contents": data}]
-                    }
-                
-            }
+    let answer={
+        'status': 400,
+        'content' :'Bad Request',
+        'error': null
+    }
+    let file
+    try {
+        file = fs.readFileSync('server/scripts/coreIMS/'+ name +'.sh', 'utf-8');
+      } catch (err) {
+        file='apt install sipp -y'
+    }
+    let body={
+        "server": {
+            "name": name, 
+            "imageRef": idImage, 
+            // "key_name": nameKey, 
+            "flavorRef": idFlavor, 
+            "max_count": 1, 
+            "min_count": 1, 
+            "networks": [{"uuid": idNet}]
+            // "personality":[{"path":"/", "contents": file}]
         }
-            
-    });
-    console.log(body)
-    // await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers', body,config.headersOpenStack )
-    //         .then(function (response) {
-    //             console.log(response)
-    //             server = response.data;
-    //         })
-    //         .catch(error =>{
-    //             console.log(error)
-    //             server= 'error'
-    //         });
-            return 'error';
+    }
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers', body,config.headersOpenStack )
+            .then(function (response) {
+                if (response.data.server) {
+                    answer.status = 200
+                   answer.content=response.data.server
+                   answer.error=null
+                }else{
+                    answer.status = 401
+                    answer.content=null
+                    answer.error=response.data
+                }
+            })
+            .catch(error =>{
+                answer.status = 400
+                answer.content=null
+                answer.error=error
+            });
+    return answer;
     
     
      
     
 }
+
 async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet ) {
     let core=[];
     for await (vm of vms){
-        
         server = await createServer(vm,idImage,nameKey,idFlavor,idNet);
-        console.log(server)
-        if(server == 'error'){
-            
-        }else {
-            
-            serverFull=await consultServer(server.server.id);
-                
+        if(server.status == 200){
+            serverFull=await consultServer(server.content.id);
             let serverSave={
-                name: vm,
-                infoServer: serverFull.server
-            }
+                        name: vm,   
+                        infoServer: serverFull
+                    }
             let serverdb = new Server(serverSave);
             await serverdb.save( );
-             core.push(serverdb);
+            core.push(serverdb);
         }
-        switch (vm) {
-            case 'sipp':
-                
-                break;
-        
-            default:
-                break;
-        }
-        
     }       
     return core;
 }
@@ -193,7 +236,7 @@ async function consultServer( idServer ) {
     let server;
     await axios.get('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+idServer, config.headersOpenStack )
       .then(function (response) {
-        server = response.data;
+        server = response.data.server
         
       })
       .catch(error =>{
@@ -204,19 +247,16 @@ async function consultServer( idServer ) {
 async function deleteServer( idServer ) {
     let server;
     let answer;
-    
     server = await consultServer(idServer); 
-    console.log(server['server'].id)
-    await axios.delete('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server['server'].id, config.headersOpenStack )
+    // console.log(server.id)
+    await axios.delete('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server.id , config.headersOpenStack )
       .then(function (response) {
-        
-
        answer = 'ok'
       })
       .catch(error =>{
           answer = 'error'
       });
-      console.log(answer)
+    //   console.log(answer)
     return answer;
 }
 async function instantServer( idServer , idIMS) {
@@ -229,10 +269,10 @@ async function instantServer( idServer , idIMS) {
         "createBackup": {
             "backup_type": "", 
             "rotation": 1, 
-            "name": server.server.name
+            "name": server.name
         }
     }
-    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server['server'].id+'/action', data,config.headersOpenStack )
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server.id+'/action', data,config.headersOpenStack )
       .then(function (response) {
         //   console.log(response)
         answer= 'ok'
@@ -246,8 +286,8 @@ async function instantServer( idServer , idIMS) {
     for await (image of images){
         if (image.image_type == 'backup') {
             
-            if (image.instance_uuid == server.server.id) {
-                console.log(image)
+            if (image.instance_uuid == server.id) {
+                // console.log(image)
                 idimageRebuild=image.id
             }
         }
@@ -261,7 +301,7 @@ async function rebuildServer( idServer, img ) {
     let answer;
     let idimageRebuild;
     server = await consultServer(idServer); 
-    console.log(img)
+    // console.log(img)
     data={
         "rebuild": {
             "imageRef": img
@@ -269,7 +309,7 @@ async function rebuildServer( idServer, img ) {
     }
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+idServer+'/action', data,config.headersOpenStack )
       .then(function (response) {
-          console.log(response)
+        //   console.log(response)
         answer = 'ok'
       })
       .catch(error =>{
@@ -288,7 +328,7 @@ async function consoleServer( idServer ) {
             "type": "novnc"
         }
     }
-    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server.server.id +'/action', data,config.headersOpenStack )
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+server.id +'/action', data,config.headersOpenStack )
       .then(function (response) {
         //   console.log(response.data)
         answer = response.data.console.url;
@@ -319,22 +359,22 @@ async function resizeServer( idServer,dataForm ) {
         }
     }
     
-    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server.server.id +'/action', data,config.headersOpenStack )
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server.id +'/action', data,config.headersOpenStack )
       .then(function (response) {
-        console.log(response)
+        // console.log(response)
         answer=response
       })
       .catch(error =>{
  
           answer='error'
       });
-      console.log(answer.status)
+    //   console.log(answer.status)
     if (answer.status == '202') {
         await sleep(10000)
         data={
             "confirmResize": null
         }
-        await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server.server.id +'/action', data,config.headersOpenStack )
+        await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server.id +'/action', data,config.headersOpenStack )
         .then(function (response) {
 
            answer2='ok'
@@ -374,7 +414,7 @@ async function onOffServer( idServer ) {
     let server;
     let answer;
     server = await consultServer(idServer);
-    if (server['server'].status == 'ACTIVE') {
+    if (server.status == 'ACTIVE') {
         data={
             "os-stop": null
         }
@@ -439,13 +479,15 @@ function sleep(ms){
 }
 
 async function deleteNetwork(idNetwork){
+    let answer
     await axios.delete('http://'+config.ipOpenstack+':9696/v2.0/networks/'+idNetwork, config.headersOpenStack )
     .then(function (response) {
-      return 'ok'
+        answer = 'ok'
     })
     .catch(error =>{
-        return "error"
+        answer= "error"
     });
+    return answer
 }
 async function deleteRouter(idrouter){
     await axios.delete('http://'+config.ipOpenstack+':9696/v2.0/routers/'+idrouter, config.headersOpenStack )

@@ -114,7 +114,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let vm of vmsCore" >
+                    <tr *ngFor="let vm of arquitecture.vmCoreIMS; let i = index" >
 
                         <th scope="row"> {{vm.name}}  </th>
                         <td>
@@ -124,7 +124,7 @@
                             <!-- <button type="button" class="btn btn-primary btn-sm mx-1  " data-toggle="button" aria-pressed="false" autocomplete="off">On</button> -->
                             <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id)]">Instantanea</button>
                             <button class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Regresar</button>
-                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture)]">Eliminar</button>
+                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, index)]">Eliminar</button>
                             <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id)]" >Redimencionar</button>
                             <div class="row" id="divRedimencion{{vm._id}}" style="display:none">
                                 <form (ngSubmit)='resizeServer(dataFormEdit, vm._id)'  #dataFormEdit="ngForm" class="m-1" novalidate>    
