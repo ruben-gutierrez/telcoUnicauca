@@ -17,7 +17,8 @@ import { async } from 'q';
 export class ArquitectureImsComponent implements OnInit {
 
   arquitecture: any;
- 
+ showcore:boolean=true;
+ core:any;
   vmsAditionals: any;
   idArquitecture:string;
   status:boolean=true;
@@ -51,8 +52,20 @@ export class ArquitectureImsComponent implements OnInit {
     this.vmsAditionals=this.arquitecture.vmAditionals;
     
     this.resourcesDisp=await this.resourceDisp(this.arquitecture);
-    console.log(this.resourcesDisp)
+    this.core=this.arquitecture.vmCoreIMS;
   }
+
+  showims(){
+    this.core=this.arquitecture.vmCoreIMS;
+  }
+  showaditional(){
+    this.core=this.arquitecture.vmAditionals;
+  }
+
+  async newServer(formNewServer){
+    console.log(formNewServer.value)
+  }
+
   async resourceDisp(arquitecture){
     let resourcesDisp={
       ram : 0,
@@ -61,15 +74,19 @@ export class ArquitectureImsComponent implements OnInit {
       vms:0,
       status: false
     }
-    for await ( let vm of arquitecture.vmCoreIMS){
-      await this._openstack.showFlavor(vm.infoServer.flavor.id)
-        .subscribe( data=>{
-          resourcesDisp.ram += data['flavor'].ram;
-          resourcesDisp.disk += data['flavor'].disk;
-          resourcesDisp.vcpus += data['flavor'].vcpus;
-        })
-
+    if (arquitecture.vmCoreIMS.length > 0) {
+      for await ( let vm of arquitecture.vmCoreIMS){
+        await this._openstack.showFlavor(vm.infoServer.flavor.id)
+          .toPromise()
+          .then( data=>{
+            resourcesDisp.ram += data['flavor'].ram;
+            resourcesDisp.disk +=  data['flavor'].disk;
+            resourcesDisp.vcpus += data['flavor'].vcpus;
+          })
+  
+      }
     }
+    
     // this.resourcesDisp.ram = this.resourcesDisp.ram  + 11; 
     
     

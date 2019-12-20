@@ -8,23 +8,21 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
-            <form>
+            <form (ngSubmit)="newServer(formNewServer)" #formNewServer="ngForm" novalidate>
+                <input type="hidden" name="idArquitecture" value="{{idArquitecture}">
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
                             <label for="name">Nombre</label>
-                            <input type="email" class="form-control" id="name" name="name" placeholder="" ngModel>
+                            <input type="email" class="form-control" id="name" name="name" placeholder=""required #name="ngModel" ngModel>
                           </div>
                           <div class="form-group">
                             <label for="description">Descripción</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="3" ngModel></textarea>
                           </div>
                     </div>
                     <div class="col">
-
-                        
-                      
                         <div class="form-group">
                             <label for="formControlRange">Procesadores</label>
                             <mat-slider
@@ -32,25 +30,25 @@
                                 [displayWith]="formatLabel"
                                 tickInterval="1000"
                                 min="1"
-                                max="9"></mat-slider>
+                                max="{{resourcesDisp.vcpus}}" name="cpu" required #cpu="ngModel"ngModel></mat-slider>
                           </div>
                           <div class="form-group">
-                            <label for="formControlRange">RAM</label>
+                            <label for="formControlRange">RAM [Gb ]</label><br>
                             <mat-slider
                                 thumbLabel
                                 [displayWith]="formatLabel"
                                 tickInterval="1000"
                                 min="1"
-                                max="100000"></mat-slider>
+                                max="{{resourcesDisp.ram/1024}}" name="ram" required #ram="ngModel" ngModel></mat-slider>
                           </div>
                           <div class="form-group">
-                            <label for="formControlRange">Almacenamiento</label>
+                            <label for="formControlRange">Almacenamiento [Gb]</label>
                             <mat-slider
                                 thumbLabel
                                 [displayWith]="formatLabel"
                                 tickInterval="1000"
                                 min="1"
-                                max="100000"></mat-slider>
+                                max="{{resourcesDisp.disk}}" name="disk" required #disk="ngModel" ngModel></mat-slider>
                           </div>
                         
                     </div>
@@ -62,7 +60,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Crear</button>
+                <button type="submit"  [disabled]="!formNewServer.valid && !resourcesDisp.status" class="btn btn-primary">Crear</button>
             </div>
         </form>
         </div>
@@ -90,12 +88,12 @@
         <div class="row my-2">
 
             <div class="col d-flex justify-content-end">
-                <button class="btn btn-success"> 
+                <button class="btn btn-success" (click)="showims()"> 
                     <i class="fas fa-network-wired">Núcleo IMS</i>
                </button> 
-            </div>
+            </div> 
             <div class="col d-flex justify-content-start">
-                <button class="btn btn-outline-secondary"> 
+                <button class="btn btn-outline-secondary" (click)="[showaditional()]"> 
                     <i class="fas fa-network-wired">VM Adicionales</i>
                </button> 
             </div>  
@@ -114,7 +112,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let vm of arquitecture.vmCoreIMS; let i = index" >
+                       
+                    
+
+
+                    <tr *ngFor="let vm of core; let i = index" >
 
                         <th scope="row"> {{vm.name}}  </th>
                         <td>
