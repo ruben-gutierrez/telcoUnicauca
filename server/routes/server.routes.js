@@ -8,5 +8,6 @@ router.get('/server/:id',ServerController.showServer);
 router.put('/server/:id',ServerController.updateServer);
 router.delete('/server/:id',ServerController.deleteServer);
 router.post('/server/:id',ServerController.actionsServer);
+router.post('/server/arquitecture/:id',ServerController.addServerArquitecture);
 
 module.exports = router;

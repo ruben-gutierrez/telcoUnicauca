@@ -18,7 +18,7 @@ OpenStackController.consoleVM= async(req, res) => {
     }
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+req.params.id+'/action', data,config.headersOpenStack )
       .then(function (response) {
-          console.log(response)
+        //   console.log(response)
         res.json(response.data);
       })
       .catch(error =>{
@@ -459,7 +459,7 @@ OpenStackController.updateFlavor= async(req, res) => {
 OpenStackController.getImages= async(req, res) => {
     await axios.get('http://'+config.ipOpenstack+'/image/v2/images', config.headersOpenStack )
       .then(function (response) {
-        res.json(response.data);
+        res.json(response.data.images);
       })
       .catch(error =>{
           res.json({'status': '401',

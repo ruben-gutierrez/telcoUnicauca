@@ -6,7 +6,7 @@ let fs = require('fs');
 
  
 async function updateArquitecture(data) {
-    console.log(data)
+    // console.log(data)
     const idArquitecture = data._id;
     const arquitecture = new Arquitecture(data);
     await Arquitecture.findByIdAndUpdate(idArquitecture, {$set: arquitecture },{ new: true})
@@ -348,9 +348,9 @@ async function resizeServer( idServer,dataForm ) {
     server = await consultServer(idServer);  
 
     //consult flavor
-    idFlavor= await consultFlavor(dataForm);
+    idFlavor= await consultFlavor(dataForm, true);
     if ( idFlavor == '-' ) {
-        idFlavor = await creteFlavor(dataForm.ram, dataForm.disk, dataForm.vcpus)
+        idFlavor = await createFlavor(dataForm.ram, dataForm.disk, dataForm.vcpus)
     }
     
     data={
@@ -387,17 +387,24 @@ async function resizeServer( idServer,dataForm ) {
     
     return answer2;
 }
-async function consultFlavor( dataform ) {
+async function consultFlavor( dataform, form, ram=0,disk=0,cpu=0 ) {
+    // console.log(form);
+    
     let idflavor='-';
     let flavors;
     await axios.get('http://'+config.ipOpenstack+'/compute/v2.1/flavors/detail', config.headersOpenStack )
       .then(function (response) {
           flavors = response.data.flavors;
-          
       })
       .catch(error =>{
           flavors='error';
     });
+    if (!form) {
+        dataform.ram=ram*1024
+        dataform.disk=disk
+        dataform.vcpus=cpu
+    }
+    // console.log(dataform)
     for await ( flavor of flavors){
         if (flavor.ram == dataform.ram) {
             if (flavor.disk == dataform.disk) {
@@ -409,6 +416,18 @@ async function consultFlavor( dataform ) {
     }
     
     return idflavor;
+}
+async function infoFlavor( idFlavor ) {
+    let flavor;
+    await axios.get('http://'+config.ipOpenstack+'/compute/v2.1/flavors/'+idFlavor, config.headersOpenStack )
+      .then(function (response) {
+          flavor = response.data.flavor;
+      })
+      .catch(error =>{
+          flavor='error';
+    });
+        
+    return flavor;
 }
 async function onOffServer( idServer ) {
     let server;
@@ -447,7 +466,8 @@ async function getImagesOpenstack( ) {
     return images.images;
 }
 
-async function creteFlavor(ram, disk, vcpus){
+async function createFlavor(ram, disk, vcpus){
+    ram *= 1024
     let idflavor;
     data={
         "flavor": {
@@ -518,3 +538,6 @@ exports.resizeServer=resizeServer;
 exports.updateArquitecture=updateArquitecture;
 exports.deleteNetwork=deleteNetwork;
 exports.deleteRouter=deleteRouter;
+exports.consultFlavor=consultFlavor;
+exports.createFlavor=createFlavor;
+exports.infoFlavor=infoFlavor;

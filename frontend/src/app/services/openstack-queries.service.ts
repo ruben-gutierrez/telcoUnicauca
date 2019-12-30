@@ -10,6 +10,9 @@ export class OpenstackQueriesService {
   getNetworks(){
     return this.http.get(this.URL_API_OPENSTACK+'networks');
   }
+  getImages(){
+    return this.http.get(this.URL_API_OPENSTACK+'images');
+  }
 
   showFlavor(id:string){
     return this.http.get(this.URL_API_OPENSTACK+'flavor/'+id);

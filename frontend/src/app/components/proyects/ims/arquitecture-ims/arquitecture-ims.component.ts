@@ -15,7 +15,7 @@ import { async } from 'q';
   styleUrls: ['./arquitecture-ims.component.css']
 })
 export class ArquitectureImsComponent implements OnInit {
-
+images:object;
   arquitecture: any;
  showcore:boolean=true;
  core:any;
@@ -47,12 +47,22 @@ export class ArquitectureImsComponent implements OnInit {
 
   async ngOnInit() {
     await this.getArquitecture(this.idArquitecture);
-    console.log(this.arquitecture)
+    // console.log(this.arquitecture)
     
     this.vmsAditionals=this.arquitecture.vmAditionals;
     
     this.resourcesDisp=await this.resourceDisp(this.arquitecture);
     this.core=this.arquitecture.vmCoreIMS;
+    await this.consultImages();
+    
+    
+  }
+
+  async consultImages(){
+    this._openstack.getImages()
+      .subscribe( response =>{
+        this.images=response;
+      })
   }
 
   showims(){
@@ -63,7 +73,18 @@ export class ArquitectureImsComponent implements OnInit {
   }
 
   async newServer(formNewServer){
-    console.log(formNewServer.value)
+    this._server.addServerArquitecture(formNewServer.value)
+      .subscribe( response =>{
+        if (response['status'] == 200) {
+          this.getArquitecture(this.idArquitecture);
+          this.toastr.success('Máquina virtual creada')
+          // this.arquitecture.vmAditionals.push(response['content'])
+          this.core=this.arquitecture.vmAditionals;
+        }else{
+          this.toastr.success('Error al crear la máquina virtual')
+        }
+      })
+    
   }
 
   async resourceDisp(arquitecture){
@@ -104,6 +125,7 @@ export class ArquitectureImsComponent implements OnInit {
          .toPromise( )
          .then(data =>{
           this.arquitecture = data;
+          console.log(data)
          })
   }
   powerServer(id){
