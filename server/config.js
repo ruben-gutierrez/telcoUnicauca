@@ -36,5 +36,8 @@ module.exports={
             'dns',
             'sipp'
         ]
-    }
+    },
+    comunityCacti:'public',
+    templateHostCacti:4,
+    regexNumber:/(\d+)/g
 };

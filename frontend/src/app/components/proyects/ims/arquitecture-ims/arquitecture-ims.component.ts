@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ArquitectureService } from 'src/app/services/arquitectures.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -14,6 +14,7 @@ import { async } from 'q';
   templateUrl: './arquitecture-ims.component.html',
   styleUrls: ['./arquitecture-ims.component.css']
 })
+
 export class ArquitectureImsComponent implements OnInit {
 images:object;
   arquitecture: any;
@@ -30,7 +31,7 @@ images:object;
     status: false
   }
 
-
+  
   constructor( private router: Router, 
               private _arquitecture:ArquitectureService, 
               private _user:UsersService,
@@ -52,7 +53,9 @@ images:object;
     this.vmsAditionals=this.arquitecture.vmAditionals;
     
     this.resourcesDisp=await this.resourceDisp(this.arquitecture);
+    // console.log(this.resourcesDisp)
     this.core=this.arquitecture.vmCoreIMS;
+    // console.log(this.resourcesDisp)
     await this.consultImages();
     
     
@@ -73,17 +76,24 @@ images:object;
   }
 
   async newServer(formNewServer){
-    this._server.addServerArquitecture(formNewServer.value)
+   
+    document.getElementById('btnclose').click();
+    await this._server.addServerArquitecture(formNewServer.value) 
       .subscribe( response =>{
+        // console.log(response)
         if (response['status'] == 200) {
           this.getArquitecture(this.idArquitecture);
           this.toastr.success('Máquina virtual creada')
-          // this.arquitecture.vmAditionals.push(response['content'])
+          this.arquitecture.vmAditionals.push(response['content'])
           this.core=this.arquitecture.vmAditionals;
+          
         }else{
           this.toastr.success('Error al crear la máquina virtual')
+          
         }
+       
       })
+      this.resourcesDisp=await this.resourceDisp(this.arquitecture);
     
   }
 
@@ -95,18 +105,21 @@ images:object;
       vms:0,
       status: false
     }
-    if (arquitecture.vmCoreIMS.length > 0) {
-      for await ( let vm of arquitecture.vmCoreIMS){
+    if (arquitecture.vmAditionals.length > 0) {
+      for await ( let vm of arquitecture.vmAditionals){
         await this._openstack.showFlavor(vm.infoServer.flavor.id)
           .toPromise()
           .then( data=>{
             resourcesDisp.ram += data['flavor'].ram;
             resourcesDisp.disk +=  data['flavor'].disk;
             resourcesDisp.vcpus += data['flavor'].vcpus;
+            
           })
   
       }
     }
+    // console.log("recuross usados", resourcesDisp)
+    // console.log("disco", arquitecture.maxHDD)
     
     // this.resourcesDisp.ram = this.resourcesDisp.ram  + 11; 
     
@@ -124,8 +137,10 @@ images:object;
    await this._arquitecture.getArquitecture(id)
          .toPromise( )
          .then(data =>{
-          this.arquitecture = data;
-          console.log(data)
+         if(data['status']==200){
+          this.arquitecture = data['content'];
+         }
+          
          })
   }
   powerServer(id){
@@ -170,7 +185,7 @@ images:object;
         
         this.toastr.success('Accion exitosa');
       }, error=>{
-        console.log(error)
+        // console.log(error)
         this.toastr.error('Error al reestablecer la máquina');
       })
 

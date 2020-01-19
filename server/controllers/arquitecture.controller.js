@@ -1,7 +1,9 @@
 const Arquitecture = require('../models/arquitecture');
+const Server = require('../models/server');
 const config = require('../config');
 const axios = require("axios");
 const openstack = require('../functions/openstack');
+const serverFunctions = require('../functions/server');
 
 const ArquitectureController={};
 
@@ -134,46 +136,78 @@ ArquitectureController.createArquitecture= async(req, res) => {
     
 };
 ArquitectureController.showArquitecture= async(req, res) => {
-    const arquitecture = await Arquitecture.findById(req.params.id);
-    let vmupdate;
-    let delarray=[];
-    let coreupdate=[];
-    for await ( [i, vm] of arquitecture.vmCoreIMS.entries()){
-        if (vm.infoServer) {
-            vmupdate= await openstack.consultServer(vm['infoServer'].id);
-
-            if (vmupdate == 'error') {
-                delarray.push(i);
-            }else{
-    
-                vm['infoServer']=vmupdate;
+    try {
+        const arquitecture = await Arquitecture.findById(req.params.id);
+        if(!arquitecture){
+            res.json({status:404,
+                content:arquitecture})
+        }else{
+            
+            let vmupdate;
+            let delarray=[];
+            let coreupdate=[];
+            for await ( [i, vm] of arquitecture.vmCoreIMS.entries()){
+                if (vm.infoServer) {
+                    vmupdate= await openstack.consultServer(vm['infoServer'].id);
+        
+                    if (vmupdate == 'error') {
+                        delarray.push(i);
+                    }else{
+                        vm['infoServer']=vmupdate;
+                        let server = await Server.findById(vm._id)
+                        
+                        server.infoServer=vmupdate
+                        await server.save();
+        
+                    }
+                }else{
+                    delarray.push(i);
+                    await Server.findByIdAndDelete(vm._id)
+                }
             }
-        }
-    }
-    for (var i = delarray.length - 1; i>=0 ;i--){
-        arquitecture.vmCoreIMS.splice(i,1);
-    }
-    delarray=[];
-    for await ( [i, vm2] of arquitecture.vmAditionals.entries()){
-        if (vm.infoServer) {
-            vmupdate2= await openstack.consultServer(vm['infoServer'].id);
-
-            if (vmupdate == 'error') {
-                delarray.push(i);
-            }else{
-                vm2['infoServer']=vmupdate;
+            for (var i = delarray.length - 1; i>=0 ;i--){
+                arquitecture.vmCoreIMS.splice(i,1);
             }
+            delarray=[];
+            // console.log(arquitecture.vmAditionals)   
+            for await ( [i, vm2] of arquitecture.vmAditionals.entries()){
+                // console.log("maquina",vm2)
+                if (vm2.infoServer) {
+                    vmupdate2= await openstack.consultServer(vm2['infoServer'].id);
+                     
+                    if (vmupdate2 == 'error') {
+                        delarray.push(i);
+                    }else{
+                        vm2['infoServer']=vmupdate2;
+                        let server2 = await Server.findById(vm2._id)
+                        
+                        server2.infoServer=vmupdate2
+                        await server2.save();
+                    }
+                }else{
+                    delarray.push(i);
+                    await Server.findByIdAndDelete(vm2._id)
+                }
+            }
+        
+            for (var i = delarray.length - 1; i>=0 ;i--){
+                arquitecture.vmAditionals.splice(i,1);
+            }
+        
+            
+            let update=await openstack.updateArquitecture(arquitecture);
+            
+            res.json({status:200,
+                content:arquitecture})
+
         }
+    } catch (error) {
+        res.json({status:404,
+            content:error})
     }
 
-    for (var i = delarray.length - 1; i>=0 ;i--){
-        arquitecture.vmAditionals.splice(i,1);
-    }
 
-    
-    let update=await openstack.updateArquitecture(arquitecture);
-    
-    res.json(arquitecture);
+   
 };
 ArquitectureController.updateArquitecture=async(req, res) => {
     const idArquitecture = req.params.id;

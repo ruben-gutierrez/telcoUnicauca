@@ -1,6 +1,8 @@
 const config = require('../config');
 const axios = require("axios");
 const Server = require('../models/server');
+const openstack = require('../functions/openstack')
+const serverFunctions = require('../functions/server')
 const Arquitecture = require('../models/arquitecture');
 let fs = require('fs');
 
@@ -208,11 +210,34 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
                 answer.content=null
                 answer.error=error
             });
+    await sleep(10000)
+    let portDevice;
+    await axios.get('http://'+config.ipOpenstack+':9696/v2.0/ports?device_id='+answer.content.id, config.headersOpenStack )
+    .then(function (response) {
+     portDevice= response.data.ports[0].id
+    //  console.log(response)
+    })
+    .catch(error =>{
+       console.log(error)
+    });
+    let body2={
+        "floatingip": {
+            "floating_network_id": config.idNetPublic,
+            "port_id": portDevice
+        }
+    }
+    await axios.post('http://'+config.ipOpenstack+':9696/v2.0/floatingips', body2, config.headersOpenStack )
+    .then( data =>{
+        // console.log(data)
+    })
+    .catch(error =>{
+    // console.log('error')
+    })
+    await sleep(2000)
+    answer.content= await openstack.consultServer(answer.content.id);
+    
+    
     return answer;
-    
-    
-     
-    
 }
 
 async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet ) {
@@ -221,9 +246,11 @@ async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet ) {
         server = await createServer(vm,idImage,nameKey,idFlavor,idNet);
         if(server.status == 200){
             serverFull=await consultServer(server.content.id);
+            idcacti=await serverFunctions.createServerCacti(serverFull.addresses[Object.keys(serverFull.addresses)[0]][1].addr)
             let serverSave={
                         name: vm,   
-                        infoServer: serverFull
+                        infoServer: serverFull,
+                        idCacti:idcacti
                     }
             let serverdb = new Server(serverSave);
             await serverdb.save( );

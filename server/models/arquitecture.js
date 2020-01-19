@@ -11,11 +11,11 @@ const ArquitectureSchema = new Schema ({
     maxCore: { type: Number, required:true},
     maxVM: { type: Number, required:true},
     maxHDD: { type: Number, required:true},
+    status: { type: String, required:true},
     vmCoreIMS: { type: Array},
     vmAditionals: { type: Array},
     tests: { type: Object},
     graphs: { type: Object},
-    status: { type: String, required:true},
     detailNetwork: { type: Object},
     detailSubnetwork: { type: Object},
     detailRouter: { type: Object}
