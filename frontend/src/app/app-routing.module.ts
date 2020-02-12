@@ -30,6 +30,9 @@ import { AdminNewProyectComponent } from './components/console/admin-proyects/ad
 import { AdminProyectComponent } from './components/console/admin-proyects/admin-proyect/admin-proyect.component';
 import { AdminNewArquitectureComponent } from './components/console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component';
 import { EditArquitectureComponent } from './components/console/admin-proyects/admin-proyect/edit-arquitecture/edit-arquitecture.component';
+import { GraphComponent } from './components/proyects/ims/graph/graph.component';
+import { NewGraphComponent } from './components/proyects/ims/new-graph/new-graph.component';
+import { NewTestComponent } from './components/proyects/ims/new-test/new-test.component';
 
 
 
@@ -61,8 +64,12 @@ const routes: Routes = [
       {path: 'ims/tests', component: TestsComponent },
         {path: 'ims/tests/:id', component: TestsComponent },
         {path: 'ims/test/:id', component: TestComponent },
+        {path: 'ims/testNew', component: NewTestComponent }, 
       {path: 'ims/graphics', component: GraphicsComponent },
-        {path: 'ims/graphics/:id', component: GraphicsComponent },
+        {path: 'ims/graphics/:id/server', component: GraphicsComponent },
+        {path: 'ims/graphics/:id/arquitecture', component: GraphicsComponent },
+        {path: 'ims/graph/:id', component: GraphComponent },
+        
       
   
   

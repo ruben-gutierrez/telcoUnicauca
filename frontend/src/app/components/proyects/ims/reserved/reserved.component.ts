@@ -28,22 +28,16 @@ export class ReservedComponent implements OnInit {
   }
   async dropArq (id) {
     // console.log(id);
-    let arquitecture;
-     await this._arquitecture.getArquitecture(id)
-      .toPromise()
-      .then(data => {
-        arquitecture=data;
-      })
-      .catch(error=>{
-        arquitecture = error;
-      });
-        arquitecture['status'] = 'public';
-        await this._arquitecture.updateArquitecture(arquitecture)
+    
+       
+       
+        await this._arquitecture.dropArquitecture(id)
         .subscribe( data=>{
+          console.log(data)
           this.ngOnInit();
           this.toastr.success("Arquitectura liberada");
         }, error =>{
-          this.toastr.error("Error al reservar Arquitectura");
+          this.toastr.error("Error al liberar Arquitectura");
         });
   }
   

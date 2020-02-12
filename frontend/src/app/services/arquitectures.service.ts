@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Arquitecture } from '../models/arquitecture';
 import { UsersService } from "./users.service";
 
@@ -27,7 +27,7 @@ export class ArquitectureService {
           .then(data =>{
             this.arquitecturesOfUser=arqs=this.filterArqByUser(data,idUser);
           })
-          // console.log(arqs)  
+         //console.log(arqs)  
       return arqs
 
   }
@@ -39,6 +39,10 @@ export class ArquitectureService {
 
   updateArquitecture(arquitecture:Arquitecture){
     return this.http.put(this.URL_API_ARQUTIECTURE + `/${arquitecture._id}`,arquitecture);
+  }
+
+  dropArquitecture(id){
+    return this.http.put(`http://localhost:3000/ims/arquitectureDrop/${id}`,null);
   }
 
 

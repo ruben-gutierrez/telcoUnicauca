@@ -6,6 +6,7 @@ import { ServersService } from 'src/app/services/servers.service';
 import { OpenstackQueriesService } from 'src/app/services/openstack-queries.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { async } from 'q';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -16,6 +17,7 @@ import { async } from 'q';
 })
 
 export class ArquitectureImsComponent implements OnInit {
+  loading=false;
 images:object;
   arquitecture: any;
  showcore:boolean=true;
@@ -38,7 +40,8 @@ images:object;
               private _server:ServersService,
               private _openstack:OpenstackQueriesService,
               private activatedRouter:ActivatedRoute,
-              private toastr:ToastrService ) 
+              private toastr:ToastrService,
+              private  modalService:NgbModal ) 
     {
       this.activatedRouter.params.subscribe( params =>{
        this.idArquitecture = params.id;
@@ -57,8 +60,6 @@ images:object;
     this.core=this.arquitecture.vmCoreIMS;
     // console.log(this.resourcesDisp)
     await this.consultImages();
-    
-    
   }
 
   async consultImages(){
@@ -69,14 +70,16 @@ images:object;
   }
 
   showims(){
+    this.showcore=true
     this.core=this.arquitecture.vmCoreIMS;
   }
   showaditional(){
+    this.showcore=false
     this.core=this.arquitecture.vmAditionals;
   }
 
   async newServer(formNewServer){
-   
+    // this.modalService.open(content, { size: 'sm' })
     document.getElementById('btnclose').click();
     await this._server.addServerArquitecture(formNewServer.value) 
       .subscribe( response =>{
@@ -137,56 +140,81 @@ images:object;
    await this._arquitecture.getArquitecture(id)
          .toPromise( )
          .then(data =>{
+           console.log(data)
          if(data['status']==200){
           this.arquitecture = data['content'];
+         }else{
+          this.toastr.error('La base de datos esta temporalmente fuera de servicio')
+           this.arquitecture=[]
          }
           
          })
   }
   powerServer(id){
+    this.loading=true
     this._server.actionsServer(id,'on/off')
       .subscribe( data =>{
+        this.loading=false;
         this.toastr.success('Accion exitosa')
       }, error=>{
+        this.loading=false;
         this.toastr.error('Error al apagar la máquina')
       })
   }
   instantServer(id){
+    this.loading=true;
     this._server.actionsServer(id,'instant')
       .subscribe( data =>{
         this.toastr.success('Accion exitosa');
+        this.loading=false;
       }, error=>{
         this.toastr.error('Error al tomar instantanea la máquina');
+        this.loading=false;
       })
   }
   async deleteServer(id,idArquitecture,index){
-    // console.log(id)
+    this.loading=true
     this._server.actionsServer(id,'delete',idArquitecture)
       .subscribe( data =>{
         this.toastr.success('VM '+id+' Eliminada');
-        this.arquitecture.vmCoreIMS.splice( index, 1 ); 
-        // this.getArquitecture(idArquitecture)
+        this.loading=false
+        if (this.showcore) {
+          this.arquitecture.vmCoreIMS.splice( index, 1 ); 
+          
+        }else{
+          
+          this.arquitecture.vmAditionals.splice( index, 1 ); 
+          
+        }
+        
       }, error=>{
         this.toastr.error('Error al eliminar la máquina');
+        this.loading=false
       })
   }
   returnServer(id){
+    this.loading=true;
     this._server.actionsServer(id,'rebuild')
       .subscribe( data =>{
         this.toastr.success('Accion exitosa');
+        this.loading=false;
       }, error=>{
         this.toastr.error('Error al reestablecer la máquina');
+        this.loading=false;
       })
   }
   resizeServer(form, id){
+    this.loading=true;
     let dataForm = form.value;
     this._server.actionsServer(id,'resize', '',dataForm)
       .subscribe( data =>{
-        
-        this.toastr.success('Accion exitosa');
+        console.log(data)
+        this.toastr.success('Máquina editada exitosamente');
+        this.loading=false;
       }, error=>{
         // console.log(error)
-        this.toastr.error('Error al reestablecer la máquina');
+        this.toastr.error('Error al editar la máquina');
+        this.loading=false;
       })
 
 
@@ -194,16 +222,20 @@ images:object;
      document.getElementById('btnRedimencion'+id).style.display = "";
   }
   consoleServer(id){
+    this.loading=true;
     this._server.actionsServer(id,'console')
       .subscribe( data =>{
         this.toastr.success('Consola valida por 1 Hora');
+        this.loading=false;
         window.open(data['consoleLink'],'_blank');  
         
       }, error=>{
         this.toastr.error('Error al lanzar la consola');
+        this.loading=false;
       })
   }
-  seeFormEditVm(id){
+  seeFormEditVm(id,idArquitecture){
+    this.resourceDisp(idArquitecture)
     document.getElementById('btnRedimencion'+id).style.display="none";
     document.getElementById('divRedimencion'+id).style.display = "";
   }

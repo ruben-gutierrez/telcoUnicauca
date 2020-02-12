@@ -1,4 +1,5 @@
 
+<app-loading [state]="loading"></app-loading>
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -35,7 +36,7 @@
                                 thumbLabel
                                 [displayWith]="formatLabel"
                                 tickInterval="1000"
-                                min="1"
+                                min="0"
                                 max="{{resourcesDisp.vcpus}}" name="cpu" required #cpu="ngModel" ngModel></mat-slider>
                           </div>
                           <div class="form-group">
@@ -44,7 +45,7 @@
                                 thumbLabel
                                 [displayWith]="formatLabel"
                                 tickInterval="1000"
-                                min="1"
+                                min="0"
                                 max="{{resourcesDisp.ram/1024}}" name="ram" required #ram="ngModel" ngModel></mat-slider>
                           </div>
                           <div class="form-group">
@@ -53,7 +54,7 @@
                                 thumbLabel
                                 [displayWith]="formatLabel"
                                 tickInterval="1000"
-                                min="1"
+                                min="0"
                                 max="{{resourcesDisp.disk}}" name="disk" required #disk="ngModel" ngModel></mat-slider>
                           </div>
                         
@@ -68,6 +69,7 @@
         </div>
     </div>
 </div>
+
 <div class="container my-5">
 
         <div class="row">
@@ -80,13 +82,16 @@
                         <div class="col">
                             <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
                             <!-- <a [routerLink]="['/ims/available']" class="btn btn-outline-success mx-1"> <i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a> -->
-                            <a [routerLink]="['/ims/tests/'+arquitecture._id]" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
-                            <a [routerLink]="['/ims/graphics'+arquitecture._id]" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                            <a [routerLink]="['/ims/tests/'+idArquitecture]" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
+                            <a [routerLink]="['/ims/graphics/'+idArquitecture]" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                            <a  class="btn btn-outline-primary mx-1"  data-toggle="modal" data-target="#modelId"><i class="fa fa-plus fa-2x"></i> <br> Crear Máquina</a>
+                            
                         </div>
                 </div>
             </div>
         </div>
     <div>
+        
         <div class="row my-2">
 
             <div class="col d-flex justify-content-end">
@@ -99,45 +104,72 @@
                     <i class="fas fa-network-wired">VM Adicionales</i>
                </button> 
             </div>  
-            <div class="col">
-                <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#modelId">
-                    <i class="fa fa-desktop" aria-hidden="true">Nuevo</i> 
-               </button> 
-            </div>
         </div>
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                    <th scope="col">VM      </th>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Máquina Virtual</th>
                     <th scope="col">Acciones</th>
                     <th scope="col">Consola</th>
-                    </tr>
-                </thead>
-                <tbody>
-                       
-                    
-
-
+                </tr>
+            </thead>
+            
+                <tbody *ngIf="arquitecture; else await2">
                     <tr *ngFor="let vm of core; let i = index" >
 
-                        <th scope="row"> {{vm.name}}  </th>
+                        <th scope="row"> {{vm.name}} </th>
                         <td>
                             
                             <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
                             <!-- <button class="btn btn-primary" (click)="[powerServer(vm.id)]">Encender</button> -->
                             <!-- <button type="button" class="btn btn-primary btn-sm mx-1  " data-toggle="button" aria-pressed="false" autocomplete="off">On</button> -->
                             <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id)]">Instantanea</button>
-                            <button class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Regresar</button>
-                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, index)]">Eliminar</button>
-                            <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id)]" >Redimencionar</button>
+                            
+                            <button *ngIf="vm.idImageRebuild" class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Regresar</button>
+                            <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, i)]">Eliminar</button>
+                            <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id, idArquitecture)]" >Redimencionar</button>
                             <div class="row" id="divRedimencion{{vm._id}}" style="display:none">
-                                <form (ngSubmit)='resizeServer(dataFormEdit, vm._id)'  #dataFormEdit="ngForm" class="m-1" novalidate>    
+                                <form (ngSubmit)='resizeServer(dataFormEdit, vm._id)'  #dataFormEdit="ngForm" class="m-1" novalidate> 
                                     <input class="mx-1" type="hidden" name="server" #server="ngModel" [(ngModel)]="vm._id" ngModel placeholder="CPU">
-                                    <input class="mx-1" type="number" name="vcpus" #vcpus="ngModel" ngModel placeholder="CPU">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="formControlRange">Procesadores</label>
+                                            <mat-slider
+                                                thumbLabel
+                                                [displayWith]="formatLabel"
+                                                tickInterval="1000"
+                                                min="0"
+                                                max="{{resourcesDisp.vcpus}}" name="vcpus" required #vcpus="ngModel" ngModel></mat-slider>
+                                            </div>
+                                            <div class="col">
+
+                                                <label for="formControlRange">RAM [Gb ]</label><br>
+                                                <mat-slider
+                                                    thumbLabel
+                                                    [displayWith]="formatLabel"
+                                                    tickInterval="1000"
+                                                    min="0"
+                                                    max="{{resourcesDisp.ram/1024}}" name="ram" required #ram="ngModel" ngModel></mat-slider>
+                                            </div>
+                                            <div class="col">
+                                                <label for="formControlRange">Almacenamiento [Gb]</label>
+                                                <mat-slider
+                                                    thumbLabel
+                                                    [displayWith]="formatLabel"
+                                                    tickInterval="1000"
+                                                    min="0"
+                                                    max="{{resourcesDisp.disk}}" name="disk" required #disk="ngModel" ngModel></mat-slider>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                    
+                                    <!--<input class="mx-1" type="number" name="vcpus" #vcpus="ngModel" ngModel placeholder="CPU">
                                     <input class="mx-1" type="number" name="ram" #ram="ngModel" ngModel placeholder="RAM">
-                                    <input class="mx-1" type="number" name="disk" #disk="ngModel" ngModel placeholder="HDD">
+                                    <input class="mx-1" type="number" name="disk" #disk="ngModel" ngModel placeholder="HDD"> -->
                                     <button class="btn btn-primary btn-sm mx-1" type="submit">Editar</button>
-                                    <button class="btn btn-danger btn-sm mx-1" (click)="hideFormEditVm(vm._id)">Cancel</button>
+                                    <button class="btn btn-danger btn-sm mx-1" (click)="hideFormEditVm(vm._id,vm.idArquitecture)">Cancel</button>
                                 </form> 
                             </div>
                         </td>
@@ -146,6 +178,12 @@
                         </td>
                     </tr>
                 </tbody>
+            
+            <ng-template #await2>
+                <div class="spinner-border m-5" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </ng-template>
                 </table>
     </div>
 </div>

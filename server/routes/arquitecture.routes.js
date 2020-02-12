@@ -6,6 +6,7 @@ router.get('/arquitectures',arquitectureController.getArquitectures);
 router.post('/arquitecture',arquitectureController.createArquitecture);
 router.get('/arquitecture/:id',arquitectureController.showArquitecture);
 router.put('/arquitecture/:id',arquitectureController.updateArquitecture);
+router.put('/arquitectureDrop/:id',arquitectureController.dropArquitecture);
 router.delete('/arquitecture/:id',arquitectureController.deleteArquitecture);
 
 

@@ -32,7 +32,7 @@ export class TestService {
       return tests
   }
 
-  createTest(test:Test){
+  createTest(test){
     return this.http.post(this.URL_API_TEST, test)
   }
 
@@ -43,6 +43,12 @@ export class TestService {
 
   deleteTest(_id: string){
     return this.http.delete(this.URL_API_TEST + `/${_id}`);
+  }
+  executeTest(_id: string,){
+    return this.http.get( "http://localhost:3000/ims/testExecute"+`/${_id}`);
+  }
+  stopTest(_id: string,){
+    return this.http.get( "http://localhost:3000/ims/testStop"+`/${_id}`);
   }
   
   getTest(id){

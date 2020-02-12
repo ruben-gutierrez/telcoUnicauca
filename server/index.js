@@ -3,7 +3,7 @@ const cron = require('node-cron');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
-
+const fileUpload = require('express-fileupload')
 
 const exec = require('child_process').exec;
 var config = require('./config');
@@ -18,7 +18,7 @@ app.set('port', process.env.PORT || 3000 );
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({origin: ['http://192.168.0.13:4200','http://localhost:4200']}))
-
+app.use(fileUpload())
 
 //Routes
 

@@ -7,42 +7,54 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <a [routerLink]="['/ims/reserved/'+idArquitecture]" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i><br>Reservadas</a>
-                        <a [routerLink]="['/ims/tests/']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
+                        <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
+                        <a [routerLink]="['/ims/reserved/'+idArquitecture]" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i><br>Arquitecturas</a>
+                        <!-- <a [routerLink]="['/ims/tests/']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a> -->
                         <a [routerLink]="['/ims/graphics/'+idArquitecture]" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                        <a [routerLink]="['/ims/testNew']" class="btn btn-outline-info mx-1"><i class="fa fa-plus fa-2x"></i> <br> Crear Prueba</a>
                     </div>
                 </div>
             </div>
         </div>
-    <div>
-        <div class="row">
-            <div *ngIf="idArquitecture == ''">
-                <div  *ngFor="let arquitecture of arquitectures" class="card-columns my-2" >
-                    <div *ngFor="let test of arquitecture.tests" class="card" >
-                        <div class="card-body">
-                            <h5 class="card-title"> {{ test.name }} <br>
-                                <small> {{arquitecture.name}} </small></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"> {{ test.id }} </h6>
-                            <p class="card-text"> {{ test.description }} </p>
-                            <a [routerLink]="[ '/ims/test/' + test.id ]" class="card-link">Ver más...</a>
-                            <a href="#" class="card-link">Ejecutar</a>
+    <div class="section" *ngIf="arquitectures; else await">
+        <div class="container" *ngFor="let arq of arquitectures; let iArq = index">
+           
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white mb-3 mt-3">
+                    <i class="fa fa-network-wired" aria-hidden="true">  Arquitectura {{arq.name}}</i>
+                </nav>
+                <div class="card-columns">
+                    <div *ngFor="let test of arq.tests; let i = index" class="card  bg-ligth mb-3" style="max-width: 18rem;" >
+                        <div class="card-header">{{test.name | uppercase}} 
+                            
+                            <div class="spinner-grow text-success" role="status" *ngIf="test.status == 'running'" >
+                                <span class="sr-only">Loading...</span>
+                              </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="idArquitecture != ''">
-                <div *ngFor="let test of arquitectures.tests" class="card" >
-                    <div class="card-body">
-                        <h5 class="card-title"> {{ test.name }} <br></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"> {{ test.id }} </h6>
-                        <p class="card-text"> {{ test.description }} </p>
-                        <a [routerLink]="[ '/ims/test/' + test.id ]" class="card-link">Ver más...</a>
-                        <a href="#" class="card-link">Ejecutar</a>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</div>
+                        <div class="card-body">
+                          <h5 class="card-title">Tipo:{{test.type}}</h5>
+                          <p class="card-text">{{test.description}}</p>
+                          <a [routerLink]="['/ims/test/'+test._id]" class="btn btn-primary mr-2">Ver más...</a>
+                          <button *ngIf="test.status=='running'; else run" (click)="stopTest(test._id,i,iArq)" class="btn btn-outline-warning">Detener</button>
+                          <ng-template #run>
+                            <button class="btn btn-outline-success" (click)="executeTest(test._id,i,iArq)">Ejecutar</button>
+                            </ng-template>
+                            <button class="btn btn-outline-danger ml-2" (click)="deleteTest(test._id,i,iArq)"> <i class="fa fa-trash" aria-hidden="true"></i> </button>
+                        </div>
+                      </div>
 
+
+
+                   
+                </div>
+
+            
+           
+        </div>
+       
+    </div>
+    <ng-template #await>
+        <div class="spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+        </ng-template>
+</div>

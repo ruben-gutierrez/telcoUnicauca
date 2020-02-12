@@ -1,11 +1,15 @@
-
+const express = require('express');
 const Graph = require('../models/graph');
 const Server = require('../models/server');
+const router = express.Router()
 const config = require('../config');
 const axios = require("axios");
 const exec = require("child_process").exec
 const openstack = require('../functions/openstack');
 const serverFunctions = require('../functions/server');
+const graphFunctions = require('../functions/graph');
+
+var fs = require('fs')
 
 const GraphController={};
 
@@ -21,7 +25,17 @@ GraphController.createGraph= async(req, res) => {
     // let idGraphCreate="10";
     let nameGraphCreate=req.body.name;
     let server=await Server.findById(req.body.idServer)
-    // console.log(server)
+    if(server.idCacti==null){
+        serverFull=await openstack.consultServer(server.infoServer.id);
+        idcacti=await serverFunctions.createServerCacti(serverFull.addresses[Object.keys(serverFull.addresses)[0]][1].addr)
+        server.idCacti=idcacti
+        server.infoServer=serverFull
+        serverFunctions.updateServer(server)
+        ¨
+    }else{
+        console.log("Host cacti exist", server.idCacti)
+
+    }
     const regex = /(\d+)/g;
     // exec('php -q /var/www/html/cacti/cli/add_graph_template.php --list-hosts', (error, stdout, stderr) => {
     exec('php -q /var/www/html/cacti/cli/add_graphs.php --host-id='+server.idCacti+' --graph-title='+nameGraphCreate+' --graph-type=cg --graph-template-id='+idGraphCreate, async (error, stdout, stderr) => {
@@ -37,6 +51,13 @@ GraphController.createGraph= async(req, res) => {
                 infoCacti: {idHost:idFile, idGraph:idGraph },
             }
             const graph = new Graph(infoGraph);
+            // if (server.graphs) {
+                server.graphs.push(graph)
+            // }else{
+                // server.graphs=graph
+            // }
+            console.log(server)
+            await Server.findByIdAndUpdate(server._id,server,{ new: true})
             res.json(
                 {   
                     status:'200',
@@ -67,9 +88,61 @@ GraphController.createGraph= async(req, res) => {
 
 };
 GraphController.showGraph= async(req, res) => {
-    const graph = await Graph.findById(req.params.id);
-    res.json(graph);
+    try {
+        const graph = await Graph.findById(req.params.id);
+       
+        if(!graph){
+            res.json({status:404,
+                content:"graph don exist",
+                graphSearch:req.params.id
+            })
+        }else{
+            res.json({status:200,
+            content:graph})
+        }
+    }catch{
+        res.json({status:404,
+            content:"graph don exist",
+            graphSearch:req.params.id
+        })
+    }
 };
+GraphController.getDataGraph= async(req, res) => {
+    try {
+        const graph = await Graph.findById(req.params.id);
+       
+        if(!graph){
+            res.json({status:404,
+                content:"graph don exist"})
+        }else{
+            // fs.readFile('/var/www/html/cacti/rra/'+graph.infoCacti.idHost+'/'+graph.infoCacti.idGraph+'.rrd.json','utf8', function(err, data) {
+            fs.readFile('/var/www/html/cacti/rra/41/252.rrd.json','utf8', function(err, data) {
+                        if (err) {
+                        //   return console.log(err);
+                          return  res.json({
+                            status:404,
+                            message: "error leer archivo",
+                            content:err
+                        })
+                        }
+                        try {
+                            data=JSON.parse(data)
+                        } catch (error) {
+                            console.log(error)
+                        }
+                        return res.json({
+                            status:200,
+                            content: data
+                        })
+                        
+                      });
+        }
+    } catch (error) {
+        res.json({status:404,
+        content:error})
+    }
+};
+
 GraphController.updateGraph=async(req, res) => {
     const idGraph = req.params.id;
     const graph = new Graph(req.body);
@@ -81,7 +154,9 @@ GraphController.updateGraph=async(req, res) => {
         }
     );
 };
+
 GraphController.deleteGraph=async(req, res) => {
+    console.log("arquitectura a borrar",req.params.id)
     await Graph.findByIdAndDelete(req.params.id);
     res.json(
         {
@@ -89,6 +164,39 @@ GraphController.deleteGraph=async(req, res) => {
             answer:"Graph Delete"
         }
     );
+};
+GraphController.graphTypes=async(req, res) => {
+    try{
+        let graphsTypes=await graphFunctions.getGraphsTypes(req.params.id)
+       if (graphsTypes == 'error') {
+        res.json(
+            {
+                status:'404',
+                content: 'Resource dont find'
+            }
+        );
+       }else{
+        res.json(
+            {
+                status:'200',
+                content: graphsTypes
+            }
+        );
+       }
+            
+
+        
+    }catch{
+        res.json(
+            {
+                status:'404',
+                content: 'Resource dont find'
+            }
+        );
+        
+    }
+    // await Graph.findByIdAndDelete(req.params.id);
+    
 };
 
 async function getHostCacti(idServer){
@@ -144,3 +252,4 @@ async function getHostCacti(idServer){
 }
 
 module.exports = GraphController;
+

@@ -7,7 +7,8 @@
             <div class="col">
                 <div class="row">
                         <div class="col">
-                            <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i> <br> Reservadas</a>
+                            <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
+                            <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i> <br> Arquitecturas</a>
                             <a [routerLink]="['/ims/tests']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
                             <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
                         </div>
@@ -16,23 +17,41 @@
             </div>
         </div>  
     <div>
-        <div class="card-columns">
-            <div *ngFor="let arq of arquitectures" class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{ arq.name }}</h5>
-                <small>{{arq.domain}}</small>
-                <p class="card-text">Arquitectura IMS tipo {{arq.type}}, Capacidad extra para {{ arq.maxVM }} maquinas virtuales con {{ arq.maxRAM }} Gb de RAM, {{ arq.maxHDD }} Gb de HDD y {{arq.maxCore }} procesdores</p>
-                <p *ngIf="arq.status == 'public'" class="card-text">
-                    <button class="btn btn-outline-primary" (click)="reserve(arq._id)">Reservar</button>
-                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                </p>
-                <p *ngIf="arq.status != 'public'" class="card-text">
-                    <small class="text-muted"> Arquitectura Reservada </small>
-                </p>
-              </div>
+        <div *ngIf="arquitectures; else await" >
+            <div class="card-columns">
+                <div *ngFor="let arq of arquitectures" class="card" >
+                    <div *ngIf="arq.type==1; else other" style="width: 10rem;" >
+                        
+
+                            <img src="/assets/ims/server.png" class="card-img-top mx-auto" alt="...">
+                        
+                      </div>
+                      
+                      <ng-template #other>
+                        <img src="/assets/ims/Clearwater_Architecture.png" class="card-img-top"  alt="...">
+                      </ng-template>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ arq.name }}</h5>
+                    <small>{{arq.domain}}</small>
+                    <p class="card-text">Arquitectura IMS tipo {{arq.type}}, Capacidad extra para {{ arq.maxVM }} maquinas virtuales con {{ arq.maxRAM }} Gb de RAM, {{ arq.maxHDD }} Gb de HDD y {{arq.maxCore }} procesdores</p>
+                    <p *ngIf="arq.status == 'public'" class="card-text">
+                        <button class="btn btn-outline-primary" (click)="reserve(arq._id)">Reservar</button>
+                        <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                    </p>
+                    <p *ngIf="arq.status != 'public'" class="card-text">
+                        <small class="text-muted"> Arquitectura Reservada </small>
+                    </p>
+                  </div>
+                </div>
+                
             </div>
-            
-    </div>
+        </div>
+          
+        <ng-template #await>
+        <div class="spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+        </ng-template>
+        
     </div>
 </div>

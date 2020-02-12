@@ -6,7 +6,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ChartsModule } from "ng2-charts";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { MatSliderModule } from '@angular/material/slider';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,6 +60,15 @@ import { EditArquitectureComponent } from './components/console/admin-proyects/a
 //services
 import { OpenstackQueriesService } from './services/openstack-queries.service';
 import { ServersService } from './services/servers.service';
+import { GraphService } from './services/graphs.service';
+import { NotificationService } from './services/notifications.service';
+
+//guards
+
+
+
+import { GraphTemplateComponent } from './components/proyects/ims/graph/graph-template/graph-template.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -103,9 +112,12 @@ import { ServersService } from './services/servers.service';
     AdminNewProyectComponent,
     AdminProyectComponent,
     AdminNewArquitectureComponent,
-    EditArquitectureComponent
+    EditArquitectureComponent,
+    GraphTemplateComponent,
+    LoadingComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -122,7 +134,9 @@ import { ServersService } from './services/servers.service';
   ],
   providers: [
     OpenstackQueriesService,
-    ServersService
+    ServersService,
+    GraphService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

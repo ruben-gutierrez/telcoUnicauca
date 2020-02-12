@@ -21,7 +21,6 @@ async function createNetwork(nameNet) {
         'content' :'Bad Request',
         'error': null
     } 
-    
     data={
         "network": {
             "name": nameNet, 
@@ -44,7 +43,7 @@ async function createNetwork(nameNet) {
       })
       .catch(error =>{
         answer.status = 400
-        answer.content=response.data
+        answer.content="error"
         answer.error=error
       });
     return answer
@@ -185,11 +184,12 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
         "server": {
             "name": name, 
             "imageRef": idImage, 
-            // "key_name": nameKey, 
+            // "key_name": nameKey,
+            // "key_name": '1',
             "flavorRef": idFlavor, 
             "max_count": 1, 
             "min_count": 1, 
-            "networks": [{"uuid": idNet}]
+            "networks": [{"uuid": idNet}],
             // "personality":[{"path":"/", "contents": file}]
         }
     }
@@ -212,6 +212,7 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
             });
     await sleep(10000)
     let portDevice;
+    // console.log(answer)
     await axios.get('http://'+config.ipOpenstack+':9696/v2.0/ports?device_id='+answer.content.id, config.headersOpenStack )
     .then(function (response) {
      portDevice= response.data.ports[0].id
@@ -228,29 +229,35 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
     }
     await axios.post('http://'+config.ipOpenstack+':9696/v2.0/floatingips', body2, config.headersOpenStack )
     .then( data =>{
-        // console.log(data)
+       // console.log(data)
     })
     .catch(error =>{
     // console.log('error')
     })
-    await sleep(2000)
+    await sleep(10000)
     answer.content= await openstack.consultServer(answer.content.id);
-    
-    
+    console.log(answer.content)    
     return answer;
 }
 
-async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet ) {
+async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet,idArquitecture ) {
     let core=[];
     for await (vm of vms){
         server = await createServer(vm,idImage,nameKey,idFlavor,idNet);
         if(server.status == 200){
             serverFull=await consultServer(server.content.id);
-            idcacti=await serverFunctions.createServerCacti(serverFull.addresses[Object.keys(serverFull.addresses)[0]][1].addr)
+            if (serverFull.addresses.length > 0) {
+                
+                idcacti=await serverFunctions.createServerCacti(serverFull.addresses[Object.keys(serverFull.addresses)[0]][1].addr)
+            }else{
+                idcacti=null
+            }
             let serverSave={
                         name: vm,   
                         infoServer: serverFull,
-                        idCacti:idcacti
+                        idCacti:idcacti,
+                        idArquitecture:idArquitecture,
+                        type:'ims'
                     }
             let serverdb = new Server(serverSave);
             await serverdb.save( );
@@ -264,7 +271,6 @@ async function consultServer( idServer ) {
     await axios.get('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+idServer, config.headersOpenStack )
       .then(function (response) {
         server = response.data.server
-        
       })
       .catch(error =>{
           server = 'error'
@@ -373,10 +379,12 @@ async function resizeServer( idServer,dataForm ) {
     let answer2='error';
     let idFlavor;
     server = await consultServer(idServer);  
-
+   
     //consult flavor
     idFlavor= await consultFlavor(dataForm, true);
+    
     if ( idFlavor == '-' ) {
+        console.log('crear flavor')
         idFlavor = await createFlavor(dataForm.ram, dataForm.disk, dataForm.vcpus)
     }
     
@@ -385,14 +393,13 @@ async function resizeServer( idServer,dataForm ) {
             "flavorRef": idFlavor
         }
     }
-    
+    console.log('server', server.id,'data',data)
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server.id +'/action', data,config.headersOpenStack )
       .then(function (response) {
-        // console.log(response)
+
         answer=response
       })
       .catch(error =>{
- 
           answer='error'
       });
     //   console.log(answer.status)
@@ -422,16 +429,20 @@ async function consultFlavor( dataform, form, ram=0,disk=0,cpu=0 ) {
     await axios.get('http://'+config.ipOpenstack+'/compute/v2.1/flavors/detail', config.headersOpenStack )
       .then(function (response) {
           flavors = response.data.flavors;
+          
       })
       .catch(error =>{
           flavors='error';
     });
+    
     if (!form) {
-        dataform.ram=ram*1024
+        dataform.ram=+ram * 1024
         dataform.disk=disk
         dataform.vcpus=cpu
+        
+    }else{
+        dataform.ram=dataform.ram*1024
     }
-    // console.log(dataform)
     for await ( flavor of flavors){
         if (flavor.ram == dataform.ram) {
             if (flavor.disk == dataform.disk) {
@@ -494,7 +505,11 @@ async function getImagesOpenstack( ) {
 }
 
 async function createFlavor(ram, disk, vcpus){
-    ram *= 1024
+    if (ram<1024) {
+        ram *= 1024
+    }
+    
+    
     let idflavor;
     data={
         "flavor": {
@@ -511,10 +526,12 @@ async function createFlavor(ram, disk, vcpus){
     }
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/flavors', data,config.headersOpenStack )
       .then(function (response) {
+        //   console.log(response.data)
 
         idflavor=response.data.flavor.id;
       })
       .catch(error =>{
+        //   console.log(error)
         idflavor='error';
       });
       return idflavor;
@@ -546,6 +563,89 @@ async function deleteRouter(idrouter){
     });
 }
 
+async function showArquitecture(idArquitecture){
+    try {
+        const arquitecture = await Arquitecture.findById(idArquitecture);
+        if(!arquitecture){
+           return({status:404,
+                content:arquitecture})
+        }else{
+            let core=[]
+            let core2=[]
+            let vmupdate;
+            let delarray=[];
+            let coreupdate=[];
+             for await ( [i, vm] of arquitecture.vmCoreIMS.entries()){
+
+                let vmdb=await Server.findById(vm._id)
+
+                if (vmdb.infoServer) {
+                    vmupdate= await openstack.consultServer(vmdb['infoServer'].id);
+        
+                    if (vmupdate == 'error') {
+                       /*  delarray.push(i); */
+                        // await Server.findByIdAndDelete(vm._id)
+                        core.push(vmdb)
+                    }else{
+                        vmdb['infoServer']=vmupdate;
+                       
+                        await vmdb.save();
+                        core.push(vmdb)
+                    }
+                }else{
+                    core.push(vm)
+                   /*  delarray.push(i); */
+                    // await Server.findByIdAndDelete(vm._id)
+                }
+            }
+            /* for (var i = delarray.length - 1; i>=0 ;i--){
+                arquitecture.vmCoreIMS.splice(i,1);
+            } */
+            arquitecture.vmCoreIMS=core
+            delarray=[];
+            // console.log(arquitecture.vmAditionals)   
+            for await ( [i, vm2] of arquitecture.vmAditionals.entries()){
+                vm2db=await Server.findById(vm2._id)
+                // console.log("maquina",vm2)
+                if (vm2db.infoServer) {
+                    let vmupdate2= await openstack.consultServer(vm2db['infoServer'].id);
+                     
+                    if (vmupdate2 == 'error') {
+                        // Server.findByIdAndDelete(vm2._id)
+                        /* delarray.push(i); */
+                        core2.push(vm2db)
+                    }else{
+                        vm2db['infoServer']=vmupdate2;
+                        await vm2db.save();
+                        core2.push(vm2db)
+                    }
+                }else{
+                    core2.push(vm2)
+                    /* delarray.push(i); */
+                    // Server.findByIdAndDelete(vm2._id)
+                }
+            }
+        
+           /*  for (var i = delarray.length - 1; i>=0 ;i--){
+                arquitecture.vmAditionals.splice(i,1);
+            } */
+            arquitecture.vmAditionals=core2
+        
+            
+            let update=await openstack.updateArquitecture(arquitecture); 
+           return({status:200,
+                content:arquitecture})
+
+        }
+    } catch (error) {
+       return({status:404,
+            content:error})
+    }
+
+
+   
+}
+
 
 
 exports.createNetwork=createNetwork;
@@ -568,3 +668,4 @@ exports.deleteRouter=deleteRouter;
 exports.consultFlavor=consultFlavor;
 exports.createFlavor=createFlavor;
 exports.infoFlavor=infoFlavor;
+exports.showArquitecture=showArquitecture;

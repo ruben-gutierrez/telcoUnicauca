@@ -21,4 +21,7 @@ export class ServersService {
   addServerArquitecture(dataform){
     return this.http.post( 'http://localhost:3000/ims/server/arquitecture/'+dataform.idArq, dataform )
   }
+  getServer(idServer){
+    return this.http.get( 'http://localhost:3000/ims/server/'+idServer )
+  }
 }

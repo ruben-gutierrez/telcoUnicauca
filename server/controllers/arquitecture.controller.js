@@ -8,8 +8,12 @@ const serverFunctions = require('../functions/server');
 const ArquitectureController={};
 
 ArquitectureController.getArquitectures= async(req, res) => {
-    const arquitecture = await Arquitecture.find();
-    res.json(arquitecture);
+    let arquitecturedb = await Arquitecture.find();
+    for await (arquitecture of arquitecturedb){
+       await  openstack.showArquitecture(arquitecture._id)
+    }
+    arquitecturedb = await Arquitecture.find();
+    res.json(arquitecturedb);
 };
 ArquitectureController.createArquitecture= async(req, res) => {
     const arquitecture = new Arquitecture(req.body);
@@ -37,15 +41,15 @@ ArquitectureController.createArquitecture= async(req, res) => {
                         
                         switch (arquitecture.type) {
                             case '1':
-                                    let coreAIO = await openstack.createCoreIMS(config.VMcoreIMS.aio , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
+                                    let coreAIO = await openstack.createCoreIMS(config.VMcoreIMS.aio , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id, arquitecture._id);
                                     arquitecture.vmCoreIMS=coreAIO;
                                 break;
                             case '2': 
-                                    let coreDIST = await openstack.createCoreIMS(config.VMcoreIMS.distributed , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
+                                    let coreDIST = await openstack.createCoreIMS(config.VMcoreIMS.distributed , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id,arquitecture._id);
                                         arquitecture.vmCoreIMS=coreDIST;
                                 break;
                             case '3':
-                                    let coreDISTPSTN = await openstack.createCoreIMS(config.VMcoreIMS.distributedPSTN , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id);
+                                    let coreDISTPSTN = await openstack.createCoreIMS(config.VMcoreIMS.distributedPSTN , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id, arquitecture._id);
                                     arquitecture.vmCoreIMS=coreDISTPSTN;
                                 break;
                         
@@ -140,70 +144,87 @@ ArquitectureController.showArquitecture= async(req, res) => {
         const arquitecture = await Arquitecture.findById(req.params.id);
         if(!arquitecture){
             res.json({status:404,
-                content:arquitecture})
-        }else{
-            
+                content:arquitecture,
+            coment:"resource dont exist"})
+        }
+        else{
+            let core=[]
+            let core2=[]
             let vmupdate;
             let delarray=[];
             let coreupdate=[];
-            for await ( [i, vm] of arquitecture.vmCoreIMS.entries()){
-                if (vm.infoServer) {
-                    vmupdate= await openstack.consultServer(vm['infoServer'].id);
-        
-                    if (vmupdate == 'error') {
-                        delarray.push(i);
+            
+            if (arquitecture.vmCoreIMS.length > 0) {
+                for await ( [i, vm] of arquitecture.vmCoreIMS.entries()){
+                
+                    let vmdb=await Server.findById(vm._id)
+                    console.log('error',vmdb.infoServer)
+                    if (vmdb['infoServer']) {
+                        vmupdate= await openstack.consultServer(vmdb['infoServer'].id);
+            
+                        if (vmupdate == 'error') {
+                           /*  delarray.push(i); */
+                            // await Server.findByIdAndDelete(vm._id)
+                            core.push(vm)
+                        }else{
+                            vmdb['infoServer']=vmupdate;
+                            await vmdb.save();
+                            core.push(vmdb)
+                        }
                     }else{
-                        vm['infoServer']=vmupdate;
-                        let server = await Server.findById(vm._id)
-                        
-                        server.infoServer=vmupdate
-                        await server.save();
-        
+                        delarray.push(i); 
+                        // await Server.findByIdAndDelete(vm._id)
+                        // core.push(vm)
                     }
-                }else{
-                    delarray.push(i);
-                    await Server.findByIdAndDelete(vm._id)
                 }
+                for (var i = delarray.length - 1; i>=0 ;i--){
+                    arquitecture.vmCoreIMS.splice(i,1);
+                } 
+                arquitecture.vmCoreIMS=core
             }
-            for (var i = delarray.length - 1; i>=0 ;i--){
-                arquitecture.vmCoreIMS.splice(i,1);
-            }
+            
             delarray=[];
-            // console.log(arquitecture.vmAditionals)   
-            for await ( [i, vm2] of arquitecture.vmAditionals.entries()){
-                // console.log("maquina",vm2)
-                if (vm2.infoServer) {
-                    vmupdate2= await openstack.consultServer(vm2['infoServer'].id);
-                     
-                    if (vmupdate2 == 'error') {
-                        delarray.push(i);
+            // // console.log(arquitecture.vmAditionals)  
+            if (arquitecture.vmAditionals.length > 0) {
+                for await ( [i, vm2] of arquitecture.vmAditionals.entries()){
+                    let vm2db=await Server.findById(vm2._id)
+                    // console.log(vm2db)
+                    if (vm2db['infoServer']) {
+                        vmupdate2= await openstack.consultServer(vm2db['infoServer'].id);
+                         
+                        if (vmupdate2 == 'error') {
+                            // Server.findByIdAndDelete(vm2._id)
+                            /* delarray.push(i); */
+                            core2.push(vm2db)
+                        }else{
+                            vm2db['infoServer']=vmupdate2;
+                            await vm2db.save();
+                            core2.push(vm2db)
+                        }
                     }else{
-                        vm2['infoServer']=vmupdate2;
-                        let server2 = await Server.findById(vm2._id)
-                        
-                        server2.infoServer=vmupdate2
-                        await server2.save();
+                        delarray.push(i); 
+                        // Server.findByIdAndDelete(vm2._id)
+                        // core2.push(vm2)
                     }
-                }else{
-                    delarray.push(i);
-                    await Server.findByIdAndDelete(vm2._id)
                 }
-            }
-        
-            for (var i = delarray.length - 1; i>=0 ;i--){
-                arquitecture.vmAditionals.splice(i,1);
-            }
+            
+                 for (var i = delarray.length - 1; i>=0 ;i--){
+                    arquitecture.vmAditionals.splice(i,1);
+                } 
+                arquitecture.vmAditionals=core2
+            } 
+           
         
             
-            let update=await openstack.updateArquitecture(arquitecture);
-            
+            let update=await openstack.updateArquitecture(arquitecture); 
             res.json({status:200,
                 content:arquitecture})
 
         }
     } catch (error) {
-        res.json({status:404,
-            content:error})
+        res.json({status:400,
+            content:error,
+        coment:'error of information'})
     }
 
 
@@ -220,6 +241,32 @@ ArquitectureController.updateArquitecture=async(req, res) => {
             answer:"Arquitecture Updated"
         }
     );
+};
+ArquitectureController.dropArquitecture=async(req, res) => {
+    
+    try {
+       
+        
+            console.log(req.params.id)
+            await Arquitecture.findByIdAndUpdate(req.params.id, { status: 'public' },{ new: true});
+            res.json(
+                {
+                    status:'200',
+                    answer:"Arquitecture Updated"
+                }
+            );
+        
+    } catch (error) {
+        res.json(
+            {
+                status:'404',
+                answer:"Resource dont exist"
+            }
+        );
+    }
+   
+   
+    
 };
 ArquitectureController.deleteArquitecture=async(req, res) => {
     await Arquitecture.findByIdAndDelete(req.params.id);

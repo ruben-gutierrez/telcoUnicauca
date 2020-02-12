@@ -35,19 +35,21 @@ export class AvailableComponent implements OnInit {
      await this._arquitecture.getArquitecture(idArquitecture)
       .toPromise()
       .then(data => {
+       
         arquitecture=data;
       })
       .catch(error=>{
         arquitecture = error;
       });
-      if (arquitecture['status'] == 'public') {
-        arquitecture['status']= this._user.userActive._id;
-        await this._arquitecture.updateArquitecture(arquitecture)
+     
+      if (arquitecture.content['status'] == 'public') {
+        arquitecture.content['status']= this._user.userActive._id;
+        await this._arquitecture.updateArquitecture(arquitecture.content)
         .subscribe( data=>{
           this.toastr.success("Arquitectura reservada");
           this.router.navigate(["/ims/reserved"]);
         }, error =>{
-          this.toastr.error("Error al reservar Arquitectura");
+          this.toastr.error("Error2 al reservar Arquitectura");
         }
         )
       }else{

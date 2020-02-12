@@ -1,10 +1,10 @@
 #!/bin/sh
 
 export OS_USERNAME=TestbedIMS
-export OS_PROJECT_NAME=TestbedIMS
+export OS_PROJECT_NAME=Testbed_vIMS
 export OS_PROJECT_DOMAIN_NAME=default
 export OS_USER_DOMAIN_NAME=Default
-export OS_PASSWORD=TestbedIMSroot
+export OS_PASSWORD=testbedIMS
 export OS_AUTH_URL=http://10.55.2.24/identity/v3
 
 

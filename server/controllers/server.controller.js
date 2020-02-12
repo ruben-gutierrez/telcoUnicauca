@@ -101,23 +101,55 @@ ServerController.actionsServer=async(req, res) => {
                 }
             break;
         case 'delete':
-            if (await openstack.deleteServer(server['infoServer'].id) == 'ok'){
-                Server.findByIdAndDelete(req.params.id);
-                
-                res.json(
-                    {
-                        status:'200',
-                        answer:'action server'
+                try {
+                    let server= await Server.findById(req.params.id)
+                    await openstack.deleteServer(server['infoServer'].id)
+                    
+                    let arquitecture= await Arquitecture.findById(server.idArquitecture)
+                    if (server.type == 'ims') {
+                        arquitecture.vmCoreIMS.forEach(async (vm,index) => { 
+                            if ( vm._id.toString()== server._id.toString()) {
+                                arquitecture.vmCoreIMS.splice( index, 1 );
+                                arquitecture.save()
+                                await Server.findByIdAndDelete(server._id.toString())
+                                res.json(
+                                    {
+                                        status:'200',
+                                        content:'action server'
+                                    }
+                                );
+                            }
+                        });
+
+                    }else{
+                        console.log(arquitecture.vmAditionals)
+                        arquitecture.vmAditionals.forEach(async (vm,index) => { 
+                            console.log(vm._id, server._id)
+                            if ( vm._id.toString()== server._id.toString()) {
+                                console.log('eliminar maquina adicional')
+                                arquitecture.vmAditionals.splice( index, 1 );
+                                arquitecture.save()
+                                await Server.findByIdAndDelete(server._id.toString())
+                                res.json(
+                                    {
+                                        status:'200',
+                                        content:'action server'
+                                    }
+                                );
+                            }
+                            
+                        });
                     }
-                );
-            }else{
-                res.status(
-                    {
-                        status:'300',
-                        answer:'fail action'
-                    }
-                );
-            }
+                } catch (error) {
+                    console.log('error')
+                    res.json(
+                        {
+                            status:'404',
+                            content:'Server dont exist'
+                        }
+                    );
+                }
+            
             break;
         case 'instant':
             if (await openstack.instantServer(server['infoServer'].id, req.params.id) == 'ok'){
@@ -174,8 +206,10 @@ ServerController.actionsServer=async(req, res) => {
             break;
     
         case 'resize':
+            
+           let edit = await openstack.resizeServer(server['infoServer'].id, req.body.dataForm)
            
-            if(await openstack.resizeServer(server['infoServer'].id, req.body.dataForm) == 'ok'){
+            if(edit == 'ok'){
                 
                 res.json(
                     {
@@ -233,14 +267,14 @@ ServerController.addServerArquitecture= async (req, res) => {
         resources.ram = arquitecture.maxRAM - resources.ram
         resources.disk = arquitecture.maxHDD - resources.disk
         resources.vcpu = arquitecture.maxCore - resources.vcpu
-        console.log(resources)
+
         if (resources.ram > 0 && resources.disk > 0 && resources.vcpu > 0) {
             idFlavor = await openstack.consultFlavor({},false, req.body.ram, req.body.disk, req.body.cpu)
             if(idFlavor == '-'){
                 idFlavor = await openstack.createFlavor(req.body.ram,req.body.disk, req.body.cpu)  
             }
             // console.log(arquitecture.detailNetwork.id)
-           let server= await openstack.createServer(req.body.name, req.body.image, 'ims', idFlavor,arquitecture.detailNetwork.id);
+           let server= await openstack.createServer(req.body.name, req.body.image, 'ims', idFlavor,arquitecture.detailNetwork.id, arquitecture._id);
            if (server.status==200) {
                 server = await openstack.consultServer(server.content.id)
                 // console.log('ip a agregar',server.addresses[Object.keys(server.addresses)[0]][1].addr)
@@ -249,7 +283,9 @@ ServerController.addServerArquitecture= async (req, res) => {
                 dataServer={
                     name : req.body.name,
                     infoServer : server,
-                    idCacti:idcacti
+                    idCacti:idcacti,
+                    idArquitecture:arquitecture._id,
+                    type:'aditional'
                 }
                 const virtualMachine = new Server(dataServer);  
                 await virtualMachine.save();

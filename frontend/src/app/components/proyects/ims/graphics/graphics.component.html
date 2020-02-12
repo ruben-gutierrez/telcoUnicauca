@@ -7,9 +7,10 @@
         <div class="col">
             <div class="row">
                     <div class="col">
-                        <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i> <br> Reservadas</a>
+                      <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
+                        <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i> <br> Arquitecturas</a>
                         <a [routerLink]="['/ims/tests']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
-                        <a [routerLink]="['/ims/graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                        <a [routerLink]="['/ims/graphNew']" class="btn btn-outline-info mx-1"><i class="fa fa-plus fa-2x"></i> <br> Nueva Gráfica</a>
                     </div>
                     
             </div>
@@ -36,7 +37,68 @@
       <h6>Filtros</h6>
     </div>
   </div>
-  <div class="row">
+  <div class="container" *ngFor="let arquitecture of arquitectures">
+    <a  [routerLink]="['/ims/graphics/'+arquitecture._id+'/arquitecture']">{{arquitecture.name}}</a>
+    
+    <!-- {{arquitecture.vmAditionals}} -->
+    
+    <div class="row" *ngFor="let vm of arquitecture.vmAditionals">
+      <a  [routerLink]="['/ims/graphics/'+vm._id+'/server']">{{vm.name}}</a>
+      
+      <div class="card-columns">
+
+        <div class="card text-center" *ngFor="let graph of vm.graphs">
+          <a  [routerLink]="['/ims/graph/'+graph._id]">
+          <div class="card-body">
+            <app-graph-template [idGraph]="graph._id"></app-graph-template>
+            <!-- <h5 class="card-title">{{graph.name}}</h5>
+            <canvas id="graph2" baseChart
+            [datasets]="graph.print.data"
+            [labels]="graph.print.labels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins">
+          </canvas> -->
+            <p class="card-text"><small class="text-muted">Creada {{graph.created_at}}</small></p>
+          </div>
+        </a>
+        </div>
+       
+      </div>
+   
+    </div>
+    <div class="row" *ngFor="let vmCore of arquitecture.vmCoreIMS">
+      <a  [routerLink]="['/ims/graphics/'+vmCore._id+'/server']">{{vmCore.name}}</a>
+      
+      <div class="card-columns">
+
+        <div class="card text-center" *ngFor="let graph of vmCore.graphs">
+          <a  [routerLink]="['/ims/graph/'+graph._id]">
+          <div class="card-body">
+            <app-graph-template [idGraph]="graph._id"></app-graph-template>
+            <!-- <h5 class="card-title">{{graph.name}}</h5>
+            <canvas id="graph" baseChart
+            [datasets]="graph.print.data"
+            [labels]="graph.print.labels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins">
+          </canvas> -->
+            <p class="card-text"><small class="text-muted">Creada {{graph.created_at}}</small></p>
+          </div>
+        </a>
+        </div>
+       
+      </div>
+    
+    </div>
+  </div>
+
+  <!-- <div class="row">
     <div style="width: 300px;">
         <canvas baseChart width="40" height="40"
           [datasets]="lineChartData"
@@ -71,7 +133,7 @@
         </canvas>
     </div>
 
-    </div>
+    </div> -->
     
       
 </div>

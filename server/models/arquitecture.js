@@ -14,7 +14,7 @@ const ArquitectureSchema = new Schema ({
     status: { type: String, required:true},
     vmCoreIMS: { type: Array},
     vmAditionals: { type: Array},
-    tests: { type: Object},
+    tests: { type: Array},
     graphs: { type: Object},
     detailNetwork: { type: Object},
     detailSubnetwork: { type: Object},
