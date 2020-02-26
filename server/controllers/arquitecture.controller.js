@@ -158,7 +158,7 @@ ArquitectureController.showArquitecture= async(req, res) => {
                 for await ( [i, vm] of arquitecture.vmCoreIMS.entries()){
                 
                     let vmdb=await Server.findById(vm._id)
-                    console.log('error',vmdb.infoServer)
+                    // console.log('error',vmdb.infoServer)
                     if (vmdb['infoServer']) {
                         vmupdate= await openstack.consultServer(vmdb['infoServer'].id);
             
@@ -181,7 +181,7 @@ ArquitectureController.showArquitecture= async(req, res) => {
                     arquitecture.vmCoreIMS.splice(i,1);
                 } 
                 arquitecture.vmCoreIMS=core
-            }
+            } 
             
             delarray=[];
             // // console.log(arquitecture.vmAditionals)  
@@ -212,7 +212,7 @@ ArquitectureController.showArquitecture= async(req, res) => {
                     arquitecture.vmAditionals.splice(i,1);
                 } 
                 arquitecture.vmAditionals=core2
-            } 
+            }
            
         
             

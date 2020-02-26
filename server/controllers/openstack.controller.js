@@ -1,6 +1,9 @@
 const Arquitecture = require('../models/arquitecture');
 const config = require('../config');
 const axios = require("axios");
+var SSH = require('simple-ssh');
+var fs = require('fs')
+
 
 const OpenStackController={};
 const URLconsult = "http://"+config.ipOpenstack;
@@ -683,8 +686,34 @@ OpenStackController.createAndLinkIpfloat= async(req, res) => {
 //     );
 // };
 OpenStackController.test= async(req, res) => {
-    console.log(req);
-    // console.log(config.tokenOpenStack)
+   
+    keyPair=fs.readFileSync('server/key.pem', {
+        encoding: 'utf8',
+      })
+    var ssh = new SSH({
+        host: '192.168.40.117',
+        user: 'ubuntu',
+        key: keyPair
+    });
+
+    // ssh.exec('sudo apt-get install snmpd -y', {
+        //     pty: true,
+        //     out: function(stdout) {
+            //         console.log(stdout);
+            //     },
+            //     err: function(stderr) {
+                //         console.log(stderr); // this-does-not-exist: command not found
+                //     }
+                // })
+    ssh.exec('sudo apt-get install snmpd -y')
+    ssh.exec("sudo sed -i'.bak' '/agentAddress  udp:127.0.0.1:161/d' /etc/snmp/snmpd.conf")
+    ssh.exec("sudo sed -i'.bak' '17i\agentAddress udp:161,udp6:[::1]:161' /etc/snmp/snmpd.conf")
+    ssh.exec("sudo service snmpd restart")
+    .start();
+    // ssh.exec('echo >/home/ubuntu/file.txt', {
+    //     in: keyPair
+    //  }).start();
+    res.json({'test':'ok'})
 };
 
 

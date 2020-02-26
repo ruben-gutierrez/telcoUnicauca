@@ -3,9 +3,11 @@ const axios = require("axios");
 const Server = require('../models/server');
 const openstack = require('../functions/openstack')
 const serverFunctions = require('../functions/server')
+const graphFunctions = require('../functions/graph')
 const Arquitecture = require('../models/arquitecture');
 let fs = require('fs');
-
+var SSH = require('simple-ssh');
+const exec = require('child_process').exec;
  
 async function updateArquitecture(data) {
     // console.log(data)
@@ -167,7 +169,7 @@ async function conectPrivateRouter( idrouter,idSubnet ) {
     return conect;
 }
 
-async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
+async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitecture=any,typeVM ) {
     let server;
     let answer={
         'status': 400,
@@ -178,23 +180,24 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
     try {
         file = fs.readFileSync('server/scripts/coreIMS/'+ name +'.sh', 'utf-8');
       } catch (err) {
-        file='apt install sipp -y'
+        //   console.log("fallo el archivo")
+        file="apt install sipp -y"
     }
     let body={
         "server": {
             "name": name, 
             "imageRef": idImage, 
-            // "key_name": nameKey,
-            // "key_name": '1',
+            "key_name": nameKey,
             "flavorRef": idFlavor, 
             "max_count": 1, 
             "min_count": 1, 
             "networks": [{"uuid": idNet}],
-            // "personality":[{"path":"/", "contents": file}]
+            // "personality":[{"path":"/root/", "contents": file}]
         }
     }
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers', body,config.headersOpenStack )
             .then(function (response) {
+                
                 if (response.data.server) {
                     answer.status = 200
                    answer.content=response.data.server
@@ -213,13 +216,14 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
     await sleep(10000)
     let portDevice;
     // console.log(answer)
+   
     await axios.get('http://'+config.ipOpenstack+':9696/v2.0/ports?device_id='+answer.content.id, config.headersOpenStack )
     .then(function (response) {
      portDevice= response.data.ports[0].id
     //  console.log(response)
     })
     .catch(error =>{
-       console.log(error)
+       console.log('error consult ports', error)
     });
     let body2={
         "floatingip": {
@@ -232,36 +236,84 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet ) {
        // console.log(data)
     })
     .catch(error =>{
-    // console.log('error')
+    console.log('error dd ip float', error)
     })
     await sleep(10000)
     answer.content= await openstack.consultServer(answer.content.id);
-    console.log(answer.content)    
+    //create user and pass
+    
+    keyPair=fs.readFileSync('server/key.pem', {
+        encoding: 'utf8',
+      })
+
+      var ssh = new SSH({
+        host: answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr,
+        user: 'ubuntu',
+        key: keyPair
+    });
+    ssh.exec('sudo apt-get install snmpd -y')
+    ssh.exec("sudo sed -i'.bak' '/agentAddress  udp:127.0.0.1:161/d' /etc/snmp/snmpd.conf")
+    ssh.exec("sudo sed -i'.bak' '17i\agentAddress udp:161,udp6:[::1]:161' /etc/snmp/snmpd.conf")
+    ssh.exec("sudo service snmpd restart")
+    ssh.exec("sudo useradd usuario")
+    ssh.exec("echo usuario:usuario | sudo chpasswd")
+    ssh.exec(" sudo sed -i '$a usuario    ALL=(ALL:ALL) ALL' /etc/sudoers")
+    .start();
+
+    console.log('ipFloating',answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr)
+    // if (answer.content.addresses.length > 0) {
+    if (answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr) {
+        idcacti=await serverFunctions.createServerCacti(answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr)
+            console.log('idCacti',idcacti)
+    }else{
+        idcacti=null
+    }
+    let serverSave={
+        name: name,   
+        infoServer: answer.content,
+        idCacti:idcacti,
+        idArquitecture:idArquitecture,
+        type: typeVM
+    }
+    let serverdb = new Server(serverSave);
+    await serverdb.save( );
+
+    //import graphs automatics
+    console.log('idServerCacti',serverdb.idCacti)
+    if (serverdb.idCacti != null) {
+        graphFunctions.importGraphAutomatics(serverdb._id,serverdb.idCacti)
+    }
+
+    //save info server created by response
+    answer.content=serverdb;
+
+    
+    
     return answer;
 }
 
 async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet,idArquitecture ) {
     let core=[];
     for await (vm of vms){
-        server = await createServer(vm,idImage,nameKey,idFlavor,idNet);
+        server = await createServer(vm,idImage,nameKey,idFlavor,idNet,idArquitecture,'ims');
         if(server.status == 200){
-            serverFull=await consultServer(server.content.id);
-            if (serverFull.addresses.length > 0) {
+            // serverFull=await consultServer(server.content.id);
+            // if (serverFull.addresses.length > 0) {
                 
-                idcacti=await serverFunctions.createServerCacti(serverFull.addresses[Object.keys(serverFull.addresses)[0]][1].addr)
-            }else{
-                idcacti=null
-            }
-            let serverSave={
-                        name: vm,   
-                        infoServer: serverFull,
-                        idCacti:idcacti,
-                        idArquitecture:idArquitecture,
-                        type:'ims'
-                    }
-            let serverdb = new Server(serverSave);
-            await serverdb.save( );
-            core.push(serverdb);
+            //     idcacti=await serverFunctions.createServerCacti(serverFull.addresses[Object.keys(serverFull.addresses)[0]][1].addr)
+            // }else{
+            //     idcacti=null
+            // }
+            // let serverSave={
+            //             name: vm,   
+            //             infoServer: serverFull,
+            //             idCacti:idcacti,
+            //             idArquitecture:idArquitecture,
+            //             type:'ims'
+            //         }
+            // let serverdb = new Server(serverSave);
+            // await serverdb.save( );
+            core.push(server.content);
         }
     }       
     return core;
@@ -396,7 +448,7 @@ async function resizeServer( idServer,dataForm ) {
     console.log('server', server.id,'data',data)
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server.id +'/action', data,config.headersOpenStack )
       .then(function (response) {
-
+        console.log(response)
         answer=response
       })
       .catch(error =>{

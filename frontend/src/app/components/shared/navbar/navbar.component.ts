@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   user:User[]= [];
+  token:string;
   constructor( private _users: UsersService, private router: Router ) { 
     this._users.userActive = this._users.getCurrentUser();
+    this.token=this._users.getToken();
   }
   
   ngOnInit() {

@@ -6,7 +6,7 @@ module.exports={
     idIMS:{
         idImage:'a51f2fb2-e632-4033-9307-79617c462bf7',
         idFlavor: 'd2',
-        nameKey:'Testbed_vIMS'
+        nameKey:'test'
     },
     idNetPublic:'897405e4-ec27-43ae-befe-3ef65d0ebee6',
     VMcoreIMS:{

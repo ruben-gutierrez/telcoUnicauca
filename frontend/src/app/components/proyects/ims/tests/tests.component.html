@@ -23,6 +23,9 @@
                     <i class="fa fa-network-wired" aria-hidden="true">  Arquitectura {{arq.name}}</i>
                 </nav>
                 <div class="card-columns">
+                    <div *ngIf="arq.tests.length==0">
+                        ¡No hay pruebas!
+                    </div>
                     <div *ngFor="let test of arq.tests; let i = index" class="card  bg-ligth mb-3" style="max-width: 18rem;" >
                         <div class="card-header">{{test.name | uppercase}} 
                             

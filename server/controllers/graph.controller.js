@@ -31,16 +31,15 @@ GraphController.createGraph= async(req, res) => {
         server.idCacti=idcacti
         server.infoServer=serverFull
         serverFunctions.updateServer(server)
-        ¨
+        
     }else{
         console.log("Host cacti exist", server.idCacti)
-
     }
     const regex = /(\d+)/g;
     // exec('php -q /var/www/html/cacti/cli/add_graph_template.php --list-hosts', (error, stdout, stderr) => {
     exec('php -q /var/www/html/cacti/cli/add_graphs.php --host-id='+server.idCacti+' --graph-title='+nameGraphCreate+' --graph-type=cg --graph-template-id='+idGraphCreate, async (error, stdout, stderr) => {
         let arrayAnswer=stdout.split('-')
-        // console.log(arrayAnswer,server.idCacti,idGraphCreate)
+        console.log(arrayAnswer,server.idCacti,idGraphCreate)
         if( arrayAnswer[0] == "Graph Added "){
             let idGraph =arrayAnswer[1].match(regex)[0]
             let idFile =arrayAnswer[2].match(regex)[0]
@@ -48,7 +47,7 @@ GraphController.createGraph= async(req, res) => {
                 name: nameGraphCreate,
                 idServer:server._id,
                 idTemplate: idGraphCreate,
-                infoCacti: {idHost:idFile, idGraph:idGraph },
+                infoCacti: {idHost:server.idCacti, idGraph:idGraph,idFile:idFile },
             }
             const graph = new Graph(infoGraph);
             // if (server.graphs) {
@@ -56,7 +55,6 @@ GraphController.createGraph= async(req, res) => {
             // }else{
                 // server.graphs=graph
             // }
-            console.log(server)
             await Server.findByIdAndUpdate(server._id,server,{ new: true})
             res.json(
                 {   
@@ -115,8 +113,10 @@ GraphController.getDataGraph= async(req, res) => {
             res.json({status:404,
                 content:"graph don exist"})
         }else{
-            // fs.readFile('/var/www/html/cacti/rra/'+graph.infoCacti.idHost+'/'+graph.infoCacti.idGraph+'.rrd.json','utf8', function(err, data) {
-            fs.readFile('/var/www/html/cacti/rra/41/252.rrd.json','utf8', function(err, data) {
+            console.log(graph.infoCacti)
+            
+            fs.readFile('/var/www/html/cacti/rra/'+graph.infoCacti.idHost+'/'+graph.infoCacti.idGraph+'.rrd.json','utf8', function(err, data) {
+            // fs.readFile('/var/www/html/cacti/rra/41/252.rrd.json','utf8', function(err, data) {
                         if (err) {
                         //   return console.log(err);
                           return  res.json({

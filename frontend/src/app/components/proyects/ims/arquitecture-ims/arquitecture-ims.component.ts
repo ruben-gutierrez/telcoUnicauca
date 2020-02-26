@@ -79,17 +79,19 @@ images:object;
   }
 
   async newServer(formNewServer){
+    this.loading=true;
     // this.modalService.open(content, { size: 'sm' })
     document.getElementById('btnclose').click();
     await this._server.addServerArquitecture(formNewServer.value) 
-      .subscribe( response =>{
+      .subscribe( async response =>{
         // console.log(response)
         if (response['status'] == 200) {
           this.getArquitecture(this.idArquitecture);
           this.toastr.success('Máquina virtual creada')
           this.arquitecture.vmAditionals.push(response['content'])
           this.core=this.arquitecture.vmAditionals;
-          
+          this.resourcesDisp= await this.resourceDisp(this.arquitecture);
+          this.loading=false;
         }else{
           this.toastr.success('Error al crear la máquina virtual')
           
@@ -140,7 +142,7 @@ images:object;
    await this._arquitecture.getArquitecture(id)
          .toPromise( )
          .then(data =>{
-           console.log(data)
+          //  console.log(data)
          if(data['status']==200){
           this.arquitecture = data['content'];
          }else{
@@ -161,12 +163,17 @@ images:object;
         this.toastr.error('Error al apagar la máquina')
       })
   }
-  instantServer(id){
+  instantServer(id,index){
     this.loading=true;
     this._server.actionsServer(id,'instant')
       .subscribe( data =>{
         this.toastr.success('Accion exitosa');
         this.loading=false;
+        if (this.showcore) {
+          this.core[index].idImageRebuild="xxxx"
+        }else{
+          this.vmsAditionals[index].idImageRebuild="xxxx"
+        }
       }, error=>{
         this.toastr.error('Error al tomar instantanea la máquina');
         this.loading=false;
@@ -175,7 +182,7 @@ images:object;
   async deleteServer(id,idArquitecture,index){
     this.loading=true
     this._server.actionsServer(id,'delete',idArquitecture)
-      .subscribe( data =>{
+      .subscribe( async data =>{
         this.toastr.success('VM '+id+' Eliminada');
         this.loading=false
         if (this.showcore) {
@@ -186,7 +193,7 @@ images:object;
           this.arquitecture.vmAditionals.splice( index, 1 ); 
           
         }
-        
+        this.resourcesDisp= await this.resourceDisp(this.arquitecture);
       }, error=>{
         this.toastr.error('Error al eliminar la máquina');
         this.loading=false
@@ -207,10 +214,11 @@ images:object;
     this.loading=true;
     let dataForm = form.value;
     this._server.actionsServer(id,'resize', '',dataForm)
-      .subscribe( data =>{
-        console.log(data)
+      .subscribe( async data =>{
+        
         this.toastr.success('Máquina editada exitosamente');
         this.loading=false;
+        this.resourcesDisp= await this.resourceDisp(this.arquitecture);
       }, error=>{
         // console.log(error)
         this.toastr.error('Error al editar la máquina');

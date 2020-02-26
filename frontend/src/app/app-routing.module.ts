@@ -69,10 +69,7 @@ const routes: Routes = [
         {path: 'ims/graphics/:id/server', component: GraphicsComponent },
         {path: 'ims/graphics/:id/arquitecture', component: GraphicsComponent },
         {path: 'ims/graph/:id', component: GraphComponent },
-        
-      
-  
-  
+        // {path: 'ims/graphNew', component: NewGraphComponent },
   {path: 'signin', component: SigninComponent },
   {path: 'signup', component: SignupComponent },
 

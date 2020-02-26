@@ -1,3 +1,4 @@
+<app-new-graph></app-new-graph>
 <div class="container my-5">
     <div class="row">
         <div class="col">
@@ -10,9 +11,9 @@
                       <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
                         <a [routerLink]="['/ims/reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i> <br> Arquitecturas</a>
                         <a [routerLink]="['/ims/tests']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
-                        <a [routerLink]="['/ims/graphNew']" class="btn btn-outline-info mx-1"><i class="fa fa-plus fa-2x"></i> <br> Nueva Gráfica</a>
+                        <!-- <a  class="btn btn-outline-primary mx-1"  data-toggle="modal" data-target="#modelId"><i class="fa fa-plus fa-2x"></i> <br> Crear Máquina</a> -->
+                        <a  data-toggle="modal" data-target="#formNewGraph" class="btn btn-outline-info mx-1"><i class="fa fa-plus fa-2x"></i> <br> Nueva Gráfica</a>
                     </div>
-                    
             </div>
         </div>
     </div>

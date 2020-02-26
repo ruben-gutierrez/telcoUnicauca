@@ -6,7 +6,8 @@ const config = require('../config');
 const axios = require("axios");
 const fs = require('fs');
 const openstack = require('../functions/openstack')
-
+const fGraph = require('../functions/graph')
+const { exec } = require('child_process');
 
 const TestController={};
 
@@ -170,6 +171,37 @@ TestController.updateTest=async(req, res) => {
         }
     );
 };
+TestController.getTestData=async(req, res) => {
+    const idTest = req.params.id;
+    try {
+        test=await Test.findById(idTest);
+
+        fs.readFile('server/assets/tests/'+test.file,'utf8', function(err, data) {
+            if (err) {
+            //   return console.log(err);
+              return  res.json({
+                status:404,
+                message: "error leer archivo",
+                content:err
+            })
+            }
+        //     data=JSON.parse(data)
+            return res.json({
+                status:200,
+                content: data
+            })
+          });
+        
+        
+    } catch (error) {
+        res.json(
+            {
+                status:'400',
+                content:'resource dont exist'
+            }
+        );
+    }
+};
 TestController.deleteTest=async(req, res) => {
     try {
         
@@ -229,4 +261,51 @@ TestController.deleteTest=async(req, res) => {
     
 };
 
+
+
+TestController.testing= async(req, res) => {
+
+   
+     try {
+        exec("php /var/www/html/cacti/cli/list-graphs-host.php --list-graphs-host=41  | sed '1d' | sed '/^$/d' ", (error, stdout, stderr) => {
+            if (error) {
+                res.json({
+                    status:400,
+                    content:error
+                });
+              return;
+            }
+            ansCacti=stdout.split('\n')
+            ansCacti.forEach( (line,index) => {
+                if (line !='') {
+                    
+                    ansCacti[index]=line.split('\t')
+                    
+                    if (ansCacti[index][ansCacti[index].length] == undefined) {
+                        ansCacti[index].splice(ansCacti[index].length - 1,1)
+                    }
+                    
+                }else{
+                    ansCacti.splice(index,1)
+                }
+                
+                
+            });
+            
+            res.json({
+                status:200,
+                content:ansCacti,
+                origin:stdout
+            });
+            
+          });
+           
+          } catch (e) {
+            res.json({
+                status:400,
+                content:e});
+          }
+
+    
+};
 module.exports = TestController;

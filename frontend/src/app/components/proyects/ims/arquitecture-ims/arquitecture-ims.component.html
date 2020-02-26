@@ -83,9 +83,8 @@
                             <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
                             <!-- <a [routerLink]="['/ims/available']" class="btn btn-outline-success mx-1"> <i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a> -->
                             <a [routerLink]="['/ims/tests/'+idArquitecture]" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
-                            <a [routerLink]="['/ims/graphics/'+idArquitecture]" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
+                            <a [routerLink]="['/ims/graphics/'+idArquitecture+'/arquitecture']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
                             <a  class="btn btn-outline-primary mx-1"  data-toggle="modal" data-target="#modelId"><i class="fa fa-plus fa-2x"></i> <br> Crear Máquina</a>
-                            
                         </div>
                 </div>
             </div>
@@ -123,7 +122,7 @@
                             <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
                             <!-- <button class="btn btn-primary" (click)="[powerServer(vm.id)]">Encender</button> -->
                             <!-- <button type="button" class="btn btn-primary btn-sm mx-1  " data-toggle="button" aria-pressed="false" autocomplete="off">On</button> -->
-                            <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id)]">Instantanea</button>
+                            <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id,i)]">Instantanea</button>
                             
                             <button *ngIf="vm.idImageRebuild" class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Regresar</button>
                             <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, i)]">Eliminar</button>

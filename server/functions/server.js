@@ -25,6 +25,7 @@ async function createServerCacti(ip) {
         if(stdout){
             ansCacti=stdout.split('-')
             // console.log( ansCacti[2].match(config.regexNumber)[0])
+            console.log("servidor cacti creado",ansCacti[2].match(config.regexNumber)[0])
             return ansCacti[2].match(config.regexNumber)[0]
         }
       } catch (e) {

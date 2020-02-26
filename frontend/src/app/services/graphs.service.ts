@@ -5,7 +5,7 @@ import { Graph } from '../models/graph';
 
 @Injectable()
 export class GraphService {
-  readonly URL_API_GRAPH:string = `http://localhost:3000/ims/graph`;
+  readonly URL_API_GRAPH:string = `http://10.55.6.31:3000/ims/graph`;
   constructor( private http:HttpClient) { }
   getDataGraph(id){
     return this.http.get(this.URL_API_GRAPH + `Data/${id}`);

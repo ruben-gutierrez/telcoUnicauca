@@ -4,7 +4,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
 export class NotificationService {
-  readonly URL_API_GRAPH:string = `http://localhost:3000/ims/graph`;
+  readonly URL_API_GRAPH:string = `http://10.55.6.31:3000/ims/graph`;
     modalService: any;
     closeResult: string;
   constructor( private http:HttpClient) { }

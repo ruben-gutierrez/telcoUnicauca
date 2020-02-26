@@ -17,7 +17,7 @@ app.set('port', process.env.PORT || 3000 );
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors({origin: ['http://192.168.0.13:4200','http://localhost:4200']}))
+app.use(cors({origin: ['http://10.55.6.31:4200','http://localhost:4200','http://10.55.6.39:4000']}))
 app.use(fileUpload())
 
 //Routes
@@ -47,7 +47,10 @@ app.listen(app.get('port'), () => {
               'Access-Control-Allow-Origin': '10.55.6.31',
               'Access-Control-Allow-Credentials': 'true',
               'Access-Control-Allow-Expose-Headers': 'Authorization',
-              'Access-Control-Max-Age': '86400'
+              'Access-Control-Max-Age': '86400',
+              'Accept': 'application/json',
+                'User-Agent': 'python-novaclient',
+                'X-OpenStack-Nova-API-Version': '2.1'
             }};
       }
     );
@@ -63,7 +66,10 @@ app.listen(app.get('port'), () => {
                 'Access-Control-Allow-Origin': '10.55.6.31',
                 'Access-Control-Allow-Credentials': 'true',
                 'Access-Control-Allow-Expose-Headers': 'Authorization',
-                'Access-Control-Max-Age': '86400'
+                'Access-Control-Max-Age': '86400',
+                'Accept': 'application/json',
+                'User-Agent': 'python-novaclient',
+                'X-OpenStack-Nova-API-Version': '2.1'
               }};
           }
         );

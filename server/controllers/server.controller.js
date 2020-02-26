@@ -274,30 +274,30 @@ ServerController.addServerArquitecture= async (req, res) => {
                 idFlavor = await openstack.createFlavor(req.body.ram,req.body.disk, req.body.cpu)  
             }
             // console.log(arquitecture.detailNetwork.id)
-           let server= await openstack.createServer(req.body.name, req.body.image, 'ims', idFlavor,arquitecture.detailNetwork.id, arquitecture._id);
+           let server= await openstack.createServer(req.body.name, req.body.image, config.idIMS.nameKey, idFlavor,arquitecture.detailNetwork.id, arquitecture._id,'aditional');
            if (server.status==200) {
-                server = await openstack.consultServer(server.content.id)
-                // console.log('ip a agregar',server.addresses[Object.keys(server.addresses)[0]][1].addr)
-                idcacti=await serverFunctions.createServerCacti(server.addresses[Object.keys(server.addresses)[0]][1].addr)
-                // console.log("server created")
-                dataServer={
-                    name : req.body.name,
-                    infoServer : server,
-                    idCacti:idcacti,
-                    idArquitecture:arquitecture._id,
-                    type:'aditional'
-                }
-                const virtualMachine = new Server(dataServer);  
-                await virtualMachine.save();
+                // server = await openstack.consultServer(server.content.id)
+                // // console.log('ip a agregar',server.addresses[Object.keys(server.addresses)[0]][1].addr)
+                // idcacti=await serverFunctions.createServerCacti(server.addresses[Object.keys(server.addresses)[0]][1].addr)
+                // // console.log("server created")
+                // dataServer={
+                //     name : req.body.name,
+                //     infoServer : server,
+                //     idCacti:idcacti,
+                //     idArquitecture:arquitecture._id,
+                //     type:'aditional'
+                // }
+                // const virtualMachine = new Server(dataServer);  
+                // await virtualMachine.save();
                 
-                arquitecture.vmAditionals.push(virtualMachine)
+                arquitecture.vmAditionals.push(server.content)
                 await openstack.updateArquitecture(arquitecture);
                 
                 res.json(
                     {
                         status:'200',
                         answer:"Server created",
-                        content: virtualMachine
+                        content: server.content
                     }
                 );
             }

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const openstackController = require('../controllers/openstack.controller');
 
-router.get('/test/:id',openstackController.test);
+router.get('/testComand/',openstackController.test);
 
 
 router.get('/consoleVM/:id',openstackController.getNetworks);

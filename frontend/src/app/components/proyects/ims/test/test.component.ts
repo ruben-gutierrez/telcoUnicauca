@@ -30,13 +30,13 @@ export class TestComponent implements OnInit {
   }
 
   async ngOnInit() {
-    
     await this._test.getTest(this.idTest)
       .subscribe( data =>{
         // console.log(data)
         this.test=data;
     });
-    this.http.get("assets/filesXML/testBONO.xml", { responseType: 'text' }).subscribe(data => {
+    this._test.getTestData(this.idTest)
+    this.http.get("assets/filesXML/"+this.test.file+".xml", { responseType: 'text' }).subscribe(data => {
       this.fileContent=data;
     })
   }

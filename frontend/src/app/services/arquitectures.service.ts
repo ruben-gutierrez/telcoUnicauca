@@ -15,7 +15,7 @@ export class ArquitectureService {
               private _user:UsersService ) {
     this.arquitectures = new Arquitecture();
    }
-  readonly URL_API_ARQUTIECTURE:string = `http://localhost:3000/ims/arquitecture`;
+  readonly URL_API_ARQUTIECTURE:string = `http://10.55.6.31:3000/ims/arquitecture`;
   
   getArquitectures(){
       return this.http.get(this.URL_API_ARQUTIECTURE+'s');
@@ -42,7 +42,7 @@ export class ArquitectureService {
   }
 
   dropArquitecture(id){
-    return this.http.put(`http://localhost:3000/ims/arquitectureDrop/${id}`,null);
+    return this.http.put(`http://10.55.6.31:3000/ims/arquitectureDrop/${id}`,null);
   }
 
 
