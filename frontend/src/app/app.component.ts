@@ -1,4 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,11 +10,16 @@ import { Component,ViewChild } from '@angular/core';
 
 export class AppComponent {
   closeResult: string;
-
-  constructor() {}
+  dir:string;
+  constructor(private router:Router,
+    private activatedRoute: ActivatedRoute) {
+   this.dir=this.router.url;
+  }
   title = 'frontend';
      
-  
+  ngOnInit() {
+    
+  }
 }
 
 

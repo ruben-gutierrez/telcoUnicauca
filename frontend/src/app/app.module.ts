@@ -31,7 +31,7 @@ import { UndergraduateComponent } from './components/comunity/undergraduate/unde
 import { DoctorateComponent } from './components/comunity/doctorate/doctorate.component';
 import { PosdoctoralComponent } from './components/comunity/posdoctoral/posdoctoral.component';
 import { ResearchComponent } from './components/comunity/research/research.component';
-import { IMSComponent } from './components/proyects/ims/ims.component';
+import { ImsComponent } from './components/proyects/ims/ims.component';
 import { PoliticsComponent } from './components/about/politics/politics.component';
 
 
@@ -96,7 +96,7 @@ import { NavContentComponent } from './components/proyects/ims/nav-content/nav-c
     DoctorateComponent,
     PosdoctoralComponent,
     ResearchComponent,
-    IMSComponent,
+    ImsComponent,
     PoliticsComponent,
     AdminUserComponent,
     AdminNewUserComponent,

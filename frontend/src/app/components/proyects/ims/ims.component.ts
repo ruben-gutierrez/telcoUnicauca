@@ -6,7 +6,7 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './ims.component.html',
   styles: []
 })
-export class IMSComponent implements OnInit {
+export class ImsComponent implements OnInit {
   tittles = [
      
     // {

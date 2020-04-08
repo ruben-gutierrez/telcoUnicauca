@@ -9,7 +9,7 @@ import { MisionComponent } from './components/about/mision/mision.component';
 import { VisionComponent } from './components/about/vision/vision.component';
 import { ArquitectureComponent } from './components/about/arquitecture/arquitecture.component';
 import { ComunityComponent } from './components/comunity/comunity.component';
-import { IMSComponent } from './components/proyects/ims/ims.component';
+import { ImsComponent } from './components/proyects/ims/ims.component';
 import { PoliticsComponent } from './components/about/politics/politics.component';
 import { CountComponent } from './components/count/count.component';
 import { AdminUsersComponent } from './components/console/admin-users/admin-users.component';
@@ -57,7 +57,7 @@ const routes: Routes = [
       {path: 'console/admin-new-user', component: AdminNewUserComponent },
   {path: 'contact', component: ContactComponent },
   {path: 'proyects', component: ProyectsComponent },
-    {path: 'ims', component: IMSComponent },
+    {path: 'imsInfo', component: ImsComponent },
       {path: 'ims/available', component: AvailableComponent },
       // {path: 'ims/available', component: AvailableComponent ,canActivate:[VerifyTokenGuard, AdminGuard]},
       {path: 'ims/reserved', component: ReservedComponent },
