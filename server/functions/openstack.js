@@ -178,10 +178,15 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
     }
     let file
     try {
-        file = fs.readFileSync('server/scripts/coreIMS/'+ name +'.sh', 'utf-8');
-      } catch (err) {
-        //   console.log("fallo el archivo")
-        file="apt install sipp -y"
+        console.log(name)
+        // file = fs.readFile('server/scripts/coreIMS/sipp.sh', 'utf-8');
+        // file = fs.readFileSync('/home/telcoims/telcoUnicauca/server/scripts/coreIMS/sipp.sh', 'utf-8');
+        file = fs.readFileSync('/home/telcoims/telcoUnicauca/server/scripts/coreIMS/'+name+'.sh', 'utf-8');
+        // console.log('archivo',file)
+      } catch (err) {''
+          console.log("fallo el archivo")
+        // file="apt install snmpd -y"
+        file="echo 'apt install snmpd -y'>testFile"
     }
     let body={
         "server": {
@@ -197,6 +202,7 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
     }
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers', body,config.headersOpenStack )
             .then(function (response) {
+                // console.log(response.data.server)
                 
                 if (response.data.server) {
                     answer.status = 200
@@ -251,13 +257,22 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
         user: 'ubuntu',
         key: keyPair
     });
-    ssh.exec('sudo apt-get install snmpd -y')
-    ssh.exec("sudo sed -i'.bak' '/agentAddress  udp:127.0.0.1:161/d' /etc/snmp/snmpd.conf")
-    ssh.exec("sudo sed -i'.bak' '17i\agentAddress udp:161,udp6:[::1]:161' /etc/snmp/snmpd.conf")
-    ssh.exec("sudo service snmpd restart")
-    ssh.exec("sudo useradd usuario")
-    ssh.exec("echo usuario:usuario | sudo chpasswd")
-    ssh.exec(" sudo sed -i '$a usuario    ALL=(ALL:ALL) ALL' /etc/sudoers")
+    ssh.exec('sudo apt-get install snmpd -y'),
+    ssh.exec("sudo sed -i'.bak' '/agentAddress  udp:127.0.0.1:161/d' /etc/snmp/snmpd.conf"),
+    ssh.exec("sudo sed -i'.bak' '17i\agentAddress udp:161,udp6:[::1]:161' /etc/snmp/snmpd.conf"),
+    ssh.exec("sudo service snmpd restart"),
+    ssh.exec("sudo useradd usuario"),
+    ssh.exec("echo usuario:usuario | sudo chpasswd"),
+    ssh.exec(" sudo sed -i '$a usuario    ALL=(ALL:ALL) ALL' /etc/sudoers"),
+
+
+    //install scripts functions coreIMS
+    ssh.exec("sudo echo '"+file+"'>fileScript"),
+    ssh.exec("sudo chmod 775 fileScript"),
+    ssh.exec("./fileScript",{
+        pty: true,
+        out: console.log.bind(console)
+    })
     .start();
 
     console.log('ipFloating',answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr)

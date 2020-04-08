@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # export OS_USERNAME=TestbedIMS
-export OS_USERNAME=admin
-export OS_PROJECT_NAME=Testbed_vIMS
+export OS_USERNAME=ims
+export OS_PROJECT_NAME=ims
 export OS_PROJECT_DOMAIN_NAME=default
 export OS_USER_DOMAIN_NAME=Default
-export OS_PASSWORD=3rootbl
+export OS_PASSWORD=imsROOT
 export OS_AUTH_URL=http://10.55.2.24/identity/v3
-
+ 
 
 TMPFILE=`mktemp`
 chmod 600 ${TMPFILE}

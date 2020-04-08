@@ -4,28 +4,28 @@ module.exports={
     ipOpenstack: '10.55.2.24',
     headersOpenStack:{},
     idIMS:{
-        idImage:'a51f2fb2-e632-4033-9307-79617c462bf7',
+        idImage:'60a33155-b856-4639-8ced-1426ab8c300c',
         idFlavor: 'd2',
-        nameKey:'test'
+        nameKey:'imsKey'
     },
-    idNetPublic:'897405e4-ec27-43ae-befe-3ef65d0ebee6',
+    idNetPublic:'dbd5b4b7-7b4f-4bb3-9fd3-c45ea064eea0',
     VMcoreIMS:{
         aio:[
             'aio',
             'sipp'
         ],
         distributed:[
-            'bono',
+            'sipp',
             'sprout',
             'ellis',
             'homer',
             'vellum',
             'dime',
             'dns',
-            'sipp'
+            'bono'
         ],
         distributedPSTN:[
-            'bono',
+            'sipp',
             'sprout',
             'ellis',
             'homer',
@@ -34,7 +34,7 @@ module.exports={
             'ibcf',
             'asterisk',
             'dns',
-            'sipp'
+            'bono'
         ]
     },
     comunityCacti:'public',

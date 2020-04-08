@@ -17,6 +17,9 @@
             </div>
         </div>
     <div class="section" *ngIf="arquitectures; else await">
+        <div class="row" *ngIf="arquitectures.length == 0">
+            No se han reservado arquitecturas. <a [routerLink]="['/ims/available']" class=" btn btn-outline-info mx-1">Agregar Arquitectura!</a> 
+        </div>
         <div class="container" *ngFor="let arq of arquitectures; let iArq = index">
            
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white mb-3 mt-3">

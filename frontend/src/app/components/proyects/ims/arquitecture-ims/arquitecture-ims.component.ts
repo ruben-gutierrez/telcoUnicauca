@@ -17,6 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class ArquitectureImsComponent implements OnInit {
+  resourcesFlavor
   loading=false;
 images:object;
   arquitecture: any;
@@ -248,6 +249,7 @@ images:object;
     document.getElementById('divRedimencion'+id).style.display = "";
   }
   hideFormEditVm(id){
+    this.loading=false
     document.getElementById('btnRedimencion'+id).style.display="";
     document.getElementById('divRedimencion'+id).style.display = "none";
   }
@@ -257,6 +259,16 @@ images:object;
     }
 
     return value;
+  }
+
+  consultFlavor(id){
+    // this.resourcesFlavor=id
+    this._openstack.showFlavor(id)
+    .subscribe( data =>{
+      console.log(data)
+      this.resourcesFlavor="RAM:"+data['flavor'].ram+"Mb  --> Procesadores: "+data['flavor'].vcpus + " --> Almacenamiento: "+data['flavor'].disk+"Gb"
+    })
+    
   }
  
 }

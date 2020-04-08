@@ -9,6 +9,7 @@ import { UsersService } from "./users.service";
 export class ArquitectureService {
 
   arquitectures: Arquitecture;
+  freeArquitectures: Arquitecture;
   arquitecturesOfUser: Arquitecture;
 
   constructor( private http: HttpClient,

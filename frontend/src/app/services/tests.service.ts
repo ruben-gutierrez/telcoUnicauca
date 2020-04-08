@@ -39,6 +39,9 @@ export class TestService {
   updateTest(test:Test){
     return this.http.put(this.URL_API_TEST + `/${test._id}`,test);
   }
+  updateTestFile(formEditTestFile){
+    return this.http.put(this.URL_API_TEST + `UpdateFile/${formEditTestFile.idTest}`,{file:formEditTestFile.fileText});
+  }
 
 
   deleteTest(_id: string){

@@ -1,6 +1,7 @@
 const express = require('express');
 const Graph = require('../models/graph');
 const Server = require('../models/server');
+const Arquitecture = require('../models/arquitecture');
 const router = express.Router()
 const config = require('../config');
 const axios = require("axios");
@@ -33,7 +34,8 @@ GraphController.createGraph= async(req, res) => {
         serverFunctions.updateServer(server)
         
     }else{
-        console.log("Host cacti exist", server.idCacti)
+        console.log("Host cacti exist", server.idCacti);
+        console.log("id template", idGraphCreate)
     }
     const regex = /(\d+)/g;
     // exec('php -q /var/www/html/cacti/cli/add_graph_template.php --list-hosts', (error, stdout, stderr) => {
@@ -115,7 +117,8 @@ GraphController.getDataGraph= async(req, res) => {
         }else{
             console.log(graph.infoCacti)
             
-            fs.readFile('/var/www/html/cacti/rra/'+graph.infoCacti.idHost+'/'+graph.infoCacti.idGraph+'.rrd.json','utf8', function(err, data) {
+            // fs.readFile('/var/www/html/cacti/rra/'+graph.infoCacti.idHost+'/'+graph.infoCacti.idGraph+'.rrd.json','utf8', function(err, data) {
+            fs.readFile('/var/www/html/cacti/rra/'+graph.infoCacti.idHost+'/'+graph.infoCacti.idFile+'.rrd.json','utf8', function(err, data) {
             // fs.readFile('/var/www/html/cacti/rra/41/252.rrd.json','utf8', function(err, data) {
                         if (err) {
                         //   return console.log(err);
@@ -156,7 +159,33 @@ GraphController.updateGraph=async(req, res) => {
 };
 
 GraphController.deleteGraph=async(req, res) => {
-    console.log("arquitectura a borrar",req.params.id)
+    console.log("Grafica a borrar",req.params.id)
+    graph= await Graph.findById(req.params.id);
+    server=await Server.findById(graph.idServer);
+    arquitecture=await Arquitecture.findById(server.idArquitecture)
+    arquitecture.vmCoreIMS.forEach((vmCore,index) => {
+        vmCore.graphs.forEach(async (graphElement,index) => {
+            console.log('graps',index)
+            if (graphElement._id.toString() == graph._id.toString()) {
+                console.log(index)
+                vmCore.graphs.splice(index,1);
+                await arquitecture.save()
+            }
+            
+        });
+    });
+    arquitecture.vmAditionals.forEach((vmAditional,index) => {
+        vmAditional.graphs.forEach( async (graphElement,index) => {
+            console.log('graphs',graphElement._id,graph._id)
+            if (graphElement._id.toString() == graph._id.toString()) {
+                console.log(index)
+                vmAditional.graphs.splice(index,1);
+                await arquitecture.save()
+            }
+            
+        });
+    });
+    // console.log(arquitecture)
     await Graph.findByIdAndDelete(req.params.id);
     res.json(
         {

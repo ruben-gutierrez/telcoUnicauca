@@ -116,7 +116,7 @@
                 <tbody *ngIf="arquitecture; else await2">
                     <tr *ngFor="let vm of core; let i = index" >
 
-                        <th scope="row"> {{vm.name}} </th>
+                        <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i></th>
                         <td>
                             
                             <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
@@ -168,7 +168,7 @@
                                     <input class="mx-1" type="number" name="ram" #ram="ngModel" ngModel placeholder="RAM">
                                     <input class="mx-1" type="number" name="disk" #disk="ngModel" ngModel placeholder="HDD"> -->
                                     <button class="btn btn-primary btn-sm mx-1" type="submit">Editar</button>
-                                    <button class="btn btn-danger btn-sm mx-1" (click)="hideFormEditVm(vm._id,vm.idArquitecture)">Cancel</button>
+                                    <button class="btn btn-danger btn-sm mx-1" type="button" (click)="hideFormEditVm(vm._id)">Cancel</button>
                                 </form> 
                             </div>
                         </td>
@@ -179,8 +179,11 @@
                 </tbody>
             
             <ng-template #await2>
-                <div class="spinner-border m-5" role="status">
-                    <span class="sr-only">Loading...</span>
+                <div class="d-flex justify-content-center container">
+
+                    <div class=" spinner-border m-5" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
             </ng-template>
                 </table>

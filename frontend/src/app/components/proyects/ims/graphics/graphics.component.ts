@@ -102,7 +102,7 @@ export class GraphicsComponent implements OnInit {
       this.arquitectures.forEach(arquitecture=>{
         // console.log(arquitecture)
         if (arquitecture.vmCoreIMS.length > 0) {
-          arquitecture.vmCoreIMS.forEach(vmCore => {
+          arquitecture.vmCoreIMS.forEach((vmCore,index) => {
             // console.log(vmCore)
             if (vmCore.graphs.length > 0) {
               vmCore.graphs.forEach(graph => {
@@ -127,6 +127,7 @@ export class GraphicsComponent implements OnInit {
                         
                         graph.print= {data:preData, labels:prelabels}
                       }else{
+                        vmCore.graphs.splice(index,1)
                         graph.print={data:this.lineChartData, labels:this.lineChartLabels}
                       }
                     
@@ -141,7 +142,7 @@ export class GraphicsComponent implements OnInit {
         }
        
         if (arquitecture.vmAditionals.length > 0) {
-          arquitecture.vmAditionals.forEach(vmAditional => {
+          arquitecture.vmAditionals.forEach((vmAditional,index) => {
             if (vmAditional.graphs.length > 0) {
               vmAditional.graphs.forEach(graph => {
                 this._graph.getDataGraph(graph._id)
@@ -169,6 +170,7 @@ export class GraphicsComponent implements OnInit {
                     
                     graph.print= {data:preData, labels:prelabels}
                   }else{
+                    vmAditional.graphs.splice(index,1)
                     graph.print={data:this.lineChartData, labels:this.lineChartLabels}
                   }
                 

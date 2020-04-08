@@ -16,7 +16,12 @@
             </div>
         </div>
     <div>
+        
         <div *ngIf="arquitectures; else await" >
+            <div class="row" *ngIf="arquitectures.length == 0">
+                Actualmente no tiene recursos reservados.
+               <a [routerLink]="['/ims/available']" > Reservar Arquitectura</a>
+           </div>
             <div class="card-columns">
                 <div *ngFor="let arq of arquitectures" class="card">
                     <div *ngIf="arq.type==1; else other" style="width: 10rem;" >

@@ -64,8 +64,9 @@ async function importGraphAutomatics(idServer,idCacti) {
         }
        
         ansCacti=stdout.split('\n')
+        console.log(ansCacti)
         //  ansCacti.forEach(async  (line,index) => {
-         for await ([index, line] of ansCacti){
+         for await ([index, line] of ansCacti.entries()){
            
             if (line !='') {
                 
@@ -80,18 +81,18 @@ async function importGraphAutomatics(idServer,idCacti) {
                 infoGraph={
                     name: ansCacti[index][2],
                     idServer:idServer,
-                    infoCacti: {idHost:idCacti, idGraph:ansCacti[index][0],idFile:'xx' },
+                    infoCacti: {idHost:idCacti, idGraph:'xx',idFile:ansCacti[index][0] },
                 }
                 const graph = new Graph(infoGraph);
                 await graph.save()
                 await server.graphs.push(graph)
-                console.log(sever.graphs)
-                await server.save()
+                // console.log(sever.graphs)
+                // await server.save()
+                await Server.findByIdAndUpdate(idServer,server,{ new: true})
                 
             }else{
               
               
-              // await Server.findByIdAndUpdate(idServer,server,{ new: true})
                 ansCacti.splice(index,1)
             }
             

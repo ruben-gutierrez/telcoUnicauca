@@ -18,6 +18,7 @@ export class ReservedComponent implements OnInit {
     private toastr:ToastrService) { }
 
   ngOnInit() {
+    this.arquitectures = this._arquitecture.arquitectures
     this._arquitecture.getArquitectures()
       .subscribe( data=>{
         // this.arquitectures=data;

@@ -31,8 +31,8 @@
         </div>
     </div>
 </div>
-<div class="container">
-<div class="row">
+<div class="container" *ngIf="graph._id ; else graphError">
+<div class="row" >
 
     <p>graph {{graph.name}}</p>
 </div>
@@ -48,7 +48,7 @@
                 [plugins]="lineChartPlugins">
               </canvas>
 </div>
-<div class="row">
+<div class="row" >
     <button  class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tableData"><i class="fa fa-table" aria-hidden="true"></i> </button>
     <button class="btn btn-outline-success" (click)="downloadChart()"> <i class="fa fa-download" aria-hidden="true"></i> </button>
     <button style="float:right" class="btn btn-outline-primary" (click)="resetZoom()"> <i class="fa fa-search-minus" aria-hidden="true"></i> </button>
@@ -56,3 +56,6 @@
 </div>
 
 </div>
+<ng-template #graphError>
+   Error Graph
+    </ng-template>

@@ -1,3 +1,4 @@
+<app-loading [state]="loading"></app-loading>
 <div class="container my-5">
     <div class="row">
         <div class="col">
@@ -55,4 +56,8 @@
         </div>
     </form>
 </div>
-
+<ng-template #await>
+    <div class="spinner-border m-5" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</ng-template>

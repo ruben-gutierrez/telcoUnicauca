@@ -20,6 +20,7 @@ export class AvailableComponent implements OnInit {
           private toastr:ToastrService ) { }
   
   ngOnInit() {
+    this.arquitectures=this._arquitecture.freeArquitectures
     this._arquitecture.getArquitectures()
       .subscribe( data=>{
         // this.arquitectures=data;

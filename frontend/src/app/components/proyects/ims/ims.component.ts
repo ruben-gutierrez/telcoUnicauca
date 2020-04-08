@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ArquitectureService } from 'src/app/services/arquitectures.service';
+import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-ims',
   templateUrl: './ims.component.html',
@@ -43,9 +44,36 @@ export class IMSComponent implements OnInit {
    
     
   ];
-  constructor() { }
+  constructor( private _user: UsersService,
+              private _arquitecture:ArquitectureService) { }
 
   ngOnInit() {
+    this._arquitecture.getArquitectures()
+    .subscribe( data=>{
+      // this.arquitectures=data;
+      this._arquitecture.arquitectures = this.arqReserved(data, this._user.userActive._id);
+      this._arquitecture.freeArquitectures=this.arqFree(data);
+      // console.log(data);
+      
+    })
+    
   }
+  arqReserved(arquitectures, idUser) {
+
+    return arquitectures.filter(function(arq){
+      // console.log(arq);
+      return arq.status == idUser;
+    })
+  }
+  arqFree(arquitectures) {
+
+    return arquitectures.filter(function(arq){
+      // console.log(arq);
+      return arq.status == 'public';
+    }
+    )
+  }
+  
+  
 
 }

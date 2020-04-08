@@ -8,6 +8,7 @@ const fs = require('fs');
 const openstack = require('../functions/openstack')
 const fGraph = require('../functions/graph')
 const { exec } = require('child_process');
+var SSH = require('simple-ssh');
 
 const TestController={};
 
@@ -57,6 +58,7 @@ TestController.createTest= async(req, res) => {
                 arquitecture.save()
                 test.save();
             });
+            // console.log(req.body.contentFile)
             // fs.writeFile('server/assets/tests/'+ test._id +'.xml', req.body.contentFile ,  {'flag':'a'},  function(err) {
             //     if (err) {
             //         return console.error(err);
@@ -100,7 +102,7 @@ TestController.executeTest= async(req, res) => {
         arquitecture=await Arquitecture.findById(test.idArquitecture)
         arquitecture.tests.forEach(async (testArq,index) => {
         if (test._id.toString() == testArq._id.toString()) {
-            
+
             arquitecture.tests[index].status='running'
             await Arquitecture.findByIdAndUpdate(arquitecture._id, arquitecture)
             // await arquitecture.save()
@@ -171,6 +173,24 @@ TestController.updateTest=async(req, res) => {
         }
     );
 };
+TestController.updateTestFile=async(req, res) => {
+    const idTest = req.params.id;
+  
+    console.log('content file', req.body)
+        fs.writeFileSync('server/assets/tests/'+idTest+'.xml',req.body.file,{encoding:'utf8',flag:'w'})
+        res.json(
+            {
+                status:'200',
+                answer:req.params.id
+            }
+        );
+    
+    
+    
+    
+    // await Test.findByIdAndUpdate(idTest, {$set: test },{ new: true});
+   
+};
 TestController.getTestData=async(req, res) => {
     const idTest = req.params.id;
     try {
@@ -185,6 +205,7 @@ TestController.getTestData=async(req, res) => {
                 content:err
             })
             }
+            
         //     data=JSON.parse(data)
             return res.json({
                 status:200,
@@ -264,47 +285,82 @@ TestController.deleteTest=async(req, res) => {
 
 
 TestController.testing= async(req, res) => {
-
+    res.send("cahvis esto es una prueba");
+    //leer archivo linea por linea
+    // try {
+    //     file = fs.readFileSync('server/scripts/coreIMS/sipp.sh','utf8');
+    //   } catch (err) {
+    //     //   console.log("fallo el archivo")
+    //     file="sudo apt install sipp -y"
+    // }
    
-     try {
-        exec("php /var/www/html/cacti/cli/list-graphs-host.php --list-graphs-host=41  | sed '1d' | sed '/^$/d' ", (error, stdout, stderr) => {
-            if (error) {
-                res.json({
-                    status:400,
-                    content:error
-                });
-              return;
-            }
-            ansCacti=stdout.split('\n')
-            ansCacti.forEach( (line,index) => {
-                if (line !='') {
+    
+    
+    
+    // keyPair=fs.readFileSync('server/key.pem', {
+    //     encoding: 'utf8',
+    //   })
+    // var ssh = new SSH({
+    //     host: '192.168.40.17',
+    //     user: 'ubuntu',
+    //     key: keyPair
+    // });
+
+    // ssh.exec("sudo echo '"+file+"'>scriptInstall"),
+    // ssh.exec("sudo chmod 775 scriptInstall"),
+    // ssh.exec("sudo ./scriptInstall",{
+    //     pty: true,
+    //     out: console.log.bind(console)
+    // }),
+    // ssh.exec("sudo /etc/rc2.d/S99zclearwater-aio-first-boot")
+    // .start();
+    
+    // res.json({
+    //     function:'ok'
+    // })
+
+    //tratar graficas
+    //  try {
+    //     exec("php /var/www/html/cacti/cli/list-graphs-host.php --list-graphs-host=41  | sed '1d' | sed '/^$/d' ",async  (error, stdout, stderr) => {
+    //         if (error) {
+    //             res.json({
+    //                 status:400,
+    //                 content:error
+    //             });
+    //           return;
+    //         }
+    //         ansCacti=stdout.split('\n')
+    //         // ansCacti.forEach( (line,index) => {
+    //         for await ([index, line] of ansCacti.entries()){                
+
+    //             if (line !='') {
                     
-                    ansCacti[index]=line.split('\t')
+    //                 ansCacti[index]=line.split('\t')
                     
-                    if (ansCacti[index][ansCacti[index].length] == undefined) {
-                        ansCacti[index].splice(ansCacti[index].length - 1,1)
-                    }
+    //                 if (ansCacti[index][ansCacti[index].length] == undefined) {
+    //                     ansCacti[index].splice(ansCacti[index].length - 1,1)
+    //                 }
                     
-                }else{
-                    ansCacti.splice(index,1)
-                }
+    //             }else{
+    //                 ansCacti.splice(index,1)
+    //             }
                 
                 
-            });
+    //         };
             
-            res.json({
-                status:200,
-                content:ansCacti,
-                origin:stdout
-            });
+    //         res.json({
+    //             status:200,
+    //             content:ansCacti,
+    //             origin:stdout
+    //         });
             
-          });
+    //       });
            
-          } catch (e) {
-            res.json({
-                status:400,
-                content:e});
-          }
+    //       } catch (e) {
+    //         res.json({
+    //             status:400,
+    //             content:e});
+    //       }
 
     
 };

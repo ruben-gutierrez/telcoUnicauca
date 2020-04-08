@@ -69,6 +69,8 @@ import { NotificationService } from './services/notifications.service';
 
 import { GraphTemplateComponent } from './components/proyects/ims/graph/graph-template/graph-template.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { NavImsComponent } from './components/proyects/ims/nav-ims/nav-ims.component';
+import { NavContentComponent } from './components/proyects/ims/nav-content/nav-content.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,9 @@ import { LoadingComponent } from './components/loading/loading.component';
     AdminNewArquitectureComponent,
     EditArquitectureComponent,
     GraphTemplateComponent,
-    LoadingComponent
+    LoadingComponent,
+    NavImsComponent,
+    NavContentComponent
   ],
   imports: [
     NgbModule,

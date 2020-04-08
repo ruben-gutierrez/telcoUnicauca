@@ -102,7 +102,6 @@ echo 'Los servicios se pararon correctamente'" > $parar_proc
 # cat parar_proc_IMS >> $parar_proc 
 chmod 775 $parar_proc
 chmod 777 $parar_proc
-
 activar_proc=/etc/activar_nucleo.sh
 echo "Creando script para activar los servicios del núcleo IMS de clearwater en /etc/activar_nucleo.sh"
 # cat activar_nucleo_IMS >> $activar_proc 

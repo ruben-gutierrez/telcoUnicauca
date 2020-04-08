@@ -1,0 +1,9 @@
+<nav class="nav flex-column"  (mouseover)='varFade = !varFade'>
+    
+    <a [routerLink]="[]" class="btn btn-outline-success d-flex justify-content-start">   <i class="fa fa-info" aria-hidden="true"></i><label class="name-point ml-auto"  [ngClass]="{'fade': varFade == false}"> Informacion</label></a>
+    <a [routerLink]="['reserved']" class="btn btn-outline-success d-flex justify-content-start"> <i class="fas fa-network-wired"></i><label class="name-point ml-auto fade"  [ngClass]="{'fade': varFade == false}"> Arquitecturas</label> </a>
+    <a [routerLink]="['tests']" class="btn btn-outline-success d-flex justify-content-start"> <i class="fas fa-clipboard-list    "></i><label class="name-point ml-auto fade "  [ngClass]="{'fade': varFade == false}"> Pruebas</label> </a>
+    <a [routerLink]="['graphics']" class="btn btn-outline-success d-flex justify-content-start "><i class="fa fa-bar-chart "></i><label class="name-point ml-auto fade "  [ngClass]="{'fade': varFade == false}"> Gráficas</label> </a>
+    <button (click)="varFade = true">Ocultar</button>
+</nav>
+

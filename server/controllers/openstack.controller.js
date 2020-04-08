@@ -254,7 +254,7 @@ OpenStackController.createServer= async(req, res) => {
         "server": {
             "name": req.body.name, 
             "imageRef": req.body.idImage, 
-            // "key_name": req.body.nameKey, 
+            "key_name": req.body.nameKey, 
             "flavorRef": req.body.idFlavor, 
             "max_count": 1, 
             "min_count": 1, 
