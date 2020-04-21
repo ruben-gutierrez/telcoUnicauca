@@ -33,7 +33,8 @@ import { EditArquitectureComponent } from './components/console/admin-proyects/a
 import { GraphComponent } from './components/proyects/ims/graph/graph.component';
 import { NewGraphComponent } from './components/proyects/ims/new-graph/new-graph.component';
 import { NewTestComponent } from './components/proyects/ims/new-test/new-test.component';
-
+import { InfsertelcoimsComponent } from './components/proyects/ims/infsertelcoims/infsertelcoims.component';
+import { InftecnotelcoimsComponent } from './components/proyects/ims/inftecnotelcoims/inftecnotelcoims.component';
 
 
 const routes: Routes = [
@@ -71,6 +72,8 @@ const routes: Routes = [
         {path: 'ims/graphics/:id/server', component: GraphicsComponent },
         {path: 'ims/graphics/:id/arquitecture', component: GraphicsComponent },
         {path: 'ims/graph/:id', component: GraphComponent },
+        {path: 'ims/Infsertelcoims', component: InfsertelcoimsComponent },
+        {path: 'ims/Inftecnotelcoims', component: InftecnotelcoimsComponent },
         // {path: 'ims/graphNew', component: NewGraphComponent },
   {path: 'signin', component: SigninComponent },
   {path: 'signup', component: SignupComponent },

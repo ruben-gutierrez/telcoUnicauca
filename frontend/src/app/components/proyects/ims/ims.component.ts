@@ -4,10 +4,11 @@ import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-ims',
   templateUrl: './ims.component.html',
-  styles: []
+  styleUrls: ['./ims.component.css']
 })
 export class ImsComponent implements OnInit {
   tittles = [
+
      
     // {
     //   "tittle":"Introduccion",

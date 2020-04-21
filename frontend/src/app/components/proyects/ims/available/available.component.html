@@ -2,7 +2,11 @@
         <div class="row">
             <div class="col">
                 <h3>Arquitecturas disponibles</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum temporibus amet dicta veniam eaque autem officia! Ducimus recusandae facere tenetur deserunt. Laudantium omnis voluptas dolor minima aliquid numquam vel error?</p>
+                <p> En esta sección puedes solicitar o resevar una arquitectura de clearwater IMS
+                    instanciadas sobre VM. Existen dos tipos de arquitecturas de clearwater:  la primera, 
+                es una arquitectura todo en uno la cual integra todos los componentes de IMS en una sola instancia de VM. 
+                La segunda, un sistema distribuido el cual instancia cada componente de IMS en una VM por separado. 
+            </p>
             </div>
             <div class="col">
                 <div class="row">
@@ -15,12 +19,17 @@
                         
                 </div>
             </div>
-        </div>  
+        </div>
+        <div class="col-sm-9 text-left" *ngIf="arquitectures.length == 0">
+            <h5> <i class="fas fa-exclamation-triangle"></i>
+            Actualmente no existen arquitecturas disponibles en este momento</h5>
+       </div> 
+    
     <div>
         <div *ngIf="arquitectures; else await" >
-            <div class="card-columns">
+            <div class="card-columns col-sm-10">
                 <div *ngFor="let arq of arquitectures" class="card" >
-                    <div *ngIf="arq.type==1; else other" style="width: 10rem;" >
+                    <div *ngIf="arq.type==1; else other" style="width: 8rem;" >
                         
 
                             <img src="/assets/ims/server.png" class="card-img-top mx-auto" alt="...">
@@ -33,7 +42,7 @@
                   <div class="card-body">
                     <h5 class="card-title">{{ arq.name }}</h5>
                     <small>{{arq.domain}}</small>
-                    <p class="card-text">Arquitectura IMS tipo {{arq.type}}, Capacidad extra para {{ arq.maxVM }} maquinas virtuales con {{ arq.maxRAM }} Gb de RAM, {{ arq.maxHDD }} Gb de HDD y {{arq.maxCore }} procesdores</p>
+                    <p class="card-text">Arquitectura IMS tipo {{arq.type}}, Capacidad extra para {{ arq.maxVM }} VM con {{ arq.maxRAM }} Gb de RAM, {{ arq.maxHDD }} Gb de HDD y {{arq.maxCore }} procesdores</p>
                     <p *ngIf="arq.status == 'public'" class="card-text">
                         <button class="btn btn-outline-primary" (click)="reserve(arq._id)">Reservar</button>
                         <!-- <small class="text-muted">Last updated 3 mins ago</small> -->

@@ -9,12 +9,12 @@
         <li class="nav-item " routerLinkActive="active">
           <a class="nav-link" [routerLink]="['home']">Inicio <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['imsInfo']">Información</a>
+        <li class="nav-item dropdown" routerLinkActive="active">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Información</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown2" >
-            <a class="dropdown-item" href="#">Infraestructura</a>
-            <a class="dropdown-item" href="#">Servicios</a>
-            <a class="dropdown-item" href="#">Tecnologias</a>
+            <a class="dropdown-item" [routerLink]="['imsInfo']">Infraestructura</a>
+            <a class="dropdown-item" [routerLink]="['/ims/Infsertelcoims']">Servicios</a>
+            <a class="dropdown-item" [routerLink]="['/ims/Inftecnotelcoims']">Tecnologias</a>
           </div>
         </li>
 
@@ -24,6 +24,7 @@
           </a>
          
         </li>
+ 
 
         <li class="nav-item dropdown" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['ims/tests']" >

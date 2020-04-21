@@ -1,209 +1,24 @@
-<div class="section my-5">
-    <div class="row">
-        <div class="col-2">
-            <!-- <app-nav-ims></app-nav-ims> -->
+<div class="container-fluid">
+    <div class="col-sm-12 text-left" >
+        <h1>INFRAESTRUCTURA</h1>
+        <div>
+            <p>La plataforma Telco 2.0 es una infraestructura fisica de la Facultad de Ingenieria Electronica 
+                y Telecomunicaciones <b>(FIET)</b> de la Universidad del Cauca destinada para la investigación 
+                e innovación de servicios de Telecomunicaciones en la nube, cuyo propósito es convertirse en uno 
+                de los centros de investigación tecnológico más importantes de la región. En particular, esta plataforma 
+                brinda servicios de gestión, almacenamiento y procesamiento de recursos virtuales que son 
+                alojados en instancias de máquinas virtuales.</p>
         </div>
-        <div class="col-8">
-
-            <div class="row">
-                <div class="col-sm-10 text-left" >
-                    <h1 id="servicios">SERVICIOS PLATAFORMA TELCO</h1>
-                    <div>
-                        <p>La plataforma Telco provee servicios de orquestacion y gestion de recursos
-                            virtuales los cuales son alojados en instancias o arquitecturas de VM como el subsistema
-                            multimedia IP (IMS). Particularmente, el proyecto Telco IMS provee los servicios descritos a continuacion.
-                        </p>
-                    </div>
-                    <div>      
-                        <ul>
-                            <li> <b>Maquinas Virtuales:</b> Las maquinas virtuales son orquestadas por el 
-                            hypervisor de Openstack que es un sistema de virtualizacion de funciones de red 
-                            que permite la gestion e instanciacion de funciones de red alojadas en arquitecturas
-                            de VM como el subsistema multimedia IP (IMS). IMS provee una arquitectura para la investigacion, 
-                            desarrollo tecnologico e innovacion de sistemas de Telecomunicaciones convergentes sobre IP.
-                            LA plataforma Telco IMS provee a los usuarios un un ambiente de pruebas flexible y configurable
-                            mediante el acceso a las maquinas virtuales por medio del terminal de consola en la web</li>
-                            <li> <b>Pruebas:</b> El proyecto Telco IMS provee a los usuarios una guia practica para
-                                la experimentacion de pruebas en el nucleo IMS por medio de la simulacion de usuarios o 
-                                servidores proxy SIP que permitan evaluar el rendimiento y QoS a partir de la monitorizacion
-                            de recursos en el sistema.  </li>
-                            <li> <b>Monitorizacion:</b> Este sistema provee graficas de monitorizacion de recursos de 
-                                procesamiento y almacenamiento de las arquitecturas de VM asignadas a cada usuario del sistema.
-                            Las graficas permiten evaluar el rendimiento y la calidad de las arquitecturas IMS cuyos datos
-                        pueden ser descargados en formato JSON para su posterior analisis.  </li>
-            
-                        </ul>
-                    </div>    
-                    <hr>
-                    
-                </div>
-            </div>
-    
-            <div class="row">
-    
-                <div class="col-sm-5 text-left">
-                    <h1>Virtualización de funciones de red (NFV)</h1>
-                    <div>
-                        <p>NFV desacopla las NF (Network Functions) de dispositivos hardware propietarios con el fin de proveer servicios de red virtualizados (e.g., Enrutamiento, conmutación, balanceo de carga y firewall)  los cuales  son  alojados en VM (Virtual Machines). }
-                            NFV provee una arquitectura con capacidad de instanciar nuevas funciones virtualizadas, disminuyendo la dependencia de equipos propietarios, facilitando la escalabilidad de la red y la gestión de los recursos </p>
-                    </div>
-                    <div>      
-                        <p>La Figura <b>4</b> muestra el marco de referencia de NFV donde los recursos virtuales son el resultado de la abstracción de recursos físicos (e.g., procesamiento, almacenamiento y dispositivos de red) a partir de una capa de virtualización que permite alojar las NF en instancias de VM o contenedores. De forma transversal se tiene a MANO (Network Functions Virtualization Management and Orchestration) encargado de gestionar los recursos del sistema y automatizar las tareas de administración en la red </p>  
-                    </div>
-                    
-                </div>
-                <div class="col-sm-5 text-left">
-                    
-                    <div>   
-                        <a href="assets/ims/NFV.JPG" target="_blank">
-                            <img src="assets/ims/NFV.JPG" alt="NFV"  style="max-width: 100%; height: auto;" hspace="10" vspace="10">
-                        </a>
-                    </div>  
-                    
-                </div>
-                
-                
-            </div>
-          
-            <div class="row">
-                
-                <div class="col-sm-5 text-left">
-                    <h1>Next Generation Networks (NGN)</h1>
-                    <div>
-                        <p>NGN provee servicios de telecomunicaciones basados en la transferencia de paquetes sobre el protocolo IP.
-                            Esta arquitectura brinda una plataforma de multiservicios convergentes que pueden ser consumidos por los usuarios independiente de las tecnologías de acceso (e.g, xDSL, WiMax, GPRS y HFC). 
-                            Además, provee interfaces  abiertas estandarizadas que facilitan la interoperabilidad con redes tradicionales de video, voz y datos.</p>
-                        <p><!--La arquitectura NGN está compuesta por las capas de aplicación, control y acceso. La capa de aplicación gestiona las aplicaciones y servicios en la red. 
-                            En la arquitectura NGN, la capa de control es la encargada de manejar la señalización entre los usuarios y los servicios de aplicación, admitiendo el establecimiento y finalización de sesiones en la red por medio de la arquitectura IMS. 
-                            Además, proporciona seguridad, gestión, facturación y almacenamiento de los perfiles de usuario en el HSS (Home Subscriber Server). --></p>
-                    </div>
-                    <h1>Subsistema Multimedia IP</h1>
-                    <div>
-                    <p>IMS es una estandarización de la arquitectura NGN desarrollada por el 3GPP (3rd Generation Partnership Project) para proveer y controlar diferentes tipos de servicios multimedia basados en el protocolo IP, 
-                        además, de  garantizar escalabilidad e interoperabilidad con otras redes. IMS tiene soportar diferentes tecnologías de acceso que permiten iniciar, mantener y finalizar sesiones multimedia 
-                        mediante el protocolo SIP. </p>
-                    <p>La arquitectura IMS está compuesta por 3 capas. En la capa de aplicación se encuentran los AS (Application Server) encargados de manejar la lógica de los servicios y aplicaciones. 
-                        En la capa de control se encuentra el núcleo IMS compuesto por el HSS y los nodos CSCF (Call Session Control Function)  elementos de señalización y control del sistema.
-                        Finalmente, en la capa de acceso se encuentran las tecnologías y métodos de acceso a la arquitectura IMS tales como redes Wi-FI y Fibra óptica.</p>  
-            
-                    </div>
-                </div>
-                
-                <div class="col-sm-5 ">   
-                    <a href="assets/ims/IMS.JPG" target="_blank">
-                        <img src="assets/ims/IMS.JPG" alt="IMS"  style="max-width: 100%; height: auto;" hspace="10" vspace="10">
-                    </a>
-                </div>  
-                
-            </div>
-            
-            <div class="row">
-                <div class="col-sm-5 text-left" >
-                    <h1>Virtual IMS</h1>
-                    <div>
-                        <p>IMS está compuesto por componentes hardware y software para el control de servicios  
-                            multimedia en la red. Mediante NFV se abstraen las funcionalidades de los componentes
-                            hardware IMS para ser desplegadas en contenedores o instancias de VM. Estas instancias proveen acceso a un conjunto escalable de recursos virtuales los cuales pueden ser aprovisionados y gestionados bajo demanda, además, del manejo de cadenas de servicios en un entorno de nube</p>
-                    </div>
-                    
-                    <div>      
-                        <p>En la Figura se observa la implementación de IMS sobre NFV denominada vIMS (virtual IMS). 
-                            La capa de recursos físicos compuesta por un Datacenter que contiene dispositivos de almacenamiento, 
-                            procesamiento y de red. La capa de virtualización utiliza un hipervisor o monitor de VM para controlar 
-                            la virtualización de los recursos físicos y por último la capa de servicios virtualizados donde las 
-                            funciones de cada nodo de IMS son desplegadas en VM.</p>  
-                    </div>    
-                    <hr>
-                </div>
-                <div class="col-sm-5 text-left">   
-                    
-                    <a href="assets/ims/vIMS.JPG" target="_blank">
-                        <img src="assets/ims/vIMS.JPG" alt="plataforma Telco"  class="center" hspace="10" vspace="10">
-                    </a>
-                </div> 
-                
-            </div>
-    
-            <div class="row">
-                
-                <div class="col-sm-5 text-left">
-                    <h1>Simple Network Management Protocol(SNMP)</h1>
-                    <div>
-                        <p>Protocolo de gestión y supervisión de la capa de aplicación en las redes de computo el cual permite intercambiar información de gestión entre los dispositivos conectados en la red a partir de protocolos TCP/IP como UDP e IP.  En la figura  se observa la arquitectura del protocolo SNMP compuesta por un administrador y un agente SNMP. Igualmente, se compone por una base de información de gestión denominada MIB que incluye todos los parámetros que pueden ser gestionados tales como interfaces de red y protocolos TCP/IP asbtraidos de los dispositivos conectados en la red. </p>
-                    </div>
-                    <div>      
-                        <p>SNMP utiliza 5 mensajes básicos para la transferencia de información entre el administrador y el agente SNMP como son Get, Get-next, Get-request - Get-Response, SET y Trap. Los mensajes Get y Get-next permiten al administrador solicitar información específica sobre una variable al agente SNMP quien responde la solicitud con la información solicitada o un mensaje de error a partir de la utilización del mensaje Get-request. SET fija valores específicos a una variable de un dispositivo remoto. Finalmente, los mensajes Trap permiten enviar información de eventos relevantes en la red al administrador SNMP</p>  
-                    </div>
-                    
-                </div>
-                <div class="col-sm-5 text-left">
-                    
-                    <div>   
-                        <a href="assets/ims/SNMP.JPG" target="_blank">
-                            <img src="assets/ims/SNMP.JPG" alt="SNMP"  style="max-width: 100%; height: auto;" hspace="10" vspace="10">
-                        </a>
-                    </div>  
-                    
-                </div>
-                
-                
-            </div>
-            
-            <div class="row">
-               
-                <div class="col-sm-5 text-left">
-                    <h1 name="rendimiento">Rendimiento</h1>
-                    <div>
-                        <p>El rendimiento de una red es determinado por la calidad del servicio (QoS) y el 
-                            comportamiento de un enlace de comunicaciones. Esto facilita detectar y resolver 
-                            anomalías presentes en la red como son pérdidas de tiempo de comunicación o caídas
-                            en el sistema. La evaluación de parámetros como el consumo de CPU, RAM y almacenamiento 
-                            en un sistema de comunicaciones permiten tasar el desempeño del sistema y la confiabilidad 
-                            de los componentes individuales de la red. Por otro lado, las aplicaciones multimedia requieren 
-                            niveles mínimos de retardo, ancho de banda y perdida de paquetes para garantizar 
-                            la calidad del servicio. En la Tabla se resume los niveles requeridos de métricas 
-                            de QoS para aplicaciones de video y voz en tiempo real y bajo demanda. </p>
-                    </div>
-                </div>  
-                <div class="col-sm-5 text-left">
-                    
-                    <div>   
-                        <a href="assets/ims/Rendimiento.png" target="_blank">
-                            <img src="assets/ims/Rendimiento.png" alt="SNMP"  style="max-width: 100%; height: auto;" hspace="10" vspace="10">
-                        </a>
-                    </div>  
-                    <div>      
-                        <p>El testbed "Telco IMS" permite monitorizar recursos de procesamiento y 
-                            almacenamiento, al igual que métricas de QoS tales como retardo, ancho de banda
-                            y perdida de paquetes que son fundamentales para garantizar el funcionamiento y 
-                            la calidad del servicio en un sistema de Telecomunicaciones.</p>  
-                    </div>
-                    
-                </div>
-                
-                
-            </div>
-        </div>
-        <div class="col-2">
-           <!-- <app-nav-content></app-nav-content> -->
-        </div>
+        <div>   
+            <a href="assets/ims/Telco.JPG" target="_blank">
+                <img src="assets/ims/Telco.JPG" alt="plataforma Telco"  class="center" hspace="10" vspace="10">
+                <figcaption><b>Fig. 1</b> infraestructura Plataforma Telco</figcaption>
+            </a>
+        </div> 
+        <br>
+        <div>      
+            <p>Actualmente, el  laboratorio Telco 2.0 tiene 5 servidores Blade Hewlett-Packard. 3 de ellos con 128 GB de RAM, 2 procesadores de 12 núcleos cada uno y almacenamiento de 300 GB.  Asimismo, 2 servidores con 256 GB de RAM, 2 procesadores de 14 núcleos cada uno y almacenamiento de 480 GB.  Igualmente, cuenta con unidades de almacenamiento MSA de un total de 23,6 TB. En la Figura <b>1</b> se puede observar la infraestructura física de la plataforma Telco 2.0.</p>  
+        </div>    
     </div>
-        <!-- <div class="row">
-            <div class="col">
-                <h3>Bienvenido al ambiente de prueba IMS</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum temporibus amet dicta veniam eaque autem officia! Ducimus recusandae facere tenetur deserunt. Laudantium omnis voluptas dolor minima aliquid numquam vel error?</p>
-            </div>
-            <div class="col">
-                <div class="row">
-                        <div class="col">
-                            <a href="javascript:history.go(-1)" class="btn btn-outline-success mx-1"><i class="fas fa-arrow-left  fa-2x  "></i> <br> Atras</a>
-                            <a [routerLink]="['reserved']" class="btn btn-outline-success mx-1"> <i class="fas fa-network-wired  fa-2x  "></i> <br> Arquitecturas</a>
-                            <a [routerLink]="['tests']" class="btn btn-outline-success mx-1"> <i class="fas fa-clipboard-list  fa-2x  "></i> <br> Pruebas</a>
-                            <a [routerLink]="['graphics']" class="btn btn-outline-success mx-1"><i class="fa fa-bar-chart fa-2x"></i> <br> Gráficas</a>
-                        </div>
-                </div>
-            </div>
-        </div> -->
-
-
+    
 </div>

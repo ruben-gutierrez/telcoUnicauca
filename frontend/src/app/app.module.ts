@@ -72,6 +72,10 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { NavImsComponent } from './components/proyects/ims/nav-ims/nav-ims.component';
 import { NavContentComponent } from './components/proyects/ims/nav-content/nav-content.component';
 
+//informacion
+import { InfsertelcoimsComponent } from './components/proyects/ims/infsertelcoims/infsertelcoims.component';
+import { InftecnotelcoimsComponent } from './components/proyects/ims/inftecnotelcoims/inftecnotelcoims.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -118,7 +122,9 @@ import { NavContentComponent } from './components/proyects/ims/nav-content/nav-c
     GraphTemplateComponent,
     LoadingComponent,
     NavImsComponent,
-    NavContentComponent
+    NavContentComponent,
+    InfsertelcoimsComponent,
+    InftecnotelcoimsComponent
   ],
   imports: [
     NgbModule,

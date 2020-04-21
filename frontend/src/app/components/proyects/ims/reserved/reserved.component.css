@@ -1,0 +1,53 @@
+div{
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 15px;
+    /*font-family: "Times New Roman";*/
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: auto;
+}
+
+.center1{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    height: auto;
+}
+
+.row{
+    padding: 40px;
+}
+
+figcaption{
+    display: block;
+    height: auto;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+}
+
+.col{
+    /*display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;*/
+    text-align: center;
+}
+
+.bajar{
+    display: inline-block;
+    padding: 20px;
+    background: rgb(88, 92, 136);
+    color: blanchedalmond;
+    cursor: pointer;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}

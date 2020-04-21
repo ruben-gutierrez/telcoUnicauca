@@ -8,7 +8,7 @@ div{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    width: 80%;
     height: auto;
 }
 
@@ -22,13 +22,4 @@ figcaption{
     font-size: 16px;
     text-align: center;
     color: black;
-}
-
-.col1{
-    /*display: block;
-    margin-left: auto;
-    margin-right: auto;
-    height: auto;*/
-    padding-top: 25px;
-    text-align: center;
 }
