@@ -39,8 +39,8 @@ import { PoliticsComponent } from './components/about/politics/politics.componen
 import { HttpClientModule } from '@angular/common/http';
 import { AdminUserComponent } from './components/console/admin-users/admin-user/admin-user.component';
 import { AdminNewUserComponent } from './components/console/admin-users/admin-new-user/admin-new-user.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
+import { SigninComponent } from './components/shared/signin/signin.component';
+import { SignupComponent } from './components/shared/signup/signup.component';
 import { AvailableComponent } from './components/proyects/ims/available/available.component';
 import { ReservedComponent } from './components/proyects/ims/reserved/reserved.component';
 import { TestsComponent } from './components/proyects/ims/tests/tests.component';
@@ -75,6 +75,7 @@ import { NavContentComponent } from './components/proyects/ims/nav-content/nav-c
 //informacion
 import { InfsertelcoimsComponent } from './components/proyects/ims/infsertelcoims/infsertelcoims.component';
 import { InftecnotelcoimsComponent } from './components/proyects/ims/inftecnotelcoims/inftecnotelcoims.component';
+import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { InftecnotelcoimsComponent } from './components/proyects/ims/inftecnotel
     NavImsComponent,
     NavContentComponent,
     InfsertelcoimsComponent,
-    InftecnotelcoimsComponent
+    InftecnotelcoimsComponent,
+    NotfoundComponent
   ],
   imports: [
     NgbModule,

@@ -4,7 +4,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 
 @Component({
