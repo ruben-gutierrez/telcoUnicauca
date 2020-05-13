@@ -19,7 +19,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({origin: ['http://10.55.6.31:4200','http://localhost:4200','http://10.55.6.39:4000']}))
 app.use(fileUpload())
-
+ 
 //Routes
 
 app.use('/api/users', require('./routes/user.routes'));
