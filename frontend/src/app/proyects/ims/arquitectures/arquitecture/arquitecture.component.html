@@ -1,1 +1,92 @@
-<p>arquitecture works!</p>
+<div>
+        
+    <div class="row my-2">
+
+        <div class="col d-flex justify-content-end">
+            <button class="btn btn-success" (click)="showims()"> 
+                <i class="fas fa-network-wired">Núcleo IMS</i>
+           </button> 
+        </div> 
+        <div class="col d-flex justify-content-start">
+            <button class="btn btn-outline-secondary" (click)="[showaditional()]"> 
+                <i class="fas fa-network-wired">VM Adicionales</i>
+           </button> 
+        </div>  
+    </div>
+   
+     <table class="table"> 
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Máquina Virtual</th>
+                <th scope="col">Acciones</th>
+                <th scope="col">Consola</th>
+            </tr>
+        </thead>
+        
+            <tbody>
+                <tr *ngFor="let vm of core; let i = index" >
+
+                    <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i></th>
+                    <td>
+                        
+                        <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
+                       
+                        
+                        <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id,i)]">Instantanea</button>
+                        
+                        <button *ngIf="vm.idImageRebuild" class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Regresar</button>
+                        <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, i)]">Eliminar</button>
+                        <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id, idArquitecture)]" >Redimencionar</button>
+                        <div class="row  bg-dark" id="divRedimencion{{vm._id}}" style="display:none">
+                            <form (ngSubmit)='resizeServer(dataFormEdit, vm._id)'  #dataFormEdit="ngForm" class="m-1" novalidate> 
+                                <input class="mx-1" type="hidden" name="server" #server="ngModel" [(ngModel)]="vm._id" ngModel placeholder="CPU">
+                                 <div class="container">
+                                    <div class="row" >
+                                        <div class="col">
+                                            <label  class="text-white" for="formControlRange">Procesadores</label>
+                                        <mat-slider
+                                            thumbLabel
+                                            [displayWith]="formatLabel"
+                                            tickInterval="1000"
+                                            min="0"
+                                            max="{{resourcesDisp.vcpus}}" name="vcpus" required #vcpus="ngModel" ngModel
+                                            ></mat-slider>
+                                        </div>
+                                        <div class="col">
+
+                                            <label class="text-white" for="formControlRange">RAM [Gb ]</label><br>
+                                            <mat-slider
+                                                thumbLabel
+                                                [displayWith]="formatLabel"
+                                                tickInterval="1000"
+                                                min="0"
+                                                max="{{resourcesDisp.ram/1024}}" name="ram" required #ram="ngModel" ngModel></mat-slider>
+                                        </div>
+                                        <div class="col">
+                                            <label class="text-white" for="formControlRange">Almacenamiento [Gb]</label>
+                                            <mat-slider
+                                                thumbLabel
+                                                [displayWith]="formatLabel"
+                                                tickInterval="1000"
+                                                min="0"
+                                                max="{{resourcesDisp.disk}}" name="disk" required #disk="ngModel" ngModel></mat-slider>
+                                        </div>
+                                    </div> 
+                                </div>
+                                 
+                                 
+                                
+                                <button class="btn btn-primary btn-sm mx-1" type="submit">Editar</button>
+                                <button class="btn btn-danger btn-sm mx-1" type="button" (click)="hideFormEditVm(vm._id)">Cancel</button>
+                            </form> 
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-success" (click)="[consoleServer(vm._id)]">Consola</button>
+                    </td>
+                </tr>
+            </tbody> 
+        
+        
+            </table>
+</div>

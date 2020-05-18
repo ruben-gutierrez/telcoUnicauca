@@ -11,10 +11,14 @@ import { TelcoModule } from './telco/telco.module';
 import { ProyectsModule } from './proyects/proyects.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngb-modal';
+import { ChartsModule } from 'ng2-charts';
 
 // Componentes
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -22,6 +26,7 @@ import { RegisterComponent } from './register/register.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,15 @@ import { RegisterComponent } from './register/register.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ModalModule,
+    NgbModule,
+    
+    
+  ],
+  exports:[
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

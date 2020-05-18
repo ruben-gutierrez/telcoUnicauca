@@ -1,64 +1,22 @@
-<div class="card-columns">
-    <div class="card">
-        <div class=" centered ">
-            
-
-                <img src="assets/ims/clearwater.JPG" class="card-img-top image" alt="...">
-            
-
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Distribuida</h5>
-          <p class="card-text">Core IMS de 6 máquinas virtuales. Capacidad extra de 6 GB RAM, 30 GB de almacenamiento y 8 Procesadores.</p>
-          <button class="btn btn-primary btn-block">Reservar</button>
-        </div>
-    </div> 
-    <div class="card">
-        <div class=" centered ">
-
-            <img src="assets/ims/clearwater.JPG" class="card-img-top image" alt="...">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Distribuida</h5>
-          <p class="card-text">Core IMS de 6 máquinas virtuales. Capacidad extra de 6 GB RAM, 30 GB de almacenamiento y 8 Procesadores.</p>
-          <button class="btn btn-primary btn-block">Reservar</button>
-        </div>
-    </div> 
-    <div class="card">
-        <div class=" centered ">
-
-            <img src="assets/ims/clearwater.JPG" class="card-img-top image" alt="...">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Distribuida</h5>
-          <p class="card-text">Core IMS de 6 máquinas virtuales. Capacidad extra de 6 GB RAM, 30 GB de almacenamiento y 8 Procesadores.</p>
-          <button class="btn btn-primary btn-block">Reservar</button>
-        </div>
-    </div> 
-
-    <div class="card">
-        <div class=" centered ">
-        
-            <img src="assets/ims/server.png" class="card-img-top image" alt="...">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Todo en Uno</h5>
-          <p class="card-text">Core IMS de 1 máquina virtual. Capacidad extra de 6 GB RAM, 30 GB de almacenamiento y 8 Procesadores.</p>
-          <button class="btn btn-primary btn-block">Reservar</button>
-        </div>
-    </div> 
-    <div class="card">
-        <div class=" centered ">
-
-            <img src="assets/ims/server.png" class="card-img-top image" alt="...">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Todo en Uno</h5>
-          <p class="card-text">Core IMS de 1 máquina virtual. Capacidad extra de 6 GB RAM, 30 GB de almacenamiento y 8 Procesadores.</p>
-          <button class="btn btn-primary btn-block">Reservar</button>
-        </div>
-    </div> 
-      
-
-
+<div class="container">
+  <div class="row" *ngIf="">
+    No hay arquitecturas disponibles
   </div>
+</div>
+
+<div class="card-columns">
+    <div class="card" *ngFor=" let arquitecture of arquitectures">
+        <div class=" centered ">
+            
+
+                <img src="{{ arquitecture.type == '2' ? 'assets/ims/clearwater.JPG' : 'assets/ims/server.png'  }}" class="card-img-top image" alt="...">
+
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"> {{arquitecture.name}} </h5>
+          <p class="card-text">Core IMS de {{arquitecture.maxVM}} máquinas virtuales. Capacidad extra de {{arquitecture.maxRAM}} GB RAM, {{arquitecture.maxHDD}} GB de almacenamiento y {{arquitecture.maxCore}} Procesadores.</p>
+          <button class="btn btn-primary btn-block" (click)="reserve( arquitecture._id)">Reservar</button>
+          
+        </div>
+    </div> 
+  </div>  

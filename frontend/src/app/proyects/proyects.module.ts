@@ -1,11 +1,18 @@
 
 import { NgModule } from "@angular/core";
 
+
+
 // modules
 import { SharedModule } from '../proyects/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { ChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatSliderModule} from '@angular/material/slider'; 
+import { BrowserModule } from '@angular/platform-browser';
 
 // Routes
 import { ProyectsRoutes } from './proyects.routes';
@@ -25,6 +32,9 @@ import { TestComponent } from './ims/tests/test/test.component';
 import { ArquitectureComponent } from './ims/arquitectures/arquitecture/arquitecture.component';
 import { GraphComponent } from './ims/graphs/graph/graph.component';
 import { GraphNewComponent } from './ims/graphs/graph-new/graph-new.component';
+import { InformationTemplateComponent } from './ims/information/information-template/information-template.component';
+import { GraphTemplateComponent } from './ims/graphs/graph-template/graph-template.component';
+
 
 
 @NgModule({
@@ -34,7 +44,6 @@ import { GraphNewComponent } from './ims/graphs/graph-new/graph-new.component';
         ArquitecturesComponent,
         TestsComponent,
         GraphsComponent,
-        
         AvailableComponent,
         TestingComponent,
         TestsCreatedComponent,
@@ -42,20 +51,34 @@ import { GraphNewComponent } from './ims/graphs/graph-new/graph-new.component';
         TestComponent,
         ArquitectureComponent,
         GraphComponent,
-        GraphNewComponent
+        GraphNewComponent,
+        InformationTemplateComponent,
+        GraphTemplateComponent
     ],
     exports:[
         ProyectsComponent,
         InformationComponent,
         ArquitecturesComponent,
         TestsComponent,
-        GraphsComponent
+        GraphsComponent,
+        
+        
     ],
     imports:[
         SharedModule,
         ProyectsRoutes,
         RouterModule,
-        CommonModule
+        CommonModule,
+        ChartsModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        FormsModule,
+        MatSliderModule,
+        ReactiveFormsModule,
+        BrowserModule,
+        
+        
+        
     ]
 
 

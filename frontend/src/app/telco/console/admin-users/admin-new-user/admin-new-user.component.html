@@ -1,0 +1,89 @@
+<div class="container my-5">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+  
+       
+        <!-- <form (ngSubmit)="createUser(formNewUser)" #formNewUser="ngForm" novalidate> -->
+        <form [formGroup]="forma" (ngSubmit)="createUser()"  ngNativeValidate>
+            <div class="form-group">
+              <label for="name">Nombre</label>
+              <!-- <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre" 
+                    #name="ngModel"
+                    [(ngModel)]="this._users.selectedUser.name"
+                    ngModel 
+                    required> -->
+              <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre" 
+                    formControlName="name" required>
+              <!-- <small *ngIf="name.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small> -->
+            </div>
+            <!-- <div class="form-group">
+              <label for="username">Nombre de usuario</label>
+              <input type="email" class="form-control" name="username" ngModel aria-describedby="usernameHelp" placeholder="Ingrese nombre de usuario" ngModel required>
+              <small id="usernameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div> -->
+            <div class="form-group">
+              <label for="email">Correo</label>
+              <!-- <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Ingrese correo" 
+                    ngModel 
+                    [(ngModel)]="this._users.selectedUser.email"
+                    #email="ngModel"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                    required> -->
+              <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Ingrese correo" 
+                    formControlName="email" required>
+                    <!-- <small *ngIf="email.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
+                    <small *ngIf="email.errors?.pattern" id="nameHelp" class="form-text text-muted">Formato erroneo</small> -->
+            </div>
+            <div class="form-group">
+              <label for="role">Role</label>
+              <input type="role" class="form-control" name="role" aria-describedby="roleHelp" placeholder="Tipo de usuario" 
+                    formControlName="role" required>
+                    <!-- <small *ngIf="role.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small> -->
+                   
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña </label>
+              <input type="password" class="form-control" name="password" placeholder="Ingrese contraseña " 
+                        formControlName="password" >
+                      <!-- <small *ngIf="password.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
+                      <small *ngIf="password.errors?.minlength" id="nameHelp" class="form-text text-muted">Mínimo {{ password.errors.minlength.requiredLength }} carácteres</small> -->
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña nuevamente</label>
+              <input type="password" class="form-control" name="password2" placeholder="Ingrese contraseña nuevamente" 
+                        formControlName="password2" required>
+                      <!-- <small *ngIf="password.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
+                      <small *ngIf="password.errors?.minlength" id="nameHelp" class="form-text text-muted">Mínimo {{ password.errors.minlength.requiredLength }} carácteres</small> -->
+            </div>
+            <div *ngIf=" forma.errors?.passError && !forma.pristine" class="form-group bg-danger p-3 rounded-pill">
+                <p class="text-white">Las contraseñas deben ser iguales</p>
+            </div>
+
+
+            <!-- <div class="form-group">
+              <label for="pass2">Contraseña nuevamente</label>
+              <input type="password" class="form-control" name="pass2" placeholder="Password" ngModel 
+                    minlength="8"
+                    #pass2="ngModel"
+                    required>
+                    <small *ngIf="pass2.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
+                    <small *ngIf="pass2.errors?.minlength" id="nameHelp" class="form-text text-muted">Mínimo {{ pass.errors.minlength.requiredLength }} carácteres</small>
+            </div> -->
+            <!-- <div class="form-group form-check">
+              <div class="row">
+      
+                <input type="checkbox" class="form-check-input" name="notifications" 
+                      ngModel
+                      #notifications="ngModel"
+                      required>
+                      <label class="form-check-label" for="notifications">Acepto notificaciones via correo electronico</label>
+              </div>
+                    <small *ngIf="notifications.errors?.required" id="notifications" class="form-text text-muted">Campo requerido</small>
+            </div> -->
+            <button   type="submit" class="btn btn-primary btn-block">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div> 

@@ -1,0 +1,35 @@
+<div class="row my-2">
+    <div class="col">
+        <div class="row">
+
+            <i class="fa fa-user-circle fa-2x mr-2"></i><h4>Usuarios</h4>
+        </div>
+    </div>
+    <div class="col d-flex justify-content-end"> <a [routerLink]="['admin-new-user']" class="btn btn-primary">Nuevo</a> </div>
+</div>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col">Nombre de usuario</div>
+            <div class="col">Correo</div>
+            <div class="col">Tipo de usuario</div>
+            <div class="col">Opciones</div>
+        </div>
+
+    </li>
+    <li *ngFor="let user of users; let i = index" class="list-group-item">
+    <!-- <li *ngFor="let user of users" class="list-group-item"> -->
+  
+    
+        <div class="row">
+            <div class="col">{{ user.name }}</div>
+            <div class="col">{{ user.email }}</div>
+            <div class="col">{{user.role}}</div>
+            <div class="col"> 
+                <a [routerLink]="['admin-user', user._id ]" class="btn btn-outline-success mr-2"><i class="fa fa-eye"></i></a>
+                <button class="btn btn-outline-danger" (click)="deleteuser(user._id,i)"> <i class="fa fa-trash" aria-hidden="true"></i> </button> 
+            </div>
+        </div>
+    </li>
+</ul>

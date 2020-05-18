@@ -1,1 +1,94 @@
-<p>graphs works!</p>
+<div class="container" *ngIf="arquitectures; else await">
+  <div class="container" *ngFor="let arquitecture of arquitectures">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white mb-3 mt-3">
+           <a  [routerLink]="['/ims/graphics/'+arquitecture._id+'/arquitecture']"><i class="fa fa-network-wired" aria-hidden="true"> {{arquitecture.name}}</i></a>
+    </nav>
+
+    
+    <!-- {{arquitecture.vmAditionals}} -->
+    <div *ngIf="arquitecture.vmAditionals.length > 0 ">
+      <div class="container" *ngFor="let vm of arquitecture.vmAditionals">
+        <div class="d-flex justify-content-center border-bottom mb-1">        
+        <a  class="mx-auto mt-3" [routerLink]="['/ims/graphics/'+vm._id+'/server']"> <i class="fa fa-laptop">-{{vm.name | uppercase}}</i></a>
+          <hr>
+        </div>
+        
+        
+        <div class="card-columns" *ngIf="vm.graphs.length > 0; else nographs">
+        
+          
+          <div class="card text-center" *ngFor="let graph of vm.graphs">
+            <a  [routerLink]="['/ims/graph/'+graph._id]">
+            <div class="card-body">
+              <!-- <app-graph-template [idGraph]="graph._id"></app-graph-template> -->
+              <app-graph-template ></app-graph-template>
+              <!-- <h5 class="card-title">{{graph.name}}</h5>
+              <canvas id="graph2" baseChart
+              [datasets]="graph.print.data"
+              [labels]="graph.print.labels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              [plugins]="lineChartPlugins">
+            </canvas> -->
+              <p class="card-text"><small class="text-muted">Creada {{graph.created_at}}</small></p>
+            </div>
+          </a>
+          </div>
+        
+        </div>
+       
+    
+      </div>
+    </div>
+    
+
+    <div class="container" *ngIf="arquitecture.vmCoreIMS.length > 0 ">
+      <div class="container" *ngFor="let vmCore of arquitecture.vmCoreIMS">
+        
+        <div class="d-flex justify-content-center border-bottom mb-1">        
+        <a  class="mx-auto mt-3" [routerLink]="['/ims/graphics/'+vmCore._id+'/server']"> <i class="fa fa-laptop">-{{vmCore.name | uppercase}}</i></a>
+          <hr>
+        </div>
+        
+        <div class="card-columns" *ngIf="vmCore.graphs.length > 0; else nographs">
+  
+          <div class="card text-center" *ngFor="let graph of vmCore.graphs; let i = index">
+            <a  [routerLink]="['/ims/graph/'+graph._id]">
+            <div class="card-body">
+              <!-- <app-graph-template [idGraph]="graph._id"></app-graph-template> -->
+              <app-graph-template ></app-graph-template>
+              <!-- <h5 class="card-title">{{graph.name}}</h5>
+              <canvas id="graph" baseChart
+              [datasets]="graph.print.data"
+              [labels]="graph.print.labels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              [plugins]="lineChartPlugins">
+            </canvas> -->
+              <p class="card-text"><small class="text-muted">Creada {{graph.created_at}}</small></p>
+            </div>
+          </a>
+          </div>
+        
+        </div>
+       
+      </div>
+    </div>
+
+  </div>
+ 
+</div>
+<ng-template #nographs>
+  <div class="container">
+    ¡Esta máquina virtual no tiene graficas!
+  </div>   
+</ng-template> 
+<ng-template #await>
+  <div class="spinner-border m-5" role="status">
+      <span class="sr-only">Loading...</span>
+      </div>
+  </ng-template>

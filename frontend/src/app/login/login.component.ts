@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
-import { UsersService } from 'src/app/services/telco/users.service';
-import { User } from 'src/app/models/user.model';
+import { UsersService } from "src/app/services/services.index";
+import { User } from 'src/app/models/models.index';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 
-
+declare function init_plugins();
+   
+ 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,13 +22,11 @@ export class LoginComponent implements OnInit {
                   private toastr: ToastrService
 
   ) {
-    this._users.getUsers()
-      .subscribe( data => {
-        console.log( data)
-      })
+
    }
 
   ngOnInit() {
+    init_plugins();
   }
   resetForm(form?:NgForm){
     if (form){
@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit {
         this._users.setUser(data['user']);
         this._users.setToken(data['token']);
         this._users.tokenActive = data['token'];
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/ims/arquitectures"]);
+        
         // console.log(data['user'])
       },
       error=>{

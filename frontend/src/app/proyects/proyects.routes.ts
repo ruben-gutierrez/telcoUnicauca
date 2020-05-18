@@ -22,7 +22,7 @@ const proyectsRoutes: Routes = [
         children:[
           { path: 'information', component: InformationComponent,data:{titlePage:'Información'} },
           { path: 'arquitectures', component: ArquitecturesComponent, data : {titlePage:'Arquitecturas'} },
-            { path: 'arquitecture', component: ArquitectureComponent, data : {titlePage:'Arquitectura'} },
+            { path: 'arquitecture/:id', component: ArquitectureComponent, data : {titlePage:'Arquitectura'} },
             { path: 'available', component: AvailableComponent, data : {titlePage:'Arquitecturas disponibles'} },
           { path: 'tests', component: TestsComponent, data : {titlePage:'Pruebas'} },
             { path: 'test', component: TestComponent, data : {titlePage:'Prueba'} },

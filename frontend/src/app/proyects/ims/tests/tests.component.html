@@ -1,4 +1,4 @@
-<div class="card-columns">
+<!-- <div class="card-columns">
     <div class="card">
         <div class="card-body">
           <h5 class="card-title">Prueba 1</h5>
@@ -15,4 +15,61 @@
         </div>
     </div> 
 
-  </div>
+  </div> -->
+
+<div class="container my-5">
+
+       
+             
+            <div class="row" *ngIf="arquitectures.length >=1; else noArqs">
+               
+
+                 <div class="container" *ngFor="let arq of arquitectures; let iArq = index">
+                
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white mb-3 mt-3">
+                            <i class="fa fa-network-wired" aria-hidden="true">  Arquitectura {{arq.name}}</i>
+                        </nav>
+                        <div class="card-columns">
+                            <div *ngIf="arq.tests.length==0">
+                                ¡No hay pruebas!
+                            </div>
+                            <div *ngFor="let test of arq.tests; let i = index" class="card  bg-ligth mb-3" style="max-width: 18rem;" >
+                                <div class="card-header">{{test.name }} 
+                                    
+                                    <div class="spinner-grow text-success" role="status" *ngIf="test.status == 'running'" >
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title">Tipo:{{test.type}}</h5>
+                                <p class="card-text">{{test.description}}</p>
+                                <a [routerLink]="['/ims/test/'+test._id]" class="btn btn-primary mr-2">Ver más...</a>
+                                <button *ngIf="test.status=='running'; else run" (click)="stopTest(test._id,i,iArq)" class="btn btn-outline-warning">Detener</button>
+                                <ng-template #run>
+                                    <button class="btn btn-outline-success" (click)="executeTest(test._id,i,iArq)">Ejecutar</button>
+                                    </ng-template>
+                                    <button class="btn btn-outline-danger ml-2" (click)="deleteTest(test._id,i,iArq)"> <i class="fa fa-trash" aria-hidden="true"></i> </button>
+                                </div>
+                            </div>
+    
+    
+    
+                        
+                        </div>
+    
+                    
+                
+                </div>
+            
+            </div>
+            <ng-template #noArqs>
+                <div class="row">
+
+                    Reservar arqutiectura
+                </div>
+              </ng-template>
+
+
+        
+
+</div> 
