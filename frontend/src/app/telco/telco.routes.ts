@@ -11,12 +11,14 @@ import { AdminEditArquitectureComponent } from './console/admin-proyects/admin-e
 import { AdminNewArquitectureComponent } from './console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component';
 import { AdminNewProyectComponent } from './console/admin-proyects/admin-new-proyect/admin-new-proyect.component';
 import { AdminNewUserComponent } from './console/admin-users/admin-new-user/admin-new-user.component';
+import { LoginGardGuard } from '../services/services.index';
 
 const telcoRoutes: Routes = [
 
     { 
         path: '', 
         component: TelcoComponent,
+        // canActivate: [ LoginGardGuard ],
         children:[
           { path: 'home', component: HomeComponent, data:{titlePage: 'Inicio'} },
           { path: 'about', component: AboutComponent, data:{titlePage: 'Nosotros'} },

@@ -25,7 +25,7 @@
                           Proyectos
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" [routerLink]="['/ims']" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" >IMS</a>
+                          <a class="dropdown-item" [routerLink]="['/ims']" target="_blank" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" >IMS</a>
                           <a class="dropdown-item" href="#">Maquinas virtuales</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#">4G</a>
@@ -102,48 +102,11 @@
                     <!-- ============================================================== -->
                     <!-- Messages -->
                     <!-- ============================================================== -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" *ngIf="user!=null">
                         <a class="nav-link  waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-email"></i>
                             <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                         </a>
-                        <div class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" aria-labelledby="2">
-                            <ul>
-                                <li>
-                                    <div class="drop-title">You have 4 new messages</div>
-                                </li>
-                                <li>
-                                    <div class="message-center">
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <div class="user-img"> <img src="../assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
-                                            <div class="mail-contnet">
-                                                <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span> </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <div class="user-img"> <img src="../assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
-                                            <div class="mail-contnet">
-                                                <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span> </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <div class="user-img"> <img src="../assets/images/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
-                                            <div class="mail-contnet">
-                                                <h5>Arijit Sinh</h5> <span class="mail-desc">I am a singer!</span> <span class="time">9:08 AM</span> </div>
-                                        </a>
-                                        <!-- Message -->
-                                        <a href="#">
-                                            <div class="user-img"> <img src="../assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
-                                            <div class="mail-contnet">
-                                                <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span> </div>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="nav-link text-center" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i> </a>
-                                </li>
-                            </ul>
-                        </div>
+                        <app-messages></app-messages>
                     </li>
                     <!-- ============================================================== -->
                     <!-- End Messages -->
@@ -151,7 +114,7 @@
                     <!-- ============================================================== -->
                     <!-- mega menu -->
                     <!-- ============================================================== -->
-                    <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-view-grid"></i></a>
+                    <li *ngIf="user!=null" class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-view-grid"></i></a>
                         <div class="dropdown-menu animated bounceInDown">
                             <ul class="mega-dropdown-menu row">
                                 <li class="col-lg-3 col-xlg-2 m-b-30">
@@ -254,30 +217,24 @@
                     <!-- ============================================================== -->
                     <!-- Profile -->
                     <!-- ============================================================== -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link  waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
-                        <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                            <ul class="dropdown-user">
-                                <li>
-                                    <div class="dw-user-box">
-                                        <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
-                                        <div class="u-text">
-                                            <h4>Steave Jobs</h4>
-                                            <p class="text-muted">varun@gmail.com</p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
-                                    </div>
-                                </li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                                <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                                <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
-                            </ul>
-                        </div>
+                    <li *ngIf="user!=null" class="nav-item dropdown">
+                        <!-- <a class="nav-link  waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" /></a> -->
+                        <a class="nav-link  waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i> </a>
+                        <app-header-user></app-header-user>
+                    </li>
+
+                    <li *ngIf="user==null" calss="nav-item dropdown">
+                        <a [routerLink]="['/login']" class="btn btn-outline-secundary text-light mx-2"> Ingresar  </a>
+                        
+
+                    </li>
+                    <li *ngIf="user==null" calss="nav-item dropdown">
+                       
+                        <a [routerLink]="['/register']" class="btn btn-outline-secundary text-light mx-2"> Registrarse  </a>
+
                     </li>
                 </ul>
             </div>
           </nav>
+          
 </header>

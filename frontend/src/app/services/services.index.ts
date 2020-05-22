@@ -1,3 +1,4 @@
+export { LoginGardGuard } from './guards/login-gard.guard';
 export { UsersService } from "src/app/services/telco/users.service";
 export { ArquitecturesService } from "src/app/services/ims/arquitectures.service";
 export { ServerService } from "src/app/services/ims/server.service";

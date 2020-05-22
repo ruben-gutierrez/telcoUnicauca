@@ -3,9 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsersService } from "src/app/services/services.index";
 import { User } from 'src/app/models/models.index';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
+import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
+
+import { Router, ActivatedRoute, NavigationEnd, RoutesRecognized } from '@angular/router';
+import { filter, pairwise } from 'rxjs/operators';
 
 declare function init_plugins();
    
@@ -16,18 +19,25 @@ declare function init_plugins();
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+  previousUrl:string;
+  goToHome:boolean;
+
   constructor(    private _users: UsersService, 
                   private router:Router,
-                  private toastr: ToastrService
+                  private toastr: ToastrService,
+                  private _location: Location
 
   ) {
-
+    
+   
    }
 
   ngOnInit() {
     init_plugins();
+    console.log("inicio")
+    
   }
+   
   resetForm(form?:NgForm){
     if (form){
       form.reset();
@@ -35,16 +45,25 @@ export class LoginComponent implements OnInit {
   }
 
   login(infoLogin:NgForm){
-    
+    console.log(this.previousUrl)
     this._users.loginUser(infoLogin.value)
       .subscribe( data => {
         // console.log(data)
         this.resetForm(infoLogin);
+        this._users.userLoged=true;
         this._users.userActive =data['user'];
         this._users.setUser(data['user']);
         this._users.setToken(data['token']);
         this._users.tokenActive = data['token'];
-        this.router.navigate(["/ims/arquitectures"]);
+        // console.log(this.previousUrl)
+        if(this._users.pageRegister ){
+          this.router.navigate(["/home"]);
+          this._users.pageRegister=false;
+
+        }else{
+          this._location.back();
+
+        }
         
         // console.log(data['user'])
       },

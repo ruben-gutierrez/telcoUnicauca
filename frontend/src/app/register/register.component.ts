@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     init_plugins();
+    this._users.pageRegister=true;
   }
   resetForm(form?:NgForm){
     if (form){
@@ -33,14 +34,14 @@ export class RegisterComponent implements OnInit {
 
   register(infoNewUser:NgForm){
     infoNewUser.value.role='guest';
-    
+   
     this._users.createUser(infoNewUser.value)
       .subscribe( data => {
         // console.log(data)
         this.resetForm(infoNewUser);
         
         this.toastr.success("Cuenta Creada exitosamente, ingrese por favor.");
-        this.router.navigate(["/signin"]);
+        this.router.navigate(["/login"]);
         // console.log(data['user'])
       },
       error=>{
@@ -48,5 +49,7 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
+  
 
 }

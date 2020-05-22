@@ -7,11 +7,12 @@ import { User } from 'src/app/models/models.index';
   providedIn: 'root'
 })
 export class UsersService {
+  userLoged=false
   selectedUser: User;
   userActive:User;
   tokenActive:string;
   users: User[];
-
+  pageRegister=false;
   constructor( private http:HttpClient,
     ) {
       
@@ -38,6 +39,12 @@ export class UsersService {
     getUser(id){
       return this.http.get(this.URL_API_USERS + `/${id}`);
     }
+    logued(){
+      if (this.userActive == undefined) {
+        return false
+      }
+      return true
+    }
   
     loginUser(infoLogin){
       const headers:HttpHeaders = new HttpHeaders({
@@ -49,6 +56,7 @@ export class UsersService {
     }
   
     logOutUser(){
+      this.userLoged=false;
       this.tokenActive=null;
       this.userActive=null;
       localStorage.removeItem("accessToken");

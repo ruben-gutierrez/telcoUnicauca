@@ -43,7 +43,7 @@ images:object;
               private _openstack:OpenstackQueriesService,
               private activatedRouter:ActivatedRoute,
               private toastr:ToastrService,
-              private  modalService:NgbModal ) 
+              private  modalService:NgbModal )
     {
       this.activatedRouter.params.subscribe( params =>{
        this.idArquitecture = params.id;

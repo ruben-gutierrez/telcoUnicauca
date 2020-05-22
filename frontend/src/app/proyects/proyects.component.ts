@@ -9,10 +9,12 @@ declare function init_plugins();
 })
 export class ProyectsComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+     init_plugins();
+     }
 
   ngOnInit() {
-    init_plugins();
+    
   }
 
 }

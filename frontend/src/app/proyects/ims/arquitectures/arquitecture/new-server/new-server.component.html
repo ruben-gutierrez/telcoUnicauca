@@ -1,0 +1,88 @@
+<form *ngIf="!loading; else await" [formGroup]="formNewServer" (ngSubmit)="newServer()" ngNativeValidate> 
+   <input type="hidden" class="form-control" formControlName="idArq" name="idArq" >
+ <div class="modal-body">
+    <div class="row">
+        <div class="col"> 
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control"  formControlName="name" id="name" name="name" placeholder="Nombre" required >
+            </div>
+            <div class="form-group">
+                <label for="name">Sistema Operativo</label>
+                <select name="image" class="form-control"  formControlName="image" placeholder="Ubuntu 14" >
+                    
+                    <!-- <option value="ubuntu14">Ubuntu14</option> -->
+                    <option *ngFor="let image of images" [value]="image.id">{{ image.name }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción</label>
+                <textarea class="form-control" id="description" name="description" rows="3"  formControlName="description"></textarea>
+            </div>
+        </div>
+        <div class="col">
+            
+            <div class=" row form-group">
+                <div class="col">
+
+                    <label for="formControlRange">Procesadores</label>
+                </div>
+                <div class="col">
+
+                    <mat-slider  class="bg-dark rounded-pill"
+                        thumbLabel
+                        [displayWith]="formatLabel"
+                        tickInterval="1000"
+                        min="0"
+                        max="{{resourcesDisp.vcpus}}" name="cpu" formControlName="cpu" ></mat-slider>
+                </div>
+              </div>
+              <div class=" row form-group">
+                  <div class="col">
+                      <label for="formControlRange">RAM [Gb ]</label><br>
+
+                  </div>
+                  <div class="col">
+
+                      <mat-slider class="bg-dark rounded-pill"
+                          thumbLabel
+                          [displayWith]="formatLabel"
+                          tickInterval="1000"
+                          min="0"
+                          max="{{resourcesDisp.ram/1024}}" name="ram" formControlName="ram"></mat-slider>
+                  </div>
+              </div>
+              <div class=" row form-group"> 
+                  <div class="col">
+
+                      <label for="formControlRange">Almacenamiento [Gb]</label>
+                  </div>
+                  <div class="col">
+                    <mat-slider class="bg-dark rounded-pill"
+                        thumbLabel
+                        [displayWith]="formatLabel"
+                        tickInterval="1000"
+                        min="0"
+                        max="{{resourcesDisp.disk}}" name="disk" formControlName="disk"></mat-slider>
+
+                  </div>
+              </div>
+            
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-secondary" href="javascript:history.back()"> Cancelar</a>
+    
+    <button type="submit"  class="btn btn-primary">Crear</button>
+</div>  
+</form>
+
+<ng-template #await>
+    <div class="d-flex justify-content-center container">
+
+        <div class=" spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>

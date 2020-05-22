@@ -4,11 +4,11 @@ module.exports={
     ipOpenstack: '10.55.2.24',
     headersOpenStack:{},
     idIMS:{
-        idImage:'60a33155-b856-4639-8ced-1426ab8c300c',
+        idImage:'cdf76373-fc49-4fcf-b0cb-b64e2623f65b',
         idFlavor: 'd2',
-        nameKey:'imsKey'
+        nameKey:'keyIMS'
     },
-    idNetPublic:'dbd5b4b7-7b4f-4bb3-9fd3-c45ea064eea0',
+    idNetPublic:'48f7f3ff-6fa9-4a90-b17d-0dcd45a19eab', 
     VMcoreIMS:{
         aio:[
             'aio',

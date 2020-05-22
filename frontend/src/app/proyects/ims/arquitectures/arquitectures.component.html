@@ -1,4 +1,5 @@
-<div class="card-columns">
+<div *ngIf="arquitectures.length >= 1; else noArq"  class="card-columns">
+ 
     <div class="card" *ngFor=" let arquitecture of arquitectures">
         <div class=" centered ">
             <img src="{{ arquitecture.type == '2' ? 'assets/ims/clearwater.JPG' : 'assets/ims/server.png'  }}" class="card-img-top image" alt="...">
@@ -13,13 +14,19 @@
               </div>
               <div class="col">
 
-                <a [routerLink]="['/ims/arquitecture/'+ arquitecture._id]" class="btn btn-outline-success mx-1">Acceder</a>
+                <a [routerLink]="['/ims/arquitectures/'+ arquitecture._id]" class="btn btn-outline-success mx-1">Acceder</a>
               </div>
           </div>
         </div>
     </div> 
 
   </div>
+  <ng-template #noArq>
+    <div>
+
+      En este moment no tiene arquitecturas reservadas. <a class="" [routerLink]="['/ims/available']">Reservar</a>
+    </div>
+  </ng-template>
 
 
     

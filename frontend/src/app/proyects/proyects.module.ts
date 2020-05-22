@@ -34,6 +34,8 @@ import { GraphComponent } from './ims/graphs/graph/graph.component';
 import { GraphNewComponent } from './ims/graphs/graph-new/graph-new.component';
 import { InformationTemplateComponent } from './ims/information/information-template/information-template.component';
 import { GraphTemplateComponent } from './ims/graphs/graph-template/graph-template.component';
+import { NewServerComponent } from './ims/arquitectures/arquitecture/new-server/new-server.component';
+
 
 
 
@@ -53,7 +55,9 @@ import { GraphTemplateComponent } from './ims/graphs/graph-template/graph-templa
         GraphComponent,
         GraphNewComponent,
         InformationTemplateComponent,
-        GraphTemplateComponent
+        GraphTemplateComponent,
+        NewServerComponent,
+        
     ],
     exports:[
         ProyectsComponent,

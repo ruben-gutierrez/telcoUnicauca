@@ -1,5 +1,5 @@
 
-<app-information-template></app-information-template>
+<!--app-information-template></app-information-template-->
 
 <div class="container-fluid">
     <div class="col-sm-12 text-left" >
@@ -15,7 +15,7 @@
         <div>   
             <a href="assets/ims/Telco.JPG" target="_blank">
                 <img src="assets/ims/Telco.JPG" alt="plataforma Telco"  class="center" hspace="10" vspace="10">
-                <figcaption><b>Fig. 1</b> infraestructura Plataforma Telco</figcaption>
+                <figcaption style="text-align: center; color: black;"><b>Fig. 1</b> infraestructura Plataforma Telco</figcaption>
             </a>
         </div> 
         <br>
@@ -23,7 +23,10 @@
             <p>Actualmente, el  laboratorio Telco 2.0 tiene 5 servidores Blade Hewlett-Packard. 3 de ellos con 128 GB de RAM, 2 procesadores de 12 núcleos cada uno y almacenamiento de 300 GB.  Asimismo, 2 servidores con 256 GB de RAM, 2 procesadores de 14 núcleos cada uno y almacenamiento de 480 GB.  Igualmente, cuenta con unidades de almacenamiento MSA de un total de 23,6 TB. En la Figura <b>1</b> se puede observar la infraestructura física de la plataforma Telco 2.0.</p>  
         </div>    
     </div>
-    <div class="row">
+</div>
+    <hr>
+<div class="container-fluid">
+    <!--div class="row"-->
         <div class="col-sm-8 text-left" >
             <h1 id="servicios">SERVICIOS PLATAFORMA TELCO</h1>
             <div>
@@ -53,8 +56,9 @@
             </div>    
                         
         </div>
-    
     </div>
+    <hr>
+    <!--/div-->
 
     <div class="row">
         <div class="col-sm-6 text-left" >
@@ -64,14 +68,14 @@
                     NFV provee una arquitectura con capacidad de instanciar nuevas funciones virtualizadas, disminuyendo la dependencia de equipos propietarios, facilitando la escalabilidad de la red y la gestión de los recursos </p>
             </div>
             <div>      
-                <p>La Figura <b>1</b> muestra el marco de referencia de NFV donde los recursos virtuales son el resultado de la abstracción de recursos físicos (e.g., procesamiento, almacenamiento y dispositivos de red) a partir de una capa de virtualización que permite alojar las NF en instancias de VM o contenedores. De forma transversal se tiene a MANO (Network Functions Virtualization Management and Orchestration) encargado de gestionar los recursos del sistema y automatizar las tareas de administración en la red </p>  
+                <p>La Figura <b>2</b> muestra el marco de referencia de NFV donde los recursos virtuales son el resultado de la abstracción de recursos físicos (e.g., procesamiento, almacenamiento y dispositivos de red) a partir de una capa de virtualización que permite alojar las NF en instancias de VM o contenedores. De forma transversal se tiene a MANO (Network Functions Virtualization Management and Orchestration) encargado de gestionar los recursos del sistema y automatizar las tareas de administración en la red </p>  
             </div>
         </div>
         <div class="col-sm-6 text-left">
             <div>   
                 <a href="assets/ims/NFV.JPG" target="_blank">
-                    <img src="assets/ims/NFV.JPG" alt="NFV"  class="center" hspace="10" vspace="10">
-                    <figcaption><b>Fig. 1</b> Arquitectura NFV</figcaption>
+                    <img src="assets/ims/NFV.JPG" alt="NFV"  class="center" width="100%" height="auto" >
+                    <figcaption style="text-align: center; color: black;"><b>Fig. 2</b> Arquitectura NFV</figcaption>
                 </a>
             </div>  
         </div>
@@ -94,16 +98,16 @@
             <p>IMS es una estandarización de la arquitectura NGN desarrollada por el 3GPP (3rd Generation Partnership Project) para proveer y controlar diferentes tipos de servicios multimedia basados en el protocolo IP, 
                 además, de  garantizar escalabilidad e interoperabilidad con otras redes. IMS tiene soportar diferentes tecnologías de acceso que permiten iniciar, mantener y finalizar sesiones multimedia 
                 mediante el protocolo SIP. </p>
-            <p>Como se observa en la Figura <b>2</b>, la arquitectura IMS está compuesta por 3 capas. En la capa de aplicación se encuentran los AS (Application Server) encargados de manejar la lógica de los servicios y aplicaciones. 
+            <p>Como se observa en la Figura <b>3</b>, la arquitectura IMS está compuesta por 3 capas. En la capa de aplicación se encuentran los AS (Application Server) encargados de manejar la lógica de los servicios y aplicaciones. 
                 En la capa de control se encuentra el núcleo IMS compuesto por el HSS y los nodos CSCF (Call Session Control Function)  elementos de señalización y control del sistema.
                 Finalmente, en la capa de acceso se encuentran las tecnologías y métodos de acceso a la arquitectura IMS tales como redes Wi-FI y Fibra óptica.</p>  
     
             </div>
         </div>
-        <div class="col-sm-5 ">   
+        <div class="col-sm-6 ">   
             <a href="assets/ims/IMS.JPG" target="_blank">
-                <img src="assets/ims/IMS.JPG" alt="IMS"  class="center" hspace="0" vspace="10">
-                <figcaption><b>Fig. 2</b> Arquitectura IMS</figcaption>
+                <img src="assets/ims/IMS.JPG" alt="IMS"  class="center" width="100%" height="auto">
+                <figcaption style="text-align: center; color: black;"><b>Fig. 3</b> Arquitectura IMS</figcaption>
             </a>
         </div>  
     </div>
@@ -120,7 +124,7 @@
             </div>
             
             <div>      
-                <p>En la Figura <b>3</b> se observa la implementación de IMS sobre NFV denominada vIMS (virtual IMS). 
+                <p>En la Figura <b>4</b> se observa la implementación de IMS sobre NFV denominada vIMS (virtual IMS). 
                     La capa de recursos físicos compuesta por un Datacenter que contiene dispositivos de almacenamiento, 
                     procesamiento y de red. La capa de virtualización utiliza un hipervisor o monitor de VM para controlar 
                     la virtualización de los recursos físicos y por último la capa de servicios virtualizados donde las 
@@ -131,8 +135,8 @@
         <div class="col-sm-6 text-left">   
             
             <a href="assets/ims/vIMS.JPG" target="_blank">
-                <img src="assets/ims/vIMS.JPG" alt="plataforma Telco"  class="center" vspace="10">
-                <figcaption><b>Fig. 3</b> Arquitectura Virtual IMS</figcaption>
+                <img src="assets/ims/vIMS.JPG" alt="plataforma Telco"  class="center" width="100%" height="auto">
+                <figcaption style="text-align: center; color: black;"><b>Fig. 4</b> Arquitectura Virtual IMS</figcaption>
             </a>
         </div> 
         
@@ -144,7 +148,7 @@
         <div class="col-sm-6 text-left">
             <h1>Simple Network Management Protocol(SNMP)</h1>
             <div>
-                <p>Protocolo de gestión y supervisión de la capa de aplicación en las redes de computo el cual permite intercambiar información de gestión entre los dispositivos conectados en la red a partir de protocolos TCP/IP como UDP e IP.  En la figura <b>4</b> se observa la arquitectura del protocolo SNMP compuesta por un administrador y un agente SNMP. Igualmente, se compone por una base de información de gestión denominada MIB que incluye todos los parámetros que pueden ser gestionados tales como interfaces de red y protocolos TCP/IP asbtraidos de los dispositivos conectados en la red. </p>
+                <p>Protocolo de gestión y supervisión de la capa de aplicación en las redes de computo el cual permite intercambiar información de gestión entre los dispositivos conectados en la red a partir de protocolos TCP/IP como UDP e IP.  En la figura <b>5</b> se observa la arquitectura del protocolo SNMP compuesta por un administrador y un agente SNMP. Igualmente, se compone por una base de información de gestión denominada MIB que incluye todos los parámetros que pueden ser gestionados tales como interfaces de red y protocolos TCP/IP asbtraidos de los dispositivos conectados en la red. </p>
             </div>
             <div>      
                 <p>SNMP utiliza 5 mensajes básicos para la transferencia de información entre el administrador y el agente SNMP como son Get, Get-next, Get-request - Get-Response, SET y Trap. Los mensajes Get y Get-next permiten al administrador solicitar información específica sobre una variable al agente SNMP quien responde la solicitud con la información solicitada o un mensaje de error a partir de la utilización del mensaje Get-request. SET fija valores específicos a una variable de un dispositivo remoto. Finalmente, los mensajes Trap permiten enviar información de eventos relevantes en la red al administrador SNMP</p>  
@@ -155,8 +159,8 @@
             
             <div>   
                 <a href="assets/ims/SNMP.JPG" target="_blank">
-                    <img src="assets/ims/SNMP.JPG" alt="SNMP"  class="center" vspace="10">
-                    <figcaption><b>Fig. 4</b> Arquitectura SNMP</figcaption>
+                    <img src="assets/ims/SNMP.JPG" alt="SNMP"  class="center" width="100%" vspace="10">
+                    <figcaption style="text-align: center; color: black;"><b>Fig. 4</b> Arquitectura SNMP</figcaption>
                 </a>
             </div>  
             
@@ -165,4 +169,4 @@
         
     </div>
     
-</div>
+<!--/div-->

@@ -9,9 +9,23 @@
         </div> 
         <div class="col d-flex justify-content-start">
             <button class="btn btn-outline-secondary" (click)="[showaditional()]"> 
-                <i class="fas fa-network-wired">VM Adicionales</i>
+                <i class="fas fa-network-wired    "> MV adicionales</i>
+                <!-- <i class="fas fa-network-wired">VM Adicionales</i> -->
            </button> 
         </div>  
+        <div class="col d-flex justify-content-end">
+            <a [routerLink]="['/ims/arquitectures/'+idArquitecture+'/newServer']"  class="btn btn-primary">
+                <i class="fa fa-server" aria-hidden="true">Crear MV</i></a>
+            
+        </div>  
+    </div>
+    <div class="container my-2">
+
+        <div class="row">
+            <div class="col text-white bg-info">
+                Para ingresar a las máquinas virtuales (MV) use la palabra "usuario" como contraseña y usuario.
+            </div>
+        </div>
     </div>
    
      <table class="table"> 

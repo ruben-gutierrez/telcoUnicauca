@@ -17,7 +17,7 @@ export class GraphsService {
   getGraphTypes(idServer){
     return this.http.get(this.URL_API_GRAPH + `types/${idServer}`);
   }
-  createGraph(formGraph:Graph){
+  createGraph(formGraph){
     return this.http.post(this.URL_API_GRAPH ,formGraph['value']);
   }
   deleteGraph(idGraph:string){

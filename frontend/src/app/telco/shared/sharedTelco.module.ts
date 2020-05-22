@@ -13,23 +13,30 @@ import { RouterModule } from '@angular/router';
 import { HeaderTelcoComponent } from './header-telco/header-telco.component';
 import { BreadcrumbsTelcoComponent } from './breadcrumbs-telco/breadcrumbs-telco.component';
 import { NopagefoundComponent } from 'src/app/shared/nopagefound/nopagefound.component';
+import { SharedModule } from 'src/app/proyects/shared/shared.module';
+// import { MessagesComponent } from './messages/messages.component';
+// import { HeaderUserComponent } from './header-user/header-user.component';
 
 
 
 @NgModule({
     imports:[
         RouterModule,
-        CommonModule
+        CommonModule,
+        SharedModule
     ],
     declarations:[
         HeaderTelcoComponent,
         BreadcrumbsTelcoComponent,
-        NopagefoundComponent
+        NopagefoundComponent,
+        // MessagesComponent,
+        // HeaderUserComponent
     ],
     exports:[
         HeaderTelcoComponent,
         BreadcrumbsTelcoComponent,
-        NopagefoundComponent
+        NopagefoundComponent,
+        // HeaderUserComponent
     ],
 
 })

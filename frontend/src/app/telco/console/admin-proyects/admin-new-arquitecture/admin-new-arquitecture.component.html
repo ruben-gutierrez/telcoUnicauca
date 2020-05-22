@@ -1,5 +1,10 @@
 
+
+
 <div class="container my-5">
+  <button class="btn btn-primary" (click)="changeloading()">
+    modal loading
+  </button>
     <div class="row">
       <div class="col-4">
           <i class="fa fa-building" aria-hidden="true">Imagen</i>
@@ -7,7 +12,7 @@
       <div class="col-8">
 
         <h3>Nueva Arquitectura</h3>
-        <form (ngSubmit)="createArquitecture(formNewArquitecture)" #formNewArquitecture="ngForm" novalidate>
+        <form *ngIf="!loading; else await" (ngSubmit)="createArquitecture(formNewArquitecture)" #formNewArquitecture="ngForm" novalidate>
             <div class="form-group">
               <label for="name">Nombre</label>
               <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre"  
@@ -93,3 +98,11 @@
       </div>
     </div>
   </div> 
+  <ng-template #await>
+    <div class="d-flex justify-content-center container">
+
+        <div class=" spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>

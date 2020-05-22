@@ -11,6 +11,7 @@ import {Location} from '@angular/common';
   styleUrls: ['./admin-new-arquitecture.component.css']
 })
 export class AdminNewArquitectureComponent implements OnInit {
+  loading=false;
   route:any;
   arquitectureTest:any={
     name:"aiotest",
@@ -34,20 +35,31 @@ export class AdminNewArquitectureComponent implements OnInit {
 
   ngOnInit() {
   }
+  changeloading(){
+    console.log(this.loading)
+    if (this.loading) {
+      this.loading=false;
+    }else{
+      this.loading=true;
+    }
+  }
   resetForm(form?:NgForm){
     if (form){
       form.reset();
     }
   }
   createArquitecture(dataform:NgForm){
+    this.loading=true;
      this._arquitecture.createArquitecture(dataform.value)
       .subscribe(res =>{
         // console.log(res)
+        this.loading=false
         this.resetForm(dataform);
         this.toastr.success('Arquitectura Creada');
         this._location.back();
       },
       error=>{
+        this.loading=false
         this.toastr.error('Error al crear la arquitectura');
         // console.log(error)
       })

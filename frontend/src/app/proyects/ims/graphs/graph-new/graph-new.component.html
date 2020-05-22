@@ -1,1 +1,22 @@
-<p>graph-new works!</p>
+<form [formGroup]="formNewGraph" (ngSubmit)="newGraph()"  ngNativeValidate>
+    <div class="form-group">
+      <label for="name">Nombre</label>
+
+      <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre" 
+            formControlName="name" required>
+      <!-- <small *ngIf="name.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small> -->
+    </div>
+    <div class="form-group">
+        <label for="inputArquitecture">Arquitectura</label>
+        
+        <!-- <select name="idArquitecture" formControlName="idArquitecture" class="form-control" (change)="updateServers(selectArq.value)" > -->
+            
+                   <!-- <option >Elegir...</option> -->
+               <!-- <option [value]="arq._id" *ngFor="let arq of arquitectures">{{arq.name}}</option> -->
+                
+          <!-- </select> -->
+      </div>
+    
+   
+    <button   type="submit" class="btn btn-primary btn-block">Guardar</button>
+</form> 

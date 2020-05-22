@@ -26,6 +26,9 @@ import { AdminProyectComponent } from './console/admin-proyects/admin-proyect/ad
 import { AdminNewProyectComponent } from './console/admin-proyects/admin-new-proyect/admin-new-proyect.component';
 import { AdminNewArquitectureComponent } from './console/admin-proyects/admin-new-arquitecture/admin-new-arquitecture.component';
 import { AdminEditArquitectureComponent } from './console/admin-proyects/admin-edit-arquitecture/admin-edit-arquitecture.component';
+import { AppModule } from '../app.module';
+import { SharedModule } from '../proyects/shared/shared.module';
+
 
 
 
@@ -45,6 +48,7 @@ import { AdminEditArquitectureComponent } from './console/admin-proyects/admin-e
         AdminNewProyectComponent,
         AdminNewArquitectureComponent,
         AdminEditArquitectureComponent,
+        
     ],
     exports:[
         TelcoComponent,
@@ -61,7 +65,9 @@ import { AdminEditArquitectureComponent } from './console/admin-proyects/admin-e
         FormsModule,
         BrowserModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        SharedModule
+        
 
 
     ]

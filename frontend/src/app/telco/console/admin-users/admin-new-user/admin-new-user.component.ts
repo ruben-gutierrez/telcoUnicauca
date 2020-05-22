@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 import { UsersService } from 'src/app/services/services.index';
 import { User } from 'src/app/models/models.index';
-import { AdminUsersComponent } from '../admin-users.component';
+// import { AdminUsersComponent } from '../admin-users.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -58,20 +58,12 @@ export class AdminNewUserComponent implements OnInit {
    console.log(this.forma.value);
    this._users.createUser(this.forma.value)
      .subscribe(res =>{
-    //  this.resetForm(this.forma);
+    
      this.toastr.success('Usuario creado');
      this.router.navigate(["/console"]);
      })
   }
-  // createUser(dataform:NgForm){
-  //   this._users.createUser(dataform.value)
-  //   .subscribe(res =>{
-  //   this.resetForm(dataform);
-  //   this.toastr.success('Usuario creado');
-  //   this.router.navigate(["/console"]);
-  //   // AdminUsersComponent.getUsers();
-  //   })
-  // }
+
 
 
 }

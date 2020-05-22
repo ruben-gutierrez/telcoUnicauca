@@ -100,10 +100,17 @@
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
+                        <li *ngIf="user != null" class="nav-item dropdown">
+                            <a class="nav-link  waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-email"></i>
+                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            </a>
+                        <app-messages ></app-messages>
+                            </li>
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-email"></i>
                                 <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                             </a>
+                            
                             <div class="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" aria-labelledby="2">
                                 <ul>
                                     <li>
@@ -142,14 +149,14 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> -->
                         <!-- ============================================================== -->
                         <!-- End Messages -->
                         <!-- ============================================================== -->
                         <!-- ============================================================== -->
                         <!-- mega menu -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-view-grid"></i></a>
+                        <li  *ngIf="user != null" class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-view-grid"></i></a>
                             <div class="dropdown-menu animated bounceInDown">
                                 <ul class="mega-dropdown-menu row">
                                     <li class="col-lg-3 col-xlg-2 m-b-30">
@@ -252,33 +259,25 @@
                         <!-- ============================================================== -->
                         <!-- Profile -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
-                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                                <ul class="dropdown-user">
-                                    <li>
-                                        <div class="dw-user-box">
-                                            <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
-                                            <div class="u-text">
-                                                <h4>Steave Jobs</h4>
-                                                <p class="text-muted">varun@gmail.com</p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
-                                        </div>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                                    <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                                    <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
-                                </ul>
-                            </div>
+                        <li  *ngIf="user != null" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-user-circle-o" aria-hidden="true"></i> </a>
+                            <app-header-user></app-header-user>
                         </li>
+                        <li *ngIf="user==null" calss="nav-item dropdown">
+                            <a [routerLink]="['/login']" class="btn btn-outline-secundary  mx-2"> Ingresar  </a>
+                            
+    
+                        </li>
+                        <li *ngIf="user==null" calss="nav-item dropdown">
+                           
+                            <a [routerLink]="['/register']" class="nav-link btn btn-outline-secundary  mx-2"> Registrarse  </a>
+    
+                        </li>
+                        
                     </ul>
                 </div>
             </nav>
-        </header>
+        </header> 
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->

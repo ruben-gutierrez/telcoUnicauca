@@ -1,1 +1,61 @@
-<p>test works!</p>
+<div class="container my-5">
+<form (ngSubmit)="editTest(formEditTest)" #formEditTest="ngForm" novalidate>
+    <div class="form-group" id="btnTest" *ngIf="!flatExecuteTest">
+        <button class="btn btn-primary m-1" type="submit" >Guardar</button>
+        <button class="btn btn-outline-danger m-1" type="button" (click)="showEditTest($event)">Cancelar</button>
+        
+    </div>
+    <div class="row">
+        <!-- <input type="hidden" name="idTest"> -->
+        
+        <!-- <input type="hidden"  name="idTest"  [(ngModel)]="test._id"> -->
+    
+           
+               
+            
+            <div class="col ">
+             
+              <textarea class="form-control" #fileText="ngModel" name="fileText" id="filetext" rows="15"  [disabled]="flatExecuteTest" ngModel [(ngModel)]="fileContent">
+                
+              </textarea>
+            </div>
+            
+        
+        <div class="col-4" *ngIf="flatExecuteTest">
+                     <div class="form-group">
+                        <label for="exampleFormControlInput1">Dominio</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group"  *ngIf="flatExecuteTest">
+                        <label for="exampleFormControlSelect1">Número de extensiones</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group"  *ngIf="flatExecuteTest">
+                        
+                        <label for="exampleFormControlSelect2">Ejecuciones silultaneas</label>
+                        <select multiple class="form-control" id="exampleFormControlSelect2">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="btnTest" *ngIf="flatExecuteTest">
+                        
+                        <button class="btn btn-primary m-1" *ngIf="test.status != 'running'" type="button" (click)="executeTest(test._id, formEditTest)">Ejecutar</button>
+                        <button class="btn btn-outline-danger m-1" type="button"  *ngIf="test.status == 'running'" (click)="stopTest(test._id)">Detener</button>
+                        <button class="btn btn-outline-warning m-1" type="button" (click)="showEditTest($event)">Editar</button>
+                        <button type="button" class="btn btn-primary" routerLink="../">Back</button>
+                    </div>
+
+        </div> 
+    </div>
+</form>
+</div>

@@ -1,2 +1,0 @@
-- atention whit CORS in the navigator
-- Agregar el archivo /server/scripts/createToken.sh al crontab para que corra cada 59 min y guarde el token en la variable 'tokenOpenStack' del archivo /server/config.js
