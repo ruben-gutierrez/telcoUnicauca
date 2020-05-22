@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from "src/app/services/services.index";
 
-// declare function init_plugins();
+
 @Component({
   selector: 'app-header-telco',
   templateUrl: './header-telco.component.html',
@@ -17,7 +17,6 @@ export class HeaderTelcoComponent implements OnInit {
                   }
 
   ngOnInit() {
-    // init_plugins();
     this.user=this._user.getCurrentUser()
   //  this.userlength=Object.keys(this.user).length
   console.log(this.user)

@@ -1,23 +1,7 @@
-<!-- <div class="card-columns">
-    <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Prueba 1</h5>
-          <p class="card-text">Prueba para realizar register</p>
-          <div class="row">
-              <div class="col">
-                  <button class="btn btn-warning mr-auto">Ejecutar</button>
-
-              </div>
-              <div class="col">
-                  <button class="btn btn-success ml-auto">Acceder</button>
-              </div>
-          </div>
-        </div>
-    </div> 
-
-  </div> -->
-
-<div class="container my-5">
+<div class="row my-3">
+    <a class="btn btn-primary" [routerLink]="['/ims/test-new']">Crear prueba</a>
+  </div>
+<div *ngIf="arquitectures; else await" class="container my-5">
 
        
              
@@ -65,3 +49,11 @@
         
 
 </div> 
+<ng-template #await>
+    <div class="d-flex justify-content-center container">
+
+        <div class=" spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>

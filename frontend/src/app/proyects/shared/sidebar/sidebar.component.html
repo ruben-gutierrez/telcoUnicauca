@@ -1,37 +1,41 @@
-<aside class="left-sidebar">
+
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
         <!-- Sidebar navigation-->
-        <nav class="sidebar-nav">
+        <nav class="sidebar-nav ">
             <ul id="sidebarnav">
                 
-                <!-- <li class="user-profile"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="assets/telco/telcoIcon.png" alt="user" /><span class="hide-menu">Telco 2.0 </span></a> -->
-                <li class="user-profile"> <a class="has-arrow waves-effect waves-dark"  [routerLink]="['/home']" routerLinkActive="active" target="_blank" aria-expanded="false"><img src="assets/telco/telcoIconBackLess.png" alt="user" /><span class="hide-menu">Telco 2.0 </span></a>
+                <li class="user-profile"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="assets/telco/telcoIcon.png" alt="user" /><span class="hide-menu">Telco 2.0 </span></a>
+                
                     <ul aria-expanded="false" class="collapse">
                         <li><a [routerLink]="['/home']" target="_blank">Telco </a></li>
                         <li><a [routerLink]="['/home']" target="_blank">Proyectos</a></li>
                         <li><a [routerLink]="['/comunity']" target="_blank">Comunidad</a></li>
                         <li><a [routerLink]="['/home']" target="_blank">Contacto</a></li>
+                        <li><a [routerLink]="['/console']" target="_blank">Consola</a></li>
                         <li><a [routerLink]="['/home']" target="_blank">Salir</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">IMS</li>
-                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['information']" routerLinkActive="active"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información <span class="label label-rouded label-success pull-right">25</span></span></a>
-                    <ul aria-expanded="false" class="collapse">
+
+                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['information']"  routerLinkActive="active"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información <span class="label label-rouded label-success pull-right">25</span></span></a>
+                <!-- <li> <a class="has-arrow waves-effect waves-dark"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información <span class="label label-rouded label-success pull-right">25</span></span></a> -->
+
+                    <ul aria-expanded="false" class="collapse ">
                         <!-- <li><a href="starter-kit.html">Core IMS</a></li> -->
                         <li><a href="pages-blank.html">Testbed</a></li>
                         <li>
                             <a href="#" class="has-arrow">Core IMS <span class="label label-rounded label-success pull-right">6</span></a>
                             <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
-                            <ul aria-expanded="false" class="collapse">
+                            <!-- <ul aria-expanded="false" class="collapse">
                                 <li><a href="pages-login.html">CSCF</a></li>
                                 <li><a href="pages-login-2.html">Gateway</a></li>
                                 <li><a href="pages-register.html">Cliente</a></li>
                                 <li><a href="pages-register2.html">Servidores de aplicaciones</a></li>
                                 <li><a href="pages-lockscreen.html">HSS</a></li>
-                                <!-- <li><a href="pages-recover-password.html">Recover password</a></li> -->
-                            </ul>
+                                <li><a href="pages-recover-password.html">Recover password</a></li>
+                            </ul> -->
                         </li>
                         <li><a href="pages-profile.html">Testbed IMS</a></li>
                         <li><a href="pages-animation.html">Pruebas</a></li>
@@ -65,8 +69,8 @@
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['tests']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas <span class="label label-rouded label-themecolor pull-right">4</span></span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a [routerLink]="['testing']" routerLinkActive="active" >En ejecución </a></li>
+                    <ul aria-expanded="false" class="collapse ">
+                        <!-- <li><a [routerLink]="['testing']" routerLinkActive="active" >En ejecución </a></li> -->
                         <li><a [routerLink]="['test-new']" routerLinkActive="active" >Crear prueba</a></li>
                         <!-- <li><a href="index4.html">Modern</a></li> -->
                     </ul>
@@ -74,7 +78,7 @@
 
                 <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Gráficas</span></a> -->
                 <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['graphs']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-chart-areaspline"></i><span class="hide-menu">Gráficas</span></a>
-                    <ul aria-expanded="false" class="collapse">
+                    <ul aria-expanded="false" class="collapse ">
                         <!-- <li><a href="chart-morris.html">Rendimiento</a></li> -->
                         <!-- <li><a href="chart-chartist.html">Almacenamiento</a></li> -->
                         <li><a [routerLink]="['graph-new']" routerLinkActive="active" >Crear gráfica</a></li>
@@ -86,14 +90,7 @@
                         <!-- <li><a href="chart-peity.html">Peity Charts</a></li> -->
                     </ul>
                 </li>
-                <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Graficas</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="app-email.html">Por arquitecturas</a></li>
-                        <li><a href="app-email-detail.html">Por máquinas</a></li>
-                        <li><a href="app-compose.html">Nueva gráfica</a></li>
-                        <li><a href="app-compose.html">Gráficas eliminadas</a></li>
-                    </ul>
-                </li> -->
+                
                 
                 <!-- <li class="nav-small-cap">FORMS, TABLE &amp; WIDGETS</li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Forms</span></a>
@@ -277,4 +274,3 @@
         <!-- End Sidebar navigation -->
     </div>
     <!-- End Sidebar scroll-->
-</aside>

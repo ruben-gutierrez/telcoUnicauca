@@ -14,6 +14,7 @@ import { HeaderTelcoComponent } from './header-telco/header-telco.component';
 import { BreadcrumbsTelcoComponent } from './breadcrumbs-telco/breadcrumbs-telco.component';
 import { NopagefoundComponent } from 'src/app/shared/nopagefound/nopagefound.component';
 import { SharedModule } from 'src/app/proyects/shared/shared.module';
+import { ContactComponent } from './contact/contact.component';
 // import { MessagesComponent } from './messages/messages.component';
 // import { HeaderUserComponent } from './header-user/header-user.component';
 
@@ -29,6 +30,7 @@ import { SharedModule } from 'src/app/proyects/shared/shared.module';
         HeaderTelcoComponent,
         BreadcrumbsTelcoComponent,
         NopagefoundComponent,
+        ContactComponent,
         // MessagesComponent,
         // HeaderUserComponent
     ],

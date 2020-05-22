@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 // import { HeaderUserComponent } from './telco/shared/header-user/header-user.component';
 
 
@@ -28,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    
  
   ],
   imports: [

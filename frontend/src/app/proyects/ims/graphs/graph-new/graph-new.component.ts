@@ -12,7 +12,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./graph-new.component.css']
 })
 export class GraphNewComponent implements OnInit {
-  @Input() idArquitecture:string
+  @Input() idArqui:string
   @Input() idServer:string
   server:Object
   servers=[]
@@ -20,7 +20,7 @@ export class GraphNewComponent implements OnInit {
   arquitectures:Object
   typeGraphsServer=[]
 
-
+  loading=false;
   formNewGraph:FormGroup;
  user:User;
 
@@ -43,13 +43,6 @@ export class GraphNewComponent implements OnInit {
       idTemplate: new FormControl(null),
     })
 
-
-
-
-
-
-
-      
          this._arquitecture.getArquitecturesOfUser(this.user._id)
          .then( data =>{
            this.arquitectures=data
@@ -59,34 +52,63 @@ export class GraphNewComponent implements OnInit {
 
   }
 
-  updateServers(idArq){
-    this._arquitecture.getArquitecture(idArq)
-    .subscribe( data=>{
-      data['content'].vmCoreIMS.forEach(vm => {
-        this.servers.push(vm)
-      });
-      data['content'].vmAditionals.forEach(vm => {
-        this.servers.push(vm)
-      });
-    })
+  // updateServers(idArq){
+  //   this._arquitecture.getArquitecture(idArq)
+  //   .subscribe( data=>{
+  //     data['content'].vmCoreIMS.forEach(vm => {
+  //       this.servers.push(vm)
+  //     });
+  //     data['content'].vmAditionals.forEach(vm => {
+  //       this.servers.push(vm)
+  //     });
+  //   })
+  // }
+  updateServers(){
+    this._arquitecture.getArquitecture(this.formNewGraph.value.idArquitecture)
+      .subscribe( data=>{
+        data['content'].vmCoreIMS.forEach(vm => {
+          this.servers.push(vm)
+        });
+        data['content'].vmAditionals.forEach(vm => {
+          this.servers.push(vm)
+        });
+        // console.log(this.servers)
+      })
+   
   }
 
-  upgradeGraphs(idServer){
-    this._graph.getGraphTypes(idServer)
+  // upgradeGraphs(idServer){
+  //   this._graph.getGraphTypes(idServer)
+  //   .subscribe( data =>{
+  
+  //     if (data['status'] == 200 ) {
+  //       this.typeGraphsServer=data['content']
+        
+  //     }
+  //   })
+  // }
+  upgradeGraphs(){
+    this._graph.getGraphTypes(this.formNewGraph.value.idServer)
     .subscribe( data =>{
   
       if (data['status'] == 200 ) {
         this.typeGraphsServer=data['content']
-        
+        // console.log(this.typeGraphsServer)
       }
     })
   }
 
   newGraph(){
+    this.loading=true;
+    // console.log(this.formNewGraph.value)
    this._graph.createGraph(this.formNewGraph)
    .subscribe(data =>{
      if ( data['status'] == 200 ) {
        this.toastr.success("Gráfica creada")
+       this.loading=false;
+     }else{
+      this.toastr.error("Error al crear la gáfica")
+      this.loading=false;
      }
    })
   }

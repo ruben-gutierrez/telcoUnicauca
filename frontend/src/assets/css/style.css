@@ -792,7 +792,8 @@ sidebar navigation
     /* If using `left`, there shouldn't be a `right`. */ }
 
 .collapse.in {
-  display: block; }
+  display: block;
+ }
 
 .sidebar-nav {
   background: #fff;
@@ -814,7 +815,8 @@ sidebar navigation
             color: #398bf7; }
         .sidebar-nav ul li a.active {
           font-weight: 500;
-          color: #263238; }
+          color: #263238;
+         }
       .sidebar-nav ul li ul {
         padding-left: 28px; }
         .sidebar-nav ul li ul li a {
@@ -843,7 +845,7 @@ sidebar navigation
     margin-top: 6px; }
   .sidebar-nav > ul > li > a.active {
     font-weight: 400;
-    background: #0a0a0a;
+    /* background: #ffffff; */
     color: #26c6da; }
   .sidebar-nav > ul > li {
     margin-bottom: 5px; }
@@ -889,7 +891,8 @@ sidebar navigation
   -o-transform: rotate(-135deg) translate(0, -50%);
   top: 45%;
   width: 7px;
-  transform: rotate(-135deg) translate(0, -50%); }
+  transform: rotate(-135deg) translate(0, -50%);
+ }
 
 /****************
 When click on sidebar toggler and also for tablet

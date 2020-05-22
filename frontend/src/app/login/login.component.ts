@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     init_plugins();
-    console.log("inicio")
+    
     
   }
    

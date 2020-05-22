@@ -1,32 +1,46 @@
-<div *ngIf="arquitectures.length >= 1; else noArq"  class="card-columns">
- 
-    <div class="card" *ngFor=" let arquitecture of arquitectures">
-        <div class=" centered ">
-            <img src="{{ arquitecture.type == '2' ? 'assets/ims/clearwater.JPG' : 'assets/ims/server.png'  }}" class="card-img-top image" alt="...">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title"> {{arquitecture.name}} </h5>
-          <p class="card-text">Core IMS de {{arquitecture.maxVM}} máquinas virtuales. Capacidad extra de {{arquitecture.maxRAM}} GB RAM, {{arquitecture.maxHDD}} GB de almacenamiento y {{arquitecture.maxCore}} Procesadores.</p>
-          <div class="row">
-              <div class="col">
-                  <button class="btn btn-warning mr-auto" (click)="dropArq(arquitecture._id)">Liberar</button>
+<div class="row my-3">
+  <a class="btn btn-primary" [routerLink]="['/ims/available']">Reservar Arquitecturas</a>
+</div>
+<div *ngIf="arquitectures; else await" >
 
-              </div>
-              <div class="col">
-
-                <a [routerLink]="['/ims/arquitectures/'+ arquitecture._id]" class="btn btn-outline-success mx-1">Acceder</a>
-              </div>
+  <div *ngIf="arquitectures.length >= 1; else noArq"  class="card-columns">
+   
+      <div class="card" *ngFor=" let arquitecture of arquitectures">
+          <div class=" centered ">
+              <img src="{{ arquitecture.type == '2' ? 'assets/ims/clearwater.JPG' : 'assets/ims/server.png'  }}" class="card-img-top image" alt="...">
           </div>
-        </div>
-    </div> 
-
-  </div>
-  <ng-template #noArq>
-    <div>
-
-      En este moment no tiene arquitecturas reservadas. <a class="" [routerLink]="['/ims/available']">Reservar</a>
+          <div class="card-body">
+            <h5 class="card-title"> {{arquitecture.name}} </h5>
+            <p class="card-text">Core IMS de {{arquitecture.maxVM}} máquinas virtuales. Capacidad extra de {{arquitecture.maxRAM}} GB RAM, {{arquitecture.maxHDD}} GB de almacenamiento y {{arquitecture.maxCore}} Procesadores.</p>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-warning mr-auto" (click)="dropArq(arquitecture._id)">Liberar</button>
+  
+                </div>
+                <div class="col">
+  
+                  <a [routerLink]="['/ims/arquitectures/'+ arquitecture._id]" class="btn btn-outline-success mx-1">Acceder</a>
+                </div>
+            </div>
+          </div>
+      </div> 
+  
     </div>
-  </ng-template>
+    <ng-template #noArq>
+      <div>
+  
+        En este momento no tiene arquitecturas reservadas. <a class="" [routerLink]="['/ims/available']">Reservar</a>
+      </div>
+    </ng-template>
+</div>
+<ng-template #await>
+  <div class="d-flex justify-content-center container">
+
+      <div class=" spinner-border m-5" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+  </div>
+</ng-template>
 
 
     

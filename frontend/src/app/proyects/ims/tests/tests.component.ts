@@ -12,7 +12,7 @@ import { ArquitecturesService, TestService, UsersService } from 'src/app/service
 export class TestsComponent implements OnInit {
 
   tests:any;
-  arquitectures:any[];
+  arquitectures:any;
   
   idArquitecture:string;
     loading:boolean
@@ -25,7 +25,7 @@ export class TestsComponent implements OnInit {
     ) {
 
       this._user.getCurrentUser();
-      this.arquitectures=[];
+      
       this.idArquitecture='';
       this._arquitecture.getArquitecturesOfUser(this._user.userActive._id)
       .then( data =>{

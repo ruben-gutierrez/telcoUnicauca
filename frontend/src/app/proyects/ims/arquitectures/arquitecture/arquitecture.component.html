@@ -48,7 +48,7 @@
                         
                         <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id,i)]">Instantanea</button>
                         
-                        <button *ngIf="vm.idImageRebuild" class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Regresar</button>
+                        <button *ngIf="vm.idImageRebuild" class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Reestablecer</button>
                         <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, i)]">Eliminar</button>
                         <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id, idArquitecture)]" >Redimencionar</button>
                         <div class="row  bg-dark" id="divRedimencion{{vm._id}}" style="display:none">
