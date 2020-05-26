@@ -1,6 +1,7 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { ArquitecturesService, ServerService,UsersService, GraphsService } from 'src/app/services/services.index';
+import { Location } from '@angular/common';
 
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -29,7 +30,8 @@ export class GraphNewComponent implements OnInit {
                 private _server: ServerService,
                 private _user: UsersService,
                 private toastr: ToastrService,
-                private _graph: GraphsService
+                private _graph: GraphsService,
+                private _location: Location
   ) {
 
    }
@@ -106,6 +108,7 @@ export class GraphNewComponent implements OnInit {
      if ( data['status'] == 200 ) {
        this.toastr.success("Gráfica creada")
        this.loading=false;
+       this._location.back()
      }else{
       this.toastr.error("Error al crear la gáfica")
       this.loading=false;

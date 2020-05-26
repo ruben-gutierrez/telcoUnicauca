@@ -28,6 +28,7 @@ import { AdminNewArquitectureComponent } from './console/admin-proyects/admin-ne
 import { AdminEditArquitectureComponent } from './console/admin-proyects/admin-edit-arquitecture/admin-edit-arquitecture.component';
 import { AppModule } from '../app.module';
 import { SharedModule } from '../proyects/shared/shared.module';
+import { ContactTelcoComponent } from './contact-telco/contact-telco.component';
 
 
 
@@ -48,6 +49,7 @@ import { SharedModule } from '../proyects/shared/shared.module';
         AdminNewProyectComponent,
         AdminNewArquitectureComponent,
         AdminEditArquitectureComponent,
+        ContactTelcoComponent,
         
     ],
     exports:[

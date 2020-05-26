@@ -1,32 +1,45 @@
-<div>
+<div *ngIf="!loading; else await">
+   
+    <div class="container m-2">
+
+        <div class="row">
+            <!--div class="col text-white bg-info"-->
+            <div class="col" style="background-color:#e7ad31f3; color: black;">
+                <p style="font-size: 16px;">Para ingresar a la consola de la máquina virtual (MV) de <b>Clearwater</b> las credenciales de ingreso son: <b>usuario: "ubuntu"; contraseña: "cw-aio"</b>. Para ingresar a las demás MV, se debe ingresar con las siguientes credenciales: <b>usuario: "usuario" ; contraseña: "usuario"</b></p>
+            </div>
+        </div>
+    </div>
         
     <div class="row my-2">
+       
 
         <div class="col d-flex justify-content-end">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+       
+                <input class="btn btn-info active" type="button" name="options" (click)="showims()" id="option1" autocomplete="off" checked value="Núcleo IMS"> 
+                <input class="btn btn-info active" type="button" name="options" (click)="showaditional()" id="option1" autocomplete="off" checked value="MV creadas"> 
+                
+              
+          </div>
+        </div> 
+        <!-- <div class="col d-flex justify-content-end">
             <button class="btn btn-success" (click)="showims()"> 
                 <i class="fas fa-network-wired">Núcleo IMS</i>
            </button> 
-        </div> 
-        <div class="col d-flex justify-content-start">
+        </div>  -->
+        <!-- <div class="col d-flex justify-content-start">
             <button class="btn btn-outline-secondary" (click)="[showaditional()]"> 
                 <i class="fas fa-network-wired    "> MV adicionales</i>
-                <!-- <i class="fas fa-network-wired">VM Adicionales</i> -->
-           </button> 
-        </div>  
+                
+           </button>  
+        </div>   -->
         <div class="col d-flex justify-content-end">
             <a [routerLink]="['/ims/arquitectures/'+idArquitecture+'/newServer']"  class="btn btn-primary">
                 <i class="fa fa-server" aria-hidden="true">Crear MV</i></a>
             
         </div>  
     </div>
-    <div class="container my-2">
-
-        <div class="row">
-            <div class="col text-white bg-info">
-                Para ingresar a las máquinas virtuales (MV) use la palabra "usuario" como contraseña y usuario.
-            </div>
-        </div>
-    </div>
+    
    
      <table class="table"> 
         <thead class="thead-dark">
@@ -43,7 +56,7 @@
                     <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i></th>
                     <td>
                         
-                        <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
+                        <mat-slide-toggle color="primary" (click)="[powerServer(vm._id,vm.infoServer.status)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
                        
                         
                         <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id,i)]">Instantanea</button>
@@ -90,7 +103,7 @@
                                  
                                  
                                 
-                                <button class="btn btn-primary btn-sm mx-1" type="submit">Editar</button>
+                                <button class="btn btn-primary btn-sm mx-1" type="submit">Guardar</button>
                                 <button class="btn btn-danger btn-sm mx-1" type="button" (click)="hideFormEditVm(vm._id)">Cancel</button>
                             </form> 
                         </div>
@@ -104,3 +117,14 @@
         
             </table>
 </div>
+<ng-template #await>
+    <div class="d-flex justify-content-center container">
+  
+        <div class=" spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+  </ng-template>
+
+<button class="btn btn-info" (click)="changeFlatUsersIms()"> Usuarios del nucleo IMS</button>
+<app-guide-softphone *ngIf="flatGuideUsers" ></app-guide-softphone>

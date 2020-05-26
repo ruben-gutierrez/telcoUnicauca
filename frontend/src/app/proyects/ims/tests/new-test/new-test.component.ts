@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TestService, ArquitecturesService, UsersService } from 'src/app/services/services.index';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class NewTestComponent implements OnInit {
               private _arquitecture:ArquitecturesService,
               private toastr:ToastrService,
               private router:Router,
-              private _user:UsersService
+              private _user:UsersService,
+              private _location: Location
   ) { 
     this._user.getCurrentUser();
     this._arquitecture.getArquitecturesOfUser(this._user.userActive._id)

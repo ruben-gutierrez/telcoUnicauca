@@ -24,7 +24,7 @@ export class ArquitecturesComponent implements OnInit {
 
   ngOnInit() {
     
-    this.arquitectures = this._arquitecture.arquitectures
+    this.arquitectures = this._arquitecture.arquitecturesOfUser
     this._arquitecture.getArquitectures()
       .subscribe( data=>{
         // this.arquitectures=data;
@@ -40,7 +40,7 @@ export class ArquitecturesComponent implements OnInit {
        
         await this._arquitecture.dropArquitecture(id)
         .subscribe( data=>{
-          console.log(data)
+          // console.log(data)
           this.ngOnInit();
           this.toastr.success("Arquitectura liberada");
         }, error =>{

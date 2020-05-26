@@ -11,7 +11,7 @@ export class ArquitecturesService {
  
   arquitectures: Arquitecture;
   freeArquitectures: Arquitecture;
-  arquitecturesOfUser: Arquitecture;
+  arquitecturesOfUser: any;
 
   constructor( private http: HttpClient,
               private _user:UsersService ) {

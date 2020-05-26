@@ -16,7 +16,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class ArquitectureComponent implements OnInit {
-
+  flatGuideUsers=false;
 
   resourcesFlavor
   loading=false;
@@ -154,14 +154,15 @@ images:object;
           
          })
   }
-  powerServer(id){
-    this.loading=true
+  powerServer(id,state){
+    console.log(state)
+    // this.loading=true
     this._server.actionsServer(id,'on/off')
       .subscribe( data =>{
-        this.loading=false;
-        this.toastr.success('Accion exitosa')
+        // this.loading=false;
+        this.toastr.success('La mv se ha encendido o apagado correctamente')
       }, error=>{
-        this.loading=false;
+        // this.loading=false;
         this.toastr.error('Error al apagar la máquina')
       })
   }
@@ -169,13 +170,13 @@ images:object;
     this.loading=true;
     this._server.actionsServer(id,'instant')
       .subscribe( data =>{
-        this.toastr.success('Accion exitosa');
+        this.toastr.success('Instantanea tomada con éxito');
         this.loading=false;
-        if (this.showcore) {
+        // if (this.showcore) {
           this.core[index].idImageRebuild="xxxx"
-        }else{
-          this.vmsAditionals[index].idImageRebuild="xxxx"
-        }
+        // }else{
+          // this.vmsAditionals[index].idImageRebuild="xxxx"
+        // }
       }, error=>{
         this.toastr.error('Error al tomar instantanea la máquina');
         this.loading=false;
@@ -205,7 +206,7 @@ images:object;
     this.loading=true;
     this._server.actionsServer(id,'rebuild')
       .subscribe( data =>{
-        this.toastr.success('Accion exitosa');
+        this.toastr.success('MV reestablecida con exitosa');
         this.loading=false;
       }, error=>{
         this.toastr.error('Error al reestablecer la máquina');
@@ -213,18 +214,18 @@ images:object;
       })
   }
   resizeServer(form, id){
-    this.loading=true;
+    // this.loading=true;
     let dataForm = form.value;
     this._server.actionsServer(id,'resize', '',dataForm)
       .subscribe( async data =>{
         
         this.toastr.success('Máquina editada exitosamente');
-        this.loading=false;
+        // this.loading=false;  
         this.resourcesDisp= await this.resourceDisp(this.arquitecture);
       }, error=>{
         // console.log(error)
         this.toastr.error('Error al editar la máquina');
-        this.loading=false;
+        // this.loading=false;
       })
 
 
@@ -235,7 +236,7 @@ images:object;
     this.loading=true;
     this._server.actionsServer(id,'console')
       .subscribe( data =>{
-        this.toastr.success('Consola valida por 1 Hora');
+        this.toastr.success('Consola valida por 1 Hora, recuerde dar click en la seccion negra y oprimir la tecla enter');
         this.loading=false;
         window.open(data['consoleLink'],'_blank');  
         
@@ -270,6 +271,14 @@ images:object;
       this.resourcesFlavor="RAM:"+data['flavor'].ram+"Mb  --> Procesadores: "+data['flavor'].vcpus + " --> Almacenamiento: "+data['flavor'].disk+"Gb"
     })
     
+  }
+
+  changeFlatUsersIms(){
+    if (this.flatGuideUsers) {
+      this.flatGuideUsers=false;
+    } else {
+      this.flatGuideUsers=true;
+    }
   }
 
 }

@@ -5,13 +5,13 @@
         <nav class="sidebar-nav ">
             <ul id="sidebarnav">
                 
-                <li class="user-profile"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="assets/telco/telcoIcon.png" alt="user" /><span class="hide-menu">Telco 2.0 </span></a>
+                <li class="user-profile"> <a class="has-arrow waves-effect waves-dark" [routerLink]="['/home']"  aria-expanded="false"><img src="assets/telco/telcoIcon.png" alt="user" /><span class="hide-menu">Telco 2.0 </span></a>
                 
                     <ul aria-expanded="false" class="collapse">
                         <li><a [routerLink]="['/home']" target="_blank">Telco </a></li>
                         <li><a [routerLink]="['/home']" target="_blank">Proyectos</a></li>
                         <li><a [routerLink]="['/comunity']" target="_blank">Comunidad</a></li>
-                        <li><a [routerLink]="['/home']" target="_blank">Contacto</a></li>
+                        <li><a [routerLink]="['/contact']" target="_blank">Contacto</a></li>
                         <li><a [routerLink]="['/console']" target="_blank">Consola</a></li>
                         <li><a [routerLink]="['/home']" target="_blank">Salir</a></li>
                     </ul>
@@ -19,8 +19,10 @@
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">IMS</li>
 
-                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['information']"  routerLinkActive="active"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información <span class="label label-rouded label-success pull-right">25</span></span></a>
-                <!-- <li> <a class="has-arrow waves-effect waves-dark"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información <span class="label label-rouded label-success pull-right">25</span></span></a> -->
+                <!-- <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['information']"  routerLinkActive="active"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información <span class="label label-rouded label-success pull-right">25</span></span></a> -->
+                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['information']"  routerLinkActive="active"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información </span></a>
+                
+                
 
                     <ul aria-expanded="false" class="collapse ">
                         <!-- <li><a href="starter-kit.html">Core IMS</a></li> -->
@@ -68,7 +70,8 @@
                         <!-- <li><a href="widget-charts.html">Charts Widgets</a></li> -->
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['tests']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas <span class="label label-rouded label-themecolor pull-right">4</span></span></a>
+                <!-- <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['tests']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas <span class="label label-rouded label-themecolor pull-right">4</span></span></a> -->
+                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['tests']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas </span></a>
                     <ul aria-expanded="false" class="collapse ">
                         <!-- <li><a [routerLink]="['testing']" routerLinkActive="active" >En ejecución </a></li> -->
                         <li><a [routerLink]="['test-new']" routerLinkActive="active" >Crear prueba</a></li>

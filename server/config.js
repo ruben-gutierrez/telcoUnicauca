@@ -5,6 +5,7 @@ module.exports={
     headersOpenStack:{},
     idIMS:{
         idImage:'cdf76373-fc49-4fcf-b0cb-b64e2623f65b',
+        idImage1:'3a9d4228-9f3d-4073-835b-561101d7f6b6',
         idFlavor: 'd2',
         nameKey:'keyIMS'
     },

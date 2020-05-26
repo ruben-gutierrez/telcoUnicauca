@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgForm, FormGroup, FormControl, Validators, Form } from "@angular/forms";
 import { UsersService, ServerService,ArquitecturesService, OpenstackQueriesService } from 'src/app/services/services.index';
 import { User } from 'src/app/models/models.index';
+import { Location } from '@angular/common';
 
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -37,7 +38,8 @@ export class NewServerComponent implements OnInit {
         private _server: ServerService,
         private toastr: ToastrService,
         private router: Router,
-        private _openstack: OpenstackQueriesService
+        private _openstack: OpenstackQueriesService,
+        private _location: Location
   ) { 
       this.activatedRouter.params.subscribe( params =>{
       this.idArquitecture = params.id;
@@ -95,6 +97,7 @@ export class NewServerComponent implements OnInit {
           this.arquitecture.vmAditionals.push(response['content'])
           this.core=this.arquitecture.vmAditionals;
           this.resourcesDisp= await this.resourceDisp(this.arquitecture);
+          this._location.back();
           
         }else{
           this.toastr.success('Error al crear la máquina virtual')
