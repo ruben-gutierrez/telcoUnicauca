@@ -50,7 +50,8 @@ app.listen(app.get('port'), () => {
               'Access-Control-Max-Age': '86400',
               'Accept': 'application/json',
                 'User-Agent': 'python-novaclient',
-                'X-OpenStack-Nova-API-Version': '2.1'
+                'X-OpenStack-Nova-API-Version': '2.1',
+                // 'Accept-Encoding':' gzip, deflate, compress'
             }};
       }
     );

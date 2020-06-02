@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 import { Router, ActivatedRoute, NavigationEnd, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
 
-declare function init_plugins();
+// declare function init_plugins();
    
  
 @Component({
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-    init_plugins();
+    // init_plugins();
     
     
   }

@@ -9,6 +9,7 @@ import { UsersService } from "src/app/services/services.index";
   styleUrls: ['./header-telco.component.css']
 })
 export class HeaderTelcoComponent implements OnInit {
+  token:string;
  user:any;
  userlength:number;
   constructor(private router: Router,
@@ -19,7 +20,10 @@ export class HeaderTelcoComponent implements OnInit {
   ngOnInit() {
     this.user=this._user.getCurrentUser()
   //  this.userlength=Object.keys(this.user).length
-  console.log(this.user)
+  // console.log(this.user)
+  this.token=this._user.getToken()
+  // console.log(this.token)
+ 
   }
   logout(){
     

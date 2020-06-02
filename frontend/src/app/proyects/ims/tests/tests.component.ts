@@ -23,7 +23,7 @@ export class TestsComponent implements OnInit {
               private toastr:ToastrService,
               private _user:UsersService
     ) {
-
+      this.arquitectures=this._arquitecture.arquitecturesOfUser;
       this._user.getCurrentUser();
       
       this.idArquitecture='';

@@ -13,6 +13,8 @@ import { AdminNewProyectComponent } from './console/admin-proyects/admin-new-pro
 import { AdminNewUserComponent } from './console/admin-users/admin-new-user/admin-new-user.component';
 import { LoginGardGuard } from '../services/services.index';
 import { ContactTelcoComponent } from './contact-telco/contact-telco.component';
+import { VerifyTokenGuard } from '../services/guards/verify-token.guard';
+import { AdminGuard } from '../services/guards/admin.guard';
 
 const telcoRoutes: Routes = [
 
@@ -25,7 +27,7 @@ const telcoRoutes: Routes = [
           { path: 'about', component: AboutComponent, data:{titlePage: 'Nosotros'} },
           { path: 'comunity', component: ComunityComponent, data:{titlePage: 'Comunidad'} },
           { path: 'contact', component: ContactTelcoComponent, data:{titlePage: 'Contacto'} },
-          { path: 'console', component: ConsoleComponent, data:{titlePage: 'Consola'} },
+          { path: 'console', component: ConsoleComponent, canActivate:[ VerifyTokenGuard, AdminGuard], data:{titlePage: 'Consola'} },
             { path: 'console/admin-user/:id', component: AdminUserComponent, data:{titlePage: 'Usuario'} },
             { path: 'console/admin-proyect/:id', component: AdminProyectComponent, data:{titlePage: 'Proyectos'} },
             { path: 'console/admin-edit-arquitecture/:id', component: AdminEditArquitectureComponent, data:{titlePage: 'Editar Arquitectura'} },

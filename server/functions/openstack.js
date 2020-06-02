@@ -188,41 +188,48 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
         // file="apt install snmpd -y"
         file="echo 'apt install snmpd -y'>testFile"
     }
+   
     let body={
         "server": {
             "name": name, 
             "imageRef": idImage, 
-            "key_name": nameKey,
             "flavorRef": idFlavor, 
-            "max_count": 1, 
+            "key_name": nameKey,
             "min_count": 1, 
+            "max_count": 1, 
             "networks": [{"uuid": idNet}],
             // "personality":[{"path":"/root/", "contents": file}]
         }
     }
+
+   
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers', body,config.headersOpenStack )
             .then(function (response) {
-                // console.log(response.data.server)
                 
                 if (response.data.server) {
+                   
                     answer.status = 200
                    answer.content=response.data.server
                    answer.error=null
                 }else{
+                   
                     answer.status = 401
                     answer.content=null
                     answer.error=response.data
                 }
             })
             .catch(error =>{
+                console.log("error creando servidor -------------------------------------------------------")
+                console.log(error.response.data.badRequest)
                 answer.status = 400
                 answer.content=null
                 answer.error=error
             });
     await sleep(10000)
+    
     let portDevice;
     // console.log(answer)
-   
+   console.log("consultando puerto")
     await axios.get('http://'+config.ipOpenstack+':9696/v2.0/ports?device_id='+answer.content.id, config.headersOpenStack )
     .then(function (response) {
      portDevice= response.data.ports[0].id
@@ -261,9 +268,9 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
     ssh.exec("sudo sed -i'.bak' '/agentAddress  udp:127.0.0.1:161/d' /etc/snmp/snmpd.conf"),
     ssh.exec("sudo sed -i'.bak' '17i\agentAddress udp:161,udp6:[::1]:161' /etc/snmp/snmpd.conf"),
     ssh.exec("sudo service snmpd restart"),
-    ssh.exec("sudo useradd usuario"),
-    ssh.exec("echo usuario:usuario | sudo chpasswd"),
-    ssh.exec(" sudo sed -i '$a usuario    ALL=(ALL:ALL) ALL' /etc/sudoers"),
+    ssh.exec("sudo useradd telcoims"),
+    ssh.exec("echo telcoims:telcoims | sudo chpasswd"),
+    ssh.exec(" sudo sed -i '$a telcoims    ALL=(ALL:ALL) ALL' /etc/sudoers"),
 
 
     //install scripts functions coreIMS
@@ -310,7 +317,14 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
 async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet,idArquitecture ) {
     let core=[];
     for await (vm of vms){
-        server = await createServer(vm,idImage,nameKey,idFlavor,idNet,idArquitecture,'ims');
+        // if (vm == 'aio') {
+            
+        //     server = await createServer(vm,config.idIMS.idImage1,nameKey,idFlavor,idNet,idArquitecture,'ims');
+        // } else {
+            
+        //     server = await createServer(vm,idImage,nameKey,idFlavor,idNet,idArquitecture,'ims');
+        // }
+            server = await createServer(vm,idImage,nameKey,idFlavor,idNet,idArquitecture,'ims');
         if(server.status == 200){
             // serverFull=await consultServer(server.content.id);
             // if (serverFull.addresses.length > 0) {

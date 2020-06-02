@@ -21,35 +21,46 @@
             </div>
         </div>
         <div class="col">
-            
             <div class=" row form-group">
                 <div class="col">
 
                     <label for="formControlRange">Procesadores</label>
                 </div>
-                <div class="col">
-
+                <div class="col  d-flex justify-content-center px-2">
+                    <div class="bg-dark rounded-pill" >
+                    <!-- <input type="number" name="cpu"   formControlName="cpu"  id="cpu"> -->
+                    <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull-left">0</span> -->
+                    <span style="font-size: 14px;" class="label label-rounded label-success pull mx-1">0</span>
                     <mat-slider  class="bg-dark rounded-pill"
                         thumbLabel
                         [displayWith]="formatLabel"
                         tickInterval="1000"
                         min="0"
                         max="{{resourcesDisp.vcpus}}" name="cpu" formControlName="cpu" ></mat-slider>
+                        <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull-right ">{{resourcesDisp.vcpus}}</span> -->
+                        <span style="font-size: 14px;" class="label label-rounded label-success pull mx-1 ">{{resourcesDisp.vcpus}}</span>
+                    </div>
                 </div>
               </div>
               <div class=" row form-group">
                   <div class="col">
-                      <label for="formControlRange">RAM [Gb ]</label><br>
+                      <label for="formControlRange">RAM [Gb ]</label> <br>
 
                   </div>
-                  <div class="col">
+                  <div class="col  d-flex justify-content-center px-2">
+                      <div class="bg-dark rounded-pill" >
 
-                      <mat-slider class="bg-dark rounded-pill"
-                          thumbLabel
-                          [displayWith]="formatLabel"
-                          tickInterval="1000"
-                          min="0"
-                          max="{{resourcesDisp.ram/1024}}" name="ram" formControlName="ram"></mat-slider>
+                            <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull-left">0</span> -->
+                            <span style="font-size: 14px;" class="label label-rounded label-success pull mx-1">0</span>
+                            <mat-slider 
+                                thumbLabel
+                                [displayWith]="formatLabel"
+                                tickInterval="1000"
+                                min="0"
+                                max="{{resourcesDisp.ram/1024}}" name="ram" formControlName="ram" > </mat-slider>  
+                            <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull-right ">{{resourcesDisp.ram/1024}}</span> -->
+                            <span style="font-size: 14px;" class="label label-rounded label-success pull mx-1 ">{{resourcesDisp.ram/1024}}</span>
+                      </div>
                   </div>
               </div>
               <div class=" row form-group"> 
@@ -57,14 +68,20 @@
 
                       <label for="formControlRange">Almacenamiento [Gb]</label>
                   </div>
-                  <div class="col">
-                    <mat-slider class="bg-dark rounded-pill"
-                        thumbLabel
-                        [displayWith]="formatLabel"
-                        tickInterval="1000"
-                        min="0"
-                        max="{{resourcesDisp.disk}}" name="disk" formControlName="disk"></mat-slider>
+                  <div class="col  d-flex justify-content-center px-2">
+                    <div class="bg-dark rounded-pill" >
 
+                        <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull-left">0</span> -->
+                        <span style="font-size: 14px;" class="label label-rounded label-success pull mx-1">0</span>
+                        <mat-slider class="bg-dark rounded-pill"
+                            thumbLabel
+                            [displayWith]="formatLabel"
+                            tickInterval="1000"
+                            min="0"
+                            max="{{resourcesDisp.disk}}" name="disk" formControlName="disk"></mat-slider>
+                        <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull-right ">{{resourcesDisp.disk}}</span> -->
+                        <span style="font-size: 14px;" class="label label-rounded label-success pull mx-1 ">{{resourcesDisp.disk}}</span>
+                    </div>
                   </div>
               </div>
             

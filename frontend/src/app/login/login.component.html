@@ -1,12 +1,12 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
             <p class="loader__label">Telco 2.0</p>
         </div>
-    </div>
+    </div> -->
 
 
      <!-- ============================================================== -->
@@ -20,22 +20,22 @@
                     <a href="javascript:void(0)" class="text-center db"><img src="assets/telco/telcoIconBackLessDark.png" alt="Home" /><br/><img src="assets/telco/logoTextDark.png" alt="Home" /></a>
                     <div class="form-group m-t-40">
                         <div class="col-xs-12">
-                            <input type="email" class="form-control" name="email" #email="ngModel" aria-describedby="emailHelp" placeholder="username@education.com" 
+                            <input type="email" class="form-control" name="email" #email="ngModel" aria-describedby="emailHelp" placeholder="Correo" 
                         ngModel
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                         required>
-                        <small *ngIf="email.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
-                        <small *ngIf="email.errors?.pattern" id="nameHelp" class="form-text text-muted">Formato erroneo</small>
+                        <small *ngIf="email.errors?.required" id="nameHelp" class="form-text text-danger">Campo requerido *</small>
+                        <small *ngIf="email.errors?.pattern" id="nameHelp" class="form-text text-danger">Formato erroneo</small>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input type="password" class="form-control" name="password" #password="ngModel"placeholder="Password" 
+                            <input type="password" class="form-control" name="password" #password="ngModel" placeholder="Contraseña" 
                             ngModel 
                             minlength="3"
                             required>
-                            <small *ngIf="password.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small>
-                            <small *ngIf="password.errors?.minlength" id="nameHelp" class="form-text text-muted">Mínimo {{ password.errors.minlength.requiredLength }} carácteres</small>
+                            <small *ngIf="password.errors?.required" id="nameHelp" class="form-text text-danger">Campo requerido *</small>
+                            <small *ngIf="password.errors?.minlength" id="nameHelp" class="form-text text-danger">Mínimo {{ password.errors.minlength.requiredLength }} carácteres</small>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -67,7 +67,7 @@
                     <div class="form-group ">
                         <div class="col-xs-12">
                             <h3>Recover Password</h3>
-                            <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
+                            <p class="text-danger">Enter your Email and instructions will be sent to you! </p>
                         </div>
                     </div>
                     <div class="form-group ">

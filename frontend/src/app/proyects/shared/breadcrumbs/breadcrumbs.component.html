@@ -4,8 +4,8 @@
     </div>
     <div class="col-md-7 align-self-center">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a target="_blank" [routerLink]="['/home']">Inicio</a></li>
-            <li class="breadcrumb-item"><a [routerLink]="['/ims']">IMS</a></li>
+            <!-- <li class="breadcrumb-item"><a target="_blank" [routerLink]="['/home']">Inicio</a></li> -->
+            <li class="breadcrumb-item"><a [routerLink]="['/ims']">Telco IMS</a></li>
             <li *ngFor="let route of routePage" class="breadcrumb-item active" ><a [routerLink]="['/ims/'+route]" *ngIf="route != 'home'" >{{route}}</a></li>
         </ol>
     </div>

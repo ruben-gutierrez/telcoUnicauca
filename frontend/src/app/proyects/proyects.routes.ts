@@ -13,6 +13,7 @@ import { GraphComponent } from './ims/graphs/graph/graph.component';
 import { GraphNewComponent } from './ims/graphs/graph-new/graph-new.component';
 import { NewServerComponent } from './ims/arquitectures/arquitecture/new-server/new-server.component';
 import { LoginGardGuard } from '../services/services.index';
+import { VerifyTokenGuard } from '../services/guards/verify-token.guard';
 
 
 const proyectsRoutes: Routes = [
@@ -23,17 +24,17 @@ const proyectsRoutes: Routes = [
         
         children:[
           { path: 'information', component: InformationComponent,data:{titlePage:'Información'} },
-          { path: 'arquitectures', component: ArquitecturesComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Arquitecturas'} },
+          { path: 'arquitectures', component: ArquitecturesComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Arquitecturas'} },
             { path: 'arquitectures/:id', component: ArquitectureComponent, data : {titlePage:'Arquitectura'} },
-            { path: 'available', component: AvailableComponent ,canActivate: [ LoginGardGuard ], data : {titlePage:'Arquitecturas disponibles'} },
-            { path: 'arquitectures/:id/newServer', component: NewServerComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Crear servidor'} },
-          { path: 'tests', component: TestsComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Pruebas'} },
-            { path: 'tests/:id', component: TestComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Prueba'} },
-            { path: 'test-new', component: NewTestComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Crear prueba'} },
-            { path: 'testing', component: TestingComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Pruebas activas'} },
-          { path: 'graphs', component: GraphsComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Gráficas'} },
-            { path: 'graphs/:id', component: GraphComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Gráfica'} },
-            { path: 'graph-new', component: GraphNewComponent,canActivate: [ LoginGardGuard ], data : {titlePage:'Crear gráfica'} },
+            { path: 'available', component: AvailableComponent ,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Arquitecturas disponibles'} },
+            { path: 'arquitectures/:id/newServer', component: NewServerComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Crear servidor'} },
+          { path: 'tests', component: TestsComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Pruebas'} },
+            { path: 'tests/:id', component: TestComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Prueba'} },
+            { path: 'test-new', component: NewTestComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Crear prueba'} },
+            { path: 'testing', component: TestingComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} },
+          { path: 'graphs', component: GraphsComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Gráficas'} },
+            { path: 'graphs/:id', component: GraphComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Gráfica'} },
+            { path: 'graph-new', component: GraphNewComponent,canActivate: [ LoginGardGuard, VerifyTokenGuard ], data : {titlePage:'Crear gráfica'} },
           { path: '', redirectTo: '/ims/information', pathMatch: 'full' },
         ]
     }

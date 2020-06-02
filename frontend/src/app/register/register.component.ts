@@ -7,7 +7,7 @@ import { UsersService } from "src/app/services/services.index";
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-declare function init_plugins();
+// declare function init_plugins();
 
 @Component({
   selector: 'app-register',
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
                 ) { }
 
   ngOnInit() {
-    init_plugins();
+    // init_plugins();
     this._users.pageRegister=true;
   }
   resetForm(form?:NgForm){
