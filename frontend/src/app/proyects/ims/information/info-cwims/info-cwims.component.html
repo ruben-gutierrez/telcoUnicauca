@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 text-left" >
+            <h1><a href="https://clearwater.readthedocs.io/en/stable/index.html" target="_blank" style="color: black;">Arquitectura  Clearwater  IMS</a></h1>
+            <div>
+                <p>Núcleo IMS de código libre desarrollado por Metaswitch Networks bajo licencia GNU GPLv3. Clearwater es un proyecto desarrollado para ser escalable horizontal y modularmente en un entorno virtualizado garantizando balanceo de carga entre sus componentes.  En la figura <b>1</b>  se visualiza la arquitectura Clearwater IMS desplegado en un sistema distribuido.</p>
+                
+                <p>Un sistema distribuido permite instanciar cada nodo de Clearwater <b>(IBCF, bono, ellis, dime, Homer, Vellum y Sprout)</b>  en <b>máquinas  virtuales (MV) </b>  individuales orquestadas por la <b>plataforma Telco IMS</b>  proporcionando una infraestructura de red más completa. No obstante,  Clearwater también puede ser implementado en un sistema <b>todo en uno instanciado en una sola MV</b> para pruebas de concepto.  Las funciones principales de cada nodo son explicadas a continuación:  </p>
+                
+                
+                <ul>
+                    <li><b>Bono (Proxy de Borde): </b>primer punto de contacto de los equipos de usuario con el núcleo IMS de Clearwater que incluye funciones de proxy de borde <b>P-CSCF</b> escalable horizontalmente. Este nodo, es el encargado de procesar solicitudes SIP de los clientes IMS y brindar soporte NAT. </li>
+                    <li><b>Sprout (Router SIP): </b>  Registrador y servidor proxy que provee servicios de autenticación de clientes y enrutamiento de mensajes SIP a los servidores de aplicación por medio de funciones de red  <b>I-CSCF</b>  y <b> S-CSCF</b>  incorporadas internamente. El nodo Sprout es escalable horizontalmente y es el encargado de realizar el balanceo de carga entre los nodos bono a partir de un servidor DNS. </li>
+                    <li><b>Dime: </b>  brinda  soporte de  interconexión con la base de datos HSS mediante señalización diameter.  Dime proporciona una interfaz de servicios web para que Sprout pueda recuperar credenciales de autenticación y perfiles de usuario</li>
+                </ul>  
+            </div>
+        </div>
+       
+        <div class="col-sm-6 text-left" >
+            <div>   
+                <img  src="assets/ims/arqClearwater.jpeg" alt="Clearwater"  style="width: 100%; height: auto; align-content: center; margin-top: 35px;" hspace="10" vspace="10">
+                <figcaption style="color: black; text-align: center;"><b>Fig. 1</b> Arquitectura Clearwater IMS</figcaption>
+            </div>  
+            <br>
+            <div>
+                <ul>
+                    <li><b> Vellum (State store): </b>  Almacena estados de larga duración del núcleo IMS en clústeres de almacenamiento distribuidos y optimizados para servicios en la nube.  Asimismo, cuando no se utiliza HSS, vellum almacena credenciales de autenticación e información de perfiles de usuario en cassandra, además de almacenar configuraciones de servicios. </li>
+                    <li><b> Homer (XDMS): </b>   almacena archivos de configuración de los servicios para cada usuario en el sistema. Utiliza una interfaz XCAP estándar para crear, leer, actualizar o eliminar los archivos de configuración, además, de usar el nodo Vellum para almacenar datos de larga duración. </li>
+                    <li><b> Ellis: </b>  proporciona gestión de administración de usuarios, contraseñas y aprovisionamiento de servicio a partir de una interfaz web. En el nodo ellis son creados los  números de teléfono  de los usuarios que van a utilizar los servicios de la arquitectura IMS.  Este nodo no es escalable. </li>
+                    
+                </ul>  
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,9 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderUserComponent } from 'src/app/telco/shared/header-user/header-user.component';
 import { MessagesComponent } from 'src/app/telco/shared/messages/messages.component';
-import { LoadingComponent } from 'src/app/shared/loading/loading.component';
+import { LoadingComponent } from './loading/loading.component';
+
+
 
 
 
@@ -26,6 +28,7 @@ import { LoadingComponent } from 'src/app/shared/loading/loading.component';
         HeaderUserComponent,
         MessagesComponent,
         LoadingComponent
+        
     ],
     exports:[
         HeaderComponent,
@@ -34,6 +37,7 @@ import { LoadingComponent } from 'src/app/shared/loading/loading.component';
         HeaderUserComponent,
         MessagesComponent,
         LoadingComponent
+        
 
     ],
     imports:[

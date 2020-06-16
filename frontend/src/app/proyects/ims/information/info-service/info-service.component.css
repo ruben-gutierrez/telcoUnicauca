@@ -1,0 +1,55 @@
+div{
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 16px;
+  }
+  
+  .boton.arquitectura {
+    background-color: #253747; /* Código de un color Verde  #00c69f*/
+    color: white!important;
+    border-radius: 10px;
+    margin-top:45px;
+    width: 100%;
+    height: 3;
+    font-size: 18px;
+  }
+  
+  .boton.arquitectura:hover {
+    background-color: #4d6f8b; /* Gris azulado #31495f*/
+    text-decoration: none;
+    color: white!important;
+  }
+  
+  .boton.alternativo { 
+    background-color: #00c69f;  
+    /*background-color: transparent;*/
+    color: white!important;
+    border: 2px solid #08f1c3; /*Color verde predeterminado 00c69f*/
+    border-radius: 10px;
+    margin-top:45px;
+    width: 100%;
+    height: 3;
+    font-size: 20px;
+  }
+  
+  .boton.alternativo:hover {
+    background-color: #05725c!important;
+    color: white!important;
+    text-decoration: none;
+  }
+  
+  
+  
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+  }
+  
+  
+  
+  /*PRUEBA*/
+  
+  

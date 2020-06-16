@@ -83,19 +83,22 @@ ServerController.actionsServer=async(req, res) => {
         case 'on/off':
     //             consolse.log(server['infoServer'].id)
                 // console.log(server);
-                if (await openstack.onOffServer(server['infoServer'].id) == 'ok'){
+                funOnOff=await openstack.onOffServer(server['infoServer'].id);
+                if (funOnOff.response == 'ok'){
 
                     res.json(
                         {
                             status:'200',
-                            answer:'action server'
+                            answer:'action server',
+                            action:funOnOff.action
                         }
                     );
                 }else{
                     res.status(
                         {
                             status:'300',
-                            answer:'fail action'
+                            answer:'fail action',
+                            action:funOnOff.action
                         }
                     );
                 }

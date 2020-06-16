@@ -219,7 +219,7 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
                 }
             })
             .catch(error =>{
-                console.log("error creando servidor -------------------------------------------------------")
+                // console.log("error creando servidor -------------------------------------------------------")
                 console.log(error.response.data.badRequest)
                 answer.status = 400
                 answer.content=null
@@ -254,33 +254,39 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
     await sleep(10000)
     answer.content= await openstack.consultServer(answer.content.id);
     //create user and pass
+
+
+
+    if (name != 'aio') {
+        
+        keyPair=fs.readFileSync('server/key.pem', {
+            encoding: 'utf8',
+          })
     
-    keyPair=fs.readFileSync('server/key.pem', {
-        encoding: 'utf8',
-      })
-
-      var ssh = new SSH({
-        host: answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr,
-        user: 'ubuntu',
-        key: keyPair
-    });
-    ssh.exec('sudo apt-get install snmpd -y'),
-    ssh.exec("sudo sed -i'.bak' '/agentAddress  udp:127.0.0.1:161/d' /etc/snmp/snmpd.conf"),
-    ssh.exec("sudo sed -i'.bak' '17i\agentAddress udp:161,udp6:[::1]:161' /etc/snmp/snmpd.conf"),
-    ssh.exec("sudo service snmpd restart"),
-    ssh.exec("sudo useradd telcoims"),
-    ssh.exec("echo telcoims:telcoims | sudo chpasswd"),
-    ssh.exec(" sudo sed -i '$a telcoims    ALL=(ALL:ALL) ALL' /etc/sudoers"),
-
-
-    //install scripts functions coreIMS
-    ssh.exec("sudo echo '"+file+"'>fileScript"),
-    ssh.exec("sudo chmod 775 fileScript"),
-    ssh.exec("./fileScript",{
-        pty: true,
-        out: console.log.bind(console)
-    })
-    .start();
+          var ssh = new SSH({
+            host: answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr,
+            user: 'ubuntu',
+            key: keyPair
+        });
+        ssh.exec('sudo apt-get install snmpd -y'),
+        ssh.exec("sudo sed -i'.bak' '/agentAddress  udp:127.0.0.1:161/d' /etc/snmp/snmpd.conf"),
+        ssh.exec("sudo sed -i'.bak' '17i\agentAddress udp:161,udp6:[::1]:161' /etc/snmp/snmpd.conf"),
+        ssh.exec("sudo service snmpd restart"),
+        ssh.exec("sudo useradd telcoims"),
+        ssh.exec("echo telcoims:telcoims | sudo chpasswd"),
+        ssh.exec(" sudo sed -i '$a telcoims    ALL=(ALL:ALL) ALL' /etc/sudoers"),
+    
+    
+        //install scripts functions coreIMS
+        ssh.exec("sudo echo '"+file+"'>fileScript"),
+        ssh.exec("sudo chmod 775 fileScript"),
+        ssh.exec("./fileScript",{
+            pty: true,
+            out: console.log.bind(console)
+        })
+        .start();
+    }
+    
 
     console.log('ipFloating',answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr)
     // if (answer.content.addresses.length > 0) {
@@ -317,14 +323,14 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
 async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet,idArquitecture ) {
     let core=[];
     for await (vm of vms){
-        // if (vm == 'aio') {
+        if (vm == 'aio') {
             
-        //     server = await createServer(vm,config.idIMS.idImage1,nameKey,idFlavor,idNet,idArquitecture,'ims');
-        // } else {
+            server = await createServer(vm,config.idIMS.idImage1,nameKey,idFlavor,idNet,idArquitecture,'ims');
+        } else {
             
-        //     server = await createServer(vm,idImage,nameKey,idFlavor,idNet,idArquitecture,'ims');
-        // }
             server = await createServer(vm,idImage,nameKey,idFlavor,idNet,idArquitecture,'ims');
+        }
+            // server = await createServer(vm,idImage,nameKey,idFlavor,idNet,idArquitecture,'ims');
         if(server.status == 200){
             // serverFull=await consultServer(server.content.id);
             // if (serverFull.addresses.length > 0) {
@@ -550,26 +556,31 @@ async function infoFlavor( idFlavor ) {
 }
 async function onOffServer( idServer ) {
     let server;
-    let answer;
+    let answer={
+        action:String,
+        response:Boolean
+    };
     server = await consultServer(idServer);
     if (server.status == 'ACTIVE') {
         data={
             "os-stop": null
         }
+        answer.action='off'
         
         // console.log('apagar maquina')
     }else{
         data={
             "os-start": null
         }
+        answer.action='on'
         // console.log('encender maquina')
     }
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ idServer +'/action', data,config.headersOpenStack )
           .then(function (response) {
-            answer= 'ok'
+            answer.response= 'ok'
           })
           .catch(error =>{
-              answer= 'error'
+              answer.response= 'error'
           });
     return answer;
 }

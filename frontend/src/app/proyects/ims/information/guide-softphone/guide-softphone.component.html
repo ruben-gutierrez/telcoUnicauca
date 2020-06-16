@@ -1,22 +1,49 @@
-
-<hr>
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-6 text-left" >
-            <h1>Acceso al núcleo IMS de Clearwater todo en uno (AIO)</h1>
+        <div class="col-sm-12 text-left" >
+            <h2>Acceder al núcleo Clearwater  IMS todo en uno (AIO)</h2>
             <div>
-                <p> Para acceder al núcleo IMS de Clearwater  es necesario ingresar a la página de arquitecturas. En esta página, las arquitecturas son reservadas y pueden ser accedidas para su configuración. El ingreso a las máquinas virtuales de Clearwater todo en uno <b>(aio)</b> debe realizarse por medio de la consola con las siguientes credenciales, <b>usuario: ubuntu</b>; <b>contraseña:cw-aio</b>. </p> 
+                <p> Para acceder al núcleo Clearwater  IMS es necesario reservar una arquitectura  e ingresar a la consola de configuración de la máquina virtual Clearwater  <b>(aio)</b> por medio del botón de <b>“consola”</b>. Las credenciales de ingreso de la máquina virtual  <b>(aio)</b> son:  <b style="color: black;">usuario: "ubuntu"</b>; <b style="color: black;">contraseña: "cw-aio"</b>. </p> 
             </div>
-            <h2>Acceso Dashboard Clearwater</h2>
-            <p> Cuando se accede al terminal de comandos de la máquina  virtual Clearwater AIO es necesario verificar que los servicios del núcleo IMS estén subidos  mediante el comando el <b>”monit summary”</b>. Posteriormente, se debe ingresar a la Dashboard de Clearwater que permitirá configurar los perfiles de usuario para utilizar servicios de llamada y videollamada de IMS. En la Figura 2 se visualiza la Dashboard de Clearwater. </p>
+            <div class="col-sm-12 text-left" >
+                <div>   
+                    <img src="assets/ims/Reser_Arq11_AIO.JPG" alt="Clearwater AIO"  class="center" style="width: auto; height: auto;"  hspace="10" vspace="10">
+                    <figcaption style="color: black; text-align: center;"><b>Fig. 1</b> Máquina Virtual Clearwater IMS</figcaption>
+                </div>  
+            </div>
+            <hr>
+            <h2>Terminal de comandos máquina virtual AIO</h2>
+            <div>
+                <p> Cuando se presione el botón de consola se abrirá un terminal de comandos de la MV  en la web para su posterior configuración.  En esta pestaña aparecerá un cuadro negro  que representa el terminal de comandos de la MV. Para poder configurarlo, es necesario presionar la tecla “enter”  sobre el cuadro negro permitiendo al usuario ingresar a la MV como modo privilegiado. Para acceder como modo “súper usuario” debe escribir en el terminal el  comando <b style="color: black;">"sudo su" </b> e ingresar las credenciales mencionadas anteriormente. </p> 
+            </div>
+            <div class="col-sm-12 text-left" >
+                <div>   
+                    <img src="assets/ims/Reser_Arq8.JPG" alt="Terminal comandos VM AIO" class="center" style="width: auto; height: auto;"  hspace="10" vspace="10">
+                    <figcaption style="color: black; text-align: center;"><b>Fig. 2</b> Terminal de comandos máquina virtual aio</figcaption>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div>
+            <h2>Acceder a la Dashboard de Clearwater IMS</h2>
+            <p> Cuando se accede al terminal de comandos de la máquina  virtual Clearwater AIO es necesario verificar que los servicios del núcleo IMS estén subidos  mediante el comando <b style="color: black;">”monit summary”</b>. Posteriormente, se debe ingresar a la Dashboard de Clearwater IMS para configurar los perfiles de usuario que serán utilizados en los servicios de llamada y videollamada de IMS. Para ello, se debe copiar la IP pública de la MV de AIO en la URL del navegador como se observa en la  <b style="color: black;">Figura 4</b>  la cual permite ingresar a la Dashboard de Clearwater IMS</p>
+        </div> 
+        <div class="col-sm-6 text-left" >
+            <div>   
+                <img class="center-block" src="assets/ims/Reser_Arq10_Monit_summary.JPG" alt="Clearwater"  style="width: 100%; height: auto;"  hspace="10" vspace="10">
+                <figcaption style="color: black; text-align: center;"><b>Fig. 3</b> Verificación de servicios Clearwater IMS</figcaption>
+            </div>  
         </div>
         <div class="col-sm-6 text-left" >
             <div>   
-                
-                    <img class="center-block" src="assets/ims/loginAIO.jpeg" alt="Clearwater"  style="width: auto; height: auto;"  hspace="10" vspace="10">
-                
-                <figcaption style="color: black; text-align: center;"><b>Fig. 2</b> Dashboard Clearwater IMS</figcaption>
+                <img src="assets/ims/loginAIO.jpeg" alt="Clearwater"  style="width: 100%; height: auto; margin-top: 25px;"  hspace="10" vspace="10">
+                <figcaption style="color: black; text-align: center; margin-top: 25px;"><b>Fig. 4</b> Dashboard Clearwater IMS</figcaption>
             </div>  
         </div>
     </div>
@@ -25,42 +52,51 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-6 text-left" >
-            <h2>Crear usuario administrador Clearwater</h2>
-            <p>Para  administrar los servicios del núcleo IMS de Clearwater es necesario crear un usuario administrador  que permita gestionar los perfiles de usuario del núcleo IMS para acceder a sus servicios.  En la opción <b>or signup</b> visualizada en la Figura 2 se ingresa a la página de crear usuario.  Posteriormente, en la  <b>Figura 3</b>, se da un ejemplo para la creación de un usuario configurado. <b>Nota:</b>  en la opción “signup code” debe ir siempre la palabra <b>“secret”</b> </p>    
-            <h2>Crear perfiles de usuario</h2>
-            <p>En esta opción se configuran los perfiles de usuario para que los usuarios de Clearwater puedan autenticarse y acceder a los servicios de Clearwater IMS como llamada y videollamada. En la  <b>Figura 4</b> se observan las cuentas creadas en Clearwater que serán utilizadas para configurar los softphone donde se destaca el usuario:  <b>6505550776@example.com</b> con contraseña: <b>QDeRTDV4k</b> </p>
-            <br>
-            
-                <img class="center-block" src="assets/ims/registerUser.jpeg" alt="Clearwater"  style="width: 100%; height: auto;"  hspace="10" vspace="10">
-            
-            <figcaption style="color: black; text-align: center;"><b>Fig. 4</b> Perfiles de usuario Clearwater IMS</figcaption>
-
-        </div>
+        <div>
+            <h2>Crear un usuario administrador de Clearwater</h2>
+            <p>Para  administrar los servicios del núcleo Clearwater IMS es necesario crear un usuario administrador  que permita gestionar los perfiles de usuario del núcleo IMS para acceder a sus servicios.  En la opción <b style="color: black;">or signup</b> visualizada en la Figura 4 se ingresa a la página de crear usuario.  Posteriormente, en la  <b style="color: black;">Figura 5</b>, se muestra un ejemplo crear de un usuario. <b style="color: black;">Nota:</b>  en la opción <b style="color: black;">“signup code”</b> debe ir siempre la palabra <b style="color: black;">“secret”</b> </p>  
+        </div> 
         <div class="col-sm-6 text-left" >
             <div>   
-                
-                    <img class="center-block" src="assets/ims/registerAIO.jpeg" alt="Clearwater"  style="width: 80%; height: auto;"  hspace="10" vspace="10">
-                
-                <figcaption style="color: black; text-align: center;"><b>Fig. 3</b> Crear usuario Clearwater IMS</figcaption>
+                <img src="assets/ims/registerAIO.jpeg" alt="Clearwater"  style="width: 100%; height: auto;"  hspace="10" vspace="10">
+                <figcaption style="color: black; text-align: center;"><b>Fig. 5</b> Crear usuario Clearwater IMS</figcaption>
             </div>  
+        </div>
+        <div class="col-sm-6 text-left" >
+            <div>
+                <h2>Crear un perfil de usuario en Clearwater</h2>
+                <p>En esta opción se configuran los perfiles de usuario para que los usuarios puedan autenticarse y acceder a los servicios del núcleo Clearwater IMS. En la  <b style="color:black;">Figura 6</b> se observa un ejemplo de una cuenta creada que será utilizada para configurar un softphone. En este caso, el usuario a configurar tendrá el perfil de usuario: <b style="color: black;">6505550776@example.com</b> y la contraseña: <b style="color: black;">QDeRTDV4k</b>. </p>
+            </div>
+            <div>   
+                <img src="assets/ims/registerUser.jpeg" alt="Clearwater"  style="width: 100%; height: auto;"  hspace="10" vspace="10">
+                <figcaption style="color: black; text-align: center;"><b>Fig. 6</b> Perfiles de usuario Clearwater IMS</figcaption>
+            </div> 
+            <div>
+                <p style="margin-top: 25px;">
+                    Los perfiles de usuario pueden ser modificados por el usuario administrador quien tiene opciones tales como: resetear contraseñas, crear usuarios, eliminar usuarios o configurar permisos. 
+                </p>
+            </div> 
         </div>
     </div>
 </div>
-
 <hr>
+
+
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 text-left" >
-            <h2>Configurar softphone</h2>
-            <p> El softphone debe ser configurado con los parámetros de cada perfil de usuario creado en el núcleo IMS de Clearwater. En la figura 4, se observan las credenciales de un perfil de usuario (usuario: <b>6505550776@example.com</b> ; contraseña <b>QDeRTDV4k</b>) utilizado para configurar el softphone visualizado en la <b>Figura 5</b>.</p>
-            <br>
-            
+            <div>
+                <h2>Configurar un softphone</h2>
+                <p> El softphone es una herramienta que permite acceder a los servicios del núcleo Clearwater IMS tales como llamada o videollamada. Asimismo, permite acceder a los servicios de otros sistemas de Telecomunicaciones como Asterisk. En este caso, el softphone utilizado es Zoiper el cual debe ser configurado con los parámetros de cada perfil de usuario creado en el núcleo IMS de Clearwater. En la <b style="color: black;">Figura 6</b>, se observan las credenciales de un perfil de usuario (usuario: <b>6505550776@example.com</b> ; contraseña <b>QDeRTDV4k</b>) utilizado para configurar el softphone visualizado en la <b style="color: black;">Figura 7</b>.</p>
+                <br>
+            </div>
                 <img class="center-block" src="assets/ims/configSoftpohne.jpeg" alt="Clearwater"  style="width: 100%; height: auto;"  hspace="10" vspace="10">
             
             <figcaption style="color: black; text-align: center;"><b>Fig. 5</b> Configuración softphone Zoiper</figcaption>
-
+            <div>
+                <p style="margin-top: 25px;">Una vez configurado el softphone es necesario verificar si se registró correctamente. Validado el registro puede probar los servicios de IMS tales como llamada y videollamada. <b style="color: black;">Nota:</b> Es importante tener configurado mínimo 2 equipos softphone.</p>
+            </div>
         </div>
     </div>
 </div>

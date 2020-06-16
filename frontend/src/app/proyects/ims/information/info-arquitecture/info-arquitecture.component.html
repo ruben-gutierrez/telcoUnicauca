@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-sm-7 text-left" >
+        <h1 id="servicios">Arquitecturas Ambiente de Pruebas Telco IMS</h1>
+        <div>
+            <p>El ambiente de pruebas (Testbed) Telco IMS utiliza  el sistema de código libre de Openstack para la gestión y orquestación de recursos virtuales en la red.  Específicamente, Openstack proporciona soluciones de Infraestructura como servicios (IaaS) para que los usuarios puedan aprovisionar recursos de almacenamiento, procesamiento y redes virtuales para la prestación de servicios en la nube. Las arquitecturas proporcionadas en el testbed Telco IMS están compuestas por una red privada virtual donde se conectan las instancias de máquinas virtuales como se observa en la <b style="color:black;">Figura 1</b>. En este caso, las instancias son conectadas a la red 192.168.233.0/24 llamada “Shared” la cual está conectada a la red pública de Openstack por medio de un enrutador virtual que permite acceder a redes externas y servicios de internet</p>
+            <p><b style="color:black;">Nota: </b>La plataforma Telco provee un acceso automatizado a las arquitecturas de MV creadas en la plataforma. Las MV conectadas en la red privada virtual utilizan el direccionamiento de esa red para configuración interna. No obstante, para acceder a las MV desde una red externa se hace por medio de una IP pública. Ver información de <a href=" https://www.redhat.com/es/topics/openstack" target="_blank">Openstack.</a> </p>
+        </div>
+    </div>
+    <div class="col-sm-5 text-left">
+        <div>   
+            <img src="assets/ims/Red_AIO.JPG" alt="Arquitectura Telco IMS" width="100%" height="auto" >
+            <figcaption style="text-align: center; color: black;"><b>Fig. 1.</b> Arquitectura Ambiente de Pruebas Telco IMS</figcaption>
+        </div>  
+    </div>
+    <div class="col-sm-6 text-left">
+        <div>   
+            <button class="boton arquitectura btn-sm" (click)="changeArqCWDistribuido()" style="margin-top: 8px;"> Arquitectura Clearwater Distribuido</button>               
+        </div> 
+    </div>
+    <div class="col-sm-6 text-left">
+        <div>   
+            <button class="boton arquitectura btn-sm" (click)="changeArqCWDistribuidoAIO()" style="margin-top: 8px;"> Arquitectura Clearwater todo en uno (AIO)</button>        
+        </div> 
+    </div>
+    <div class="col-sm-6 text-left">
+        <div>   
+            <button class="boton arquitectura btn-sm" (click)="changeInfoVM()" style="margin-top: 8px;"> Información Máquinas Virtuales</button>               
+        </div> 
+    </div>
+    <div class="col-sm-6 text-left">
+        <div>   
+            <button class="boton alternativo btn-sm" [routerLink]="['/ims/available']" style="margin-top: 8px;"> Reservar Arquitecturas</button>        
+            <!--app-arquitecture *ngIf="flatReserArq"></app-arquitecture-->
+        </div> 
+    </div>
+</div>
+<hr>
+
+<div class="row" *ngIf="flatInfoVM">
+    <div class="col-sm-12 text-left" >
+        <h1 id="servicios">Información Máquinas virtuales</h1>
+        <div>
+            <p>Para configurar y acceder a las MV es importante conocer su direccionamiento IP. En la <b style="color:black;">Figura 2</b> y <b style="color:black;">Figura 3</b> se observa los datos generales de una máquina virtual creada en la plataforma Telco IMS.  El rango IP pública para acceso desde la red externa es de 192.168.40.x. Mientras que el rango IP de la red privada virtual depende de la arquitectura reservada con mascara de red /24. Para ver la dirección IP de la máquina virtual en la consola se puede hacer por medio del comando <b style="color:black;">ifconfig.</b> </p>
+            <p><b style="color:black;">Nota: </b> La dirección IP pública es  utilizada para acceder a las dashboard de configuración de Clearwater IMS y configurar los equipos softphone.  </p>
+        </div>
+    </div>
+    <div class="col-sm-12 text-left">
+        <div>   
+            <img src="assets/ims/Instancias.JPG" alt="Instancias máquina Virtual" style="margin-top: 20px;" width="100%" height="auto" >
+            <figcaption style="text-align: center; color: black;"><b>Fig. 2.</b> Información Máquinas Virtuales</figcaption>
+        </div>
+        <div>   
+            <img src="assets/ims/IP_Flotante.JPG" alt="IP flotante" style="margin-top: 20px;" width="100%" height="auto" >
+            <figcaption style="text-align: center; color: black;"><b>Fig. 3.</b> IP Pública 192.168.40.139 asignada a la máquina Virtual SIPP</figcaption>
+        </div>  
+    </div>
+</div>
+
+<div class="row" *ngIf="flatArqCWDistribuido">
+    <div class="col-sm-6 text-left">
+        <h1><a href="https://clearwater.readthedocs.io/en/stable/index.html" target="_blank" style="color: black;">Arquitectura  Clearwater  IMS Distribuido</a></h1>
+        <div id="CW_Distribuido">
+            <p>Núcleo IMS de código libre desarrollado por Metaswitch Networks bajo licencia GNU GPLv3. Clearwater es un proyecto desarrollado para ser escalable horizontal y modularmente en un entorno virtualizado garantizando balanceo de carga entre sus componentes.  En la figura <b>1</b>  se visualiza la arquitectura Clearwater IMS desplegado en un sistema distribuido.</p>
+            <p>Un sistema distribuido permite instanciar cada nodo de Clearwater <b style="color: black;">(IBCF, bono, ellis, dime, Homer, Vellum y Sprout)</b>  en <b>máquinas  virtuales (MV) </b>  individuales orquestadas por la <b>plataforma Telco IMS</b>. La arquitectura Clearwater IMS distribuida utiliza un servidor <b style="color:black;">DNS</b> para identificación de los nodos mediante dominios URL. El servidor DNS permite disminuir la carga de trabajo en los servidores y los retardos producidos por las consultas. Asimismo, permite aumentar la tolerancia a fallos en el sistema. Ver información <a href="https://clearwater.readthedocs.io/en/stable/index.html" target="_blank">Clearwater IMS</a></p> 
+        </div>
+    </div>
+    <div class="col-sm-6 text-left" >
+        <div>   
+            <img  src="assets/ims/arqClearwater.jpeg" alt="Clearwater"  style="width: 100%; height: auto; align-content: center; margin-top: 35px;" hspace="10" vspace="10">
+            <figcaption style="color: black; text-align: center;"><b>Fig. 1</b> Arquitectura Clearwater IMS Distribuido</figcaption>
+        </div>  
+    </div>
+</div>
+
+<div class="row" *ngIf="flatArqCWAIO">
+    <div class="col-sm-12 text-left">
+        <h1><a href="https://clearwater.readthedocs.io/en/stable/index.html" target="_blank" style="color: black;">Arquitectura  Clearwater IMS todo en uno (AIO)</a></h1>
+        <div id="CW_Distribuido">
+            <p>Si bien Clearwater es un proyecto desarrollado para ser escalable horizontal y modularmente de forma masiva, Clearwater también proporciona un sistema todo en uno (AIO) que permite instalar todos sus componentes de red en una sola máquina virtual. Este sistema provee una plataforma   que permite familiarizarse con la arquitectura Clearwater IMS antes de pasar a una escala mayor. Asimismo, permite realizar pruebas de concepto sobre su arquitectura y utilizar servicios básicos de llamada y videollamada. Para ello, es necesario configurar los usuarios por medio de la Dashboard de Clearwater en la web  la cual se accede mediante la IP pública de la máquina virtual. </p>
+            <p>Clearwater AIO es instalado sobre una MV con sistema operativo Ubuntu 14 configurado para usar direccionamiento dinámico DHCP, además de utilizar los servicios de red de Bono, Sprout, Homestead, Homer y Ellis.  Clearwater debe puede ser ejecutado en una MV con un solo núcleo, 2GB de RAM y 10 GB de almacenamiento.</p> 
+        </div>
+        <div>
+            <h3  style="color: black;">Restricciones</h3>
+            <ul> 
+                <li>* Utilización de dominio SIP URI predeterminado por defecto "example.com".</li>
+                <li>* Menor rendimiento que un sistema a escala mayor debido a que todos sus componentes son instalados en una sola MV.</li>
+                <li>* Este sistema no se puede  ser escalado agregando más MV en la red para aumentar su capacidad. Para ello, es necesario instalar el sistema Clearwater Distribuido.</li>
+                <li>* No proporciona tolerancia a fallos, dado que se ejecuta todo el sistema en una sola MV que si falla genera que todo el servicio en conjunto falle.  </li>
+            </ul>
+        </div>
+    </div>
+    <!--div class="col-sm-6 text-left" >
+        <div>   
+            <img  src="assets/ims/arqClearwater.jpeg" alt="Clearwater"  style="width: 100%; height: auto; align-content: center; margin-top: 35px;" hspace="10" vspace="10">
+            <figcaption style="color: black; text-align: center;"><b>Fig. 1</b> Arquitectura Clearwater IMS Distribuido</figcaption>
+        </div>  
+    </div-->
+</div>
+
+
+<router-outlet></router-outlet>

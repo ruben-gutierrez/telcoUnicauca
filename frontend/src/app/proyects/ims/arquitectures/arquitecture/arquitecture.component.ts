@@ -6,7 +6,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { async } from 'q';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
-
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { NgForm } from '@angular/forms';
 
 export class ArquitectureComponent implements OnInit {
   flatGuideUsers=false;
-
+  messageLoading:string;
   resourcesFlavor
   loading=false;
 images:object;
@@ -82,6 +82,7 @@ images:object;
 
   async newServer(formNewServer){
     this.loading=true;
+    this.messageLoading="Creando Servidor"
     // this.modalService.open(content, { size: 'sm' })
     document.getElementById('btnclose').click();
     await this._server.addServerArquitecture(formNewServer.value) 
@@ -141,10 +142,11 @@ images:object;
     return resourcesDisp;
   }
   async getArquitecture(id){  
-   await this._arquitecture.getArquitecture(id)
-         .toPromise( )
-         .then(data =>{
-          //  console.log(data)
+    await this._arquitecture.getArquitecture(id)
+    .toPromise( )
+    .then(data =>{
+      
+           console.log(data)
          if(data['status']==200){
           this.arquitecture = data['content'];
          }else{
@@ -154,13 +156,19 @@ images:object;
           
          })
   }
-  powerServer(id,state){
-    console.log(state)
+  powerServer(id){
+    
     // this.loading=true
     this._server.actionsServer(id,'on/off')
       .subscribe( data =>{
         // this.loading=false;
-        this.toastr.success('La mv se ha encendido o apagado correctamente')
+        if (data['action']== 'off') {
+          this.toastr.success('La mv se ha apagado correctamente')
+          
+        }else{
+          this.toastr.success('La mv se ha encendido correctamente')
+
+        }
       }, error=>{
         // this.loading=false;
         this.toastr.error('Error al apagar la máquina')
@@ -168,6 +176,7 @@ images:object;
   }
   instantServer(id,index){
     this.loading=true;
+    this.messageLoading="Tomando instantanea";
     this._server.actionsServer(id,'instant')
       .subscribe( data =>{
         this.toastr.success('Instantanea tomada con éxito');
@@ -184,6 +193,7 @@ images:object;
   }
   async deleteServer(id,idArquitecture,index){
     this.loading=true
+    this.messageLoading="Borrando servidor"
     this._server.actionsServer(id,'delete',idArquitecture)
       .subscribe( async data =>{
         this.toastr.success('VM '+id+' Eliminada');
@@ -204,13 +214,14 @@ images:object;
   }
   returnServer(id){
     this.loading=true;
+    this.messageLoading="Reestableciendo máquina virtual, este proceso puede tardar 1 minuto apoximadamente"
     this._server.actionsServer(id,'rebuild')
       .subscribe( data =>{
         this.toastr.success('MV reestablecida con exitosa');
         this.loading=false;
       }, error=>{
-        this.toastr.error('Error al reestablecer la máquina');
         this.loading=false;
+        this.toastr.error('Error al reestablecer la máquina');
       })
   }
   resizeServer(form, id){
@@ -234,9 +245,12 @@ images:object;
   }
   consoleServer(id){
     this.loading=true;
+    this.messageLoading="Creando consola; recuerde que se habilita por 1 hora"
     this._server.actionsServer(id,'console')
       .subscribe( data =>{
-        this.toastr.success('Consola valida por 1 Hora, recuerde dar click en la seccion negra y oprimir la tecla enter');
+        this.toastr.success('Consola creada, verifique la creación de nuevas pestañas');
+        this.toastr.warning('Consola valida por 1 Hora');
+        
         this.loading=false;
         window.open(data['consoleLink'],'_blank');  
         

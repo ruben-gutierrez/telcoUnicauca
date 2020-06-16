@@ -1,3 +1,4 @@
+
 <div *ngIf="!loading; else await">
    
     <div class="container m-2">
@@ -14,8 +15,8 @@
         <div class="col d-flex justify-content-end">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
        
-                <input class="btn btn-info active" type="button" name="options" (click)="showims()" id="option1" autocomplete="off" checked value="Núcleo IMS"> 
-                <input class="btn btn-info active" type="button" name="options" (click)="showaditional()" id="option1" autocomplete="off" checked value="MV creadas"> 
+                <input class="btn btn-info  mx-1"  type="button" name="options" (click)="showims()" id="option1" autocomplete="off" checked value="Núcleo IMS"> 
+                <input class="btn btn-info mx-1" type="button" name="options" (click)="showaditional()" id="option1" autocomplete="off" checked value="MV creadas"> 
                 
               
           </div>
@@ -51,10 +52,27 @@
             <tbody>
                 <tr *ngFor="let vm of core; let i = index" >
 
-                    <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i></th>
+                    <!-- <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <br> {{vm.infoServer.addresses['test3'][0].addr}} <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i></th> -->
+                    <!-- <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <br> {{vm.infoServer.addresses[vm.infoServer.addresses.keys()[0]][0].addr}} <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i></th> -->
+                    <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <br>
+                        <span *ngFor="let address of vm.infoServer.addresses | keyvalue" > 
+                             <div *ngIf="vm.name == 'aio' || vm.name == 'ellis'; else linkAIO"> 
+                                Ip pública: <a title="Dashboard Clearwater" href="http://{{address.value[1].addr}}/login.html" target="_blank" >{{address.value[1].addr}}</a>
+                                <!-- IP privada: <a [routerLink]="[address.value[1].addr]" >address.value[0].addr</a> -->
+                                
+                            </div>
+                            <ng-template #linkAIO>
+                                IP pública:{{ address.value[1].addr }} <br>
+                                <!-- IP privada:{{ address.value[0].addr }} -->
+                            </ng-template> 
+                        </span>
+                            
+                        <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i>
+                    </th>
                     <td>
                         
-                        <mat-slide-toggle color="primary" (click)="[powerServer(vm._id,vm.infoServer.status)]" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
+                        <!-- <mat-slide-toggle color="primary" (click)="[powerServer(vm._id,vm.infoServer.status)]" [ngModel]="stateBtn" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle> -->
+                        <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]"  [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
                        
                         
                         <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id,i)]">Instantanea</button>
@@ -107,7 +125,7 @@
                         </div>
                     </td>
                     <td>
-                        <button class="btn btn-success" (click)="[consoleServer(vm._id)]">Consola</button>
+                        <button class="btn btn-success" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(vm._id)]">Consola</button>
                     </td>
                 </tr>
             </tbody> 
@@ -116,16 +134,11 @@
             </table>
 </div>
 <div class="col" style="background-color:#e7ad31f3; color: black;">
-    <p style="font-size: 16px;"> Usuario y contraseña de las máquinas virtuales "telcoims". Excepto la máquian virtual aio donde usuario: "ubuntu"; contraseña: "cw-aio"</p>
+    <p style="font-size: 16px;"> Usuario y contraseña de las máquinas virtuales "telcoims". Excepto la máquina virtual aio donde usuario: "ubuntu"; contraseña: "cw-aio"</p>
 </div>
 <ng-template #await>
-    <div class="d-flex justify-content-center container">
-  
-        <div class=" spinner-border m-5" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
+    <app-loading [message]="messageLoading"></app-loading>
   </ng-template>
 
-<button class="btn btn-info" (click)="changeFlatUsersIms()"> Usuarios del nucleo IMS</button>
+<button class="btn btn-info" (click)="changeFlatUsersIms()"> Guía de usuarios núcleo IMS</button>
 <app-guide-softphone *ngIf="flatGuideUsers" ></app-guide-softphone>

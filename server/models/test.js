@@ -10,8 +10,8 @@ const TestSchema = new Schema ({
     type: { type: String, required:true},
     file: { type: String, required:true},
     status: { type: String, required:true},
-
     notes: { type: Object},
+    graphsRelation: { type: Object},
     created_at: { type: Date, required: true, default: Date.now },
 });
 

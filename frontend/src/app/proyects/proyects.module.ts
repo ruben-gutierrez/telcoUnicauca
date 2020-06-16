@@ -35,8 +35,16 @@ import { GraphNewComponent } from './ims/graphs/graph-new/graph-new.component';
 import { InformationTemplateComponent } from './ims/information/information-template/information-template.component';
 import { GraphTemplateComponent } from './ims/graphs/graph-template/graph-template.component';
 import { NewServerComponent } from './ims/arquitectures/arquitecture/new-server/new-server.component';
-import { GuideTestComponent } from './ims/tests/guide-test/guide-test.component';
-import { GuideSoftphoneComponent } from './ims/information/guide-softphone/guide-softphone.component';
+import { InformationModule } from './ims/information/information.module';
+import { InformationRoutes } from './ims/information/information.routes';
+//import { InfoServiceComponent } from './ims/informatio/info-service/info-service.component';
+// import { GuideTestComponent } from './ims/tests/guide-test/guide-test.component';
+// import { GuideSoftphoneComponent } from './ims/information/guide-softphone/guide-softphone.component';
+// import { InfoTelcoIMSComponent } from './ims/information/info-telco-ims/info-telco-ims.component';
+// import { InfoArquitectureComponent } from './ims/information/info-arquitecture/info-arquitecture.component';
+// import { InfoTestComponent } from './ims/information/info-test/info-test.component';
+// import { InfoGraphsComponent } from './ims/information/info-graphs/info-graphs.component';
+// import { InfoGuidesComponent } from './ims/information/info-guides/info-guides.component';
 
 
 
@@ -59,8 +67,14 @@ import { GuideSoftphoneComponent } from './ims/information/guide-softphone/guide
         InformationTemplateComponent,
         GraphTemplateComponent,
         NewServerComponent,
-        GuideTestComponent,
-        GuideSoftphoneComponent,
+        InformationTemplateComponent
+        // GuideTestComponent,
+        // GuideSoftphoneComponent,
+        // InfoTelcoIMSComponent,
+        // InfoArquitectureComponent,
+        // InfoTestComponent,
+        // InfoGraphsComponent,
+        // InfoGuidesComponent,
         
     ],
     exports:[
@@ -73,8 +87,8 @@ import { GuideSoftphoneComponent } from './ims/information/guide-softphone/guide
         
     ],
     imports:[
-        SharedModule,
         ProyectsRoutes,
+        SharedModule,
         RouterModule,
         CommonModule,
         ChartsModule,
@@ -84,11 +98,9 @@ import { GuideSoftphoneComponent } from './ims/information/guide-softphone/guide
         MatSliderModule,
         ReactiveFormsModule,
         BrowserModule,
-        
-        
+        InformationModule,
         
     ]
-
 
 })
 export class ProyectsModule { }

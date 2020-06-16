@@ -29,6 +29,7 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-zoom": "^0.7.7",
     "file-saver": "^2.0.2",
+    "fs": "0.0.1-security",
     "hammerjs": "^2.0.8",
     "ng2-charts": "^2.3.2",
     "ngb-modal": "^2.0.3",

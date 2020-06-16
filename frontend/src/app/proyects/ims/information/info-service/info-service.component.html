@@ -1,0 +1,49 @@
+<div class="row">
+    <!--div class="row"-->
+        <div class="col-sm-10 text-left" >
+            <h1 id="servicios">SERVICIOS PLATAFORMA TELCO</h1>
+            <div>
+                     <p>La plataforma Telco provee servicios de orquestación y gestión de recursos
+                             virtuales instanciados en arquitecturas de máquinas virtuales como el núcleo IMS. En particular, el proyecto Telco IMS provee los servicios descritos a continuacion:
+                     </p>
+            </div>
+            <div>      
+                <ul>
+                    <li><p><b style="color: black; ">Máquinas Virtuales (VM):</b> Las VM son orquestadas por el 
+                    hypervisor de Openstack que es un sistema de virtualización de funciones de red 
+                    que permite la gestión e instanciación de funciones de red alojadas en arquitecturas
+                    de VM como el <b style="color: black; ">subsistema multimedia IP (IMS)</b>. IMS provee una arquitectura para la investigación, 
+                    desarrollo tecnológico e innovación de sistemas de Telecomunicaciones convergentes sobre IP.
+                    La plataforma Telco IMS provee a los usuarios un un ambiente de pruebas flexible y configurable
+                    mediante el acceso a las máquinas virtuales por medio de un <b style="color: black; ">terminal de consola en la web.</b></p>
+                
+                    <p>Para acceder a las arquitecturas de VM como el núcleo IMS o crear un nueva máquina virtual, es necesario <b style="color: black;">reservar una arquitectura</b>. Para mayor información puedes acceder a las <b style="color: black;">guías de usuario</b></p>
+                </li>
+                    <li> <b style="color: black; ">Pruebas:</b> El proyecto Telco IMS provee a los usuarios una guía práctica para
+                        la experimentacion de pruebas en el nucleo IMS como la configuración y simulación de usuarios y 
+                        servidores proxy SIP que permitan evaluar el rendimiento y QoS del sistema por medio de la monitorización
+                    de recursos en las máquinas virtuales.  </li>
+                    <li> <b style="color: black; ">Gráficas de Monitorización:</b> Este sistema provee gráficas de monitorización de recursos de 
+                        procesamiento y almacenamiento de las arquitecturas de VM asignadas a cada usuario en el sistema.
+                    Las gráficas permiten evaluar el rendimiento y QoS de las arquitecturas IMS cuyos datos
+                pueden ser descargados en formato JSON para su posterior analisis.  </li>
+                 </ul>
+            </div>    
+                        
+        </div>
+        <div class="col-sm-2 ">
+            <div>   
+                <button class="boton arquitectura btn-sm" [routerLink]="['/ims/available']">Reservar Arquitecturas</button>                
+            </div> 
+            <div>   
+                <button class="boton arquitectura btn-sm" [routerLink]="['/ims/information/Guide_Reser_Arq']">Guías de usuario</button>                
+            </div> 
+            <div>   
+                <button class="boton arquitectura btn-sm" [routerLink]="['/ims/tests']">Acceder a las pruebas</button>                
+            </div> 
+            <div>   
+                <button class="boton arquitectura btn-sm" [routerLink]="['/ims/graphs']">Visualizar gráficas</button>                
+            </div>  
+        </div>
+    </div>
+    <hr>

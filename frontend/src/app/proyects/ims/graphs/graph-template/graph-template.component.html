@@ -36,6 +36,12 @@
 
     <p>graph {{graph.name}}</p>
 </div>
+<div class="row" >
+    <button  class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tableData"><i class="fa fa-table" aria-hidden="true"></i> </button>
+    <button class="btn btn-outline-success" (click)="downloadChart()"> <i class="fa fa-download" aria-hidden="true"></i> </button>
+    <button style="float:right" class="btn btn-outline-primary" (click)="resetZoom()"> <i class="fa fa-search-minus" aria-hidden="true"></i> </button>
+    <button style="float:right" class="btn btn-outline-danger" (click)="deleteGraph(graph._id)"> <i class="fa fa-trash" aria-hidden="true"></i> </button>
+</div>
 <div class="row">
 
     <canvas id="graph2" baseChart
@@ -48,12 +54,7 @@
                 [plugins]="lineChartPlugins">
               </canvas>
 </div>
-<div class="row" >
-    <button  class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tableData"><i class="fa fa-table" aria-hidden="true"></i> </button>
-    <button class="btn btn-outline-success" (click)="downloadChart()"> <i class="fa fa-download" aria-hidden="true"></i> </button>
-    <button style="float:right" class="btn btn-outline-primary" (click)="resetZoom()"> <i class="fa fa-search-minus" aria-hidden="true"></i> </button>
-    <button style="float:right" class="btn btn-outline-danger" (click)="deleteGraph(graph._id)"> <i class="fa fa-trash" aria-hidden="true"></i> </button>
-</div>
+
 
 </div>
 <ng-template #graphError>

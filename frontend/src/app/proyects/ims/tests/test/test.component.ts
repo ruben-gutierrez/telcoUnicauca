@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService, ArquitecturesService, TestService } from 'src/app/services/services.index';
+import { UsersService, ArquitecturesService, TestService, ServerService } from 'src/app/services/services.index';
 import { Router, ActivatedRoute} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
+  urlTerminal:string;
   arquitectures:any;
   idTest:string;
   test:any;
@@ -20,17 +21,21 @@ export class TestComponent implements OnInit {
                 private _test:TestService,
                 private activateRouter:ActivatedRoute,
                 private toastr:ToastrService,
-                private http:HttpClient )
+                private http:HttpClient,
+                private _server: ServerService )
    { 
     this.activateRouter.params.subscribe(params =>{
       this.idTest=params.id;
-      console.log(this.idTest)
+      // console.log(this.idTest)
     })
   }
   async ngOnInit() {
+    
     await this._test.getTest(this.idTest)
       .subscribe( data =>{
         this.test=data;
+        // console.log(this.test.idArquitecture)
+        this.getArquitecture(this.test.idArquitecture)
     });
     
     this._test.getTestData(this.idTest)
@@ -94,6 +99,30 @@ export class TestComponent implements OnInit {
       
       }
     })
+  }
+
+  getArquitecture(id){
+    this._arquitecture.getArquitecture(id)
+    .subscribe( data =>{
+      // console.log(data['content'].vmCoreIMS)
+      data['content'].vmCoreIMS.forEach(element => {
+        if( element.name == 'sipp'){
+          // console.log(element)
+          this._server.actionsServer(element._id,'console')
+          .subscribe( data =>{
+            this.toastr.warning('Consola valida por 1 Hora');
+           this.urlTerminal=data['consoleLink']  
+           console.log(this.urlTerminal)
+           
+            
+          })
+        }
+        
+        
+      });
+      
+    })
+
   }
   
 

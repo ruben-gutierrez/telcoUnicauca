@@ -17,12 +17,13 @@
                             <div *ngIf="arq.tests.length==0">
                                 ¡No hay pruebas!
                             </div>
-                            <div *ngFor="let test of arq.tests; let i = index" class="card  bg-ligth mb-3" style="max-width: 18rem;" >
+                            <div *ngFor="let test of arq.tests; let i = index" class="card ribbon-wrapper   bg-ligth mb-3" style="max-width: 18rem;" >
+                                <div  *ngIf="test.status == 'running'"  class="ribbon ribbon-bookmark ribbon-right ribbon-danger">Ejecutando</div>
                                 <div class="card-header">{{test.name }} 
                                     
-                                    <div class="spinner-grow text-success" role="status" *ngIf="test.status == 'running'" >
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
+                                    <!-- <div class="spinner-grow text-success" role="status" *ngIf="test.status == 'running'" > -->
+                                        <!-- <span class="sr-only">Loading...</span> -->
+                                    <!-- </div> -->
                                 </div>
                                 <div class="card-body">
                                 <h5 class="card-title">Tipo:{{test.type}}</h5>

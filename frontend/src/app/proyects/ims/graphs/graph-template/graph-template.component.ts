@@ -74,34 +74,41 @@ export class GraphTemplateComponent implements OnInit {
     .subscribe(data=>{
      this.graph=data['content']
     })
+    this.getData()
+    setInterval(() => {
+      this.getData()
+    }, 300000);
    
+   
+  }
+  getData(){
     this._graph.getDataGraph(this.idGraph)
-      .subscribe(data=>{
-        
-        if(data['status'] == 200){
-          this.dataExport=data['content']
-          // console.log(data[1])
-          data=data['content']
-          let preData=[]
-          let prelabels=[]
-          let labels=Object.keys(data[1])
-          labels=labels.splice(1,labels.length)
-          this.tableLabels=labels
-          labels.forEach((label, index) => {
-            preData.push({data:[], label: label })
-          });
-          for ( let line of Object.entries(data)){
-            let dat = new Date(+line[1].field*1000).toISOString()
-            prelabels.push( dat )
-            for  (let [index,data] of Object.entries(labels)){
-                preData[index].data.push(+Number.parseFloat(line[1][data]).toFixed(3) )
-            } 
-          }
-          this.lineChartData=preData
-          this.lineChartLabels=prelabels
-          // graph.print= {data:preData, labels:prelabels}
+    .subscribe(data=>{
+      
+      if(data['status'] == 200){
+        this.dataExport=data['content']
+        // console.log(data[1])
+        data=data['content']
+        let preData=[]
+        let prelabels=[]
+        let labels=Object.keys(data[1])
+        labels=labels.splice(1,labels.length)
+        this.tableLabels=labels
+        labels.forEach((label, index) => {
+          preData.push({data:[], label: label })
+        });
+        for ( let line of Object.entries(data)){
+          let dat = new Date(+line[1].field*1000).toISOString()
+          prelabels.push( dat )
+          for  (let [index,data] of Object.entries(labels)){
+              preData[index].data.push(+Number.parseFloat(line[1][data]).toFixed(3) )
+          } 
         }
-      })
+        this.lineChartData=preData
+        this.lineChartLabels=prelabels
+        // graph.print= {data:preData, labels:prelabels}
+      }
+    })
   }
 
   resetZoom(){

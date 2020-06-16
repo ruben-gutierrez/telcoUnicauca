@@ -1,0 +1,17 @@
+<send>
+    <![CDATA[
+    SIP/2.0 180 Ringing
+    [$uas_via]
+    [last_Record-Route:]
+    Call-ID: [$my_dn]-[$call_repeat]///[call_id]
+    From: <sip:[$peer_dn]@[service]>;tag=[pid]SIPpTag00[call_number]1234
+    To: <sip:[$my_dn]@[service]>;tag=[pid]SIPpTag00[call_number]4321
+    [last_CSeq:]
+    Contact: <sip:[$peer_dn]@[$nat_ip_addr]:[$nat_port];transport=[transport];ob>;+sip.ice
+    Allow: PRACK, INVITE, ACK, BYE, CANCEL, UPDATE, SUBSCRIBE, NOTIFY, REFER, MESSAGE, OPTIONS
+    Content-Length: 0
+    ]]>
+</send>
+
+<recv response="180">
+</recv>

@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-graph-new',
@@ -26,6 +27,7 @@ export class GraphNewComponent implements OnInit {
  user:User;
 
   constructor(
+                private router: Router,
                 private _arquitecture:ArquitecturesService,
                 private _server: ServerService,
                 private _user: UsersService,
@@ -105,12 +107,16 @@ export class GraphNewComponent implements OnInit {
     // console.log(this.formNewGraph.value)
    this._graph.createGraph(this.formNewGraph)
    .subscribe(data =>{
+     console.log(data)
      if ( data['status'] == 200 ) {
        this.toastr.success("Gráfica creada")
        this.loading=false;
-       this._location.back()
+      
+      this.router.navigate(['/ims/graphs/'+data['content']._id])
      }else{
-      this.toastr.error("Error al crear la gáfica")
+      
+      this.toastr.error(data['answer'])
+      
       this.loading=false;
      }
    })

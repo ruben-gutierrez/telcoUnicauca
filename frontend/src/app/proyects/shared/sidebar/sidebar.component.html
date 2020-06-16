@@ -26,23 +26,52 @@
 
                     <ul aria-expanded="false" class="collapse ">
                         <!-- <li><a href="starter-kit.html">Core IMS</a></li> -->
-                        <li><a href="pages-blank.html">Testbed</a></li>
+                        <!--li><a [routerLink]="['information/all']"  routerLinkActive="active">Telco IMS</a></li-->
                         <li>
                             <!-- <a href="#" class="has-arrow">Core IMS <span class="label label-rounded label-success pull-right">6</span></a> -->
-                            <a href="#" class="has-arrow">Core IMS </a>
+                            <!--a [routerLink]="['information/arquitectures']"  routerLinkActive="active" class="has-arrow" >Plataforma Telco </a-->
+                            <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Telco IMS</span></a>
                             <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
-                            <!-- <ul aria-expanded="false" class="collapse">
-                                <li><a href="pages-login.html">CSCF</a></li>
-                                <li><a href="pages-login-2.html">Gateway</a></li>
-                                <li><a href="pages-register.html">Cliente</a></li>
-                                <li><a href="pages-register2.html">Servidores de aplicaciones</a></li>
-                                <li><a href="pages-lockscreen.html">HSS</a></li>
-                                <li><a href="pages-recover-password.html">Recover password</a></li>
-                            </ul> -->
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a [routerLink]="['information/all']"  routerLinkActive="active" >Infraestructura</a></li>
+                                <li><a [routerLink]="['information/NFV']"  routerLinkActive="active" >Tecnologías</a></li>
+                            </ul>
                         </li>
-                        <li><a href="pages-profile.html">Testbed IMS</a></li>
-                        <li><a href="pages-animation.html">Pruebas</a></li>
-                        <li><a href="pages-fix-innersidebar.html">Gráficas</a></li>
+                        <!--li--> 
+                            <!-- <a href="#" class="has-arrow">Core IMS <span class="label label-rounded label-success pull-right">6</span></a> -->
+                            <!--a [routerLink]="['information/arquitectures']"  routerLinkActive="active" class="has-arrow" >Tecnologías </a-->
+                            <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
+                            <!--a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Tecnologías </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a [routerLink]="['information/NFV']"  routerLinkActive="active" >NFV</a></li>
+                                <li><a [routerLink]="['information/IMS/NGN']"  routerLinkActive="active" >IMS/NGN</a></li>
+                                <li><a [routerLink]="['information/ClearwaterIMS']"  routerLinkActive="active" >Clearwater IMS</a></li>
+                                <li><a [routerLink]="['information/SNMP']"  routerLinkActive="active" >SNPM</a></li>
+                            </ul>
+                        </li-->
+                        <li>
+                            <!-- <a href="#" class="has-arrow">Core IMS <span class="label label-rounded label-success pull-right">6</span></a> -->
+                            <!--a [routerLink]="['information/arquitectures']"  routerLinkActive="active" class="has-arrow" >Arquitecturas </a-->
+                            <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Servicios </span></a>
+                            <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a [routerLink]="['information/servicios']"  routerLinkActive="active" >Servicios</a></li>
+                                <li><a [routerLink]="['information/arquitectures']"  routerLinkActive="active" >Arquitecturas</a></li>
+                                
+                            </ul>
+                        </li>
+                        <!--li><a [routerLink]="['information/tests']"  routerLinkActive="active">Pruebas</a></li>
+                        <li><a [routerLink]="['information/graphs']"  routerLinkActive="active">Gráficas</a></li-->
+                        <li><a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Guías</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a [routerLink]="['information/Guide_Reser_Arq']"  routerLinkActive="active">Arquitecturas</a></li>
+                                <li><a [routerLink]="['information/guides']"  routerLinkActive="active">Core IMS</a></li>
+                                <li><a [routerLink]="['information/guides']"  routerLinkActive="active">Crear prueba</a></li>
+                                <li><a [routerLink]="['information/guides']"  routerLinkActive="active">Crear gráfica</a></li>
+                                <!-- <li><a href="pages-error-500.html">500</a></li>
+                                <li><a href="pages-error-503.html">503</a></li> -->
+                            </ul>
+                        </li>
                         <!-- <li><a href="pages-fix-inner-right-sidebar.html">Sticky Right sidebar</a></li> -->
                         <!-- <li><a href="pages-invoice.html">Invoice</a></li> -->
                         <!-- <li><a href="pages-treeview.html">Treeview</a></li> -->
@@ -67,7 +96,8 @@
                 <li>
                     <a class="has-arrow waves-effect waves-dark" [routerLink]="['arquitectures']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Arquitecturas</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a [routerLink]="['available']" routerLinkActive="active" >Disponibles</a></li>
+                        <li><a  [routerLink]="['arquitectures']" routerLinkActive="active" >Mis arquitecturas</a></li>
+                        <li><a [routerLink]="['available']" routerLinkActive="active" >Reservar</a></li>
                         <!-- <li><a href="widget-charts.html">Charts Widgets</a></li> -->
                     </ul>
                 </li>
