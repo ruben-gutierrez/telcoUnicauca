@@ -37,6 +37,22 @@ import { GraphTemplateComponent } from './ims/graphs/graph-template/graph-templa
 import { NewServerComponent } from './ims/arquitectures/arquitecture/new-server/new-server.component';
 import { InformationModule } from './ims/information/information.module';
 import { InformationRoutes } from './ims/information/information.routes';
+import { Escenario1movilComponent } from './telcomovil/escenario1movil/escenario1movil.component';
+import { Escenario2movilComponent } from './telcomovil/escenario2movil/escenario2movil.component';
+import { ForomovilComponent } from './telcomovil/foromovil/foromovil.component';
+import { GestorpruebasmovilComponent } from './telcomovil/gestorpruebasmovil/gestorpruebasmovil.component';
+import { LoginmovilComponent } from './telcomovil/loginmovil/loginmovil.component';
+import { MenumovilComponent } from './telcomovil/menumovil/menumovil.component';
+import { PruebasmovilComponent } from './telcomovil/pruebasmovil/pruebasmovil.component';
+import { InformacionmovilComponent } from './telcomovil/informacionmovil/informacionmovil.component';
+import { ResultadomovilComponent } from './telcomovil/resultadomovil/resultadomovil.component';
+import { Asideleft4gComponent } from './telcomovil/shared4g/asideleft4g/asideleft4g.component';
+import { Aside4gComponent } from './telcomovil/shared4g/aside4g/aside4g.component';
+import { Contacto4gComponent } from './telcomovil/shared4g/contacto4g/contacto4g.component';
+import { Footer4gComponent } from './telcomovil/shared4g/footer4g/footer4g.component';
+import { Header4gComponent } from './telcomovil/shared4g/header4g/header4g.component';
+import { Principal4gComponent } from './telcomovil/shared4g/principal4g/principal4g.component';
+import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
 //import { InfoServiceComponent } from './ims/informatio/info-service/info-service.component';
 // import { GuideTestComponent } from './ims/tests/guide-test/guide-test.component';
 // import { GuideSoftphoneComponent } from './ims/information/guide-softphone/guide-softphone.component';
@@ -67,7 +83,23 @@ import { InformationRoutes } from './ims/information/information.routes';
         InformationTemplateComponent,
         GraphTemplateComponent,
         NewServerComponent,
-        InformationTemplateComponent
+        InformationTemplateComponent,
+        Escenario1movilComponent,
+        Escenario2movilComponent,
+        ForomovilComponent,
+        GestorpruebasmovilComponent,
+        LoginmovilComponent,
+        MenumovilComponent,
+        PruebasmovilComponent,
+        InformacionmovilComponent,
+        ResultadomovilComponent,
+        Asideleft4gComponent,
+        Aside4gComponent,
+        Contacto4gComponent,
+        Footer4gComponent,
+        Header4gComponent,
+        Principal4gComponent,
+        Breadcrumbs4gComponent
         // GuideTestComponent,
         // GuideSoftphoneComponent,
         // InfoTelcoIMSComponent,
