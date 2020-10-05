@@ -53,6 +53,8 @@ import { Footer4gComponent } from './telcomovil/shared4g/footer4g/footer4g.compo
 import { Header4gComponent } from './telcomovil/shared4g/header4g/header4g.component';
 import { Principal4gComponent } from './telcomovil/shared4g/principal4g/principal4g.component';
 import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
+import { GuiasmovilComponent } from './telcomovil/guiasmovil/guiasmovil.component';
+import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.component';
 //import { InfoServiceComponent } from './ims/informatio/info-service/info-service.component';
 // import { GuideTestComponent } from './ims/tests/guide-test/guide-test.component';
 // import { GuideSoftphoneComponent } from './ims/information/guide-softphone/guide-softphone.component';
@@ -99,7 +101,9 @@ import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/brea
         Footer4gComponent,
         Header4gComponent,
         Principal4gComponent,
-        Breadcrumbs4gComponent
+        Breadcrumbs4gComponent,
+        GuiasmovilComponent,
+        IniciomovilComponent
         // GuideTestComponent,
         // GuideSoftphoneComponent,
         // InfoTelcoIMSComponent,

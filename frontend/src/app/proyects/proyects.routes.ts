@@ -25,6 +25,15 @@ import { InfoIMSComponent } from './ims/information/info-ims/info-ims.component'
 import { InfoCWIMSComponent } from './ims/information/info-cwims/info-cwims.component';
 import { InfoSNMPComponent } from './ims/information/info-snmp/info-snmp.component';
 import { GuideReserArqComponent } from './ims/information/guide-reser-arq/guide-reser-arq.component';
+import { MenumovilComponent } from './telcomovil/menumovil/menumovil.component';
+import { GuiasmovilComponent } from './telcomovil/guiasmovil/guiasmovil.component';
+import { ForomovilComponent } from './telcomovil/foromovil/foromovil.component';
+import { PruebasmovilComponent } from './telcomovil/pruebasmovil/pruebasmovil.component';
+import { Escenario1movilComponent } from './telcomovil/escenario1movil/escenario1movil.component';
+import { Escenario2movilComponent } from './telcomovil/escenario2movil/escenario2movil.component';
+import { GestorpruebasmovilComponent } from './telcomovil/gestorpruebasmovil/gestorpruebasmovil.component';
+import { InformacionmovilComponent } from './telcomovil/informacionmovil/informacionmovil.component';
+import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.component';
 
 const proyectsRoutes: Routes = [
 
@@ -66,7 +75,37 @@ const proyectsRoutes: Routes = [
             { path: 'graph-new', component: GraphNewComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Crear gráfica'} },
           { path: '', redirectTo: '/ims/information', pathMatch: 'full' },
         ]
-    }
+    },
+    { 
+      path: 'telcomovil', 
+      component: ProyectsComponent,
+      
+      children:[
+        { 
+          path: 'menu',
+          component: IniciomovilComponent,
+          children:[           
+            { path: 'guiasmovil', component: GuiasmovilComponent, data : {titlePage:'guias'} },
+            { path: '', redirectTo: '/telcomovil/menu/guiasmovil' , pathMatch: 'full' },
+          ],
+          data:{titlePage:'Guias'} 
+        },
+           {path: '', component:  MenumovilComponent, data : {titlePage:'Menu'}},
+           { path: 'redmovil', component: InformacionmovilComponent, data : {titlePage:'informacion'} },
+           { path: 'foromovil', component: ForomovilComponent, data : {titlePage:'foro'} },
+           { path: 'testmovil', component: PruebasmovilComponent, data : {titlePage:'pruebas'} },
+           { path: 'escenario1', component: Escenario1movilComponent, data : {titlePage:'Pruebas escenario1'} },
+           { path: 'escenario2', component: Escenario2movilComponent, data : {titlePage:'Pruebas escenario2'} },
+           { path: 'gestorPruebas', component: GestorpruebasmovilComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} },
+       /* { path: 'escenario1', component: Escenario1movilComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} },
+          { path: 'escenario2', component: Escenario2movilComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} },
+          { path: 'gestorPruebas', component: GestorpruebasmovilComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} }, */
+        
+        { path: '', redirectTo: '/telcomovil/menu', pathMatch: 'full' },
+      ]
+  
+  }
   ];
+
 
 export const ProyectsRoutes = RouterModule.forChild( proyectsRoutes);
