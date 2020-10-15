@@ -1,63 +1,66 @@
-<!-- ASIDE -->
-<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-</a >
-<div id="inst54477" class="block_navigation  block hidden" role="navigation" data-block="navigation" data-instanceid="54477" aria-labelledby="instance-54477-header">
-  <div class="header">
-    <div class="title" id="yui_3_15_0_3_1599769363053_454">
-    <div class="block_action">
-      <!-- <img class="block-hider-hide " alt="Ocultar bloque Navegación" src="" title="Ocultar bloque Navegación"> -->
-      <i class="fas fa-angle-up block-hider-hide" ></i>
-      <!-- <img class="block-hider-show" alt="Mostrar bloque Navegación" src="" title="Mostrar bloque Navegación"> -->
-      <i class="fas fa-angle-down block-hider-show"></i>
-    </div>
-    <h2 id="instance-54477-header">Menu Principal</h2>
-  </div>
-</div>
-<div class="content">
-  <div class="bd-toc-item">
-    <!-- <a class="bd-toc-link" href="/docs/4.3/components/alerts/">
-      Menu Principa
-    </a> -->
+ <!-- Sidebar scroll-->
+ <div class="scroll-sidebar">
+  <!-- Sidebar navigation-->
+  <nav class="sidebar-nav ">
+      <ul id="sidebarnav">
+          
+          <li class="user-profile"> <a class="has-arrow waves-effect waves-dark" [routerLink]="['/home']"  aria-expanded="false"><img src="assets/telco/telcoIcon.png" alt="user" /><span class="hide-menu">Telco 2.0 </span></a>
+          
+              <ul aria-expanded="false" class="collapse">
+                  <li><a [routerLink]="['/home']" target="_blank">Telco </a></li>
+                  <!-- <li><a [routerLink]="['/home']" target="_blank">Proyectos</a></li> -->
+                  <li><a [routerLink]="['/comunity']" target="_blank">Comunidad</a></li>
+                  <li><a [routerLink]="['/contact']" target="_blank">Contacto</a></li>
+                  <li><a [routerLink]="['/console']" target="_blank">Consola</a></li>
+                  <li><a [routerLink]="['/home']" target="_blank">Salir</a></li>
+              </ul>
+          </li>
+          <li class="nav-devider"></li>
+          <li class="nav-small-cap">Telomóvil</li>
 
-    <ul class="nav bd-sidenav">
-      <li>
-          <a routerLink="/menup" >
-            <i class="fa fa-home" aria-hidden="true"></i>
-            TelcoMóvil
-          </a>
-        </li><li>
-          <a routerLink="/guiasmovil" >
-            <i class="fa fa-book" aria-hidden="true"></i>
-            Guias
-          </a>
-        </li><li>
-          <a routerLink="/pruebasmovil" >
-            <i class="fa fa-cog" aria-hidden="true"></i>
-            <!-- <i class="icon-clipboard" ></i> -->
-            Pruebas
-          </a>
-        </li><li>
-          <a routerLink="/home" >
-            <i class="fa fa-cogs" aria-hidden="true"></i>
-            <!-- <i class="icon-clipboard" ></i> -->
-            Gestor Pruebas
-          </a>
-        </li>
-         <!--  <li>
-          <a href="/docs/4.3/components/buttons/">
-            <i class="fa fa-users" aria-hidden="true"></i>
-            Gestor Usuario
-          </a>
-        </li>
-        <li>
-          <a href="/docs/4.3/components/buttons/">
-            <i class="fa fa-desktop" aria-hidden="true"></i>
-            Maquinas
-          </a>
-        </li>-->
+          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['redmovil']"  routerLinkActive="active"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información </span></a>
+            <ul aria-expanded="false" class="collapse ">
+        
+                <li>
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Redes4G </span></a>
+                    <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a [routerLink]="['information/servicios']"  routerLinkActive="active" >Arquitectura</a></li>
+                        <li><a [routerLink]="['information/arquitectures']"  routerLinkActive="active" >Protocolos</a></li>                        
+                    </ul>
+                </li> 
+                <li>
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Guias </span></a>
+                    <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a [routerLink]="['information/servicios']"  routerLinkActive="active" >Instalacion OAI</a></li>
+                        <li><a [routerLink]="['information/arquitectures']"  routerLinkActive="active" >Escenarios</a></li>                        
+                    </ul>
+                </li> 
+                <li>
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Foro </span></a>         
+                </li>  
+            </ul>  
+        </li>  
+          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['testmovil']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas </span></a>
+              <ul aria-expanded="false" class="collapse ">
+                  <li><a [routerLink]="['escenario1']" routerLinkActive="active" >Escenario 1</a></li>
+                  <li><a [routerLink]="['escenario1']" routerLinkActive="active" >Escenario 2</a></li>
+
+              </ul>
+          </li>
+          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['gestorPruebas']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-chart-areaspline"></i><span class="hide-menu">GestorPruebas</span></a>
+              <ul aria-expanded="false" class="collapse ">             
+                  <li><a [routerLink]="['graph-new']" routerLinkActive="active" >Crear gráfica</a></li>               
+              </ul>
+          </li>
+          
+          
+         
+           
       </ul>
-  </div>
-
+  </nav>
+  <!-- End Sidebar navigation -->
 </div>
+<!-- End Sidebar scroll-->
 
-</div>

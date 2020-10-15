@@ -1,0 +1,11 @@
+.breadcrumb-item a{
+  color: #1b3357;  
+}
+a{
+    color: #1b3357;  
+}
+.text-themecolor {
+    color: #1b3357 !important; 
+    font-family: 'Roboto';
+    text-transform: uppercase;
+}

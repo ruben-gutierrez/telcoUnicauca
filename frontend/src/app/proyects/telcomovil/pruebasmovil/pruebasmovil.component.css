@@ -1,9 +1,10 @@
 .container{
     display: flex;
-    padding: 5px;
+    padding: 20px;
     align-content: center;
     flex-wrap: wrap;
     flex-direction: column;
+    background-color: white;
   }
   .cont-first{
     display: flex;
