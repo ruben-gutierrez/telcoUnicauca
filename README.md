@@ -7,3 +7,7 @@ Posibles errores
 - Si se crean los servidores y el servidor telco no crea los usuarios y contraseña a las vm
     verificar que tenga ipflotante y tenga permisos para ssh
     la blade donde este el openstack debe permitir el protocolo ssh
+
+
+
+    Rama development (integración de otros proyectos)
