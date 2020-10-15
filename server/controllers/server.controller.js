@@ -4,6 +4,7 @@ const config = require('../config');
 const axios = require("axios");
 const openstack = require('../functions/openstack');
 const serverFunctions = require('../functions/server');
+const { response } = require('express');
 
 const ServerController={};
 
@@ -209,25 +210,27 @@ ServerController.actionsServer=async(req, res) => {
             break;
     
         case 'resize':
-            
+         
            let edit = await openstack.resizeServer(server['infoServer'].id, req.body.dataForm)
+          
+        
            
-            if(edit == 'ok'){
+            if(edit.status == '204'){
                 
                 res.json(
                     {
-                        status:'200',
-                        answer:'action server'
+                        status:200,
+                        answer:'Virtual machine resized',
                     }
-                );
+                )
             }else{
-               
-                res.status(
+                
+                res.json(
                     {
                         status:'400',
-                        answer:'fail action'
+                        answer:'fail action',
                     }
-                );
+                )
             }
             
             break;

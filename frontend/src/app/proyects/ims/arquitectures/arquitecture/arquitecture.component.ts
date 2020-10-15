@@ -7,6 +7,7 @@ import { async } from 'q';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { delay } from 'rxjs/operators';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 })
 
 export class ArquitectureComponent implements OnInit {
+  image=1;
   flatGuideUsers=false;
   messageLoading:string;
   resourcesFlavor
@@ -34,8 +36,15 @@ images:object;
     vms:0,
     status: false
   }
+  flavors={}
 
-  
+  vmDelete={
+    idVm:"",
+    nameVm:"",
+    idArquitecture:"",
+    nameArquitecture:"",
+    index:""
+  }
   constructor( private router: Router, 
               private _arquitecture:ArquitecturesService, 
               private _user:UsersService,
@@ -53,8 +62,13 @@ images:object;
 
   async ngOnInit() {
     await this.getArquitecture(this.idArquitecture);
-    // console.log(this.arquitecture)
-    
+
+    // info of resources
+    this.resources();
+   
+
+
+
     // this.vmsAditionals=this.arquitecture.vmAditionals;
     
     this.resourcesDisp=await this.resourceDisp(this.arquitecture);
@@ -62,6 +76,31 @@ images:object;
     this.core=this.arquitecture.vmCoreIMS;
     // console.log(this.resourcesDisp)
     await this.consultImages();
+    // setInterval(() => {
+    //   console.log("actualizar datos")
+    //   this.getArquitecture(this.idArquitecture);
+    //   this.resources()
+    // }, 6000);
+  }
+  resources(){
+    if (this.arquitecture.vmCoreIMS.length >= 1) {
+      this.arquitecture.vmCoreIMS.forEach((vm, index) => {
+        this._openstack.showFlavor(vm.infoServer.flavor.id)
+        .subscribe( data =>{
+          this.arquitecture.vmCoreIMS[index].infoServer.resource={disk: data['flavor'].disk,ram: data['flavor'].ram, vcpus: data['flavor'].vcpus}
+          
+        })
+      });
+    }
+    if (this.arquitecture.vmAditionals.length >= 1) {
+      this.arquitecture.vmAditionals.forEach((vm, index) => {
+        this._openstack.showFlavor(vm.infoServer.flavor.id)
+        .subscribe( data =>{
+          this.arquitecture.vmAditionals[index].infoServer.resource={disk: data['flavor'].disk,ram: data['flavor'].ram, vcpus: data['flavor'].vcpus}
+        })
+      });
+    }
+
   }
 
   async consultImages(){
@@ -106,6 +145,7 @@ images:object;
   }
 
   async resourceDisp(arquitecture){
+    this.resources();
     let resourcesDisp={
       ram : 0,
       vcpus:0,
@@ -146,7 +186,7 @@ images:object;
     .toPromise( )
     .then(data =>{
       
-           console.log(data)
+          //  console.log(data['content'])
          if(data['status']==200){
           this.arquitecture = data['content'];
          }else{
@@ -192,6 +232,7 @@ images:object;
       })
   }
   async deleteServer(id,idArquitecture,index){
+   
     this.loading=true
     this.messageLoading="Borrando servidor"
     this._server.actionsServer(id,'delete',idArquitecture)
@@ -225,18 +266,32 @@ images:object;
       })
   }
   resizeServer(form, id){
+    // console.log("redimencionar maquina")
     // this.loading=true;
+    this.messageLoading="Redimencionando máquina virtual, este proceso puede tardar"
     let dataForm = form.value;
     this._server.actionsServer(id,'resize', '',dataForm)
-      .subscribe( async data =>{
-        
-        this.toastr.success('Máquina editada exitosamente');
-        // this.loading=false;  
-        this.resourcesDisp= await this.resourceDisp(this.arquitecture);
-      }, error=>{
-        // console.log(error)
-        this.toastr.error('Error al editar la máquina');
-        // this.loading=false;
+      .subscribe( async  data =>{
+        // console.log(data)
+        if (data['status'] == '200') {
+          setTimeout(async () => {
+            
+            await this.getArquitecture(this.idArquitecture);
+            await this.resources()
+          }, 4000);
+          // console.log(data)
+          if( this.showims){
+            this.showims()
+          }else{
+            this.showaditional()
+          }
+          this.resourcesDisp= await this.resourceDisp(this.arquitecture);
+          this.toastr.success('Máquina editada exitosamente');
+          
+        }else{
+          this.toastr.error('Error al editar la máquina');
+        }
+        this.loading=false;
       })
 
 
@@ -293,6 +348,26 @@ images:object;
     } else {
       this.flatGuideUsers=true;
     }
+  }
+
+  setInfoVmDelete(idVm, idArquitecture, index){
+    this.vmDelete={
+      idVm:idVm,
+      nameVm:"",
+      idArquitecture:idArquitecture,
+      nameArquitecture:"",
+      index:index
+    }
+    
+    this._server.getServer(idVm).subscribe( 
+      data =>{
+        this.vmDelete.nameVm=data['content'].name
+      })
+    this._arquitecture.getArquitecture(idArquitecture)
+    .subscribe( data =>{
+      this.vmDelete.nameArquitecture=data['content'].name
+    })
+      
   }
 
 }

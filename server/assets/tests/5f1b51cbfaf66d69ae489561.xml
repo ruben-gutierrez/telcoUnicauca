@@ -1,0 +1,33 @@
+    <?xml version="1.0" encoding="ISO-8859-1" ?>
+    <!DOCTYPE scenario SYSTEM "sipp.dtd">
+    
+    <scenario name="Call Load Test">
+    
+    <User variables="my_dn,peer_dn,call_repeat" />
+    <nop hide="true">
+        <action>
+        
+            <assignstr assign_to="my_dn" value="[field0]" />
+            <assignstr assign_to="peer_dn" value="[field2]" />
+            <assign assign_to="reg_repeat" value="0"/>
+            <assign assign_to="call_repeat" value="0"/>
+        </action>
+    </nop>
+    
+    <pause distribution="uniform" min="1000" max="5000" />    <?xml version="1.0" encoding="ISO-8859-1" ?>
+    <!DOCTYPE scenario SYSTEM "sipp.dtd">
+    
+    <scenario name="Call Load Test">
+    
+    <User variables="my_dn,peer_dn,call_repeat" />
+    <nop hide="true">
+        <action>
+        
+            <assignstr assign_to="my_dn" value="[field0]" />
+            <assignstr assign_to="peer_dn" value="[field2]" />
+            <assign assign_to="reg_repeat" value="0"/>
+            <assign assign_to="call_repeat" value="0"/>
+        </action>
+    </nop>
+    
+    <pause distribution="uniform" min="1000" max="5000" />

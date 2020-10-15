@@ -142,13 +142,13 @@ $(function () {
     // ============================================================== 
     // This is for the popup message while page load
     // ============================================================== 
-        $.toast({
-            heading: 'Bienvenido',
-            position: 'top-right',
-            loaderBg: '#f33c49',
-            icon: 'info',
-            hideAfter: 6000,
-            stack: 6
-        })
+        // $.toast({
+        //     heading: 'Bienvenido',
+        //     position: 'top-right',
+        //     loaderBg: '#f33c49',
+        //     icon: 'info',
+        //     hideAfter: 6000,
+        //     stack: 6
+        // })
     
 });

@@ -1,14 +1,21 @@
 
 
+    <div class="row">
+        <span>Usa la guia para conocer acerca de las pruebas en TELCO IMS.</span>
+    </div>
 <div class="row m-2">
     <div class="m-auto">
+       
         <div class="row">
-                <div *ngIf="showGuides" class="">
+                <!-- <div *ngIf="showGuides" class="">
                     
-                </div>
+                </div> -->
+                
                 <div class="mx-3">
+                    
                     <div class="row m-auto">
-                        <button class="btn btn-outline-info m-auto" *ngIf="!showGuides" (click)="showGuide()">Guía</button>
+                        
+                        <button class="btn btn-block btn-outline-info m-auto" *ngIf="!showGuides" (click)="showGuide()">--Guía--</button>
                         <button class="btn btn-outline-info m-auto" *ngIf="showGuides" (click)="hideGuide()">Ocultar guía</button>
                     </div>
                     
@@ -27,6 +34,7 @@
     
 </div>
 <div class="container" *ngIf="showGuides">
+    
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -94,245 +102,48 @@
 </div>
 
 
-<form (ngSubmit)="createTest(formNewTest)" #formNewTest="ngForm" novalidate>
-    
+<form (ngSubmit)="createTest()" [formGroup]="formNewTest" novalidate class="mt-4">
+    <span>Formulario para crear prueba</span>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" name="name" formControlName="name"  class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="idArquitecture">Arquitectura</label>
+                <select name="idArquitecture" formControlName="idArquitecture" class="form-control" (change)="updateServers()">
+                    <option value="" selected>Elegir...</option>
+                    <option *ngFor="let arq of arquitectures" [value]="arq._id">{{arq.name}}</option>
+                </select>
+            </div>  
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="name">Descripción</label>
+                <textarea class="form-control" name="description" formControlName="description"  rows="7">
+                </textarea>
+            </div>
+        </div>
+    </div>
+       
+       
+      
+             
         <div class="form-group">
-            <label for="idArquitecture">Arquitectura</label>
-            <select name="idArquitecture" #idarquitecture="ngModel" id="" ngModel>
-                <option value="" selected>Elegir...</option>
-                <option *ngFor="let arq of arquitectures" [value]="arq._id">{{arq.name}}</option>
-            </select>
+            <label for="graphsRelationship">Gráficas a relacionar</label>
+               <div class="bg-white">
+                   <angular2-multiselect [data]="dropdownList" name="graphsRelationship" [(ngModel)]="selectedItems" 
+                       [settings]="dropdownSettings" 
+                       (onSelect)="onItemSelect($event)" 
+                       (onDeSelect)="OnItemDeSelect($event)"
+                       (onSelectAll)="onSelectAll($event)"
+                       (onDeSelectAll)="onDeSelectAll($event)" formControlName="graphsRelated"></angular2-multiselect>
+               </div>
         </div>
         <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" name="name" #name id="" ngModel>
-        </div>
-        <div class="form-group">
-            <label for="name">Descripción</label>
-            <textarea class="form-control" name="description" #description id="description" rows="4" ngModel>
-    
-            </textarea>
-        </div>
-        <div class="row">
-            <span>Seleccione una vm y las gráficas a relacionar </span>
-            <!-- <div class="col"> -->
-                <div class="row">Máquina virtual</div>
-                <div class="row">
-                    <!-- <div class="col-lg-12 col-xlg-4"> -->
-                        <h5 class="box-title">Public methods</h5>
-                        <select multiple id="public-methods" name="public-methods[]">
-                            <option value="elem_1">elem 1</option>
-                            <option value="elem_2" disabled>elem 2</option>
-                            <option value="elem_3">elem 3</option>
-                            <option value="elem_4">elem 4</option>
-                            <option value="elem_5">elem 5</option>
-                            <option value="elem_6">elem 6</option>
-                            <option value="elem_7">elem 7</option>
-                            <option value="elem_8">elem 8</option>
-                            <option value="elem_9">elem 9</option>
-                            <option value="elem_10">elem 10</option>
-                            <option value="elem_11">elem 11</option>
-                            <option value="elem_12">elem 12</option>
-                            <option value="elem_13">elem 13</option>
-                            <option value="elem_14">elem 14</option>
-                            <option value="elem_15">elem 15</option>
-                            <option value="elem_16">elem 16</option>
-                            <option value="elem_17">elem 17</option>
-                            <option value="elem_18">elem 18</option>
-                            <option value="elem_19">elem 19</option>
-                            <option value="elem_20">elem 20</option>
-                            <option value="elem_21">elem 21</option>
-                            <option value="elem_22">elem 22</option>
-                            <option value="elem_23">elem 23</option>
-                            <option value="elem_24">elem 24</option>
-                            <option value="elem_25">elem 25</option>
-                            <option value="elem_26">elem 26</option>
-                            <option value="elem_27">elem 27</option>
-                            <option value="elem_28">elem 28</option>
-                            <option value="elem_29">elem 29</option>
-                            <option value="elem_30">elem 30</option>
-                            <option value="elem_31">elem 31</option>
-                            <option value="elem_32">elem 32</option>
-                            <option value="elem_33">elem 33</option>
-                            <option value="elem_34">elem 34</option>
-                            <option value="elem_35">elem 35</option>
-                            <option value="elem_36">elem 36</option>
-                            <option value="elem_37">elem 37</option>
-                            <option value="elem_38">elem 38</option>
-                            <option value="elem_39">elem 39</option>
-                            <option value="elem_40">elem 40</option>
-                            <option value="elem_41">elem 41</option>
-                            <option value="elem_42">elem 42</option>
-                            <option value="elem_43">elem 43</option>
-                            <option value="elem_44">elem 44</option>
-                            <option value="elem_45">elem 45</option>
-                            <option value="elem_46">elem 46</option>
-                            <option value="elem_47">elem 47</option>
-                            <option value="elem_48">elem 48</option>
-                            <option value="elem_49">elem 49</option>
-                            <option value="elem_50">elem 50</option>
-                            <option value="elem_51">elem 51</option>
-                            <option value="elem_52">elem 52</option>
-                            <option value="elem_53">elem 53</option>
-                            <option value="elem_54">elem 54</option>
-                            <option value="elem_55">elem 55</option>
-                            <option value="elem_56">elem 56</option>
-                            <option value="elem_57">elem 57</option>
-                            <option value="elem_58">elem 58</option>
-                            <option value="elem_59">elem 59</option>
-                            <option value="elem_60">elem 60</option>
-                            <option value="elem_61">elem 61</option>
-                            <option value="elem_62">elem 62</option>
-                            <option value="elem_63">elem 63</option>
-                            <option value="elem_64">elem 64</option>
-                            <option value="elem_65">elem 65</option>
-                            <option value="elem_66">elem 66</option>
-                            <option value="elem_67">elem 67</option>
-                            <option value="elem_68">elem 68</option>
-                            <option value="elem_69">elem 69</option>
-                            <option value="elem_70">elem 70</option>
-                            <option value="elem_71">elem 71</option>
-                            <option value="elem_72">elem 72</option>
-                            <option value="elem_73">elem 73</option>
-                            <option value="elem_74">elem 74</option>
-                            <option value="elem_75">elem 75</option>
-                            <option value="elem_76">elem 76</option>
-                            <option value="elem_77">elem 77</option>
-                            <option value="elem_78">elem 78</option>
-                            <option value="elem_79">elem 79</option>
-                            <option value="elem_80">elem 80</option>
-                            <option value="elem_81">elem 81</option>
-                            <option value="elem_82">elem 82</option>
-                            <option value="elem_83">elem 83</option>
-                            <option value="elem_84">elem 84</option>
-                            <option value="elem_85">elem 85</option>
-                            <option value="elem_86">elem 86</option>
-                            <option value="elem_87">elem 87</option>
-                            <option value="elem_88">elem 88</option>
-                            <option value="elem_89">elem 89</option>
-                            <option value="elem_90">elem 90</option>
-                            <option value="elem_91">elem 91</option>
-                            <option value="elem_92">elem 92</option>
-                            <option value="elem_93">elem 93</option>
-                            <option value="elem_94">elem 94</option>
-                            <option value="elem_95">elem 95</option>
-                            <option value="elem_96">elem 96</option>
-                            <option value="elem_97">elem 97</option>
-                            <option value="elem_98">elem 98</option>
-                            <option value="elem_99">elem 99</option>
-                            <option value="elem_100">elem 100</option>
-                            <option value="elem_101">elem 101</option>
-                            <option value="elem_102">elem 102</option>
-                            <option value="elem_103">elem 103</option>
-                            <option value="elem_104">elem 104</option>
-                            <option value="elem_105">elem 105</option>
-                            <option value="elem_106">elem 106</option>
-                            <option value="elem_107">elem 107</option>
-                            <option value="elem_108">elem 108</option>
-                            <option value="elem_109">elem 109</option>
-                            <option value="elem_110">elem 110</option>
-                            <option value="elem_111">elem 111</option>
-                            <option value="elem_112">elem 112</option>
-                            <option value="elem_113">elem 113</option>
-                            <option value="elem_114">elem 114</option>
-                            <option value="elem_115">elem 115</option>
-                            <option value="elem_116">elem 116</option>
-                            <option value="elem_117">elem 117</option>
-                            <option value="elem_118">elem 118</option>
-                            <option value="elem_119">elem 119</option>
-                            <option value="elem_120">elem 120</option>
-                            <option value="elem_121">elem 121</option>
-                            <option value="elem_122">elem 122</option>
-                            <option value="elem_123">elem 123</option>
-                            <option value="elem_124">elem 124</option>
-                            <option value="elem_125">elem 125</option>
-                            <option value="elem_126">elem 126</option>
-                            <option value="elem_127">elem 127</option>
-                            <option value="elem_128">elem 128</option>
-                            <option value="elem_129">elem 129</option>
-                            <option value="elem_130">elem 130</option>
-                            <option value="elem_131">elem 131</option>
-                            <option value="elem_132">elem 132</option>
-                            <option value="elem_133">elem 133</option>
-                            <option value="elem_134">elem 134</option>
-                            <option value="elem_135">elem 135</option>
-                            <option value="elem_136">elem 136</option>
-                            <option value="elem_137">elem 137</option>
-                            <option value="elem_138">elem 138</option>
-                            <option value="elem_139">elem 139</option>
-                            <option value="elem_140">elem 140</option>
-                            <option value="elem_141">elem 141</option>
-                            <option value="elem_142">elem 142</option>
-                            <option value="elem_143">elem 143</option>
-                            <option value="elem_144">elem 144</option>
-                            <option value="elem_145">elem 145</option>
-                            <option value="elem_146">elem 146</option>
-                            <option value="elem_147">elem 147</option>
-                            <option value="elem_148">elem 148</option>
-                            <option value="elem_149">elem 149</option>
-                            <option value="elem_150">elem 150</option>
-                            <option value="elem_151">elem 151</option>
-                            <option value="elem_152">elem 152</option>
-                            <option value="elem_153">elem 153</option>
-                            <option value="elem_154">elem 154</option>
-                            <option value="elem_155">elem 155</option>
-                            <option value="elem_156">elem 156</option>
-                            <option value="elem_157">elem 157</option>
-                            <option value="elem_158">elem 158</option>
-                            <option value="elem_159">elem 159</option>
-                            <option value="elem_160">elem 160</option>
-                            <option value="elem_161">elem 161</option>
-                            <option value="elem_162">elem 162</option>
-                            <option value="elem_163">elem 163</option>
-                            <option value="elem_164">elem 164</option>
-                            <option value="elem_165">elem 165</option>
-                            <option value="elem_166">elem 166</option>
-                            <option value="elem_167">elem 167</option>
-                            <option value="elem_168">elem 168</option>
-                            <option value="elem_169">elem 169</option>
-                            <option value="elem_170">elem 170</option>
-                            <option value="elem_171">elem 171</option>
-                            <option value="elem_172">elem 172</option>
-                            <option value="elem_173">elem 173</option>
-                            <option value="elem_174">elem 174</option>
-                            <option value="elem_175">elem 175</option>
-                            <option value="elem_176">elem 176</option>
-                            <option value="elem_177">elem 177</option>
-                            <option value="elem_178">elem 178</option>
-                            <option value="elem_179">elem 179</option>
-                            <option value="elem_180">elem 180</option>
-                            <option value="elem_181">elem 181</option>
-                            <option value="elem_182">elem 182</option>
-                            <option value="elem_183">elem 183</option>
-                            <option value="elem_184">elem 184</option>
-                            <option value="elem_185">elem 185</option>
-                            <option value="elem_186">elem 186</option>
-                            <option value="elem_187">elem 187</option>
-                            <option value="elem_188">elem 188</option>
-                            <option value="elem_189">elem 189</option>
-                            <option value="elem_190">elem 190</option>
-                            <option value="elem_191">elem 191</option>
-                            <option value="elem_192">elem 192</option>
-                            <option value="elem_193">elem 193</option>
-                            <option value="elem_194">elem 194</option>
-                            <option value="elem_195">elem 195</option>
-                            <option value="elem_196">elem 196</option>
-                            <option value="elem_197">elem 197</option>
-                            <option value="elem_198">elem 198</option>
-                            <option value="elem_199">elem 199</option>
-                            <option value="elem_200">elem 200</option>
-                        </select>
-                        <div class="button-box m-t-20"> <a id="select-all" class="btn btn-danger" href="#">select all</a> <a id="deselect-all" class="btn btn-info" href="#">deselect all</a> <a id="add-option" class="btn btn-success" href="#">Add option</a> <a id="refresh" class="btn btn-warning" href="#">refresh</a> </div>
-                    <!-- </div> -->
-                </div>
-
-
-            <!-- </div> -->
-            <!-- <div class="col">
-                <div class="m-3">
-                    <span>Gráficas relacionadas a la prueba</span>
-                </div>
-            </div> -->
+            <label for="contentFile">Código XML de la prueba</label>
+            <textarea class="form-control" name="contentFile" rows="15" formControlName="contentFile"></textarea>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-outline-primary">Crear</button>
@@ -340,9 +151,11 @@
             <a class="btn btn-secondary mx-3" href="javascript:history.back()"> Atras</a>
         </div>
     
-        <textarea class="form-control" #contentFile name="contentFile" id="contentFile" rows="15" ngModel></textarea>
+        
     
 </form>
+
+
 
 <br>
 
@@ -350,6 +163,6 @@
 
 
 
-<app-guide-test></app-guide-test>
+<!-- <app-guide-test></app-guide-test> -->
 
 

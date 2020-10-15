@@ -24,7 +24,7 @@ GraphController.getGraphs= async(req, res) => {
 GraphController.createGraph= async(req, res) => {
     let idGraphCreate=req.body.idTemplate;
     // let idGraphCreate="10";
-    let nameGraphCreate=req.body.name;
+    let nameGraphCreate=req.body.name.replace(/ /g,"_");
     let server=await Server.findById(req.body.idServer)
     if(server.idCacti==null){
         serverFull=await openstack.consultServer(server.infoServer.id);

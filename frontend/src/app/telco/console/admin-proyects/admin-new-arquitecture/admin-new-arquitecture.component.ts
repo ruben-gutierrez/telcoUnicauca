@@ -14,8 +14,8 @@ export class AdminNewArquitectureComponent implements OnInit {
   loading=false;
   route:any;
   arquitectureTest:any={
-    name:"Nombre Arquitectura",
-    ipNet:"192.168.x.x",
+    name:"Aio Test",
+    ipNet:"170.10.0.0",
     type:"1",
     status:"public",
     ram:"4096",

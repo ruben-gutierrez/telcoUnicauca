@@ -6,8 +6,9 @@ export  class Test {
         public description:string,
         public type:string,
         public file: string,
-        public descriptionUser: string,
         public idArquitecture: string,
+        public graphsRelated: Object,
+        public descriptionUser: string,
         public notes: Object,
         public status: string 
     ){  }

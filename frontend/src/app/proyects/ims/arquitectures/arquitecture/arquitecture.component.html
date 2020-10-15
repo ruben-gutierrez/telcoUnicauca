@@ -1,4 +1,26 @@
 
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">¿Seguro?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Eliminar vm <strong>{{vmDelete.nameVm}}</strong> de la arquitectura {{vmDelete.nameArquitecture}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteServer(vmDelete.idVm, vmDelete.idArquitecture, vmDelete.index)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <div *ngIf="!loading; else await">
    
     <div class="container m-2">
@@ -34,7 +56,12 @@
         </div>   -->
         <div class="col d-flex justify-content-end">
             <a [routerLink]="['/ims/arquitectures/'+idArquitecture+'/newServer']"  class="btn btn-primary">
-                <i class="fa fa-server" aria-hidden="true">Crear MV</i></a>
+                <!-- <i class="fa fa-server" aria-hidden="true">Crear MV</i></a> -->
+                
+                <i class="fa fa-plus-circle fa-2x mx-2" id="newVm" aria-hidden="true">  </i>
+                <label for="newVm">Crear VM</label>
+            </a>
+                
             
         </div>  
     </div>
@@ -54,16 +81,16 @@
 
                     <!-- <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <br> {{vm.infoServer.addresses['test3'][0].addr}} <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i></th> -->
                     <!-- <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <br> {{vm.infoServer.addresses[vm.infoServer.addresses.keys()[0]][0].addr}} <i class="fa fa-info-circle mx-auto"  aria-hidden="true"></i></th> -->
-                    <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="resourcesFlavor" > {{vm.name}}  <br>
+                    <th scope="row" (mouseover)='consultFlavor(vm.infoServer.flavor.id)' [title]="'Ram:'+ vm.infoServer.resource.ram + ' Procesadores: ' + vm.infoServer.resource.vcpus + 'Disco: '+ + vm.infoServer.resource.disk" > {{vm.name}}  <br>
                         <span *ngFor="let address of vm.infoServer.addresses | keyvalue" > 
                              <div *ngIf="vm.name == 'aio' || vm.name == 'ellis'; else linkAIO"> 
-                                Ip pública: <a title="Dashboard Clearwater" href="http://{{address.value[1].addr}}/login.html" target="_blank" >{{address.value[1].addr}}</a>
-                                <!-- IP privada: <a [routerLink]="[address.value[1].addr]" >address.value[0].addr</a> -->
+                                Ip flotante: <a title="Dashboard Clearwater" href="http://{{address.value[1].addr}}/login.html" target="_blank" >{{address.value[1].addr}}</a> <br>
+                                IP privada: {{ address.value[0].addr }}
                                 
                             </div>
                             <ng-template #linkAIO>
-                                IP pública:{{ address.value[1].addr }} <br>
-                                <!-- IP privada:{{ address.value[0].addr }} -->
+                                IP flotante:{{ address.value[1].addr }} <br>
+                                IP privada:{{ address.value[0].addr }}
                             </ng-template> 
                         </span>
                             
@@ -71,19 +98,29 @@
                     </th>
                     <td>
                         
+
+                            <label for="btnOnOff">Off/On</label>
+                            <mat-slide-toggle id="btnOnOff" color="primary" [id]="vm.id" (click)="[powerServer(vm._id)]"  [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" title="Encender/Apagar" ></mat-slide-toggle>
+                        
                         <!-- <mat-slide-toggle color="primary" (click)="[powerServer(vm._id,vm.infoServer.status)]" [ngModel]="stateBtn" [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle> -->
-                        <mat-slide-toggle color="primary" (click)="[powerServer(vm._id)]"  [checked]=" vm.infoServer.status=='ACTIVE'? 'true':'false'" >Off/On</mat-slide-toggle>
                        
                         
-                        <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id,i)]">Instantanea</button>
+                        <!-- <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id,i)]">Instantanea</button> -->
+                        <button class="btn btn-secondary btn-sm mx-1" (click)="[instantServer(vm._id,i)]" title="Instantanea"> <i class="fa fa-camera-retro fa-2x" aria-hidden="true"></i> </button>
                         
                         <button *ngIf="vm.idImageRebuild" class="btn btn-secondary btn-sm mx-1" (click)="[returnServer(vm._id)]">Reestablecer</button>
-                        <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, i)]">Eliminar</button>
-                        <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id, idArquitecture)]" >Redimencionar</button>
-                        <div class="row  bg-dark" id="divRedimencion{{vm._id}}" style="display:none">
+                        <!-- <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id, idArquitecture)]" >Redimensionar</button> -->
+                        <button class="btn btn-warning btn-sm mx-1" id="btnRedimencion{{vm._id}}" (click)="[seeFormEditVm(vm._id, idArquitecture)]" title="Redimensionar"> <i class="fa fa-expand fa-2x" aria-hidden="true"></i> </button>
+                        <!-- <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, i)]">Eliminar</button> -->
+                        <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger btn-sm mx-1" data-toggle="modal" (click)="setInfoVmDelete(vm._id, idArquitecture, i)"  title="Eliminar" data-target="#exampleModal">
+                                <i class="fa fa-trash fa-2x" aria-hidden="true"></i> 
+                            </button>
+                        <!-- <button class="btn btn-danger btn-sm mx-1" (click)="[deleteServer(vm._id, idArquitecture, i)]" title="Eliminar"> <i class="fa fa-trash fa-2x" aria-hidden="true"></i> </button> -->
+                        <div class="row  bg-dark p-3" id="divRedimencion{{vm._id}}" style="display:none">
                             <form (ngSubmit)='resizeServer(dataFormEdit, vm._id)'  #dataFormEdit="ngForm" class="m-1" novalidate> 
                                 <input class="mx-1" type="hidden" name="server" #server="ngModel" [(ngModel)]="vm._id" ngModel placeholder="CPU">
-                                 <div class="container">
+                                 <div class="container ">
                                     <div class="row" >
                                         <div class="col">
                                             <label  class="text-white" for="formControlRange">Procesadores</label>
@@ -92,7 +129,9 @@
                                             [displayWith]="formatLabel"
                                             tickInterval="1000"
                                             min="0"
-                                            max="{{resourcesDisp.vcpus}}" name="vcpus" required #vcpus="ngModel" ngModel
+                                            max="{{resourcesDisp.vcpus + vm.infoServer.resource.vcpus}}" name="vcpus" 
+                                            required 
+                                            #vcpus="ngModel" [ngModel]="vm.infoServer.resource.vcpus"
                                             ></mat-slider>
                                         </div>
                                         <div class="col">
@@ -101,9 +140,11 @@
                                             <mat-slider
                                                 thumbLabel
                                                 [displayWith]="formatLabel"
-                                                tickInterval="1000"
+                                                tickInterval="auto"
                                                 min="0"
-                                                max="{{resourcesDisp.ram/1024}}" name="ram" required #ram="ngModel" ngModel></mat-slider>
+                                                max="{{resourcesDisp.ram/1024 + vm.infoServer.resource.ram/1024 }}" name="ram" required 
+                                                #ram="ngModel" [ngModel]="vm.infoServer.resource.ram/1024"
+                                                ></mat-slider>
                                         </div>
                                         <div class="col">
                                             <label class="text-white" for="formControlRange">Almacenamiento [Gb]</label>
@@ -112,7 +153,9 @@
                                                 [displayWith]="formatLabel"
                                                 tickInterval="1000"
                                                 min="0"
-                                                max="{{resourcesDisp.disk}}" name="disk" required #disk="ngModel" ngModel></mat-slider>
+                                                max="{{resourcesDisp.disk + vm.infoServer.resource.disk}}" name="disk" required 
+                                                #disk="ngModel"  [ngModel]="vm.infoServer.resource.disk"
+                                                ></mat-slider>
                                         </div>
                                     </div> 
                                 </div>
@@ -125,7 +168,8 @@
                         </div>
                     </td>
                     <td>
-                        <button class="btn btn-success" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(vm._id)]">Consola</button>
+                        <!-- <button class="btn btn-success" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(vm._id)]">Consola</button> -->
+                        <button class="btn btn-success" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(vm._id)]"> <i class="fa fa-desktop fa-2x" aria-hidden="true"></i> </button>
                     </td>
                 </tr>
             </tbody> 

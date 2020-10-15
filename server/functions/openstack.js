@@ -7,6 +7,7 @@ const graphFunctions = require('../functions/graph')
 const Arquitecture = require('../models/arquitecture');
 let fs = require('fs');
 var SSH = require('simple-ssh');
+const { stdout } = require('process');
 const exec = require('child_process').exec;
  
 async function updateArquitecture(data) {
@@ -201,7 +202,7 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
             // "personality":[{"path":"/root/", "contents": file}]
         }
     }
-
+//ssh -i nameKey ubuntu@ipFlotante
    
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers', body,config.headersOpenStack )
             .then(function (response) {
@@ -253,8 +254,11 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
     })
     await sleep(10000)
     answer.content= await openstack.consultServer(answer.content.id);
+    
+    
+    ipfloat=answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr;
     //create user and pass
-
+    
 
 
     if (name != 'aio') {
@@ -264,17 +268,19 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
           })
     
           var ssh = new SSH({
-            host: answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr,
+            host: ipfloat,
             user: 'ubuntu',
             key: keyPair
         });
+        
+        
         ssh.exec('sudo apt-get install snmpd -y'),
         ssh.exec("sudo sed -i'.bak' '/agentAddress  udp:127.0.0.1:161/d' /etc/snmp/snmpd.conf"),
         ssh.exec("sudo sed -i'.bak' '17i\agentAddress udp:161,udp6:[::1]:161' /etc/snmp/snmpd.conf"),
         ssh.exec("sudo service snmpd restart"),
         ssh.exec("sudo useradd telcoims"),
         ssh.exec("echo telcoims:telcoims | sudo chpasswd"),
-        ssh.exec(" sudo sed -i '$a telcoims    ALL=(ALL:ALL) ALL' /etc/sudoers"),
+        ssh.exec("sudo sed -i '$a telcoims    ALL=(ALL:ALL) ALL' /etc/sudoers"),
     
     
         //install scripts functions coreIMS
@@ -282,17 +288,17 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
         ssh.exec("sudo chmod 775 fileScript"),
         ssh.exec("./fileScript",{
             pty: true,
-            out: console.log.bind(console)
+            out: console.log.bind(console),
         })
         .start();
     }
     
 
-    console.log('ipFloating',answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr)
+    console.log('ipFloating',ipfloat)
     // if (answer.content.addresses.length > 0) {
-    if (answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr) {
-        idcacti=await serverFunctions.createServerCacti(answer.content.addresses[Object.keys(answer.content.addresses)[0]][1].addr)
-            console.log('idCacti',idcacti)
+    if (ipfloat) {
+        idcacti=await serverFunctions.createServerCacti(ipfloat)
+            // console.log('idCacti',idcacti)
     }else{
         idcacti=null
     }
@@ -320,12 +326,12 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
     return answer;
 }
 
-async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet,idArquitecture ) {
+async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet,idArquitecture,idFlavorAIO ) {
     let core=[];
     for await (vm of vms){
         if (vm == 'aio') {
             
-            server = await createServer(vm,config.idIMS.idImage1,nameKey,idFlavor,idNet,idArquitecture,'ims');
+            server = await createServer(vm,config.idIMS.idImage1,nameKey,idFlavorAIO,idNet,idArquitecture,'ims');
         } else {
             
             server = await createServer(vm,idImage,nameKey,idFlavor,idNet,idArquitecture,'ims');
@@ -471,7 +477,7 @@ async function resizeServer( idServer,dataForm ) {
     idFlavor= await consultFlavor(dataForm, true);
     
     if ( idFlavor == '-' ) {
-        console.log('crear flavor')
+        // console.log('crear flavor')
         idFlavor = await createFlavor(dataForm.ram, dataForm.disk, dataForm.vcpus)
     }
     
@@ -480,33 +486,41 @@ async function resizeServer( idServer,dataForm ) {
             "flavorRef": idFlavor
         }
     }
-    console.log('server', server.id,'data',data)
+    // console.log('Resize server', server.id,'data',data)
     await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server.id +'/action', data,config.headersOpenStack )
       .then(function (response) {
-        console.log(response)
         answer=response
       })
       .catch(error =>{
-          answer='error'
+          answer=error.response;
       });
     //   console.log(answer.status)
     if (answer.status == '202') {
+        console.log("Se puede editar")
         await sleep(10000)
         data={
             "confirmResize": null
         }
         await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers/'+ server.id +'/action', data,config.headersOpenStack )
         .then(function (response) {
-
-           answer2='ok'
+            console.log("Editada")
+           answer2=response
         })
         .catch(error =>{
-            
-            answer2='error'
+            console.log("No editada")
+            answer2=error.response
+            console.log(error.response)
+           
         });
+    }else{
+        console.log("no se puede editar")
+        answer2={
+            status: 400,
+            content:answer
+        }
     }
     
-    return answer2;
+    return answer2
 }
 async function consultFlavor( dataform, form, ram=0,disk=0,cpu=0 ) {
     // console.log(form);

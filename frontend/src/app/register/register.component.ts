@@ -34,14 +34,21 @@ export class RegisterComponent implements OnInit {
 
   register(infoNewUser:NgForm){
     infoNewUser.value.role='guest';
+    // console.log(infoNewUser.value)
    
     this._users.createUser(infoNewUser.value)
       .subscribe( data => {
-        // console.log(data)
-        this.resetForm(infoNewUser);
+        console.log(data);
+        if( data['status'] ==='error' ){
+          this.toastr.error("Error al crear la cuenta", data['content'].errmsg);
+        }else{
+          this.resetForm(infoNewUser);
         
         this.toastr.success("Cuenta Creada exitosamente, ingrese por favor.");
         this.router.navigate(["/login"]);
+        }
+        
+        
         // console.log(data['user'])
       },
       error=>{

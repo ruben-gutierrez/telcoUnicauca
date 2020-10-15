@@ -5,129 +5,58 @@
         <nav class="sidebar-nav ">
             <ul id="sidebarnav">
                 
-                <li class="user-profile"> <a class="has-arrow waves-effect waves-dark" [routerLink]="['/home']"  aria-expanded="false"><img src="assets/telco/telcoIcon.png" alt="user" /><span class="hide-menu">Telco 2.0 </span></a>
+                <li class="user-profile"> <a class="has-arrow waves-effect waves-dark"   aria-expanded="false"><img src="assets/telco/telcoIcon.png" alt="user" /><span class="hide-menu">Telco 2.0 </span></a>
                 
                     <ul aria-expanded="false" class="collapse">
-                        <li><a [routerLink]="['/home']" target="_blank">Telco </a></li>
-                        <li><a [routerLink]="['/home']" target="_blank">Proyectos</a></li>
-                        <li><a [routerLink]="['/comunity']" target="_blank">Comunidad</a></li>
-                        <li><a [routerLink]="['/contact']" target="_blank">Contacto</a></li>
-                        <li><a [routerLink]="['/console']" target="_blank">Consola</a></li>
-                        <li><a [routerLink]="['/home']" target="_blank">Salir</a></li>
+                        <li><a [routerLink]="['/home']" >Telco </a></li>
+                        <li><a [routerLink]="['/home']" >Proyectos</a></li>
+                        <li><a [routerLink]="['/comunity']" >Comunidad</a></li>
+                        <li><a [routerLink]="['/contact']" >Contacto</a></li>
+                        <li><a [routerLink]="['/console']" >Consola</a></li>
+                        <li><a [routerLink]="['/home']" >Salir</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">IMS</li>
-
-                <!-- <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['information']"  routerLinkActive="active"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información <span class="label label-rouded label-success pull-right">25</span></span></a> -->
-                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['information']"  routerLinkActive="active"    aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información </span></a>
-                
-                
-
-                    <ul aria-expanded="false" class="collapse ">
-                        <!-- <li><a href="starter-kit.html">Core IMS</a></li> -->
-                        <!--li><a [routerLink]="['information/all']"  routerLinkActive="active">Telco IMS</a></li-->
-                        <li>
-                            <!-- <a href="#" class="has-arrow">Core IMS <span class="label label-rounded label-success pull-right">6</span></a> -->
-                            <!--a [routerLink]="['information/arquitectures']"  routerLinkActive="active" class="has-arrow" >Plataforma Telco </a-->
-                            <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Telco IMS</span></a>
-                            <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
+                <li> <a class="has-arrow waves-effect waves-dark"  aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Información</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a class="has-arrow">Telco IMS </a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a [routerLink]="['information/all']"  routerLinkActive="active" >Infraestructura</a></li>
                                 <li><a [routerLink]="['information/NFV']"  routerLinkActive="active" >Tecnologías</a></li>
+                                <li><a  [routerLink]="['information/arquitectures']"  routerLinkActive="active">Arquitectura</a></li>
                             </ul>
                         </li>
-                        <!--li--> 
-                            <!-- <a href="#" class="has-arrow">Core IMS <span class="label label-rounded label-success pull-right">6</span></a> -->
-                            <!--a [routerLink]="['information/arquitectures']"  routerLinkActive="active" class="has-arrow" >Tecnologías </a-->
-                            <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
-                            <!--a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Tecnologías </span></a>
+                        <li><a  [routerLink]="['information/servicios']"  routerLinkActive="active">Servicios</a></li>
+                        <li><a href="#" class="has-arrow">Guías</a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a [routerLink]="['information/NFV']"  routerLinkActive="active" >NFV</a></li>
-                                <li><a [routerLink]="['information/IMS/NGN']"  routerLinkActive="active" >IMS/NGN</a></li>
-                                <li><a [routerLink]="['information/ClearwaterIMS']"  routerLinkActive="active" >Clearwater IMS</a></li>
-                                <li><a [routerLink]="['information/SNMP']"  routerLinkActive="active" >SNPM</a></li>
-                            </ul>
-                        </li-->
-                        <li>
-                            <!-- <a href="#" class="has-arrow">Core IMS <span class="label label-rounded label-success pull-right">6</span></a> -->
-                            <!--a [routerLink]="['information/arquitectures']"  routerLinkActive="active" class="has-arrow" >Arquitecturas </a-->
-                            <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Servicios </span></a>
-                            <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a [routerLink]="['information/servicios']"  routerLinkActive="active" >Servicios</a></li>
-                                <li><a [routerLink]="['information/arquitectures']"  routerLinkActive="active" >Arquitecturas</a></li>
-                                
-                            </ul>
-                        </li>
-                        <!--li><a [routerLink]="['information/tests']"  routerLinkActive="active">Pruebas</a></li>
-                        <li><a [routerLink]="['information/graphs']"  routerLinkActive="active">Gráficas</a></li-->
-                        <li><a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Guías</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a [routerLink]="['information/Guide_Reser_Arq']"  routerLinkActive="active">Arquitecturas</a></li>
+                                <li><a [routerLink]="['information/Guide_Reser_Arq']"  routerLinkActive="active">Reservar arquitectura</a></li>
                                 <li><a [routerLink]="['information/guides']"  routerLinkActive="active">Core IMS</a></li>
                                 <li><a [routerLink]="['information/guides']"  routerLinkActive="active">Crear prueba</a></li>
                                 <li><a [routerLink]="['information/guides']"  routerLinkActive="active">Crear gráfica</a></li>
-                                <!-- <li><a href="pages-error-500.html">500</a></li>
-                                <li><a href="pages-error-503.html">503</a></li> -->
                             </ul>
                         </li>
-                        <!-- <li><a href="pages-fix-inner-right-sidebar.html">Sticky Right sidebar</a></li> -->
-                        <!-- <li><a href="pages-invoice.html">Invoice</a></li> -->
-                        <!-- <li><a href="pages-treeview.html">Treeview</a></li> -->
-                        <!-- <li><a href="pages-utility-classes.html">Helper Classes</a></li> -->
-                        <!-- <li><a href="pages-search-result.html">Search result</a></li> -->
-                        <!-- <li><a href="pages-scroll.html">Scrollbar</a></li> -->
-                        <!-- <li><a href="pages-pricing.html">Pricing</a></li> -->
-                        <!-- <li><a href="pages-lightbox-popup.html">Lighbox popup</a></li> -->
-                        <!-- <li><a href="pages-gallery.html">Gallery</a></li> -->
-                        <!-- <li><a href="pages-faq.html">Faqs</a></li> -->
-                        <!-- <li><a href="#" class="has-arrow">Error Pages</a> -->
-                            <!-- <ul aria-expanded="false" class="collapse"> -->
-                                <!-- <li><a href="pages-error-400.html">400</a></li> -->
-                                <!-- <li><a href="pages-error-403.html">403</a></li> -->
-                                <!-- <li><a href="pages-error-404.html">404</a></li> -->
-                                <!-- <li><a href="pages-error-500.html">500</a></li> -->
-                                <!-- <li><a href="pages-error-503.html">503</a></li> -->
-                            <!-- </ul> -->
-                        <!-- </li> -->
                     </ul>
                 </li>
                 <li>
-                    <a class="has-arrow waves-effect waves-dark" [routerLink]="['arquitectures']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Arquitecturas</span></a>
+                    <a class="has-arrow waves-effect waves-dark"  aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Arquitecturas</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a  [routerLink]="['arquitectures']" routerLinkActive="active" >Mis arquitecturas</a></li>
                         <li><a [routerLink]="['available']" routerLinkActive="active" >Reservar</a></li>
-                        <!-- <li><a href="widget-charts.html">Charts Widgets</a></li> -->
                     </ul>
                 </li>
-                <!-- <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['tests']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas <span class="label label-rouded label-themecolor pull-right">4</span></span></a> -->
-                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['tests']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas </span></a>
+                <li> <a class="has-arrow waves-effect waves-dark"   aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas </span></a>
                     <ul aria-expanded="false" class="collapse ">
-                        <!-- <li><a [routerLink]="['testing']" routerLinkActive="active" >En ejecución </a></li> -->
+                        <li><a [routerLink]="['tests']" routerLinkActive="active">Mis pruebas</a></li>
                         <li><a [routerLink]="['test-new']" routerLinkActive="active" >Crear prueba</a></li>
-                        <!-- <li><a href="index4.html">Modern</a></li> -->
                     </ul>
                 </li>
-
-                <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Gráficas</span></a> -->
-                <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['graphs']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-chart-areaspline"></i><span class="hide-menu">Gráficas</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark"  aria-expanded="false"><i class="mdi mdi-chart-areaspline"></i><span class="hide-menu">Gráficas</span></a>
                     <ul aria-expanded="false" class="collapse ">
-                        <!-- <li><a href="chart-morris.html">Rendimiento</a></li> -->
-                        <!-- <li><a href="chart-chartist.html">Almacenamiento</a></li> -->
+                        <li><a  [routerLink]="['graphs']" routerLinkActive="active" >Mis gráficas</a></li>
                         <li><a [routerLink]="['graph-new']" routerLinkActive="active" >Crear gráfica</a></li>
-                        <!-- <li><a href="chart-flot.html">Flot Chart</a></li> -->
-                        <!-- <li><a href="chart-knob.html">Knob Chart</a></li> -->
-                        <!-- <li><a href="chart-chart-js.html">Chartjs</a></li> -->
-                        <!-- <li><a href="chart-sparkline.html">Sparkline Chart</a></li> -->
-                        <!-- <li><a href="chart-extra-chart.html">Extra chart</a></li> -->
-                        <!-- <li><a href="chart-peity.html">Peity Charts</a></li> -->
                     </ul>
-                </li>
-                
-                
-               
-                 
+                </li> 
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

@@ -26,6 +26,13 @@ export class GraphComponent implements OnInit {
    }
 
   ngOnInit() {
+    setInterval(() => {
+      console.log("actualizando grafica")
+      this._graph.getGraph(this.idGraph)
+        .subscribe( data=>{
+          this.graph=data['content']
+        })
+    }, 60000);
 
   }
 }

@@ -11,10 +11,26 @@ userController.createUser=async(req, res) => {
     const user = new User(req.body);
     // console.log(user);
     user.password = await user.encryptPass(user.password);
-    await user.save();
-    res.json(
-        {status:"User saved"}
-    );
+    // await user.save();
+    await user.save(function(error) {
+        if (error){
+
+            res.json(
+                {
+                    status:"error",
+                    content:error
+                }
+            );
+        } else{
+
+            res.json(
+                {status:"User saved"}
+            );
+        }
+      });
+    // res.json(
+    //     {status:"User saved"}
+    // );
 };
 userController.showUser=async(req, res) => {
     const user = await User.findById(req.params.id);

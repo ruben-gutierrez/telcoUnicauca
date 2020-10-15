@@ -10,7 +10,7 @@
 
     
     <!-- {{arquitecture.vmAditionals}} -->
-    <div *ngIf="arquitecture.vmAditionals.length > 0 ">
+    <div *ngIf="arquitecture.vmAditionals.length >= 1 ">
       <div class="container" *ngFor="let vm of arquitecture.vmAditionals">
         <div class="d-flex justify-content-center border-bottom mb-1">        
         <a  class="mx-auto mt-3" [routerLink]="['/ims/graphics/'+vm._id+'/server']"> <i class="fa fa-laptop">-{{vm.name | uppercase}}</i></a>
@@ -48,7 +48,7 @@
     </div>
     
 
-    <div class="container" *ngIf="arquitecture.vmCoreIMS.length > 0 ">
+    <div class="container" *ngIf="arquitecture.vmCoreIMS.length >= 1 ">
       <div class="container" *ngFor="let vmCore of arquitecture.vmCoreIMS">
         
         <div class="d-flex justify-content-center border-bottom mb-1">        

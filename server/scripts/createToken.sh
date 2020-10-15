@@ -6,8 +6,8 @@ export OS_PROJECT_NAME=Testbed_IMS
 export OS_PROJECT_DOMAIN_NAME=default
 export OS_USER_DOMAIN_NAME=Default
 export OS_PASSWORD=Testbed_IMS
-export OS_AUTH_URL=http://10.55.2.24/identity/v3
- 
+export OS_AUTH_URL=http://10.55.2.20/identity/v3
+  
 
 TMPFILE=`mktemp`
 chmod 600 ${TMPFILE}

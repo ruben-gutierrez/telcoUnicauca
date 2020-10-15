@@ -59,7 +59,24 @@
     </div>
 </form>
 </div>
-
+<h3>Gráficas relacionadas a esta prueba</h3>
+<div class="row">
+   
+  
+        <div class="card text-center" *ngFor="let graph of test.graphsRelated; let i = index">
+          <a  [routerLink]="['/ims/graphs/'+graph.id]">
+            <h4 for=""> <i class="fa fa-desktop" aria-hidden="true"></i>  {{graph.category}} </h4>
+          <div class="card-body">
+            <app-graph-template [idGraph]="graph.id"></app-graph-template>
+           
+            
+          </div>
+        </a>
+        </div>
+      
+      
+    
+</div>
 <div class="row">
     <iframe src="{{urlTerminal}}" title="Terminal de la maquina virtual SIPP"></iframe> 
 </div>

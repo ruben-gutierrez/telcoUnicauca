@@ -41,15 +41,15 @@ ArquitectureController.createArquitecture= async(req, res) => {
                         
                         switch (arquitecture.type) {
                             case '1':
-                                    let coreAIO = await openstack.createCoreIMS(config.VMcoreIMS.aio , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id, arquitecture._id);
+                                    let coreAIO = await openstack.createCoreIMS(config.VMcoreIMS.aio , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id, arquitecture._id,config.idIMS.idFlavor1);
                                     arquitecture.vmCoreIMS=coreAIO;
                                 break;
                             case '2': 
-                                    let coreDIST = await openstack.createCoreIMS(config.VMcoreIMS.distributed , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id,arquitecture._id);
+                                    let coreDIST = await openstack.createCoreIMS(config.VMcoreIMS.distributed , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id,arquitecture._id,config.idIMS.idFlavor1);
                                         arquitecture.vmCoreIMS=coreDIST;
                                 break;
                             case '3':
-                                    let coreDISTPSTN = await openstack.createCoreIMS(config.VMcoreIMS.distributedPSTN , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id, arquitecture._id);
+                                    let coreDISTPSTN = await openstack.createCoreIMS(config.VMcoreIMS.distributedPSTN , config.idIMS.idImage, config.idIMS.nameKey, config.idIMS.idFlavor, arquitecture.detailNetwork.id, arquitecture._id,config.idIMS.idFlavor1);
                                     arquitecture.vmCoreIMS=coreDISTPSTN;
                                 break;
                         

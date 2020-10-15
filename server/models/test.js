@@ -11,7 +11,7 @@ const TestSchema = new Schema ({
     file: { type: String, required:true},
     status: { type: String, required:true},
     notes: { type: Object},
-    graphsRelation: { type: Object},
+    graphsRelated: { type: Object},
     created_at: { type: Date, required: true, default: Date.now },
 });
 

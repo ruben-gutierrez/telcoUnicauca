@@ -34,7 +34,7 @@ export class TestComponent implements OnInit {
     await this._test.getTest(this.idTest)
       .subscribe( data =>{
         this.test=data;
-        // console.log(this.test.idArquitecture)
+        console.log(this.test)
         this.getArquitecture(this.test.idArquitecture)
     });
     
@@ -110,11 +110,9 @@ export class TestComponent implements OnInit {
           // console.log(element)
           this._server.actionsServer(element._id,'console')
           .subscribe( data =>{
-            this.toastr.warning('Consola valida por 1 Hora');
-           this.urlTerminal=data['consoleLink']  
-           console.log(this.urlTerminal)
-           
-            
+            // this.toastr.warning('Consola valida por 1 Hora');
+            this.urlTerminal=data['consoleLink']  
+            // console.log(this.urlTerminal) 
           })
         }
         

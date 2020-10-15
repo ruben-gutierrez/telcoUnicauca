@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 
+// ...
 //modules
 import { TelcoModule } from './telco/telco.module';
 import { ProyectsModule } from './proyects/proyects.module';
@@ -29,12 +30,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    
- 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    
     TelcoModule,
     ProyectsModule,
     HttpClientModule,

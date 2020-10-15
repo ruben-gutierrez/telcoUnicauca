@@ -31,9 +31,9 @@
                     <div class="form-group ">
                         <div class="col-xs-12">
                             <!-- <input class="form-control" type="text" required="" placeholder="Email"> -->
-                            <input type="email" class="form-control" name="email" #email="ngModel" aria-describedby="emailHelp" placeholder="Correo electrónico" 
+                            <input type="email" class="form-control" name="email" #email="ngModel" aria-describedby="emailHelp" placeholder="Correo electrónico (unicauca.edu.co)" 
                         ngModel
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                        pattern="[a-z0-9._%+-]+@unicauca.edu.co$"
                         required>
                     <small *ngIf="email.errors?.required" id="nameHelp" class="form-text text-danger">Campo requerido *</small>
                     <small *ngIf="email.errors?.pattern" id="nameHelp" class="form-text text-danger">Formato erroneo </small>

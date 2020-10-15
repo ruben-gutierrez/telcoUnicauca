@@ -1,15 +1,16 @@
 module.exports={
     secret: 'rootPassToken',
     tokenOpenStack: '',
-    ipOpenstack: '10.55.2.24',
+    ipOpenstack: '10.55.2.20',
     headersOpenStack:{},
     idIMS:{
-        idImage:'c1dfa270-5285-4c71-bb49-a0b7b1f74ba6',
-        idImage1:'5fa3a405-b8a0-435e-a9ae-4eae036ac351',
-        idFlavor: '3',
-        nameKey:'keyIMSOK'
+        idImage:'5813468d-13c1-40dd-88bb-9b9991323017',//img ubuntu14
+        idImage1:'5813468d-13c1-40dd-88bb-9b9991323017',//img aio
+        idFlavor: 'd3',//flavor ims
+        idFlavor1: '3',//flavor aio
+        nameKey:'ims'
     },
-    idNetPublic:'73234f4d-fcc6-40b5-b166-7795b977b89d', 
+    idNetPublic:'a0423419-93f8-4a3d-9115-a69193f6c2f7',  
     VMcoreIMS:{
         aio:[
             'aio',

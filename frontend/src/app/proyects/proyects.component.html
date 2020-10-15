@@ -8,7 +8,11 @@
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-      <app-header></app-header>    
+    
+
+      <app-header *ngIf="proyect == 'ims'"></app-header>    
+      <app-header *ngIf="proyect == 'telcomovil'"></app-header>    
+    
       <!-- ============================================================== -->
       <!-- End-Main wrapper - style you can find in pages.scss -->
       <!-- ============================================================== -->
@@ -17,7 +21,11 @@
       <!-- Left Sidebar - style you can find in sidebar.scss  -->
       <!-- ============================================================== -->
     <aside class="left-sidebar">
-      <app-sidebar></app-sidebar>
+      
+
+        <app-sidebar *ngIf="proyect == 'ims'"></app-sidebar>
+        <app-sidebar *ngIf="proyect == 'movil'"></app-sidebar>
+     
       
     </aside>
       <!-- ============================================================== -->
@@ -29,8 +37,12 @@
         <div class="page-wrapper">
             <!-- <div class="container-fluid r-aside"> -->
             <div class="container-fluid ">
-                <app-breadcrumbs></app-breadcrumbs>
-                
+           
+
+                <app-breadcrumbs *ngIf="proyect == 'ims'"></app-breadcrumbs>
+                <app-breadcrumbs *ngIf="proyect == 'telcomovil'"></app-breadcrumbs>
+               
+              
                 <router-outlet></router-outlet>
             </div>
         </div>

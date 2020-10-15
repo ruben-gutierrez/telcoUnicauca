@@ -13,6 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider'; 
 import { BrowserModule } from '@angular/platform-browser';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 // Routes
 import { ProyectsRoutes } from './proyects.routes';
@@ -83,6 +84,7 @@ import { InformationRoutes } from './ims/information/information.routes';
         ArquitecturesComponent,
         TestsComponent,
         GraphsComponent,
+        AngularMultiSelectModule
         
         
     ],
@@ -99,6 +101,7 @@ import { InformationRoutes } from './ims/information/information.routes';
         ReactiveFormsModule,
         BrowserModule,
         InformationModule,
+        AngularMultiSelectModule,
         
     ]
 
