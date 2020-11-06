@@ -1,0 +1,185 @@
+#login-back{
+    background: url(/assets/img/fietver1.jpg) no-repeat;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-color: #77170E;
+    background-size: cover;
+    /* bottom: 0;
+    height: auto;
+    width: 100%;
+    top: 0;
+    left: 0; */
+  }
+  header{
+    background-color: white;
+  }
+  
+  /* nav */
+  .container-fluid {
+    max-width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  
+  #page-header {
+    background-color: white;
+    border-bottom: solid 3px #77170E;
+    clear: both;
+    color: #77170E;
+    margin-bottom: 0;
+  }
+  #page {
+    clear: both;
+    margin: 0;
+    padding: 0;
+    max-width: inherit;
+  }
+  
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .align-items-start {
+    align-items: flex-start!important;
+  }
+  .d-flex {
+    display: flex!important;
+  }
+  
+  /* CPNTENT */
+  #page-content {
+    padding: 12px 0 20px;
+    position: relative;
+    width: auto;
+  }
+  #page-content {
+    overflow: visible;
+  }
+  
+  #page-content #region-main {
+    overflow: hidden;
+  }
+  .pagelayout-login #region-main {
+    border: 0;
+    background-color: inherit;
+  }
+  /* #region-main {
+    overflow-x: auto;
+    overflow-y: visible;
+    border: 1px solid rgba(0,0,0,.125);
+    padding: 1.25rem;
+    /* background-color: #fff;
+  } */
+  #maincontent {
+    display: block;
+    height: 1px;
+    overflow: hidden;
+  }
+  
+  .justify-content{
+    justify-content:center;
+    padding:25px;
+  }
+  
+  #page-login-index #page-navbar, #page-login-index .card {
+    background-color: rgba(255,255,255,.7)!important;
+  }
+  #page-login-index .outercont {
+    padding: 0!important;
+    margin: 0!important;
+  }
+  .container .outercont{
+  height: fit-content;
+  }
+  .card{
+    background-color: rgba(255,255,255,.7)!important;
+    /* opacity: 80%; */
+    /* width: 400px; */
+  }
+  
+  .text-center {
+    text-align: center!important;
+  }
+  
+  #page-login-index .card-body {
+    text-align: center;
+    padding: 45px;
+  }
+  #page-login-index .card-header {
+    display: none !important;
+  }
+  .card-body{
+    padding: 0 1.25rem 1.25rem 1.25rem;
+  }
+  .card-h img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+  }
+  /* form */
+  input, button, select, textarea {
+    color: #333;
+    font-family: Roboto,sans-serif;
+    font-size: 95%;
+    font-weight: 400!important;
+  }
+  .form-group, .form-buttons, .path-admin .buttons, .fp-content-center form+div, div.backup-section+form {
+    margin-bottom: 1rem;
+  }
+  label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    margin-left: 5px;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+  .mt-3, .my-3 {
+    margin-top: 1rem!important;
+  }
+  .btn-login{
+    background-color: #1B3357;
+    color: white;
+  }
+  #loginbtn, #guestlogin .btn {
+    height: 50px;
+    font-size: larger;
+  }
+  a, a:visited, .tabtree .tabrow0 li a {
+    color: #77170E;
+    text-decoration: none;
+  }
+  #reg{
+    border: transparent;
+    background-color: transparent;
+    color: #1B3357;
+    margin-left: 20px;
+    padding: 0px;
+  }
+  
+  #reg:hover{
+  border-bottom: 3px solid #1B3357;
+  
+  }
+  
+  
+  
+  
+  .form-re{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  

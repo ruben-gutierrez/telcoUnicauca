@@ -1,0 +1,33 @@
+/*menu*/
+/*
+
+    Author css     : javier and johana unicauca
+*/
+
+
+.bd-content {
+  order: 1;
+  flex-grow: 1;
+  flex-basis: auto;
+}
+.bd-toc {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4rem;
+  height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+.bd-toc {
+  -ms-flex-order: 2;
+  order: 2;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  font-size: .875rem;
+}
+
+/* footer */
+.footer-fondo{
+  background-color: #1B3357;
+}
+
+

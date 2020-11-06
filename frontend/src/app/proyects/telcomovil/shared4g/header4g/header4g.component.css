@@ -1,0 +1,42 @@
+  .navbar-brand img{
+    height: 80px;
+    width: 60px;
+    float: left;
+    margin-top: 0px;
+  }
+  img{
+    border: 0px;
+  }
+  .topbar .top-navbar .navbar-header {
+    line-height: 30px;
+    padding-left: 10px;
+}
+.navbar{
+  position: relative;
+  /* min-height: 100px; */
+  /* margin-bottom: 20px; */
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: rgba(121,121,121,.35) 1px 10px 20px;
+  padding-top: 0px;
+  padding-left: 20px;
+  /* height: 116px; */
+}
+
+
+#titulo-logo{
+    border-left: solid #c00000;
+    padding-left: 10px;
+    margin-left: 5px;
+    color: #1B3357;
+    margin-top: 22px;
+    text-transform: uppercase;
+    font-family: 'Roboto';
+    font-size: 15pt;
+  
+  }
+  .logo #titulo-logo{
+    margin-top: 1pt;
+    font-size: 15pt;
+  
+  }

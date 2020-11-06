@@ -1,0 +1,38 @@
+footer {
+    position: absolute;
+    width: 100%;
+    height: 110px;
+    background: #77170E;
+    color: white;
+    text-align: center;
+    font-size: 9pt;
+    font-family: 'Roboto';
+  }
+  
+  article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+  }
+  footer p {
+    margin-top: 35px;
+  }
+  p {
+    margin: 0 0 10px;
+  }
+  .sellos {
+    text-align: right;
+    padding: 10px 100px 10px 10px;
+    margin-top: -80px;
+    background: #77170E;
+  }
+  .sellos img {
+    max-width: 100px;
+    max-height: 100px;
+  }
+  img {
+    vertical-align: middle;
+  }
+  img {
+    border: 0;
+  }
+  
+  

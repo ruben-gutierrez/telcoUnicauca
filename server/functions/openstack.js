@@ -272,6 +272,7 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
             user: 'ubuntu',
             key: keyPair
         });
+        console.log(keyPair);
         
         
         ssh.exec('sudo apt-get install snmpd -y'),

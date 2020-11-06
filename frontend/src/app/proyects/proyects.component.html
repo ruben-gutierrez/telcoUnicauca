@@ -11,7 +11,7 @@
     
 
       <app-header *ngIf="proyect == 'ims'"></app-header>    
-      <app-header *ngIf="proyect == 'telcomovil'"></app-header>    
+      <app-header4g *ngIf="proyect == 'telcomovil'"></app-header4g>     
     
       <!-- ============================================================== -->
       <!-- End-Main wrapper - style you can find in pages.scss -->
@@ -24,7 +24,7 @@
       
 
         <app-sidebar *ngIf="proyect == 'ims'"></app-sidebar>
-        <app-sidebar *ngIf="proyect == 'movil'"></app-sidebar>
+        <app-asideleft4g *ngIf="proyect == 'telcomovil'"></app-asideleft4g>
      
       
     </aside>
@@ -40,7 +40,7 @@
            
 
                 <app-breadcrumbs *ngIf="proyect == 'ims'"></app-breadcrumbs>
-                <app-breadcrumbs *ngIf="proyect == 'telcomovil'"></app-breadcrumbs>
+                <app-breadcrumbs4g *ngIf="proyect == 'telcomovil'"></app-breadcrumbs4g>
                
               
                 <router-outlet></router-outlet>
