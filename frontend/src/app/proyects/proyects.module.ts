@@ -68,6 +68,10 @@ import { Principal4gComponent } from './telcomovil/shared4g/principal4g/principa
 import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
 import { GuiasmovilComponent } from './telcomovil/guiasmovil/guiasmovil.component';
 import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.component';
+import { GuiaopenstackmovilComponent } from './telcomovil/guiaopenstackmovil/guiaopenstackmovil.component';
+import { GuiamaquinamovilComponent } from './telcomovil/guiamaquinamovil/guiamaquinamovil.component';
+import { ProtocolosmovilComponent } from './telcomovil/protocolosmovil/protocolosmovil.component';
+import { Redes4gmovilComponent } from './telcomovil/redes4gmovil/redes4gmovil.component';
 
 
 
@@ -114,7 +118,11 @@ import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.compo
         Principal4gComponent,
         Breadcrumbs4gComponent,
         GuiasmovilComponent,
-        IniciomovilComponent
+        IniciomovilComponent,
+        Redes4gmovilComponent,
+        ProtocolosmovilComponent,
+        GuiamaquinamovilComponent,
+        GuiaopenstackmovilComponent
         
     ],
     exports:[

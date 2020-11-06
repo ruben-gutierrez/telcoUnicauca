@@ -39,6 +39,9 @@ import { Escenario2movilComponent } from './telcomovil/escenario2movil/escenario
 import { GestorpruebasmovilComponent } from './telcomovil/gestorpruebasmovil/gestorpruebasmovil.component';
 import { InformacionmovilComponent } from './telcomovil/informacionmovil/informacionmovil.component';
 import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.component';
+import { Redes4gmovilComponent } from './telcomovil/redes4gmovil/redes4gmovil.component';
+import { ProtocolosmovilComponent } from './telcomovil/protocolosmovil/protocolosmovil.component';
+import { GuiaopenstackmovilComponent } from './telcomovil/guiaopenstackmovil/guiaopenstackmovil.component';
 
 const proyectsRoutes: Routes = [
 
@@ -87,17 +90,21 @@ const proyectsRoutes: Routes = [
       
       children:[
         { 
-          path: 'menu',
-          component: IniciomovilComponent,
-          children:[           
-            { path: 'guiasmovil', component: GuiasmovilComponent, data : {titlePage:'guias'} },
-            { path: '', redirectTo: '/telcomovil/menu/guiasmovil' , pathMatch: 'full' },
+          path: 'info',
+          component: InformacionmovilComponent,
+          children:[ 
+            { path: 'all', component: InformacionmovilComponent, data : {titlePage:'Informacion'} },          
+            
+            { path: '', redirectTo: '/telcomovil/info/all' , pathMatch: 'full' },
           ],
           data:{titlePage:'Guias'} 
         },
            {path: '', component:  MenumovilComponent, data : {titlePage:'Menu'}},
-           { path: 'redmovil', component: InformacionmovilComponent, data : {titlePage:'informacion'} },
-           { path: 'foromovil', component: ForomovilComponent, data : {titlePage:'foro'} },
+           { path: 'info', component: InformacionmovilComponent, data : {titlePage:'informacion'} },
+            { path: 'redmovil', component: Redes4gmovilComponent, data : {titlePage:'redes4G'} },
+            { path: 'protocolosm', component: ProtocolosmovilComponent, data : {titlePage:'protocolos'} },
+            { path: 'guiasmovil', component: GuiasmovilComponent, data : {titlePage:'guias'} },
+            { path: 'guiasopen', component: GuiaopenstackmovilComponent, data : {titlePage:'guiasopen'} },
            { path: 'testmovil', component: PruebasmovilComponent, data : {titlePage:'pruebas'} },
              { path: 'escenario1', component: Escenario1movilComponent, data : {titlePage:'Pruebas escenario1'} },
              { path: 'escenario2', component: Escenario2movilComponent, data : {titlePage:'Pruebas escenario2'} },
@@ -109,7 +116,8 @@ const proyectsRoutes: Routes = [
         { path: '', redirectTo: '/telcomovil/menu', pathMatch: 'full' },
       ]
   
-    }
+  }
   ];
+
 
 export const ProyectsRoutes = RouterModule.forChild( proyectsRoutes);

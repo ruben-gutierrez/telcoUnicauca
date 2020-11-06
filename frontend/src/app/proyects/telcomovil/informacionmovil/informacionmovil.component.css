@@ -1,0 +1,164 @@
+.container{
+  display: flex;
+  padding: 30px;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: white;
+  font-size: 14pt;
+  font-family: 'Roboto Condensed', sans-serif;
+
+}
+
+  
+  /* contenido y aside */
+  
+  section {
+    background-size: cover;
+    background-position: center;
+  }
+  article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+  }
+  .left-menu {
+    cursor: pointer;
+    margin-right: 70px;
+    width: 26%;
+    float: left;
+    margin-bottom: 20px;
+    /* border: solid 2px #77170E; */
+  }
+  .section {
+    width: 100%;
+    overflow: auto;
+    min-height: max-content;
+    /* padding-bottom: 100px; */
+    position: relative;
+    height: -moz-max-content !important;
+  }
+  .left-menu  .sf-menu.menu, .sf-menu.menu ul, .sf-menu.menu li {
+    margin: 0;
+  }
+  .left-menu ul {
+    padding-right: 15px;
+    text-align: right;
+    width: 100%;
+  }
+  ul.menu {
+    border: none;
+    list-style: none;
+    text-align: left;
+  }
+  .menu {
+    padding-right: 100px;
+  }
+  .sf-menu {
+    line-height: 1.0;
+    z-index: 497;
+  }
+  .sf-menu, .sf-menu * {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul, ol {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .seccion-contenido {
+    /* float: right; */
+    /* max-width: 780px; */
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .seccion-contenido .titulo {
+    margin-top: -7px;
+    color: #77170E;
+    border-bottom: solid 3px #77170E;
+    padding-bottom: -5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 26pt;
+  }
+  .seccion-contenido p {
+    text-align: justify;
+    width: 96%;
+  }
+  .seccion-contenido .subtitulo{
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+ 
+  .contenido {
+    margin-top: 0.5px;
+    text-align: justify;
+    /* margin-bottom: 50px; */
+  }
+
+  .seccion-contenido h1, h2, h3{
+    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+     text-transform: uppercase;
+     font-size: 15pt;
+   }
+   .btn-link{
+     font-size: 15pt;
+    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+     text-transform: uppercase;
+     color: #77170E;
+  
+   }
+   .btn-link:hover {
+     color: #1b3357;
+     text-decoration: none;
+  }
+  
+  .info p{
+    text-align: justify;
+    width: 96%;
+    
+  }
+  .info h1{
+    font-size: 13pt;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+ .info-principal a{
+   color: black;
+
+ }
+ div.idc-box{
+  /* background: #f0f0f0;
+  border: 1px solid #fafafa; */
+  background: #f9f9f9 none repeat scroll 0 0;
+  border: 1px solid #aaa;
+  display: table;
+  font-size: 95%;
+  margin-bottom: 1em;
+  margin-top: 30px;
+  padding: 10px;
+  width: 400px;
+  font-family: 'Roboto Condensed', sans-serif;
+ }
+ .idc-box ul li{
+   margin: 0;
+   padding: 0;
+   line-height: 1.4;
+ }
+ hr{
+   margin: 5px 0px;
+ }
+
+ .idc-box .idc-titulo {
+  font-weight: 700;
+  text-align: left;
+  margin: 0;
+}
+.idc-box li, .idc-box ul, .idc-box ul li{
+  padding: 0 5px;
+  list-style: outside none none !important;
+}

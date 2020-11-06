@@ -20,6 +20,7 @@
   box-shadow: rgba(121,121,121,.35) 1px 10px 20px;
   padding-top: 0px;
   padding-left: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
   /* height: 116px; */
 }
 
@@ -31,7 +32,7 @@
     color: #1B3357;
     margin-top: 22px;
     text-transform: uppercase;
-    font-family: 'Roboto';
+    font-family: 'Roboto Condensed', sans-serif;
     font-size: 15pt;
   
   }

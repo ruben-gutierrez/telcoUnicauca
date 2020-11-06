@@ -1,11 +1,14 @@
 .container{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    align-content: center;
-    flex-wrap: wrap;
-    background-color: white;
-  }
+  display: flex;
+  padding: 20px;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: white;
+  font-size: 14pt;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
   .cont-first{
     display: flex;
     flex-direction: row;
