@@ -1,14 +1,14 @@
 .container{
-  display: flex;
-  padding: 30px;
-  align-content: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  background-color: white;
-  font-size: 14pt;
-  font-family: 'Roboto Condensed', sans-serif;
-}
-
+    display: flex;
+    padding: 30px;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: white;
+    font-size: 14pt;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: black;
+  }
   
   section {
     background-size: cover;
@@ -82,6 +82,15 @@
     margin-bottom: 20px;
     font-size: 26pt;
   }
+  .seccion-contenido .titulo-arq{
+    margin-top: -7px;
+    color: #77170E;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 16pt;
+
+  }
   .seccion-contenido p {
     text-align: justify;
     width: 96%;
@@ -98,38 +107,68 @@
 
 
 .seccion-contenido h1, h2, h3{
-   font-weight: bold;
-    font-family: 'RobotoCondensed';
-    text-transform: uppercase;
-  }
-  .btn-link{
-    font-size: 15pt;
-   font-weight: bold;
-    font-family: 'RobotoCondensed';
-    text-transform: uppercase;
-    color: #77170E;
+  font-weight: bold;
+  font-family: 'Roboto Condensed', sans-serif;
+   text-transform: uppercase;
+   font-size: 15pt;
+ }
+ .btn-link{
+   font-size: 15pt;
+  font-weight: bold;
+  font-family: 'Roboto Condensed', sans-serif;
+   text-transform: uppercase;
+   color: #77170E;
 
-  }
-  .btn-link:hover {
-    color: #1b3357;
-    text-decoration: none;
+ }
+ .btn-link:hover {
+   color: #1b3357;
+   text-decoration: none;
+}
+.btn.focus, .btn:focus {
+  outline: 0;
+  box-shadow: none;
 }
 .lte-img {
   text-align: center;
-  width: 100%;
 }
 .lte-img img{ 
   margin:10px auto;
   display:block;
-  max-width:100%;
-  max-height:100%;
- 
+  width: 100%;
+  
+}
+.ue-img img{ 
+  margin:10px auto;
+  display:block;
+  width: 60%;
+  
 }
 div.lte-img  span{
-  font-size: 80%;
 font-style: italic;
 text-align: center;
 margin: auto;
  }
+ .accordi-plan{
+  font-size: 15pt;
+  font-weight: bold;
+  font-family: 'Roboto Condensed', sans-serif;
+   text-transform: uppercase;
+   color: #77170E;
 
-  
+}
+.accordi-plan:hover{
+  color:#1b3357;
+  text-decoration: none;
+  }
+ 
+ 
+.btn-fig{
+  color: #1b3357;
+  border-color: #1b3357;
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px 0 rgba(116, 96, 238, 0.14), 0 3px 1px -2px rgba(116, 96, 238, 0.2), 0 1px 5px 0 rgba(116, 96, 238, 0.12);
+}
+
+.btn-fig:hover{
+  color: #77170E;
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import{NgbAccordionConfig} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-informacionmovil',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformacionmovilComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private _config:NgbAccordionConfig){
+    
+    
+   
+   }
 
   ngOnInit(): void {
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbAccordionConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-protocolosmovil',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProtocolosmovilComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _config: NgbAccordionConfig) {
+    _config.closeOthers=true;
+   }
 
   ngOnInit(): void {
   }

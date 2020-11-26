@@ -7,6 +7,7 @@
   background-color: white;
   font-size: 14pt;
   font-family: 'Roboto Condensed', sans-serif;
+  color: black;
 }
 
 section {
@@ -63,6 +64,7 @@ ul, ol {
   margin-top: 0;
   margin-bottom: 10px;
 }
+
 
 .seccion-contenido {
   /* float: right; */
@@ -136,7 +138,13 @@ font-family: 'Roboto Condensed', sans-serif;
 .info-principal a{
  color: black;
 
+
 }
+.info-principal a:hover{
+  color: black;
+  text-decoration: underline #1b3357;
+ 
+ }
 div.idc-box{
 /* background: #f0f0f0;
 border: 1px solid #fafafa; */

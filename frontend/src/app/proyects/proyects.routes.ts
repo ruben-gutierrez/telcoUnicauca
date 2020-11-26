@@ -30,18 +30,39 @@ import { GuideReserArqComponent } from './ims/information/guide-reser-arq/guide-
 
 //telco Movil
 
-import { MenumovilComponent } from './telcomovil/menumovil/menumovil.component';
-import { GuiasmovilComponent } from './telcomovil/guiasmovil/guiasmovil.component';
-import { ForomovilComponent } from './telcomovil/foromovil/foromovil.component';
-import { PruebasmovilComponent } from './telcomovil/pruebasmovil/pruebasmovil.component';
-import { Escenario1movilComponent } from './telcomovil/escenario1movil/escenario1movil.component';
-import { Escenario2movilComponent } from './telcomovil/escenario2movil/escenario2movil.component';
-import { GestorpruebasmovilComponent } from './telcomovil/gestorpruebasmovil/gestorpruebasmovil.component';
-import { InformacionmovilComponent } from './telcomovil/informacionmovil/informacionmovil.component';
-import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.component';
-import { Redes4gmovilComponent } from './telcomovil/redes4gmovil/redes4gmovil.component';
-import { ProtocolosmovilComponent } from './telcomovil/protocolosmovil/protocolosmovil.component';
-import { GuiaopenstackmovilComponent } from './telcomovil/guiaopenstackmovil/guiaopenstackmovil.component';
+//Telcomovil
+  import { MenumovilComponent } from './telcomovil/menumovil/menumovil.component';
+  import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.component';
+
+  //InformacionTelcomovil
+  import { ForomovilComponent } from './telcomovil/informacionTelcomovil/foromovil/foromovil.component';
+  import { InformacionmovilComponent } from './telcomovil/informacionTelcomovil/informacionmovil/informacionmovil.component';
+  import { ProtocolosmovilComponent } from './telcomovil/informacionTelcomovil/protocolosmovil/protocolosmovil.component';
+  import { Redes4gmovilComponent } from './telcomovil/informacionTelcomovil/redes4gmovil/redes4gmovil.component';
+
+  //guiasTelcomovil
+  import { GuiasmovilComponent } from './telcomovil/guiasTelcomovil/guiasmovil/guiasmovil.component';
+  import { GuiaopenstackmovilComponent } from './telcomovil/guiasTelcomovil/guiaopenstackmovil/guiaopenstackmovil.component';
+
+  //pruebasTelcomovil
+  import { PruebasmovilComponent } from './telcomovil/pruebasTelcomovil/pruebasmovil/pruebasmovil.component';
+  import { Escenario1movilComponent } from './telcomovil/pruebasTelcomovil/escenario1movil/escenario1movil.component';
+  import { Escenario2movilComponent } from './telcomovil/pruebasTelcomovil/escenario2movil/escenario2movil.component';
+  import { GestorpruebasmovilComponent } from './telcomovil/pruebasTelcomovil/gestorpruebasmovil/gestorpruebasmovil.component';
+  import { ResultadomovilComponent } from './telcomovil/pruebasTelcomovil/resultadomovil/resultadomovil.component';
+  import { GestorresultadosmovilComponent } from './telcomovil/pruebasTelcomovil/gestorresultadosmovil/gestorresultadosmovil.component';
+
+
+  import { Asideleft4gComponent } from './telcomovil/shared4g/asideleft4g/asideleft4g.component';
+  import { Aside4gComponent } from './telcomovil/shared4g/aside4g/aside4g.component';
+  import { Contacto4gComponent } from './telcomovil/shared4g/contacto4g/contacto4g.component';
+  import { Footer4gComponent } from './telcomovil/shared4g/footer4g/footer4g.component';
+  import { Header4gComponent } from './telcomovil/shared4g/header4g/header4g.component';
+  import { Principal4gComponent } from './telcomovil/shared4g/principal4g/principal4g.component';
+  import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
+  import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+  //import { Accordion, AccordionModule } from 'ngx-accordion';
+
 
 const proyectsRoutes: Routes = [
 
@@ -108,11 +129,10 @@ const proyectsRoutes: Routes = [
            { path: 'testmovil', component: PruebasmovilComponent, data : {titlePage:'pruebas'} },
              { path: 'escenario1', component: Escenario1movilComponent, data : {titlePage:'Pruebas escenario1'} },
              { path: 'escenario2', component: Escenario2movilComponent, data : {titlePage:'Pruebas escenario2'} },
-           { path: 'gestorPruebas', component: GestorpruebasmovilComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} },
-       /* { path: 'escenario1', component: Escenario1movilComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} },
-          { path: 'escenario2', component: Escenario2movilComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} },
-          { path: 'gestorPruebas', component: GestorpruebasmovilComponent,canActivate: [  VerifyTokenGuard ], data : {titlePage:'Pruebas activas'} }, */
-        
+           { path: 'gestorPruebas', component: GestorpruebasmovilComponent,data : {titlePage:'Pruebas'} },
+           { path: 'gestorResultados', component: GestorresultadosmovilComponent,data : {titlePage:'Resultados'} },
+           { path: 'resultados', component: ResultadomovilComponent,data : {titlePage:'resultado'} },
+
         { path: '', redirectTo: '/telcomovil/menu', pathMatch: 'full' },
       ]
   

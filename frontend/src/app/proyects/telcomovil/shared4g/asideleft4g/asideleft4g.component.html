@@ -25,8 +25,8 @@
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Redes4G </span></a>
                     <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
                     <ul aria-expanded="false" class="collapse">
-                        <li><a [routerLink]="['/telcomovil/redmovil']"  routerLinkActive="active" >LTE</a></li>
-                        <li><a [routerLink]="['/telcomovil/protocolosm']"  routerLinkActive="active" >Protocolos</a></li>                        
+                        <li><a [routerLink]="['/telcomovil/redmovil']"  routerLinkActive="active" >Introducción a LTE</a></li>
+                        <li><a [routerLink]="['/telcomovil/protocolosm']"  routerLinkActive="active" >Arquitectura de protocolos</a></li>                        
                     </ul>
                 </li> 
                 <li>
@@ -34,7 +34,8 @@
                     <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
                     <ul aria-expanded="false" class="collapse">
                         <li><a [routerLink]="['']"  routerLinkActive="active" >Instalacion OAI</a></li>
-                        <li><a [routerLink]="['']"  routerLinkActive="active" >Escenarios</a></li>                        
+                        <li><a [routerLink]="['']"  routerLinkActive="active" >Escenarios</a></li> 
+                        <li><a [routerLink]="['/telcomovil/guiasopen']"  routerLinkActive="active" >Guias de OpenStack</a></li>                        
                     </ul>
                 </li> 
                 <li>
@@ -42,16 +43,17 @@
                 </li>  
             </ul>  
         </li>  
-          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['testmovil']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Pruebas </span></a>
+          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['testmovil']" routerLinkActive="active"  aria-expanded="false"><i class="fas fa-cog"></i><span class="hide-menu">Pruebas </span></a>
               <ul aria-expanded="false" class="collapse ">
                   <li><a [routerLink]="['escenario1']" routerLinkActive="active" >Escenario 1</a></li>
                   <li><a [routerLink]="['escenario1']" routerLinkActive="active" >Escenario 2</a></li>
 
               </ul>
           </li>
-          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['gestorPruebas']" routerLinkActive="active"  aria-expanded="false"><i class="mdi mdi-chart-areaspline"></i><span class="hide-menu">GestorPruebas</span></a>
-              <ul aria-expanded="false" class="collapse ">             
-                  <li><a [routerLink]="['graph-new']" routerLinkActive="active" >Crear gráfica</a></li>               
+          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['gestorResultados']" routerLinkActive="active"  aria-expanded="false"><i class="fas fa-cogs"></i><span class="hide-menu">Gestor </span></a>
+            <ul aria-expanded="false" class="collapse ">             
+                <li><a [routerLink]="['gestorPruebas']" routerLinkActive="active" >Gestor Pruebas</a></li> 
+                  <li><a [routerLink]="['gestorResultados']" routerLinkActive="active" >Gestor Resultados</a></li>               
               </ul>
           </li>
           

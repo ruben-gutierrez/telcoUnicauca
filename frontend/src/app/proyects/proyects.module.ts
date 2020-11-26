@@ -48,32 +48,34 @@ import { InformationRoutes } from './ims/information/information.routes';
 // import { InfoGuidesComponent } from './ims/information/info-guides/info-guides.component';
 
 
-// telco movil
+//Telcomovil
+    import { MenumovilComponent } from './telcomovil/menumovil/menumovil.component';
+    import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.component';
+    //InformacionTelcomovil
+    import { ForomovilComponent } from './telcomovil/informacionTelcomovil/foromovil/foromovil.component';
+    import { InformacionmovilComponent } from './telcomovil/informacionTelcomovil/informacionmovil/informacionmovil.component';
+    import { ProtocolosmovilComponent } from './telcomovil/informacionTelcomovil/protocolosmovil/protocolosmovil.component';
+    import { Redes4gmovilComponent } from './telcomovil/informacionTelcomovil/redes4gmovil/redes4gmovil.component';
+    //guiasTelcomovil
+    import { GuiasmovilComponent } from './telcomovil/guiasTelcomovil/guiasmovil/guiasmovil.component';
+    import { GuiaopenstackmovilComponent } from './telcomovil/guiasTelcomovil/guiaopenstackmovil/guiaopenstackmovil.component';
+    //pruebasTelcomovil
+    import { PruebasmovilComponent } from './telcomovil/pruebasTelcomovil/pruebasmovil/pruebasmovil.component';
+    import { Escenario1movilComponent } from './telcomovil/pruebasTelcomovil/escenario1movil/escenario1movil.component';
+    import { Escenario2movilComponent } from './telcomovil/pruebasTelcomovil/escenario2movil/escenario2movil.component';
+    import { GestorpruebasmovilComponent } from './telcomovil/pruebasTelcomovil/gestorpruebasmovil/gestorpruebasmovil.component';
+    import { ResultadomovilComponent } from './telcomovil/pruebasTelcomovil/resultadomovil/resultadomovil.component';
+    import { GestorresultadosmovilComponent } from './telcomovil/pruebasTelcomovil/gestorresultadosmovil/gestorresultadosmovil.component';
 
-import { Escenario1movilComponent } from './telcomovil/escenario1movil/escenario1movil.component';
-import { Escenario2movilComponent } from './telcomovil/escenario2movil/escenario2movil.component';
-import { ForomovilComponent } from './telcomovil/foromovil/foromovil.component';
-import { GestorpruebasmovilComponent } from './telcomovil/gestorpruebasmovil/gestorpruebasmovil.component';
-import { LoginmovilComponent } from './telcomovil/loginmovil/loginmovil.component';
-import { MenumovilComponent } from './telcomovil/menumovil/menumovil.component';
-import { PruebasmovilComponent } from './telcomovil/pruebasmovil/pruebasmovil.component';
-import { InformacionmovilComponent } from './telcomovil/informacionmovil/informacionmovil.component';
-import { ResultadomovilComponent } from './telcomovil/resultadomovil/resultadomovil.component';
-import { Asideleft4gComponent } from './telcomovil/shared4g/asideleft4g/asideleft4g.component';
-import { Aside4gComponent } from './telcomovil/shared4g/aside4g/aside4g.component';
-import { Contacto4gComponent } from './telcomovil/shared4g/contacto4g/contacto4g.component';
-import { Footer4gComponent } from './telcomovil/shared4g/footer4g/footer4g.component';
-import { Header4gComponent } from './telcomovil/shared4g/header4g/header4g.component';
-import { Principal4gComponent } from './telcomovil/shared4g/principal4g/principal4g.component';
-import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
-import { GuiasmovilComponent } from './telcomovil/guiasmovil/guiasmovil.component';
-import { IniciomovilComponent } from './telcomovil/iniciomovil/iniciomovil.component';
-import { GuiaopenstackmovilComponent } from './telcomovil/guiaopenstackmovil/guiaopenstackmovil.component';
-import { GuiamaquinamovilComponent } from './telcomovil/guiamaquinamovil/guiamaquinamovil.component';
-import { ProtocolosmovilComponent } from './telcomovil/protocolosmovil/protocolosmovil.component';
-import { Redes4gmovilComponent } from './telcomovil/redes4gmovil/redes4gmovil.component';
-
-
+    import { Asideleft4gComponent } from './telcomovil/shared4g/asideleft4g/asideleft4g.component';
+    import { Aside4gComponent } from './telcomovil/shared4g/aside4g/aside4g.component';
+    import { Contacto4gComponent } from './telcomovil/shared4g/contacto4g/contacto4g.component';
+    import { Footer4gComponent } from './telcomovil/shared4g/footer4g/footer4g.component';
+    import { Header4gComponent } from './telcomovil/shared4g/header4g/header4g.component';
+    import { Principal4gComponent } from './telcomovil/shared4g/principal4g/principal4g.component';
+    import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
+    import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+   // import { Accordion, AccordionModule } from 'ngx-accordion';
 
 @NgModule({
     declarations:[
@@ -94,22 +96,21 @@ import { Redes4gmovilComponent } from './telcomovil/redes4gmovil/redes4gmovil.co
         GraphTemplateComponent,
         NewServerComponent,
         InformationTemplateComponent,
-        // GuideTestComponent,
-        // GuideSoftphoneComponent,
-        // InfoTelcoIMSComponent,
-        // InfoArquitectureComponent,
-        // InfoTestComponent,
-        // InfoGraphsComponent,
-        // InfoGuidesComponent,
+        // components telco Movil
         Escenario1movilComponent,
         Escenario2movilComponent,
         ForomovilComponent,
         GestorpruebasmovilComponent,
-        LoginmovilComponent,
         MenumovilComponent,
         PruebasmovilComponent,
         InformacionmovilComponent,
         ResultadomovilComponent,
+        GuiasmovilComponent,
+        IniciomovilComponent,
+        Redes4gmovilComponent,
+        ProtocolosmovilComponent,
+        GuiaopenstackmovilComponent,
+        GestorresultadosmovilComponent,
         Asideleft4gComponent,
         Aside4gComponent,
         Contacto4gComponent,
@@ -117,12 +118,6 @@ import { Redes4gmovilComponent } from './telcomovil/redes4gmovil/redes4gmovil.co
         Header4gComponent,
         Principal4gComponent,
         Breadcrumbs4gComponent,
-        GuiasmovilComponent,
-        IniciomovilComponent,
-        Redes4gmovilComponent,
-        ProtocolosmovilComponent,
-        GuiamaquinamovilComponent,
-        GuiaopenstackmovilComponent
         
     ],
     exports:[
@@ -149,6 +144,8 @@ import { Redes4gmovilComponent } from './telcomovil/redes4gmovil/redes4gmovil.co
         BrowserModule,
         InformationModule,
         AngularMultiSelectModule,
+        NgbModule
+    
         
     ]
 
