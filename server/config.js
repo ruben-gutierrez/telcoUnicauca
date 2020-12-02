@@ -42,5 +42,6 @@ module.exports={
     },
     comunityCacti:'public',
     templateHostCacti:4,
-    regexNumber:/(\d+)/g
+    regexNumber:/(\d+)/g,
+    
 };
