@@ -20,7 +20,7 @@ export class Redes4gmovilComponent implements OnInit {
   ngOnInit(): void {
   }
    open(content) {
-     this.modalService.open(content, {size:'xl', ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+     this.modalService.open(content, {size:'lg', windowClass: 'modal-img',ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
        this.closeResult = `Closed with: ${result}`;
      }, (reason) => {
        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -28,7 +28,7 @@ export class Redes4gmovilComponent implements OnInit {
    }
 
    openXl(content) {
-     this.modalService.open(content, { size: 'xl' });
+     this.modalService.open(content, { size: 'lg' });
    }
 
    private getDismissReason(reason: any): string {

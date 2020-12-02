@@ -9,6 +9,12 @@
     font-family: 'Roboto Condensed', sans-serif;
     color: black;
   }
+
+  /* .modal-img .modal-lg .modal-dialog {
+    max-width: 1490px !important;
+    min-width: 971px !important;   
+    width: 95% !important;
+} */
   
   section {
     background-size: cover;

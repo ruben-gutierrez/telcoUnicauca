@@ -47,11 +47,14 @@
                          
                        <div class="accord-lte">
                         <ngb-accordion>
-                          <ngb-panel>
-                            <ng-template ngbPanelTitle>
-                              <h1 class="accordi-plan">Equipo de usuario, UE:
-                              </h1> 
-                            </ng-template>
+                          <ngb-panel>                            
+                            <ng-template ngbPanelHeader id="accor-header">                                       
+                              <button ngbPanelToggle class="btn btn-link container-fluid text-left pl-0">
+                                 <div class="col d-flex justify-content-between align-items-center">                                                         
+                                  Equipo de usuario, UE:
+                            </div>
+                              </button>
+                            </ng-template>                             
                             <ng-template ngbPanelContent>
                               <div class="card-body">
                                 <p>El UE permite a los usuarios acceder a los servicios de la red que dispone el sistema LTE a través de la interfaz radio. Un UE es cualquier terminal que pueda ser utilizado para conectarse a la red y proveer de comunicaciones al usuario. Los UE pueden ser representados por un dispositivo móvil comercial, un ordenador portátil con un adaptador de banda ancha móvil o pueden ser emulados mediante un ordenador portátil.
@@ -67,7 +70,7 @@
                                     <div class="modal-body">
                                       <div class="ue-img">                                          
                                           <img class="center-block"  src="/assets/telcomovil/img/arqm-ue.png" alt="">
-                                          <span>Figura 2.3 UE </span>
+                                          <span>Figura 2.4 UE </span>
                                          </div>                                  
                                     </div>                                     
                                   </ng-template>
@@ -93,11 +96,14 @@
                             </ng-template>                          
                           </ngb-panel>
   
-                          <ngb-panel>
-                            <ng-template ngbPanelTitle>
-                              <h1 class="accordi-plan">Red de acceso radio, E-UTRAN
-                              </h1> 
-                            </ng-template>                          
+                          <ngb-panel>                            
+                            <ng-template ngbPanelHeader id="accor-header">                                       
+                              <button ngbPanelToggle class="btn btn-link container-fluid text-left pl-0">
+                                 <div class="col d-flex justify-content-between align-items-center">                                                         
+                                  Red de acceso radio, E-UTRAN
+                            </div>
+                              </button>
+                            </ng-template>                         
                             <ng-template ngbPanelContent>  
                               <div class="card-body">
                                 <p>La E-UTRAN controla las comunicaciones radio entre el UE y el EPC. Además
@@ -116,11 +122,14 @@
                               </div>                              
                           </ng-template>
                           </ngb-panel>
-                          <ngb-panel>
-                            <ng-template ngbPanelTitle>
-                              <h1 class="accordi-plan">Núcleo de red evolucionado, EPC
-                              </h1> 
-                            </ng-template> 
+                          <ngb-panel>                            
+                            <ng-template ngbPanelHeader id="accor-header">                                       
+                              <button ngbPanelToggle class="btn btn-link container-fluid text-left pl-0">
+                                 <div class="col d-flex justify-content-between align-items-center">                                                         
+                                  Núcleo de red evolucionado, EPC
+                            </div>
+                              </button>
+                            </ng-template>
                             <ng-template ngbPanelContent>
                               <div class="card-body">
                                 <p>EPC está compuesto por diferentes nodos lógicos encargados de la gestión del tráfico de la red. El EPC utiliza la conmutación de paquetes, empleando el protocolo IP, lo que permite explotar las capacidades proporcionadas por la red de acceso. El núcleo del sistema EPC está compuesto de tres nodos lógicos y una base de datos; además de un servidor de gestión de las políticas del servicio, como se observa en la Figura 2.3. Estos nodos son descritos acontinuación:</p>

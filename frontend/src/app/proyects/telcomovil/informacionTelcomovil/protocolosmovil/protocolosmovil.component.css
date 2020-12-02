@@ -9,7 +9,18 @@
   font-family: 'Roboto Condensed', sans-serif;
   color: black;
 }
+.btn-link{
+  font-size: 15pt;
+ font-weight: bold;
+ font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
+  color: #77170E;
 
+}
+.btn-link:hover {
+  color: #1b3357;
+  text-decoration: none;
+}
   
   section {
     background-size: cover;
