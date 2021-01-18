@@ -75,6 +75,7 @@ import { InformationRoutes } from './ims/information/information.routes';
     import { Principal4gComponent } from './telcomovil/shared4g/principal4g/principal4g.component';
     import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
     import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TeachingComponent } from './telcomovil/teaching/teaching.component';
    // import { Accordion, AccordionModule } from 'ngx-accordion';
 
 @NgModule({
@@ -118,6 +119,7 @@ import { InformationRoutes } from './ims/information/information.routes';
         Header4gComponent,
         Principal4gComponent,
         Breadcrumbs4gComponent,
+        TeachingComponent,
         
     ],
     exports:[

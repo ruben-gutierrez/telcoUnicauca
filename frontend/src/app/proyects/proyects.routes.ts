@@ -61,6 +61,9 @@ import { GuideReserArqComponent } from './ims/information/guide-reser-arq/guide-
   import { Principal4gComponent } from './telcomovil/shared4g/principal4g/principal4g.component';
   import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
   import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+  //aprendiendo
+import { TeachingComponent } from './telcomovil/teaching/teaching.component';
   //import { Accordion, AccordionModule } from 'ngx-accordion';
 
 
@@ -121,6 +124,9 @@ const proyectsRoutes: Routes = [
           data:{titlePage:'Guias'} 
         },
            {path: '', component:  MenumovilComponent, data : {titlePage:'Menu'}},
+           //aprendiendo
+           {path: 'teaching', component:  TeachingComponent, data : {titlePage:'Enseñando'}},
+           //fin aprendiendo
            { path: 'info', component: InformacionmovilComponent, data : {titlePage:'informacion'} },
             { path: 'redmovil', component: Redes4gmovilComponent, data : {titlePage:'redes4G'} },
             { path: 'protocolosm', component: ProtocolosmovilComponent, data : {titlePage:'protocolos'} },

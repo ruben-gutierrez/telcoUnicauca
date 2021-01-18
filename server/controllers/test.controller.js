@@ -168,7 +168,8 @@ TestController.updateTest=async(req, res) => {
     res.json(
         {
             status:'200',
-            answer:req.params.id
+            answer:req.params.id,
+            
         }
     );
 };

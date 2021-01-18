@@ -43,5 +43,8 @@ module.exports={
     comunityCacti:'public',
     templateHostCacti:4,
     regexNumber:/(\d+)/g,
+    proyectMovil:{
+        passOpenstack= '123'
+    }
     
 };

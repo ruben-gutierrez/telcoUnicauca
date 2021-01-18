@@ -32,9 +32,9 @@ app.use('/ims/', require('./routes/graph.routes'));
 app.use('/ims/', require('./routes/server.routes'));
 
  //routes telco_movil
- app.use('/telco_movil/', require('./routes/telco_movil/test_movil.routes'));
-
-
+ app.use('/telco_movil/', require('./routes/telco_movil/machine_movil.routes'));
+//  app.use('/telco_movil/', require('./routes/telco_movil/test_movil.routes'));
+//  app.use('/telco_movil/', require('./routes/telco_movil/result_movil.routes'));
 
 
 //Starting the server

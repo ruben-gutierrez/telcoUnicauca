@@ -670,17 +670,6 @@ async function deleteRouter(idrouter){
     });
 }
 
-async function createToken( userName, proyectName, proyectDomainName, userDomainName, password, url ){
-    exec('sh server/scripts/createTokenDinamic.sh '+userName+' '+ proyectName+ ' '+ proyectDomainName+ ' '+ userDomainName +' '+password+' '+url  ,
-          (error, stdout, stderr) => {
-              console.log(`${stdout}`);
-              return `${stdout}`
-              
-          }
-        );
-        
-}
-
 
 async function showArquitecture(idArquitecture){
     try {

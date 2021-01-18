@@ -18,7 +18,7 @@ export class UsersService {
       
     }
 
-    readonly URL_API_USERS:string = `http://10.55.6.31:3000/api/users`;
+    readonly URL_API_USERS:string = `http://localhost:3000/api/users`;
   
     getUsers(){
         return this.http.get(this.URL_API_USERS);
@@ -51,7 +51,7 @@ export class UsersService {
         'Content-Type': 'application/json',
         // 'x-access-token': this.token
       });
-      return this.http.post('http://10.55.6.31:3000/auth/signin',infoLogin,{headers});
+      return this.http.post('http://localhost:3000/auth/signin',infoLogin,{headers});
           
     }
   

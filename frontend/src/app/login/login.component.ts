@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
 
         }else{
           this._location.back();
-
         }
         
         // console.log(data['user'])

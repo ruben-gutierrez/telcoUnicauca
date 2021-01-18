@@ -85,8 +85,7 @@ export class NewServerComponent implements OnInit {
   }
   async newServer(){
     this.loading=true
-    // console.log(this.formNewServer.value)
-    
+    // console.log(this.formNewServer.value)    
     await this._server.addServerArquitecture(this.formNewServer.value) 
       .subscribe( async response =>{
         this.loading=false
@@ -97,13 +96,10 @@ export class NewServerComponent implements OnInit {
           this.arquitecture.vmAditionals.push(response['content'])
           this.core=this.arquitecture.vmAditionals;
           this.resourcesDisp= await this.resourceDisp(this.arquitecture);
-          this._location.back();
-          
+          this._location.back();          
         }else{
-          this.toastr.success('Error al crear la máquina virtual')
-          
-        }
-       
+          this.toastr.success('Error al crear la máquina virtual')          
+        }       
       })
       this.resourcesDisp=await this.resourceDisp(this.arquitecture);
     

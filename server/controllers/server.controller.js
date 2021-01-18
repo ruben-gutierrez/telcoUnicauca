@@ -5,6 +5,7 @@ const axios = require("axios");
 const openstack = require('../functions/openstack');
 const serverFunctions = require('../functions/server');
 const { response } = require('express');
+const MachineMovilController = require('./telco_movil/machineMovil.controller');
 
 const ServerController={};
 
@@ -57,6 +58,10 @@ ServerController.showServer= async(req, res) => {
 
   
 };
+//Actualizar maquinas 
+MachineMovilController.updateMachineMovil=async(req, res)=>{
+
+}
 ServerController.updateServer=async(req, res) => {
     const idServer = req.params.id;
     const server = new Server(req.body);

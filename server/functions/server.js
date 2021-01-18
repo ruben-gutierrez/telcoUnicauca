@@ -15,6 +15,7 @@ async function updateServer(data) {
     const arquitecture = new Arquitecture(data);
     await Arquitecture.findByIdAndUpdate(idArquitecture, {$set: arquitecture },{ new: true})
     return 'ok'
+
 }
 
 async function createServerCacti(ip) {
