@@ -44,7 +44,22 @@ module.exports={
     templateHostCacti:4,
     regexNumber:/(\d+)/g,
     proyectMovil:{
-        passOpenstack= '123'
+        username:'movil',
+        projectName:'movil',
+        projectDomainName:'default',
+        password: '123',
+        authURL:'http://10.55.2.20/identity/v3',
+        idMovil:{
+            idImage:'0ee75157-505f-49fc-954a-ac0179341ea9',//img ubuntu14
+            idImage1:'164258a1-4636-4be1-95de-17732a401b30',//img aio
+            // idFlavor: 'd3c',//flavor ims
+            idFlavor: '4',//flavor ims
+            idFlavor1: '4',//flavor aio
+            nameKey:'oaimovil'
+        }, 
     }
     
+    
 };
+
+

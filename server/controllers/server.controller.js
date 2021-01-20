@@ -58,10 +58,7 @@ ServerController.showServer= async(req, res) => {
 
   
 };
-//Actualizar maquinas 
-MachineMovilController.updateMachineMovil=async(req, res)=>{
 
-}
 ServerController.updateServer=async(req, res) => {
     const idServer = req.params.id;
     const server = new Server(req.body);

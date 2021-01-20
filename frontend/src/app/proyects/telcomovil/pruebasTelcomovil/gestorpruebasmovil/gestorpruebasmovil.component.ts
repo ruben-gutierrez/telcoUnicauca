@@ -19,6 +19,7 @@ import { async } from '@angular/core/testing';
 export class GestorpruebasmovilComponent implements OnInit {
   machines:any;
   closeResult = '';
+  //maquina virtual
   loading=false;
   idArquitecture:string;
   arquitecture: any;
@@ -33,6 +34,7 @@ export class GestorpruebasmovilComponent implements OnInit {
     disk:0,
     vms:0,
     status: false
+  
   }
   vmDelete={
     idVm:"",
@@ -69,8 +71,7 @@ export class GestorpruebasmovilComponent implements OnInit {
 
     })
     // await this.getArquitecture(this.idArquitecture);
-    
-    
+ 
    
 
    
@@ -107,6 +108,12 @@ export class GestorpruebasmovilComponent implements OnInit {
     }
       )
     
+  }
+  async consultImages(){
+    this.machineMovil.getImages()
+      .subscribe( response =>{
+        this.images=response;
+      })
   }
   getMachines(){
     this.machineMovil.getMachines()

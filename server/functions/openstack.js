@@ -670,8 +670,10 @@ async function deleteRouter(idrouter){
     });
 }
 
-async function createToken( userName, proyectName, proyectDomainName, userDomainName, password, url ){
-    exec('sh server/scripts/createTokenDinamic.sh '+userName+' '+ proyectName+ ' '+ proyectDomainName+ ' '+ userDomainName +' '+password+' '+url  ,
+
+
+async function createToken(userName, proyectName, proyectDomainName, userDomainName, password, url){
+    await exec('sh server/scripts/createTokenDinamic.sh '+userName+' '+ proyectName+ ' '+ proyectDomainName+ ' '+ userDomainName +' '+password+' '+url  ,
           (error, stdout, stderr) => {
               console.log(`${stdout}`);
               return `${stdout}`
@@ -788,3 +790,4 @@ exports.consultFlavor=consultFlavor;
 exports.createFlavor=createFlavor;
 exports.infoFlavor=infoFlavor;
 exports.showArquitecture=showArquitecture;
+exports.createToken=createToken;
