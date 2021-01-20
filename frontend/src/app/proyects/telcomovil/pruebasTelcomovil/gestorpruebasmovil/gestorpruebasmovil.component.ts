@@ -54,7 +54,7 @@ export class GestorpruebasmovilComponent implements OnInit {
         private _location: Location)  { 
           this.activatedRouter.params.subscribe( params =>{
           this.idArquitecture = params.id;
-          this.getMachines();
+          // this.getMachines();
          })
        }
        
@@ -109,20 +109,7 @@ export class GestorpruebasmovilComponent implements OnInit {
       )
     
   }
-  async consultImages(){
-    this.machineMovil.getImages()
-      .subscribe( response =>{
-        this.images=response;
-      })
-  }
-  getMachines(){
-    this.machineMovil.getMachines()
-      .subscribe((data: any) => {
-        this.machines = data;
-        // console.log(this.users);
-    });  
-  }
-
+  
 
   deleteMachine(id:string, index){
     // console.log(id);
