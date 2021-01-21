@@ -25,8 +25,10 @@ MachineMovilController.createMachineMovil=async(req, res)=>{
     //una variable con el nombre de la maquinapassOpenstack
 
     // una variable con el id de la imagen a usar
-    await openstack.createToken(config.proyectMovil.username, config.proyectMovil.projectName, config.proyectMovil.projectDomainName, config.proyectMovil.userDomainName, config.proyectMovil.password, config.proyectMovil.authURL);
+    console.log("antes del token");
+    const open_token= await openstack.createToken(config.proyectMovil.username, config.proyectMovil.projectName, config.proyectMovil.projectDomainName, config.proyectMovil.userDomainName, config.proyectMovil.password, config.proyectMovil.authURL);
 
+    console.log(open_token);
     const server = new MachineMovil(req.body);
     await server.save();
     res.json({
