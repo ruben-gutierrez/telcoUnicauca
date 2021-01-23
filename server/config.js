@@ -47,6 +47,7 @@ module.exports={
         username:'movil',
         projectName:'movil',
         projectDomainName:'default',
+        userDomainName:'default',
         password: '123',
         authURL:'http://10.55.2.20/identity/v3',
         idMovil:{
@@ -57,6 +58,9 @@ module.exports={
             idFlavor1: '4',//flavor aio
             nameKey:'oaimovil'
         }, 
+        idImageOAI: 'a429c7ae-9eb6-4ab0-bf9e-7a58ee70c766',
+        idFlavorOAI: 'c1',
+        idNetworkProjectMovil:'c959d001-cea6-4e7d-8b17-9a1b7247fa60'
     }
     
     

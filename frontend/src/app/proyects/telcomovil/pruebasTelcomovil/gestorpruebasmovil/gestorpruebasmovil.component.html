@@ -38,7 +38,7 @@
         
         <a class="icon-col-con"><i class="fas fa-terminal"></i></a>
         <a class="icon-col"><i class="fas fa-expand-arrows-alt"></i></a>
-        <a class=" icon-col" type="button"  data-toggle="modal"  title="Eliminar" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></a>
+        <a class=" icon-col" type="button" (click)="setInfoVmDelete(machine._id, i)"  data-toggle="modal"  title="Eliminar" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></a>
         
       </td> 
 
@@ -79,11 +79,20 @@
                     <div class="form-group">
                       <label for="idArquitecture">Sistema Operativo con OAI</label>
                       <select name="image" class="form-control"  formControlName="image" placeholder="Ubuntu 14" >
-                        <option value="ubuntu14">Ubuntu14</option>
+                        <!-- <option value="ubuntu14">Ubuntu14</option> -->
                         <option *ngFor="let image of images" [value]="image.id">{{ image.name }}</option>
                     </select>                 
                   </div>
                 </div>
+                <div class="mb-3">                  
+                  <div class="form-group">
+                    <label for="idArquitecture">Flavor</label>
+                    <select name="image" class="form-control"  formControlName="image" placeholder="Ubuntu 14" >
+                      <option value="ubuntu14">Ubuntu14</option>
+                      <option *ngFor="let image of images" [value]="image.id">{{ image.name }}</option>
+                  </select>                 
+                </div>
+              </div>
                 <div class="mb-3">
                   <label for="name">Descripcion</label>
                   <!-- <input type="text"  name="descripcion" formControlName="descripcion"  class="form-control"> -->
@@ -134,13 +143,13 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+      </div>mDelete.idArquitecture
       <div class="modal-body">
         ¿Estas seguro que deseas Eliminar la mv <strong></strong> de la arquitectura?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" >Eliminar</button>
+        <button type="button" class="bmDelete.idArquitecturetn btn-danger"  data-dismiss="modal" (click)="deleteMachine(vmDelete.idVm, vmDelete.index)" >Eliminar</button>
       </div>
     </div>
   </div>

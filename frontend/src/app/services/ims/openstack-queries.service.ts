@@ -18,4 +18,7 @@ export class OpenstackQueriesService {
   showFlavor(id:string){
     return this.http.get(this.URL_API_OPENSTACK+'flavor/'+id);
   }
+  getFlavors(){
+    return this.http.get(this.URL_API_OPENSTACK+'flavor');
+  }
 }

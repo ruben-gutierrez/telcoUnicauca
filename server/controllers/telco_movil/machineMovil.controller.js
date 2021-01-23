@@ -19,22 +19,40 @@ MachineMovilController.getMachinesMovil=async(req, res)=>{
 //Crear las maquinas
 
 MachineMovilController.createMachineMovil=async(req, res)=>{
-    //tarea
-    // crear y asignar una variable con el token
 
-    //una variable con el nombre de la maquinapassOpenstack
 
-    // una variable con el id de la imagen a usar
-    await openstack.createToken(config.proyectMovil.username, config.proyectMovil.projectName, config.proyectMovil.projectDomainName, config.proyectMovil.userDomainName, config.proyectMovil.password, config.proyectMovil.authURL);
+  let  token = await openstack.createToken(config.proyectMovil.username, config.proyectMovil.projectName, config.proyectMovil.projectDomainName, config.proyectMovil.userDomainName, config.proyectMovil.password, config.proyectMovil.authURL)
 
-    const server = new MachineMovil(req.body);
-    await server.save();
-    res.json({
-        status:'200',
-        answer:"server Created",
-        content: server
-    })
-    
+    let server = await openstack.createOnlyServer( req.body.name, config.proyectMovil.idImageOAI, 'ims', config.proyectMovil.idFlavorOAI,config.proyectMovil.idNetworkProjectMovil, token);
+
+    //valida el estado de respuesta de la funcion createOnlyServer
+
+    if( server.status ){ //investigar que significa esta linea de codigo  if( varibale )
+        if( server.status == 200){
+                const server1 = new MachineMovil(req.body);
+                await server1.save();
+            res.json({
+                status:'200',
+                answer:"server Created",
+                content: server
+            })
+        }else{
+            res.json({
+                status:'400',
+                answer:"server Not created",
+                content: server
+            })
+        }
+    }else{
+        res.json({
+            status:'400',
+            answer:"Error function create server",
+            content: server
+        })
+    }
+
+
+
 };
 
 //Encontrar una maquina por ID (404=no encontrado, 200=OK, 400=)
@@ -102,7 +120,7 @@ MachineMovilController.createImagenMovil=async(req, res)=>{
     
 };
 
-MachineMovilController.addMachineOpenStack= async (req, res) => {
+MachineMovilController.addMachineOp= async (req, res) => {
     let idFlavor
     let resources={
         ram:0,

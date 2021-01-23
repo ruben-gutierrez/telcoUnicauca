@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { async } from '@angular/core/testing';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-gestorpruebasmovil',
@@ -21,11 +22,12 @@ export class GestorpruebasmovilComponent implements OnInit {
   closeResult = '';
   //maquina virtual
   loading=false;
-  idArquitecture:string;
+  idMachine:string;
   arquitecture: any;
   showcore:boolean=true;
   formNewServer: FormGroup;
   images:object;
+  flavors:object;
   core:any;
   vmsAditionals: any;
   resourcesDisp={
@@ -39,21 +41,19 @@ export class GestorpruebasmovilComponent implements OnInit {
   vmDelete={
     idVm:"",
     nameVm:"",
-    idArquitecture:"",
-    nameArquitecture:"",
     index:""
   }
   constructor(private modalService:NgbModal,
     private activatedRouter: ActivatedRoute,
-        private _arquitecture: ArquitecturesService,
-        private _server: ServerService,
+       // private _arquitecture: ArquitecturesService,
+        // private _server: ServerService,
         private toastr: ToastrService,
         private router: Router,
         private _openstack: OpenstackQueriesService,
-        private machineMovil: MachinesMovilService,
+        private _machineMovil: MachinesMovilService,
         private _location: Location)  { 
           this.activatedRouter.params.subscribe( params =>{
-          this.idArquitecture = params.id;
+          this.idMachine = params.id;
           this.getMachines();
          })
        }
@@ -61,7 +61,7 @@ export class GestorpruebasmovilComponent implements OnInit {
 
   async ngOnInit() {
     this.formNewServer = new FormGroup({
-      idArq: new FormControl( this.idArquitecture),
+      idArq: new FormControl( this.idMachine),
       name: new FormControl(null, Validators.required),
       image: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
@@ -70,9 +70,16 @@ export class GestorpruebasmovilComponent implements OnInit {
       disk : new FormControl(null, Validators.required),
 
     })
-    // await this.getArquitecture(this.idArquitecture);
- 
+     await this.getMachine(this.idMachine);
+    this.vmsAditionals=this.arquitecture.vmAditionals;
+    
+    this.resourcesDisp=await this.resourceDisp(this.arquitecture);
    
+    this.core=this.arquitecture.vmCoreIMS;
+   
+    await this.consultImages();
+ 
+    await this.consultFlavor();
 
    
   }
@@ -93,14 +100,36 @@ export class GestorpruebasmovilComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  async consultImages(){
+    this._openstack.getImages()
+    .subscribe( response =>{
+      this.images=response;
+    })
+  }
+
+  async consultFlavor(){
+    this._openstack.getFlavors()
+    .subscribe(response =>{
+      this.flavors=response
+    })
+  }
+
+  
   async newServer(){
     this.loading=true
     // console.log(this.formNewServer.value)    
-    this.machineMovil.createMachine(this.formNewServer.value)
-    .subscribe(async Response =>{
+    await this._machineMovil.createMachine(this.formNewServer.value)
+    // await this._machineMovil.addMachineOp(this.formNewServer.value)
+    .subscribe(async response =>{
       this.loading=false
       if(Response['status']==200){
+        this.getMachine(this.idMachine);
         this.toastr.success('Máquina virtual creada')
+        this.arquitecture.vmAditionals.push(response['content'])
+        this.core=this.arquitecture.vmAditionals;
+        this.resourcesDisp=await this.resourceDisp(this.arquitecture);
+        this._location.back();
       }
       else{
         this.toastr.success('Error al crear la máquina virtual')  
@@ -109,24 +138,75 @@ export class GestorpruebasmovilComponent implements OnInit {
       )
     
   }
-  async consultImages(){
-    this.machineMovil.getImages()
-      .subscribe( response =>{
-        this.images=response;
-      })
+
+  async getMachine(id){
+    await this._machineMovil.getMachine(id)
+    .toPromise()
+    .then(data =>{
+      if(data['status']==200){
+        this.arquitecture = data['content'];
+
+      }else{
+        this.toastr.error('la base de datos esta temporalemnte fuera de servicio')
+        this.arquitecture=[]
+      }
+    })
+
   }
+
+  async resourceDisp(arquitecture){
+    let resorceDIsp={
+      ram:0,
+      vcpus:0,
+      disk:0,
+      vms:0,
+      status:false
+    }
+    if(arquitecture.vmAditionals.length >0){
+      for await (let vm of arquitecture.vmAditionals){
+        await this._openstack.showFlavor(vm.infoServe.flavor.id)
+        .toPromise()
+        .then(data =>{
+          resorceDIsp.ram += data['flavor'].ram;
+          resorceDIsp.disk += data ['flavor'].disk;
+          resorceDIsp.vcpus += data ['flavor'].vcpus;
+
+        })
+      }
+    }
+
+    resorceDIsp.ram = arquitecture.maxRAM - resorceDIsp.ram;
+    resorceDIsp.disk = arquitecture.maxHDD - resorceDIsp.disk ;
+    resorceDIsp.vcpus = arquitecture.maxCore - resorceDIsp.vcpus;
+    resorceDIsp.vms= arquitecture.maxVM- arquitecture.vmCoreIMS.length
+    if (resorceDIsp.ram > 0 && resorceDIsp.disk > 0 && resorceDIsp.vcpus > 0 && resorceDIsp.vms >> 0 ) {
+      resorceDIsp.status= true;
+    }
+    return resorceDIsp;
+
+
+  }
+
+
+
   getMachines(){
-    this.machineMovil.getMachines()
+    this._machineMovil.getMachines()
       .subscribe((data: any) => {
         this.machines = data;
         // console.log(this.users);
     });  
   }
+  formatLabel(value:number){
+    if(value >= 1000){
+      return Math.round(value/1000) + 'k';
+    }
+    return value;
+  }
 
 
   deleteMachine(id:string, index){
     // console.log(id);
-    this.machineMovil.deleteMachine(id)
+    this._machineMovil.deleteMachine(id)
       .subscribe( res =>{
         var i = this.machines.indexOf( id );
         this.machines.splice(index, 1 );
@@ -134,9 +214,41 @@ export class GestorpruebasmovilComponent implements OnInit {
         // console.log(i);
       });
   }
+  setInfoVmDelete(idVm, index){
+    this.vmDelete={
+      idVm:idVm,
+      nameVm:"",      
+      index:index
+    }
+    
+    this._machineMovil.getServer(idVm).subscribe( 
+      data =>{
+        this.vmDelete.nameVm=data['content'].name
+      })
+   
+      
+  }
+  async dropArq (id) {
+    // console.log(id);
+   await this._machineMovil.deleteMachine(id)
+    .subscribe( res =>{
+    
+      var i = this.machines.indexOf( id );
+      this.machines.splice(id, 1 );
+      // console.log(this.users);
+      // console.log(i);
+    });
+  }
 
 
-
+  // await this._arquitecture.dropArquitecture(id)
+  // .subscribe( data=>{
+  //   // console.log(data)
+  //   this.ngOnInit();
+  //   this.toastr.success("Arquitectura liberada");
+  // }, error =>{
+  //   this.toastr.error("Error al liberar Arquitectura");
+  // });
 
  
 

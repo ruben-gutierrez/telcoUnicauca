@@ -11,10 +11,8 @@ router.get('/mservers', MachineMovilController.getMachinesMovil);
 router.post('/mserver', MachineMovilController.createMachineMovil);
 router.get('/mserver/:id', MachineMovilController.showMachineMovil);
 router.delete('/mserver/:id', MachineMovilController.deleteMachineMolvil);
+router.post('/mserver/arquitecture/:id',MachineMovilController.addMachineOp)
 
-
-router.get('/mimagenes', MachineMovilController.getImagesMovil);
-router.post('/mimagen', MachineMovilController.createImagenMovil);
 
 
 module.exports = router; 
