@@ -170,6 +170,8 @@ async function conectPrivateRouter( idrouter,idSubnet ) {
     return conect;
 }
 
+
+
 async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitecture=any,typeVM ) {
     let server;
     let answer={
@@ -326,6 +328,77 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
     
     return answer;
 }
+
+async function createOnlyServer( name, idImage, nameKey, idFlavor, idNet, token ) {
+    let server;
+    let regex=/\\r/g;
+    let answer={
+        'status': 400,
+        'content' :'Bad Request',
+        'error': null
+    }
+   
+   
+    let body={
+        "server": {
+            "name": name, 
+            "imageRef": idImage,
+            "flavorRef": idFlavor, 
+            // "key_name": nameKey,
+            "min_count": 1, 
+            "max_count": 1, 
+            "networks": [{"uuid": idNet}],
+            // "personality":[{"path":"/root/", "contents": file}]
+        }
+    }
+//ssh -i nameKey ubuntu@ipFlotante
+// console.log(token)
+let header =  { headers:{
+    'X-Auth-Token': token, 
+    'Content-Type': 'application/json', 
+    'Access-Control-Allow-Origin': '10.55.6.31',
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Expose-Headers': 'Authorization',
+    'Access-Control-Max-Age': '86400',
+    'Accept': 'application/json',
+      'User-Agent': 'python-novaclient',
+      'X-OpenStack-Nova-API-Version': '2.1',
+      // 'Accept-Encoding':' gzip, deflate, compress'
+  }};
+  header =JSON.parse(JSON.stringify(header).replace(regex,""))
+
+
+
+   
+    await axios.post('http://'+config.ipOpenstack+'/compute/v2.1/servers', body,header )
+            .then(function (response) {
+                // console.log("Exito creando servidor -------------------------------------------------------")
+                if (response.data.server) {
+                   
+                    answer.status = 200
+                   answer.content=response.data.server
+                   answer.error=null
+                }else{
+                   
+                    answer.status = 401
+                    answer.content=null
+                    answer.error=response.data
+                }
+            })
+            .catch(error =>{
+                // console.log("error creando servidor -------------------------------------------------------")
+                // console.log(error.response.data)
+                // console.log(error)
+                answer.status = 400
+                answer.content=null
+                answer.error=error
+            });
+   
+            // await sleep(10000)
+    
+    return answer;
+}
+
 
 async function createCoreIMS( vms,idImage,nameKey,idFlavor,idNet,idArquitecture,idFlavorAIO ) {
     let core=[];
@@ -672,14 +745,22 @@ async function deleteRouter(idrouter){
 
 
 
-async function createToken(userName, proyectName, proyectDomainName, userDomainName, password, url){
-    await exec('sh server/scripts/createTokenDinamic.sh '+userName+' '+ proyectName+ ' '+ proyectDomainName+ ' '+ userDomainName +' '+password+' '+url  ,
-          (error, stdout, stderr) => {
-              console.log(`${stdout}`);
-              return `${stdout}`
-              
-          }
-        );
+
+
+ function createToken(userName, proyectName, proyectDomainName, userDomainName, password, url){
+    return new Promise((resolve, reject) => {
+        exec('sh server/scripts/createTokenDinamic.sh '+userName+' '+ proyectName+ ' '+ proyectDomainName+ ' '+ userDomainName +' '+password+' '+url, (error, stdout, stderr) => {
+         if (error) {
+        //   console.warn(error);
+         }
+         resolve(stdout? stdout : stderr);
+         console.log(stdout);
+        });
+       });
+
+
+
+        
         
 }
 
@@ -775,6 +856,7 @@ exports.createRouter=createRouter;
 exports.conectPublicRouter=conectPublicRouter;
 exports.conectPrivateRouter=conectPrivateRouter;
 exports.createServer=createServer;
+exports.createOnlyServer=createOnlyServer;
 exports.createCoreIMS=createCoreIMS;
 exports.consultServer=consultServer;
 exports.onOffServer=onOffServer;
