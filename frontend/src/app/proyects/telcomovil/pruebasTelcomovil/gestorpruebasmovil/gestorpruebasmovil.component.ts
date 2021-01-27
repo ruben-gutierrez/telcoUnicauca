@@ -46,7 +46,7 @@ export class GestorpruebasmovilComponent implements OnInit {
   constructor(private modalService:NgbModal,
     private activatedRouter: ActivatedRoute,
        // private _arquitecture: ArquitecturesService,
-        // private _server: ServerService,
+        private _server: ServerService,
         private toastr: ToastrService,
         private router: Router,
         private _openstack: OpenstackQueriesService,
@@ -61,7 +61,7 @@ export class GestorpruebasmovilComponent implements OnInit {
 
   async ngOnInit() {
     this.formNewServer = new FormGroup({
-      idArq: new FormControl( this.idMachine),
+      idArq: new FormControl( 'machineProyectMovil'),
       name: new FormControl(null, Validators.required),
       image: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
@@ -80,6 +80,9 @@ export class GestorpruebasmovilComponent implements OnInit {
     await this.consultImages();
  
     await this.consultFlavor();
+
+    this.getMachines();
+
 
    
   }
@@ -120,6 +123,7 @@ export class GestorpruebasmovilComponent implements OnInit {
     this.loading=true
     // console.log(this.formNewServer.value)    
     await this._machineMovil.createMachine(this.formNewServer.value)
+    
     // await this._machineMovil.addMachineOp(this.formNewServer.value)
     .subscribe(async response =>{
       this.loading=false
@@ -206,10 +210,12 @@ export class GestorpruebasmovilComponent implements OnInit {
 
   deleteMachine(id:string, index){
     // console.log(id);
-    this._machineMovil.deleteMachine(id)
+    this._server.actionsServer(id,'delete', null,)
+    //this._machineMovil.deleteMachine(id)
       .subscribe( res =>{
         var i = this.machines.indexOf( id );
         this.machines.splice(index, 1 );
+        this.toastr.success("maquina eliminada")
         // console.log(this.users);
         // console.log(i);
       });

@@ -8,6 +8,7 @@ const config = require('../config');
 const authController={};
 
 authController.signin= async(req, res) => {
+    
     const { email, password } = req.body;
     const user = await User.findOne({ email: email});
     if(!user){

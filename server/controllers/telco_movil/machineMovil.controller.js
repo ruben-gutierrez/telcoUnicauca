@@ -1,4 +1,4 @@
-const MachineMovil = require('../../models/telco_movil/machineMovil');
+const MachineMovil = require('../../models/server');
 const ImagenMovil = require('../../models/telco_movil/imagenMovil');
 const config = require('./../../config');
 const openstack = require('../../functions/openstack');
@@ -9,7 +9,8 @@ const MachineMovilController={};
 
 //Encontrar todas las maquinas consultando de la bd MONGODB
 MachineMovilController.getMachinesMovil=async(req, res)=>{
-    const server = await MachineMovil.find();
+    const server = await MachineMovil.find( { idArquitecture : 'machineProyectMovil'} );
+
     res.json(server);
     
 };
@@ -20,16 +21,18 @@ MachineMovilController.getMachinesMovil=async(req, res)=>{
 
 MachineMovilController.createMachineMovil=async(req, res)=>{
 
-
   let  token = await openstack.createToken(config.proyectMovil.username, config.proyectMovil.projectName, config.proyectMovil.projectDomainName, config.proyectMovil.userDomainName, config.proyectMovil.password, config.proyectMovil.authURL)
 
     let server = await openstack.createOnlyServer( req.body.name, config.proyectMovil.idImageOAI, 'ims', config.proyectMovil.idFlavorOAI,config.proyectMovil.idNetworkProjectMovil, token);
-
+  
     //valida el estado de respuesta de la funcion createOnlyServer
 
     if( server.status ){ //investigar que significa esta linea de codigo  if( varibale )
         if( server.status == 200){
-                const server1 = new MachineMovil(req.body);
+                var server1 = new MachineMovil(req.body);
+                server1.infoServer = server.content;
+                server1.idArquitecture = req.body.idArq
+                // console.log(server1)
                 await server1.save();
             res.json({
                 status:'200',

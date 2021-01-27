@@ -6,6 +6,7 @@ const openstack = require('../functions/openstack');
 const serverFunctions = require('../functions/server');
 const { response } = require('express');
 const MachineMovilController = require('./telco_movil/machineMovil.controller');
+const arquitecture = require('../models/arquitecture');
 
 const ServerController={};
 
@@ -110,42 +111,56 @@ ServerController.actionsServer=async(req, res) => {
                 try {
                     let server= await Server.findById(req.params.id)
                     await openstack.deleteServer(server['infoServer'].id)
+                    arquitecture.findById(server.idArquitecture, "-password", async (err, arquitecture) => { 
+                        
+                        if(arquitecture){//si no existe la arquitectura
+                            if(server.idArquitecture){
+                                let arquitecture= await Arquitecture.findById(server.idArquitecture)
+                                if (server.type == 'ims') {
+                                    arquitecture.vmCoreIMS.forEach(async (vm,index) => { 
+                                        if ( vm._id.toString()== server._id.toString()) {
+                                            arquitecture.vmCoreIMS.splice( index, 1 );
+                                            arquitecture.save()
+                                            
+                                            res.json(
+                                                {
+                                                    status:'200',
+                                                    content:'action server'
+                                                }
+                                            );
+                                        }
+                                    });
+        
+                                }else{
+                                    // console.log(arquitecture.vmAditionals)
+                                    arquitecture.vmAditionals.forEach(async (vm,index) => { 
+                                        // console.log(vm._id, server._id)
+                                        if ( vm._id.toString()== server._id.toString()) {
+                                            console.log('eliminar maquina adicional')
+                                            arquitecture.vmAditionals.splice( index, 1 );
+                                            arquitecture.save()
+                                            
+                                            res.json(
+                                                {
+                                                    status:'200',
+                                                    content:'action server'
+                                                }
+                                            );
+                                        }
+                                        
+                                    });
+                                }
+                            }
+                        } 
+                    });
+                    await Server.findByIdAndDelete(server._id.toString())
+                    res.json(
+                        {
+                            status:'200',
+                            content:'action server'
+                        }
+                    );
                     
-                    let arquitecture= await Arquitecture.findById(server.idArquitecture)
-                    if (server.type == 'ims') {
-                        arquitecture.vmCoreIMS.forEach(async (vm,index) => { 
-                            if ( vm._id.toString()== server._id.toString()) {
-                                arquitecture.vmCoreIMS.splice( index, 1 );
-                                arquitecture.save()
-                                await Server.findByIdAndDelete(server._id.toString())
-                                res.json(
-                                    {
-                                        status:'200',
-                                        content:'action server'
-                                    }
-                                );
-                            }
-                        });
-
-                    }else{
-                        console.log(arquitecture.vmAditionals)
-                        arquitecture.vmAditionals.forEach(async (vm,index) => { 
-                            console.log(vm._id, server._id)
-                            if ( vm._id.toString()== server._id.toString()) {
-                                console.log('eliminar maquina adicional')
-                                arquitecture.vmAditionals.splice( index, 1 );
-                                arquitecture.save()
-                                await Server.findByIdAndDelete(server._id.toString())
-                                res.json(
-                                    {
-                                        status:'200',
-                                        content:'action server'
-                                    }
-                                );
-                            }
-                            
-                        });
-                    }
                 } catch (error) {
                     console.log('error')
                     res.json(

@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
 
   login(infoLogin:NgForm){
     // console.log(this.previousUrl)
+    console.log('test');
     this._users.loginUser(infoLogin.value)
       .subscribe( data => {
         // console.log(data)

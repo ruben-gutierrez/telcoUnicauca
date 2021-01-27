@@ -9,7 +9,7 @@ export class ServerService {
   readonly URL_API_SERVER:string = `http://10.55.6.31:3000/ims/server`;
   constructor(  private http: HttpClient ) { }
   
-  actionsServer(idServer, action,idArquitecture='', dataForm={}){
+  actionsServer(idServer, action,idArquitecture=null, dataForm={}){
     let data={
       'action':action,
       'idArquitecture':idArquitecture,

@@ -51,7 +51,8 @@ export class UsersService {
         'Content-Type': 'application/json',
         // 'x-access-token': this.token
       });
-      return this.http.post('http://localhost:3000/auth/signin',infoLogin,{headers});
+      console.log(infoLogin)
+      return this.http.post('http://10.55.6.31:3000/auth/signin',infoLogin,{headers});
           
     }
   
