@@ -8,7 +8,7 @@
             <div class="titulo">Escenario 2</div>
             <div class="container">
               <div class="card card-maq pb-2" *ngFor="let machine of machines; let i = index">
-                <div class="card-header">
+                <div class="card-header" >
                   {{ machine.name }}
                 </div>
                 <div class="card-body">
@@ -20,9 +20,9 @@
                     </div>
                     <div class="col col-6 col-md-6 col-xs-6 col-lg-6 text-center">
                       <!-- <div class="titulo-maquina"><h1>MAQUINA 1</h1></div> -->
-                      <div class="info-maquina">
+                      <div class="info-maquina" >
                         <ul class="utility-list">
-                          <li><strong>ip flotante:</strong> 10.55.0.02</li>
+                          <li><strong>ip flotante:</strong></li>
                           <li><strong>ip publica: </strong>192.168.10.0</li>
                           <li><strong>fecha:</strong> 18-11-2020</li>
                           <li><strong>almacenamiento: </strong>20</li>
@@ -31,10 +31,10 @@
                       <div class="panel-footer pt-2">
                         <button class="btn btn-size btn-prueb left-btn" (click)="[powerServer(machine._id)]" popoverClass="popov-maq" ngbPopover="On/Off"
                           triggers="mouseenter:mouseleave" placement="bottom"><i class="fas fa-power-off"></i></button>
-                        <button class="btn btn-prueb btn-size" popoverClass="popov-maq" triggers="mouseenter:mouseleave"
+                        <button class="btn btn-prueb btn-size" (click)="[instantServer(machine._id,i)]"  popoverClass="popov-maq" triggers="mouseenter:mouseleave"
                           ngbPopover="Instantanea" placement="bottom"><i class="fas fa-camera-retro"></i></button>
-                        <button class="btn btn-prueb btn-size" popoverClass="my-custom-class"
-                          triggers="mouseenter:mouseleave" (click)="[consoleServer(machine._id)]"
+                        <button class="btn btn-prueb btn-size"  popoverClass="my-custom-class"
+                          triggers="mouseenter:mouseleave"  (click)="[returnServer(machine._id)]"
                            ngbPopover="Regresar instantanea" placement="bottom"><i
                             class="fas fa-undo-alt"></i></button>
                         <button class="btn btn-console right-btn btn-size" (click)="[consoleServer(machine._id)]" popoverClass="popov-maq"

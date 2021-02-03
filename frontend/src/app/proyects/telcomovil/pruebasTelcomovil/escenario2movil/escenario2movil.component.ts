@@ -22,6 +22,8 @@ export class Escenario2movilComponent implements OnInit {
   loading=false;
   idMachine:string;
   messageLoading:string;
+  core:any;
+  arquitecture: any;
 
   constructor(private modalService:NgbModal,
     private activatedRouter: ActivatedRoute,
@@ -29,6 +31,7 @@ export class Escenario2movilComponent implements OnInit {
         private _server: ServerService,
         private toastr: ToastrService,
         private router: Router,
+        private _arquitecture:ArquitecturesService, 
         private _openstack: OpenstackQueriesService,
         private _machineMovil: MachinesMovilService,
         private _location: Location) { 
@@ -39,6 +42,7 @@ export class Escenario2movilComponent implements OnInit {
         }
 
   ngOnInit(): void {
+    this.core=this.arquitecture.vmCoreIMS;
   }
 
   getMachines(){
@@ -83,6 +87,36 @@ export class Escenario2movilComponent implements OnInit {
         }, error=>{
           // this.loading=false;
           this.toastr.error('Error al apagar la máquina')
+        })
+    }
+    returnServer(id){
+      this.loading=true;
+      this.messageLoading="Reestableciendo máquina virtual, este proceso puede tardar 1 minuto apoximadamente"
+      this._server.actionsServer(id,'rebuild')
+        .subscribe( data =>{
+          this.toastr.success('MV reestablecida con exitosa');
+          this.loading=false;
+        }, error=>{
+          this.loading=false;
+          this.toastr.error('Error al reestablecer la máquina');
+        })
+    }
+
+    instantServer(id,index){
+      this.loading=true;
+      this.messageLoading="Tomando instantanea";
+      this._server.actionsServer(id,'instant')
+        .subscribe( data =>{
+          this.toastr.success('Instantanea tomada con éxito');
+          this.loading=false;
+          // if (this.showcore) {
+            this.core[index].idImageRebuild="xxxx"
+          // }else{
+            // this.vmsAditionals[index].idImageRebuild="xxxx"
+          // }
+        }, error=>{
+          this.toastr.error('Error al tomar instantanea la máquina');
+          this.loading=false;
         })
     }
 
