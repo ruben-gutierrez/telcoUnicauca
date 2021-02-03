@@ -196,8 +196,7 @@ images:object;
           
          })
   }
-  powerServer(id){
-    
+  powerServer(id){    
     // this.loading=true
     this._server.actionsServer(id,'on/off')
       .subscribe( data =>{

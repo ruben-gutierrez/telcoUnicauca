@@ -7,9 +7,9 @@
           <div>
             <div class="titulo">Escenario 2</div>
             <div class="container">
-              <div class="card card-maq pb-2">
+              <div class="card card-maq pb-2" *ngFor="let machine of machines; let i = index">
                 <div class="card-header">
-                  Maquina OAI
+                  {{ machine.name }}
                 </div>
                 <div class="card-body">
                   <div class="row  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xs-1">
@@ -29,14 +29,15 @@
                         </ul>
                       </div>
                       <div class="panel-footer pt-2">
-                        <button class="btn btn-size btn-prueb left-btn" popoverClass="popov-maq" ngbPopover="On/Off"
+                        <button class="btn btn-size btn-prueb left-btn" (click)="[powerServer(machine._id)]" popoverClass="popov-maq" ngbPopover="On/Off"
                           triggers="mouseenter:mouseleave" placement="bottom"><i class="fas fa-power-off"></i></button>
                         <button class="btn btn-prueb btn-size" popoverClass="popov-maq" triggers="mouseenter:mouseleave"
                           ngbPopover="Instantanea" placement="bottom"><i class="fas fa-camera-retro"></i></button>
                         <button class="btn btn-prueb btn-size" popoverClass="my-custom-class"
-                          triggers="mouseenter:mouseleave" ngbPopover="Regresar instantanea" placement="bottom"><i
+                          triggers="mouseenter:mouseleave" (click)="[consoleServer(machine._id)]"
+                           ngbPopover="Regresar instantanea" placement="bottom"><i
                             class="fas fa-undo-alt"></i></button>
-                        <button class="btn btn-console right-btn btn-size" popoverClass="popov-maq"
+                        <button class="btn btn-console right-btn btn-size" (click)="[consoleServer(machine._id)]" popoverClass="popov-maq"
                           triggers="mouseenter:mouseleave" ngbPopover="Consola" placement="bottom"><i
                             class="fas fa-terminal"></i></button>
                       </div>

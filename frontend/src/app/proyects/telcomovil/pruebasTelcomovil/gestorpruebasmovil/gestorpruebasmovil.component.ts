@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { NgForm, FormGroup, FormControl, Validators, Form } from "@angular/forms";
 import { UsersService, ServerService,ArquitecturesService, OpenstackQueriesService, MachinesMovilService } from 'src/app/services/services.index';
 import { User } from 'src/app/models/models.index';
@@ -20,6 +20,9 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 export class GestorpruebasmovilComponent implements OnInit {
   machines:any;
   closeResult = '';
+  modal:NgbModalRef;
+  messageLoading:string;
+  @ViewChild('closeButton') closeButton;
   //maquina virtual
   loading=false;
   idMachine:string;
@@ -70,25 +73,16 @@ export class GestorpruebasmovilComponent implements OnInit {
       disk : new FormControl(null, Validators.required),
 
     })
-     await this.getMachine(this.idMachine);
-    this.vmsAditionals=this.arquitecture.vmAditionals;
+     //await this.getMachine(this.idMachine);
     
-    this.resourcesDisp=await this.resourceDisp(this.arquitecture);
    
-    this.core=this.arquitecture.vmCoreIMS;
-   
-    await this.consultImages();
- 
+    await this.consultImages(); 
     await this.consultFlavor();
-
-    this.getMachines();
-
-
-   
+    this.getMachines();   
   }
 
   open(content) {
-    this.modalService.open(content, {size:'lg', windowClass: 'modal-img',ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  this.modalService.open(content, {size:'lg', windowClass: 'modal-img',ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -121,19 +115,21 @@ export class GestorpruebasmovilComponent implements OnInit {
   
   async newServer(){
     this.loading=true
-    // console.log(this.formNewServer.value)    
+    // console.log(this.formNewServer.value)
+    this.messageLoading="Creando Servidor"    
+    this.loading=true;
     await this._machineMovil.createMachine(this.formNewServer.value)
-    
     // await this._machineMovil.addMachineOp(this.formNewServer.value)
     .subscribe(async response =>{
       this.loading=false
-      if(Response['status']==200){
-        this.getMachine(this.idMachine);
+      if(response['status']==200){
         this.toastr.success('Máquina virtual creada')
-        this.arquitecture.vmAditionals.push(response['content'])
-        this.core=this.arquitecture.vmAditionals;
-        this.resourcesDisp=await this.resourceDisp(this.arquitecture);
-        this._location.back();
+        this.ngOnInit();
+        this.modalService.dismissAll();
+        //this.arquitecture.vmAditionals.push(response['content'])
+        //this.core=this.arquitecture.vmAditionals;
+        //this.resourcesDisp=await this.resourceDisp(this.arquitecture);
+        //this._location.back();
       }
       else{
         this.toastr.success('Error al crear la máquina virtual')  
@@ -142,6 +138,7 @@ export class GestorpruebasmovilComponent implements OnInit {
       )
     
   }
+
 
   async getMachine(id){
     await this._machineMovil.getMachine(id)
@@ -210,6 +207,8 @@ export class GestorpruebasmovilComponent implements OnInit {
 
   deleteMachine(id:string, index){
     // console.log(id);
+    this.loading=true
+    this.messageLoading="Borrando servidor"
     this._server.actionsServer(id,'delete', null,)
     //this._machineMovil.deleteMachine(id)
       .subscribe( res =>{
@@ -234,16 +233,22 @@ export class GestorpruebasmovilComponent implements OnInit {
    
       
   }
-  async dropArq (id) {
-    // console.log(id);
-   await this._machineMovil.deleteMachine(id)
-    .subscribe( res =>{
-    
-      var i = this.machines.indexOf( id );
-      this.machines.splice(id, 1 );
-      // console.log(this.users);
-      // console.log(i);
-    });
+
+  consoleServer(id){
+    this.loading=true;
+    this.messageLoading="Creando consola; recuerde que se habilita por 1 hora"
+    this._server.actionsServer(id,'console')
+      .subscribe( data =>{
+        this.toastr.success('Consola creada, verifique la creación de nuevas pestañas');
+        this.toastr.warning('Consola valida por 1 Hora');
+        
+        this.loading=false;
+        window.open(data['consoleLink'],'_blank');  
+        
+      }, error=>{
+        this.toastr.error('Error al lanzar la consola');
+        this.loading=false;
+      })
   }
 
 

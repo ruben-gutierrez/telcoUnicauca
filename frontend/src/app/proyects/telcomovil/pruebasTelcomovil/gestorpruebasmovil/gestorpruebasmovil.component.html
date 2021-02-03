@@ -36,10 +36,11 @@
       <td>ip 10.0.0.0</td>
       <td> 
         
-        <a class="icon-col-con"><i class="fas fa-terminal"></i></a>
+        <a class="icon-col-con" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(machine._id)]"><i class="fas fa-terminal"></i></a>
         <a class="icon-col"><i class="fas fa-expand-arrows-alt"></i></a>
         <a class=" icon-col" type="button" (click)="setInfoVmDelete(machine._id, i)"  data-toggle="modal"  title="Eliminar" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></a>
-        
+        <!-- <button class="btn btn-success" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(machine._id)]"> <i class="fa fa-desktop fa-2x" aria-hidden="true"></i> </button> -->
+
       </td> 
 
     </tr>
@@ -150,6 +151,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="bmDelete.idArquitecturetn btn-danger"  data-dismiss="modal" (click)="deleteMachine(vmDelete.idVm, vmDelete.index)" >Eliminar</button>
+
       </div>
     </div>
   </div>
@@ -160,6 +162,8 @@
 </div>
 
 
-
+<ng-template #await>
+  <app-loading [message]="messageLoading"></app-loading>
+</ng-template>
 
 </div>  
