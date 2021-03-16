@@ -154,6 +154,23 @@ async function conectPublicRouter( idrouter ) {
       });
       return answer;
 }
+
+async function connectarSSHoai(){
+
+    var ssh = new SSH({
+        host: '192.168.205.128',
+        user: 'oai',
+        pass: 'oai'
+    });
+     
+    ssh.exec('echo $PATH', {
+        out: function(stdout) {
+            console.log(stdout);
+        }
+    }).start();
+     
+}
+
 async function conectPrivateRouter( idrouter,idSubnet ) {
     let conect;
     data={

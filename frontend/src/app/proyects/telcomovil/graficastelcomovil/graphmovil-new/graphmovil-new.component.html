@@ -1,0 +1,53 @@
+<p>graphmovil-new works!</p>
+<label for=""> Recuerde ingresar primero la arquitectura, luego el servidor y por ultimo el tipo de gráfica a crear</label>
+<form [formGroup]="formNewGraph" *ngIf="!loading; else await" (ngSubmit)="newGraph()"  ngNativeValidate>
+    <div class="form-group">
+      <label for="name">Nombre</label>
+
+      <input type="text" class="form-control" name="name"  aria-describedby="nameHelp" placeholder="Ingrese nombre" 
+            formControlName="name" required>
+      <!-- <small *ngIf="name.errors?.required" id="nameHelp" class="form-text text-muted">Campo requerido</small> -->
+    </div>
+ <!--    <div class="form-group">
+        <label for="inputArquitecture">Arquitectura</label>
+        
+        <select name="idArquitecture" formControlName="idArquitecture" class="form-control" (change)="updateServers()" >
+            
+                   <option >Elegir...</option>
+               <option [value]="arq._id" *ngFor="let arq of arquitectures">{{arq.name}}</option>
+                
+          </select>
+    </div>
+    <div class="form-group">
+        <label for="inputArquitecture">MV</label>
+        
+        <select name="idServer" formControlName="idServer"  (change)="upgradeGraphs()" class="form-control" >
+            
+                   <option >Elegir...</option>
+               <option [value]="server._id" *ngFor="let server of servers">{{server.name}}</option>
+                
+          </select>
+    </div>
+    <div class="form-group">
+        <label for="inputArquitecture"> Tipo de gráfica</label>
+        
+        <select name="idTemplate" formControlName="idTemplate"  class="form-control" >
+            
+                   <option >Elegir...</option>
+               <option [value]="typeGraph[0]" *ngFor="let typeGraph of typeGraphsServer">{{typeGraph[1]}}</option>
+                
+          </select>
+    </div> -->
+    
+    <a class="btn btn-secondary mx-3" href="javascript:history.back()"> Atras</a>
+    <button   type="submit" class="btn btn-primary mx-3">Guardar</button>
+</form> 
+
+<ng-template #await>
+  <div class="d-flex justify-content-center container">
+
+      <div class=" spinner-border m-5" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+  </div>
+</ng-template>

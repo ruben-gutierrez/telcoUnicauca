@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http'
 })
 export class OpenstackQueriesService {
 
-  URL_API_OPENSTACK='http://10.55.6.31:3000/openstack/'
+  URL_API_OPENSTACK='http://10.55.6.171:3000/openstack/'
   constructor(private http: HttpClient) { }
   getNetworks(){
     return this.http.get(this.URL_API_OPENSTACK+'networks');

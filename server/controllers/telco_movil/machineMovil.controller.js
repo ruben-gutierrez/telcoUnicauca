@@ -26,12 +26,21 @@ MachineMovilController.createMachineMovil=async(req, res)=>{
     let server = await openstack.createOnlyServer( req.body.name, config.proyectMovil.idImageOAI, 'ims', config.proyectMovil.idFlavorOAI,config.proyectMovil.idNetworkProjectMovil, token);
   
     //valida el estado de respuesta de la funcion createOnlyServer
+   await openstack.sleep(8000);
+   var consServer= await openstack.consultServer(server.content.id);
+    // console.log(consServer);
 
     if( server.status ){ //investigar que significa esta linea de codigo  if( varibale )
-        if( server.status == 200){
+        if( server.status == 200){            
                 var server1 = new MachineMovil(req.body);
-                server1.infoServer = server.content;
+                // server1.infoServer = server.content;
+                server1.infoServer = consServer;
                 server1.idArquitecture = req.body.idArq
+                console.log(server.content.id);  
+                server1.cpu=req.body.cpu;
+                server1.ram=req.body.ram;
+                server1.disk=req.body.disk;
+                // server1.infoServer.address=consServer.content;
                 // console.log(server1)
                 await server1.save();
             res.json({
@@ -53,16 +62,18 @@ MachineMovilController.createMachineMovil=async(req, res)=>{
             content: server
         })
     }
-
-
-
+    
 };
+
+
 
 //Encontrar una maquina por ID (404=no encontrado, 200=OK, 400=)
 
 
    
-
+// let consulMachine=await openstack.consultServer(server.content.id);
+//                 console.log("guardar en bd")
+//                 console.log(consulMachine);
     
 MachineMovilController.showMachineMovil = async(req, res)=>{
     try{        

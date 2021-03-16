@@ -36,75 +36,32 @@
                               <th scope="row">1</th>
                               <td> Escenario 1</td>
                               <td>10</td>
-                              <td> 
+                              <!-- <td> 
                                 
-                                <a class="icon-col-con" [routerLink]="['/telcomovil/resultados']" routerLinkActive="active"><i class="fas fa-chart-bar"></i></a>
-                                <a class="icon-col"><i class="fas fa-file-download"></i></a>
-                                <a class="icon-col"><i class="fas fa-trash-alt"></i></a>
+                                <a class="icon-col" [routerLink]="['/telcomovil/resultados']" routerLinkActive="active"><i class="fas fa-chart-pie"></i></a>
+                                <a class="icon-col"><i class="fas fa-download"></i></a>
+                                <a class="icon-col"><i class="fas fa-trash-alt"></i></a> -->
+                                <td class="overflow-hidden">
+                                  <div ngbDropdown container="body">
+                                    <!-- <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Actions</button> -->
+                                    <a class="nav-link selec-color" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
+                                      Acción
+                                    </a>
+                                    <div ngbDropdownMenu>
+                                      <button ngbDropdownItem [routerLink]="['/telcomovil/resultados']" routerLinkActive="active"><i class="fas fa-chart-pie"></i> Graficar</button>                          
+                                      <div class="dropdown-divider"></div>
+                                      <button ngbDropdownItem ><i class="fas fa-trash-alt"></i> Eliminar</button>
+                                    </div>
+                                  </div>  
                               </td> 
                             </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Escenario 1</td>
-                              <td>20</td>
-                              <td>                                 
-                                <a class="icon-col-con" [routerLink]="['/telcomovil/resultados']" routerLinkActive="active"><i class="fas fa-chart-bar"></i></a>
-                                <a class="icon-col"><i class="fas fa-file-download"></i></a>
-                                <a class="icon-col"><i class="fas fa-trash-alt"></i></a>
-                              </td> 
-                            </tr>
+                            
                             </tbody>
                           </table>
 
                         </ng-template>
                       </ngb-panel>
-                      <ngb-panel>
-                        <ng-template ngbPanelHeader id="accor-header">                                       
-                          <button ngbPanelToggle class="btn btn-link container-fluid text-left pl-0">
-                             <div class="col d-flex justify-content-between align-items-center">                                                         
-                              maquina oai 2 
-                                    <a><i id="flecha" class="fas fa-angle-down rotate-icon"></i></a>    
-                        </div>
-                          </button>                
-
-                        </ng-template>
-                        <ng-template ngbPanelContent>
-                          <table class="table table-striped">
-                            <thead>
-                            <tr class="table-sup">
-                              <th scope="col">Nro.</th>
-                              <th scope="col">Tipo Prueba</th>
-                              <th scope="col">BW</th>
-                              <th scope="col">Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td> Escenario 1</td>
-                              <td>10</td>
-                              <td> 
-                                
-                                <a class="icon-col-con"  [routerLink]="['/resultados']" routerLinkActive="active"><i class="fas fa-chart-bar"></i></a>
-                                <a class="icon-col"><i class="fas fa-file-download"></i></a>
-                                <a class="icon-col"><i class="fas fa-trash-alt"></i></a>
-                              </td> 
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Escenario 1</td>
-                              <td>20</td>
-                              <td>                                 
-                                <a class="icon-col-con" [routerLink]="['/resultados']" routerLinkActive="active"><i class="fas fa-chart-bar"></i></a>
-                                <a class="icon-col"><i class="fas fa-file-download"></i></a>
-                                <a class="icon-col"><i class="fas fa-trash-alt"></i></a>
-                              </td> 
-                            </tr>
-                            </tbody>
-                          </table>
-
-                        </ng-template>
-                      </ngb-panel>
+                 
 
                     </ngb-accordion>
 

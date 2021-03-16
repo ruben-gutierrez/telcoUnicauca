@@ -8,6 +8,8 @@ import { SharedModule } from '../proyects/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +26,8 @@ import { InformationComponent } from './ims/information/information.component';
 import { ArquitecturesComponent } from './ims/arquitectures/arquitectures.component';
 import { TestsComponent } from './ims/tests/tests.component';
 import { GraphsComponent } from './ims/graphs/graphs.component';
+
+
 
 import { AvailableComponent } from './ims/arquitectures/available/available.component';
 import { TestingComponent } from './ims/tests/testing/testing.component';
@@ -67,6 +71,9 @@ import { InformationRoutes } from './ims/information/information.routes';
     import { ResultadomovilComponent } from './telcomovil/pruebasTelcomovil/resultadomovil/resultadomovil.component';
     import { GestorresultadosmovilComponent } from './telcomovil/pruebasTelcomovil/gestorresultadosmovil/gestorresultadosmovil.component';
 
+
+    
+
     import { Asideleft4gComponent } from './telcomovil/shared4g/asideleft4g/asideleft4g.component';
     import { Aside4gComponent } from './telcomovil/shared4g/aside4g/aside4g.component';
     import { Contacto4gComponent } from './telcomovil/shared4g/contacto4g/contacto4g.component';
@@ -76,6 +83,12 @@ import { InformationRoutes } from './ims/information/information.routes';
     import { Breadcrumbs4gComponent } from './telcomovil/shared4g/breadcrumbs4g/breadcrumbs4g.component';
     import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeachingComponent } from './telcomovil/teaching/teaching.component';
+
+// Graficas
+import { GraficastelcomovilComponent } from './telcomovil/graficastelcomovil/graficastelcomovil.component';
+import { GraphmovilComponent } from './telcomovil/graficastelcomovil/graphmovil/graphmovil.component';
+import { GraphmovilNewComponent } from './telcomovil/graficastelcomovil/graphmovil-new/graphmovil-new.component';
+import { GraphmovilTemplateComponent } from './telcomovil/graficastelcomovil/graphmovil-template/graphmovil-template.component';
    // import { Accordion, AccordionModule } from 'ngx-accordion';
 
 @NgModule({
@@ -120,6 +133,11 @@ import { TeachingComponent } from './telcomovil/teaching/teaching.component';
         Principal4gComponent,
         Breadcrumbs4gComponent,
         TeachingComponent,
+        GraficastelcomovilComponent,
+        GraphmovilComponent,
+        GraphmovilNewComponent,
+        GraphmovilTemplateComponent,
+       
         
     ],
     exports:[
@@ -128,7 +146,10 @@ import { TeachingComponent } from './telcomovil/teaching/teaching.component';
         ArquitecturesComponent,
         TestsComponent,
         GraphsComponent,
-        AngularMultiSelectModule
+        AngularMultiSelectModule,
+        GraphTemplateComponent,
+        GraphNewComponent,
+
         
         
     ],
@@ -137,7 +158,7 @@ import { TeachingComponent } from './telcomovil/teaching/teaching.component';
         SharedModule,
         RouterModule,
         CommonModule,
-        ChartsModule,
+        ChartsModule,        
         BrowserAnimationsModule,
         MatSlideToggleModule,
         FormsModule,

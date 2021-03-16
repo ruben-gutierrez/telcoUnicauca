@@ -17,7 +17,7 @@ app.set('port', process.env.PORT || 3000 );
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors({origin: ['http://10.55.6.31:4200','http://localhost:4200','http://10.55.6.39:4000']}))
+app.use(cors({origin: ['http://10.55.6.171:4200','http://localhost:4200','http://10.55.6.39:4000']}))
 app.use(fileUpload())
  
 //Routes
@@ -31,9 +31,10 @@ app.use('/ims/', require('./routes/test.routes'));
 app.use('/ims/', require('./routes/graph.routes'));
 app.use('/ims/', require('./routes/server.routes'));
 
+
  //routes telco_movil
  app.use('/telco_movil/', require('./routes/telco_movil/machine_movil.routes'));
-//  app.use('/telco_movil/', require('./routes/telco_movil/test_movil.routes'));
+ app.use('/telco_movil/', require('./routes/telco_movil/test_movil.routes'));
 //  app.use('/telco_movil/', require('./routes/telco_movil/result_movil.routes'));
 
 
@@ -50,7 +51,7 @@ app.listen(app.get('port'), () => {
             config.headersOpenStack = { headers:{
               'X-Auth-Token': config.tokenOpenStack, 
               'Content-Type': 'application/json', 
-              'Access-Control-Allow-Origin': '10.55.6.31',
+              'Access-Control-Allow-Origin': '10.55.6.171',
               'Access-Control-Allow-Credentials': 'true',
               'Access-Control-Allow-Expose-Headers': 'Authorization',
               'Access-Control-Max-Age': '86400',
@@ -70,7 +71,7 @@ app.listen(app.get('port'), () => {
               config.headersOpenStack = { headers:{
                 'X-Auth-Token': config.tokenOpenStack, 
                 'Content-Type': 'application/json', 
-                'Access-Control-Allow-Origin': '10.55.6.31',
+                'Access-Control-Allow-Origin': '10.55.6.171',
                 'Access-Control-Allow-Credentials': 'true',
                 'Access-Control-Allow-Expose-Headers': 'Authorization',
                 'Access-Control-Max-Age': '86400',

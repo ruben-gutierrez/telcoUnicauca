@@ -6,9 +6,10 @@ const serverFunctions = require('../functions/server')
 const graphFunctions = require('../functions/graph')
 const Arquitecture = require('../models/arquitecture');
 let fs = require('fs');
-var SSH = require('simple-ssh');
+var SSH = require('simple-ssh'); 
 const { stdout } = require('process');
 const exec = require('child_process').exec;
+const { response } = require('express');
  
 async function updateArquitecture(data) {
     // console.log(data)
@@ -53,6 +54,7 @@ async function createNetwork(nameNet) {
 
     
 }
+
 async function createSubnet(idNet,ipNet,name) {
     let answer={
         'status': 400,
@@ -328,6 +330,80 @@ async function createServer( name, idImage, nameKey, idFlavor, idNet,idArquitect
     
     return answer;
 }
+async function getHeadersOpenstack(token){
+    let regex=/\\r/g;
+    let header =  { headers:{
+        'X-Auth-Token': token, 
+        'Content-Type': 'application/json', 
+        'Access-Control-Allow-Origin': '10.55.6.171',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Expose-Headers': 'Authorization',
+        'Access-Control-Max-Age': '86400',
+        'Accept': 'application/json',
+          'User-Agent': 'python-novaclient',
+          'X-OpenStack-Nova-API-Version': '2.1',
+          // 'Accept-Encoding':' gzip, deflate, compress'
+      }};
+      return JSON.parse(JSON.stringify(header).replace(regex,""))
+}
+
+// this function have delay 10 seconds because the vm need time for deploy
+async function asingIpFloat(idServer){
+    let  token = await openstack.createToken(config.proyectMovil.username, config.proyectMovil.projectName, config.proyectMovil.projectDomainName, config.proyectMovil.userDomainName, config.proyectMovil.password, config.proyectMovil.authURL)
+    header= await getHeadersOpenstack(token);
+    await sleep(10000)
+    let portDevice;
+    await axios.get('http://'+config.ipOpenstack+':9696/v2.0/ports?device_id='+idServer, header )
+    .then(function (response) {
+     portDevice= response.data.ports[0].id
+    //   console.log(portDevice)
+    })
+    .catch(error =>{
+    //    console.log('error consult ports', error)
+       console.log('error consult ports')
+    });
+    let body2={
+        "floatingip": {
+            "floating_network_id": config.idNetPublic,
+            "port_id": portDevice
+        }
+    }
+    await axios.post('http://'+config.ipOpenstack+':9696/v2.0/floatingips', body2, config.headersOpenStack )
+    .then( data =>{
+    //    console.log(data)
+    })
+    .catch(error =>{
+    // console.log('error dd ip float', error.response.data)
+    console.log('error dd ip float')
+    })
+    await sleep(10000)
+   return await openstack.consultServer(idServer);
+
+}
+
+
+async function executeComandVM(hostIp, user, pass, comand){
+    
+
+    var ssh = new SSH({
+            host: hostIp,
+            user: user,
+            pass: pass
+        });
+    return new Promise((resolve, reject) => {
+
+         ssh.exec(comand, {
+                out: function(stdout) {
+                    // console.log('ok')
+                    resolve (stdout)
+                },
+                err: function(stderr) {
+                    // console.log('fail')
+                    return reject (stdout)
+                }
+            }).start();
+       });
+}
 
 async function createOnlyServer( name, idImage, nameKey, idFlavor, idNet, token ) {
     let server;
@@ -356,7 +432,7 @@ async function createOnlyServer( name, idImage, nameKey, idFlavor, idNet, token 
 let header =  { headers:{
     'X-Auth-Token': token, 
     'Content-Type': 'application/json', 
-    'Access-Control-Allow-Origin': '10.55.6.31',
+    'Access-Control-Allow-Origin': '10.55.6.171',
     'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Allow-Expose-Headers': 'Authorization',
     'Access-Control-Max-Age': '86400',
@@ -394,8 +470,8 @@ let header =  { headers:{
                 answer.error=error
             });
    
-            // await sleep(10000)
-    
+             serverIpFloat=await asingIpFloat(answer.content.id)
+             answer.content=serverIpFloat
     return answer;
 }
 
@@ -754,7 +830,7 @@ async function deleteRouter(idrouter){
         //   console.warn(error);
          }
          resolve(stdout? stdout : stderr);
-         console.log(stdout);
+        //  console.log(stdout);
         });
        });
 
@@ -873,3 +949,7 @@ exports.createFlavor=createFlavor;
 exports.infoFlavor=infoFlavor;
 exports.showArquitecture=showArquitecture;
 exports.createToken=createToken;
+exports.executeComandVM=executeComandVM;
+exports.sleep=sleep;
+exports.asingIpFloat=asingIpFloat;
+exports.getHeadersOpenstack=getHeadersOpenstack;

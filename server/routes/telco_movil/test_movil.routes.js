@@ -6,8 +6,9 @@ const testMovilController = require('../../controllers/telco_movil/testMovil.con
 
 
 
-router.get('/',testMovilController.getInfo);
-// router.get('/',testMovilController.getTest);
+router.post('/mtest',testMovilController.executeTest); 
+router.get('/datatest/:id',testMovilController.getDataTest);
+router.get('/tests',testMovilController.getTests);
 // router.post('/',testMovilController.createTest);
 // router.get('/:id',testMovilController.showTest);
 // router.put('/:id',testMovilController.updateTest);

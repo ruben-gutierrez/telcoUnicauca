@@ -24,10 +24,10 @@ export class Escenario2movilComponent implements OnInit {
   messageLoading:string;
   core:any;
   arquitecture: any;
+  
 
   constructor(private modalService:NgbModal,
     private activatedRouter: ActivatedRoute,
-       // private _arquitecture: ArquitecturesService,
         private _server: ServerService,
         private toastr: ToastrService,
         private router: Router,
@@ -42,14 +42,13 @@ export class Escenario2movilComponent implements OnInit {
         }
 
   ngOnInit(): void {
-    this.core=this.arquitecture.vmCoreIMS;
   }
 
   getMachines(){
     this._machineMovil.getMachines()
       .subscribe((data: any) => {
         this.machines = data;
-        // console.log(this.users);
+        console.log('MAQUINAS OAI',this.machines[0].infoServer);
     });  
   }
 
@@ -73,10 +72,10 @@ export class Escenario2movilComponent implements OnInit {
   
 
     powerServer(id){    
-      // this.loading=true
+      this.loading=true
       this._server.actionsServer(id,'on/off')
         .subscribe( data =>{
-          // this.loading=false;
+          this.loading=false;
           if (data['action']== 'off') {
             this.toastr.success('La mv se ha apagado correctamente')
             
@@ -85,7 +84,7 @@ export class Escenario2movilComponent implements OnInit {
   
           }
         }, error=>{
-          // this.loading=false;
+          this.loading=false;
           this.toastr.error('Error al apagar la máquina')
         })
     }

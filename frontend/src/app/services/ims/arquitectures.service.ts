@@ -17,7 +17,7 @@ export class ArquitecturesService {
               private _user:UsersService ) {
     
    }
-  readonly URL_API_ARQUTIECTURE:string = `http://10.55.6.31:3000/ims/arquitecture`;
+  readonly URL_API_ARQUTIECTURE:string = `http://10.55.6.171:3000/ims/arquitecture`;
   
   getArquitectures(){
       return this.http.get(this.URL_API_ARQUTIECTURE+'s');
@@ -44,7 +44,7 @@ export class ArquitecturesService {
   }
 
   dropArquitecture(id){
-    return this.http.put(`http://10.55.6.31:3000/ims/arquitectureDrop/${id}`,null);
+    return this.http.put(`http://10.55.6.171:3000/ims/arquitectureDrop/${id}`,null);
   }
 
 

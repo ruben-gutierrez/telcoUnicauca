@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ServerService {
 
-  readonly URL_API_SERVER:string = `http://10.55.6.31:3000/ims/server`;
+  readonly URL_API_SERVER:string = `http://10.55.6.171:3000/ims/server`;
   constructor(  private http: HttpClient ) { }
   
   actionsServer(idServer, action,idArquitecture=null, dataForm={}){
@@ -18,10 +18,10 @@ export class ServerService {
     return this.http.post(this.URL_API_SERVER  + `/${idServer}`, data)
   }
   addServerArquitecture(dataform){
-    return this.http.post( 'http://10.55.6.31:3000/ims/server/arquitecture/'+dataform.idArq, dataform )
+    return this.http.post( 'http://10.55.6.171:3000/ims/server/arquitecture/'+dataform.idArq, dataform )
   }
   getServer(idServer){
-    return this.http.get( 'http://10.55.6.31:3000/ims/server/'+idServer )
+    return this.http.get( 'http://10.55.6.171:3000/ims/server/'+idServer )
   }
 
   

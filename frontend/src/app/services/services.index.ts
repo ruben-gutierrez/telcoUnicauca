@@ -14,4 +14,5 @@ export { TelcoProyectService } from "src/app/services/telco/telco-proyect.servic
 
 //services Telco Movil
 export { MachinesMovilService } from "src/app/services/telcoMovil/machinesMovil.service";
+export { TestsMovilService } from "src/app/services/telcoMovil/testsMovil.service";
 

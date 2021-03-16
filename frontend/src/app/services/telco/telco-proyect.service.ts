@@ -9,7 +9,7 @@ import { TelcoProyect } from 'src/app/models/telcoProyect.model';
 export class TelcoProyectService {
 
   proyects: TelcoProyect;
-  readonly URL_API_PROYECT:string ='http://10.55.6.31:3000/proyecttelco';
+  readonly URL_API_PROYECT:string ='http://10.55.6.171:3000/proyecttelco';
 
   constructor( private http: HttpClient
               ) {
@@ -17,7 +17,7 @@ export class TelcoProyectService {
    }
   
    getProyectsTelco(){
-    return this.http.get('http://10.55.6.31:3000/proyectstelco');
+    return this.http.get('http://10.55.6.171:3000/proyectstelco');
   }
 
   createProyectTelco(proyectTelco:TelcoProyect){

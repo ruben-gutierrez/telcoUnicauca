@@ -18,9 +18,10 @@ export class MachinesMovilService {
               ) {
     
    }
-   readonly URL_API_ARQUTIECTURE:string = `http://10.55.6.31:3000/telco_movil/mserver`;
-  //readonly URL_API_ARQUTIECTURE:string = `http://localhost:3000/telco_movil/mserver`;
-  //http://10.55.6.31:3000/openstack/network/
+   readonly URL_API_ARQUTIECTURE:string = `http://10.55.6.171:3000/telco_movil/mserver`;
+   readonly URL_API_OAI:string = `http://10.55.6.171:3000/telco_movil/mtest`;
+
+   //readonly URL_API_ARQUTIECTURE:string = `http://localhost:3000/telco_movil/mserver`;
 
   actionMachine(idMachine, action, idArquitecture='', dataForm={}){
     let data={
@@ -40,7 +41,7 @@ export class MachinesMovilService {
   }
 
   addMachineOp(dataform){    
-      return this.http.post( 'http://10.55.6.31:3000/telco_movil/mserver/arquitecture/'+dataform.idArq, dataform )
+      return this.http.post( 'http://10.55.6.171:3000/telco_movil/mserver/arquitecture/'+dataform.idArq, dataform )
     
   }
 
@@ -67,5 +68,9 @@ export class MachinesMovilService {
     })
   }
 
+ pruebasoai(machine:any){
+  return this.http.post(this.URL_API_OAI, machine)
+
+ } 
 
 }

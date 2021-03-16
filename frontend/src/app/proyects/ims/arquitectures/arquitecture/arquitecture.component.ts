@@ -192,8 +192,7 @@ images:object;
          }else{
           this.toastr.error('La base de datos esta temporalmente fuera de servicio')
            this.arquitecture=[]
-         }
-          
+         }          
          })
   }
   powerServer(id){    

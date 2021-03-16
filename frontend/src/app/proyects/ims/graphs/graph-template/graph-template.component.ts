@@ -70,15 +70,20 @@ export class GraphTemplateComponent implements OnInit {
 
   }
   ngOnInit(){
+   
+
+
+    if(this.idGraph){
     this._graph.getGraph(this.idGraph)
     .subscribe(data=>{
      this.graph=data['content']
     })
+    
     this.getData()
     setInterval(() => {
       this.getData()
     }, 300000);
-   
+  } 
    
   }
   getData(){

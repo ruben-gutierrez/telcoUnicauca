@@ -64,6 +64,9 @@ import { GuideReserArqComponent } from './ims/information/guide-reser-arq/guide-
 
   //aprendiendo
 import { TeachingComponent } from './telcomovil/teaching/teaching.component';
+import { GraficastelcomovilComponent } from './telcomovil/graficastelcomovil/graficastelcomovil.component';
+import { GraphmovilNewComponent } from './telcomovil/graficastelcomovil/graphmovil-new/graphmovil-new.component';
+import { GraphmovilComponent } from './telcomovil/graficastelcomovil/graphmovil/graphmovil.component';
   //import { Accordion, AccordionModule } from 'ngx-accordion';
 
 
@@ -138,6 +141,10 @@ const proyectsRoutes: Routes = [
            { path: 'gestorPruebas', component: GestorpruebasmovilComponent,data : {titlePage:'Pruebas'} },
            { path: 'gestorResultados', component: GestorresultadosmovilComponent,data : {titlePage:'Resultados'} },
            { path: 'resultados', component: ResultadomovilComponent,data : {titlePage:'resultado'} },
+           { path: 'graficasm', component: GraficastelcomovilComponent,data : {titlePage:'graficas'} },
+            { path: 'graficasm-new', component: GraphmovilNewComponent,data : {titlePage:'graficasnew'} },
+             { path: 'graficasm/:id', component: GraphmovilComponent, data : {titlePage:'Gráfica'} },
+
 
         { path: '', redirectTo: '/telcomovil/menu', pathMatch: 'full' },
       ]

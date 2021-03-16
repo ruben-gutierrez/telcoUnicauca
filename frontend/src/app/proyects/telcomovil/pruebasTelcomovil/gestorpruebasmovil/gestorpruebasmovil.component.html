@@ -1,169 +1,241 @@
-
-
 <div class="container">
-    <section class="section contenido">
-      <!-- CONTENIDO -->
-      <div class="seccion-contenido">
-            <div class="region region-content">
-              <div id="block-system-main">                
-                  <div class="titulo">Gestor de Maquinas Virtuales</div>                                             
-                           
-                            <!-- <p><code>Maquinas OAI</code></p> -->
-<div class="row">
-    <div class="col d-flex justify-content-end">    
-            <button class="btn btn-fig mb-2 mr-2" (click)="open(content)"><i class="fas fa-plus-circle"></i>  Crear MV </button>                     
-          
-          </div> 
-</div>
-<!-- tabla de la gestion de las maquinas virtuales -->
+  <section class="section contenido">
+    <!-- CONTENIDO -->
+    <div class="seccion-contenido">
+      <div class="region region-content">
+        <div id="block-system-main">
+          <div class="titulo">Gestor de Maquinas Virtuales OAI</div>
 
-<div class="table-responsive-md">
-  <table class="table table-striped table-sm">
-    <thead>
-    <tr class="table-sup">
-      <th scope="col">Nro.</th>
-      <th scope="col">id</th>
-      <th scope="col">Mv</th>
-      <th scope="col">Información</th>
-      <th scope="col">Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let machine of machines; let i = index">
-      <th scope="row">{{i}}</th>
-      <th scope="row">{{machine._id}}</th>
-      <td>{{ machine.name }} </td>
-      <td>ip 10.0.0.0</td>
-      <td> 
-        
-        <a class="icon-col-con" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(machine._id)]"><i class="fas fa-terminal"></i></a>
-        <a class="icon-col"><i class="fas fa-expand-arrows-alt"></i></a>
-        <a class=" icon-col" type="button" (click)="setInfoVmDelete(machine._id, i)"  data-toggle="modal"  title="Eliminar" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></a>
-        <!-- <button class="btn btn-success" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(machine._id)]"> <i class="fa fa-desktop fa-2x" aria-hidden="true"></i> </button> -->
+          <!-- <p><code>Maquinas OAI</code></p> -->
+          <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button class="btn btn-fig mb-2 mr-2" (click)="open(content)"><i class="fas fa-plus-circle"></i> Crear MV
+              </button>
 
-      </td> 
+            </div>
+          </div>
+          <!-- tabla de la gestion de las maquinas virtuales -->
 
-    </tr>
-    
+          <div class="table-responsive-md">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr class="table-sup">
+                  <th scope="col">Nro.</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Fecha </th>
+                  <th scope="col">RAM</th>
+                  <th scope="col">CPU</th>
+                  <th scope="col">Disco</th>
+                  <th scope="col">IP</th>
+                  <th scope="col">Estado</th>
 
-    </tbody>
-  </table>
 
-</div>
- 
-    
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let machine of machines; let i = index">
+                  <input  type="hidden"  *ngFor="let machine of machines; let i = index"  name="role">
+                  
+                  <th scope="row">{{i}}</th>
+                  <th scope="row">{{machine.name}}</th>
+                  <th>{{machine.infoServer.created}}</th>                 
+                  <th>
+                    <!-- *ngIf="consultFlavor(machine.infoServer.flavor.id)" -->
+                    {{machine.ram}}
+                   
+                  </th>
+                  <th>{{machine.cpu}}</th>
+                  <th>{{machine.disk}}</th>
+                  <th> <span type="hidden"  *ngFor="let address of machine.infoServer.addresses | keyvalue">
+                    <div>
+                      Ip flotante: {{address.value[1].addr}} <br>
+                       IP privada: {{ address.value[0].addr }}
+                       
+                   </div>
+                  </span>
+                  </th>
+                  <th>{{machine.infoServer.status}}</th>                 
+
+                  <!-- <td> -->
+                    <!-- <a class="icon-col-con" title="Dar click en la sección negra luego la tecla enter" -->
+                      <!-- (click)="[consoleServer(machine._id)]"><i class="fas fa-terminal"></i></a> -->
+                    <!-- <a class="icon-col"><i class="fas fa-expand-arrows-alt"></i></a> -->
+                    <!-- <a class=" icon-col" type="button" (click)="setInfoVmDelete(machine._id, i)" data-toggle="modal" -->
+                      <!-- title="Eliminar" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></a> -->
+                    <!-- <button class="btn btn-success" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(machine._id)]"> <i class="fa fa-desktop fa-2x" aria-hidden="true"></i> </button> -->
+                    <td class="overflow-hidden">
+                      <div ngbDropdown container="body">
+                        <!-- <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Actions</button> -->
+                        <a class="nav-link selec-color" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
+                          Acción
+                        </a>
+                        <div ngbDropdownMenu>
+                          <button ngbDropdownItem (click)="[powerServer(machine._id)]"><i class="fas fa-power-off"></i> Apagar</button>                          
+                          <button ngbDropdownItem (click)="[consoleServer(machine._id)]"><i class="fas fa-expand"></i> Abrir</button>
+                          <button ngbDropdownItem><i class="fas fa-expand-arrows-alt"></i> Editar</button>
+                          <div class="dropdown-divider"></div>
+                          <button ngbDropdownItem (click)="setInfoVmDelete(machine._id, i)"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                        </div>
+                      </div>                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
   </section>
 
   <!-- formulario para crear maquinas  -->
-  
+
   <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Maquina Virtual OAI</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
+
+    </div>
+    <div class="loading" *ngIf="loading">
+      <ng-template #await>
+        <app-loading [message]="messageLoading"></app-loading>
+      </ng-template>
+
     </div>
     <div class="modal-body">
       <div class="lte-img">
+        <!-- </select> -->
         <form [formGroup]="formNewServer" (ngSubmit)="newServer()" ngNativeValidate>
+            <input type="hidden" class="form-control" formControlName="idArq" name="idArq" >
           <div class="container">
-            <div class="row row-cols-xs-1 row-cols-md-2">
-              <div class="col-sm">                
+            <div class="row row-cols-xs-1 row-cols-md-2 align-items-center">
+              <div class="col-sm">
                 <div class="mb-3">
                   <label for="name">Nombre de la Maquina_virtual</label>
-                  <input type="text"  name="name" formControlName="name"  class="form-control">
+                  <input type="text" id="name" name="name" formControlName="name" class="form-control" required>
                 </div>
-                <div class="mb-3">                  
-                    <div class="form-group">
-                      <label for="idArquitecture">Sistema Operativo con OAI</label>
-                      <select name="image" class="form-control"  formControlName="image" placeholder="Ubuntu 14" >
-                        <!-- <option value="ubuntu14">Ubuntu14</option> -->
-                        <option *ngFor="let image of images" [value]="image.id">{{ image.name }}</option>
-                    </select>                 
-                  </div>
-                </div>
-                <div class="mb-3">                  
+                <div class="mb-3">
                   <div class="form-group">
-                    <label for="idArquitecture">Flavor</label>
-                    <select name="image" class="form-control"  formControlName="image" placeholder="Ubuntu 14" >
+                    <label for="idArquitecture">Sistema Operativo con OAI</label>                   
+                    <select name="image" class="form-control" formControlName="image" placeholder="Ubuntu 14">
                       <option value="ubuntu14">Ubuntu14</option>
                       <option *ngFor="let image of images" [value]="image.id">{{ image.name }}</option>
-                  </select>                 
+                    </select>
+                  </div>
                 </div>
-              </div>
+                <!-- <div class="mb-3">
+                  <div class="form-group">
+                    <label for="idArquitecture">Flavor</label>
+                    <select name="flavor" class="form-control" formControlName="flavor" placeholder="oai">
+                      <option value="ubuntu14">oai</option>
+                      <option *ngFor="let flavor of flavors" [value]="flavor.id">{{ flavor.name }}</option>
+                    </select>
+                  </div>
+                </div> -->
                 <div class="mb-3">
                   <label for="name">Descripcion</label>
-                  <!-- <input type="text"  name="descripcion" formControlName="descripcion"  class="form-control"> -->
+                  <input type="area"  name="description" formControlName="description"  class="form-control"> 
                 </div>
+                
               </div>
 
               <div class="col-sm">
-                <div class="row mb-3">
-                  <label class="col-sm-6 col-form-label">Procesadores</label>
-                  <div class="col-sm-6">
-                    <!-- <input type="number" class="form-control" name="procesadores" formControlName="procesadores" > -->
-                 
+                <div class="mb-3">
+                  <label for="name">Procesadores</label>
+                  <div class="row">
+                    <input class="col-10 slider" name="cpu" formControlName="cpu" type="range" min=1 max=4 [value]="procesador"
+                      (change)="updateProc($event)">
+                    <span class="col-2" style="font-size: 14px;">{{procesador}}</span>
+
+                    <!-- <input type="number" name="cpu"   formControlName="cpu"  id="cpu"> -->
+                    <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull-left">0</span> -->
+                    <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull mx-1">0</span> -->
+
+                    <!-- max="{{resourcesDisp.vcpus}}" name="cpu" formControlName="cpu" ></mat-slider> -->
+                    <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull-right ">{{resourcesDisp.vcpus}}</span> -->
+                    <!-- <span style="font-size: 14px;" class="label label-rounded label-success pull mx-1 ">{{resourcesDisp.vcpus}}</span> -->
+
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-6 col-form-label">Ram[GB]</label>
-                  <div class="col-sm-6">
-                    <!-- <input type="number" class="form-control" name="ram" formControlName="ram" > -->
-                   
+                <div class="mb-3">
+                  <label for="name">RAM [Gb ]</label>
+                  <div class="row">
+                    <input class="col-10  slider" name="ram" formControlName="ram" type="range" min=1 max=4 [value]="ram"
+                      (change)="updateRam($event)">
+                    <span class="col-2" style="font-size: 14px;">{{ram}}</span>
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-6 col-form-label">Almacenamiento[GB]</label>
-                  <div class="col-sm-6">
-                    <!-- <input type="number" class="form-control" name="almacenamiento" formControlName="almacenamiento" > -->
-                   
+                <div class="mb-3">
+                  <label for="name">Almacenamiento [Gb]</label>
+                  <div class="row">
+                    <input class="col-10 slider" name="disk" formControlName="disk" type="range" min=20 max=50 [value]="almacenamiento"
+                      (change)="updateAlm($event)">
+                    <span class="col-2" style="font-size: 14px;">{{almacenamiento}}</span>
                   </div>
                 </div>
-              </div>             
+
+
+
+              </div>
             </div>
-          </div>   
+          </div>
           <div class="modal-footer">
-            <button type="button" class="btn icon-col" aria-label="Close" (click)="modal.dismiss('Cross click')">Cancelar</button>
-            <button type="submit" class="btn btn-fig">Crear</button>
-
-          </div>             
+            <button type="button" class="btn icon-col" aria-label="Close"
+              (click)="modal.dismiss('Cross click')">Cancelar</button>
+            <!-- <button type="submit" class="btn btn-fig">Crear
+              <app-loading [message]="messageLoading"></app-loading>
+            </button> -->
+            <button class="btn btn-fig" type="submit">
+              Crear
+            </button>
+          </div>
         </form>
-       </div>                                     
-    </div>                                   
-  </ng-template> 
-  
-  <!-- modal de seguridad para eliminar-->
- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Eliminar vm</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>mDelete.idArquitecture
-      <div class="modal-body">
-        ¿Estas seguro que deseas Eliminar la mv <strong></strong> de la arquitectura?
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="bmDelete.idArquitecturetn btn-danger"  data-dismiss="modal" (click)="deleteMachine(vmDelete.idVm, vmDelete.index)" >Eliminar</button>
+    </div>
+  </ng-template>
 
+  <!-- loadIng -->
+
+
+  <div *ngIf="loading">
+    <app-loading [message]="messageLoading"></app-loading>
+
+  </div>
+
+
+
+  <!-- modal de seguridad para eliminar-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Eliminar vm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Estas seguro que deseas Eliminar la mv <strong>{{vmDelete.nameVm}}</strong> de la arquitectura?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn-danger" data-dismiss="modal"
+            (click)="deleteMachine(vmDelete.idVm, vmDelete.index)">Eliminar</button>
+
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="col" style="background-color:#e7ad31f3; color: black;">
+    <p style="font-size: 16px;"> Usuario y contraseña de las máquinas virtuales "oai".</p>
+  </div>
+
+
+  <ng-template #await>
+    <app-loading [message]="messageLoading"></app-loading>
+  </ng-template>
+
 </div>
-
-<div class="col" style="background-color:#e7ad31f3; color: black;">
-  <p style="font-size: 16px;"> Usuario y contraseña de las máquinas virtuales "oai".</p>
-</div>
-
-
-<ng-template #await>
-  <app-loading [message]="messageLoading"></app-loading>
-</ng-template>
-
-</div>  

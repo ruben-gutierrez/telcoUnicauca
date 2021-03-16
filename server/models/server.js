@@ -5,6 +5,9 @@ const { Schema } = mongoose;
 
 const ServerSchema = new Schema ({
     name: { type: String, required:true},  
+    ram: { type: String},
+    cpu: { type: String},
+    disk: { type: String},
     idImageRebuild: { type: String},   
     idArquitecture: { type: String},   
     infoServer: { type: Object},

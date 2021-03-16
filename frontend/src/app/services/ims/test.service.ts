@@ -15,7 +15,7 @@ export class TestService {
               private _user:UsersService ) {
     
    }
-  readonly URL_API_TEST:string = `http://10.55.6.31:3000/ims/test`;
+  readonly URL_API_TEST:string = `http://10.55.6.171:3000/ims/test`;
   
   getTests(){
       return this.http.get(this.URL_API_TEST+'s');
@@ -51,10 +51,10 @@ export class TestService {
     return this.http.get(this.URL_API_TEST + `Data/${_id}`);
   }
   executeTest(_id: string,){
-    return this.http.get( "http://10.55.6.31:3000/ims/testExecute"+`/${_id}`);
+    return this.http.get( "http://10.55.6.171:3000/ims/testExecute"+`/${_id}`);
   }
   stopTest(_id: string,){
-    return this.http.get( "http://10.55.6.31:3000/ims/testStop"+`/${_id}`);
+    return this.http.get( "http://10.55.6.171:3000/ims/testStop"+`/${_id}`);
   }
   
   getTest(id){

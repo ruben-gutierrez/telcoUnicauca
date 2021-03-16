@@ -5,15 +5,24 @@
       <div class="region region-content">
         <div id="block-system-main">
           <div>
-            <div class="titulo">Escenario 2</div>
+            <div class="titulo">Conexión Remota</div>
             <div class="container">
-              <div class="card card-maq pb-2" *ngFor="let machine of machines; let i = index">
-                <div class="card-header" >
+<div>
+Conexión remota, permite al usuario acceder a la máquina que contiene el sistema LTE, para realizar cualquier modificación y 
+configuración de los archivos del sistema y realizar pruebas haciendo uso de los framework de monitorización de OAI, además,
+ permite encender y apagar las máquinas virtuales, y crear una instantánea para el manejo de versiones.
+
+</div>
+
+
+              <div class="card card-maq pb-2" *ngFor="let machine of machines; let i = index">                 
+
+                <div class="card-header">
                   {{ machine.name }}
                 </div>
-                <div class="card-body">
-                  <div class="row  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xs-1">
-                    <div class="col col-6 col-md-6  col-lg-6 text-center  card-imag">
+                <div class="card-body"  >
+                  <div class="row  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xs-1" >
+                    <div class="col col-6 col-md-6  col-lg-6 text-center  card-imag"  > 
                       <img src="/assets/telcomovil/iconos/im-m.png" class="img-responsive center-block pt-2"
                         style="width: 130px" alt="">
 
@@ -22,13 +31,20 @@
                       <!-- <div class="titulo-maquina"><h1>MAQUINA 1</h1></div> -->
                       <div class="info-maquina" >
                         <ul class="utility-list">
-                          <li><strong>ip flotante:</strong></li>
-                          <li><strong>ip publica: </strong>192.168.10.0</li>
-                          <li><strong>fecha:</strong> 18-11-2020</li>
+                          <li><span type="hidden"  *ngFor="let address of machine.infoServer.addresses | keyvalue">
+                            
+                            <strong> Ip flotante:</strong> {{address.value[1].addr}} <br>
+                            <strong> IP privada:</strong> {{ address.value[0].addr }}
+                               
+                           
+                          </span></li>
+                          <li><strong>fecha:</strong> {{machine.infoServer.created}}</li>
                           <li><strong>almacenamiento: </strong>20</li>
                         </ul>
                       </div>
                       <div class="panel-footer pt-2">
+                        <!-- <mat-slide-toggle id="btnOnOff" color="primary" [id]="machine.id" (click)="[powerServer(machine._id)]"  [checked]=" machine.infoServer.status=='ACTIVE'? 'true':'false'" title="Encender/Apagar" ></mat-slide-toggle> -->
+
                         <button class="btn btn-size btn-prueb left-btn" (click)="[powerServer(machine._id)]" popoverClass="popov-maq" ngbPopover="On/Off"
                           triggers="mouseenter:mouseleave" placement="bottom"><i class="fas fa-power-off"></i></button>
                         <button class="btn btn-prueb btn-size" (click)="[instantServer(machine._id,i)]"  popoverClass="popov-maq" triggers="mouseenter:mouseleave"
@@ -46,6 +62,7 @@
 
                   </div>
                 </div>
+              
               </div>
 
               <!-- otra card -->

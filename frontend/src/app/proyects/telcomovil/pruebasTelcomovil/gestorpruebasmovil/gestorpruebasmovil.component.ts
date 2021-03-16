@@ -1,16 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-
+import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import {NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { NgForm, FormGroup, FormControl, Validators, Form } from "@angular/forms";
+import { NgForm, FormGroup, FormControl, Validators, Form, FormsModule } from "@angular/forms";
 import { UsersService, ServerService,ArquitecturesService, OpenstackQueriesService, MachinesMovilService } from 'src/app/services/services.index';
 import { User } from 'src/app/models/models.index';
 import { Location } from '@angular/common';
+
 
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { async } from '@angular/core/testing';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+
+
 
 @Component({
   selector: 'app-gestorpruebasmovil',
@@ -22,8 +24,8 @@ export class GestorpruebasmovilComponent implements OnInit {
   closeResult = '';
   modal:NgbModalRef;
   messageLoading:string;
-  @ViewChild('closeButton') closeButton;
   //maquina virtual
+  resourcesFlavor
   loading=false;
   idMachine:string;
   arquitecture: any;
@@ -33,6 +35,10 @@ export class GestorpruebasmovilComponent implements OnInit {
   flavors:object;
   core:any;
   vmsAditionals: any;
+  //crearmaquina
+  procesador=0;
+  almacenamiento=0;
+  ram=0;
   resourcesDisp={
     ram : 0,
     vcpus:0,
@@ -59,6 +65,7 @@ export class GestorpruebasmovilComponent implements OnInit {
           this.idMachine = params.id;
           this.getMachines();
          })
+        
        }
        
 
@@ -67,6 +74,7 @@ export class GestorpruebasmovilComponent implements OnInit {
       idArq: new FormControl( 'machineProyectMovil'),
       name: new FormControl(null, Validators.required),
       image: new FormControl(null, Validators.required),
+      flavor:new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
       cpu: new FormControl(null, Validators.required),
       ram: new FormControl(null, Validators.required),
@@ -77,7 +85,7 @@ export class GestorpruebasmovilComponent implements OnInit {
     
    
     await this.consultImages(); 
-    await this.consultFlavor();
+  
     this.getMachines();   
   }
 
@@ -105,19 +113,28 @@ export class GestorpruebasmovilComponent implements OnInit {
     })
   }
 
-  async consultFlavor(){
-    this._openstack.getFlavors()
-    .subscribe(response =>{
-      this.flavors=response
+  consultFlavor(id){
+    // this.resourcesFlavor=id
+    this._openstack.showFlavor(id)
+    .subscribe( data =>{
+      console.log(data)
+      this.resourcesFlavor="RAM:"+data['flavor'].ram+"Mb  --> Procesadores: "+data['flavor'].vcpus + " --> Almacenamiento: "+data['flavor'].disk+"Gb"
+      this.resourcesDisp.ram += data['flavor'].ram;
+      this.resourcesDisp.disk +=  data['flavor'].disk;
+      this.resourcesDisp.vcpus += data['flavor'].vcpus;
+      console.log("entro al flavor"); 
     })
+  // return  this.resourcesDisp.vcpus, this.resourcesDisp.disk, this.resourcesDisp.vcpus
+    
   }
 
+ 
   
-  async newServer(){
-    this.loading=true
-    // console.log(this.formNewServer.value)
-    this.messageLoading="Creando Servidor"    
+  async newServer(){   
     this.loading=true;
+    this.messageLoading="Creando Servidor"
+    // this.modalService.open(content, { size: 'sm' })
+    // document.getElementById('btnclose').click();
     await this._machineMovil.createMachine(this.formNewServer.value)
     // await this._machineMovil.addMachineOp(this.formNewServer.value)
     .subscribe(async response =>{
@@ -146,6 +163,7 @@ export class GestorpruebasmovilComponent implements OnInit {
     .then(data =>{
       if(data['status']==200){
         this.arquitecture = data['content'];
+
 
       }else{
         this.toastr.error('la base de datos esta temporalemnte fuera de servicio')
@@ -194,17 +212,33 @@ export class GestorpruebasmovilComponent implements OnInit {
     this._machineMovil.getMachines()
       .subscribe((data: any) => {
         this.machines = data;
-        // console.log(this.users);
+        var dir='movil-net';
+        // console.log('FECHA OAI',this.machines[0].infoServer.created);
+        // console.log('id OAI',this.machines[0].infoServer.id);
+        console.log('ram OAI',this.machines[0].infoServer.flavor.id);
+        console.log('cpu OAI',this.machines[0].infoServer.flavor.id);
+        console.log('ip OAI',this.machines[0].infoServer.addresses.movil);
+        // console.log('estado OAI',this.machines[0].infoServer.status);
+        var ram=0;
+        
+
+
     });  
   }
-  formatLabel(value:number){
-    if(value >= 1000){
-      return Math.round(value/1000) + 'k';
-    }
-    return value;
+   updateProc(val){
+     this.procesador=val.target.value;
+
   }
+  updateRam(val){
+    this.ram=val.target.value;
 
+ }
+ updateAlm(val){
+  this.almacenamiento=val.target.value;
 
+}
+
+  
   deleteMachine(id:string, index){
     // console.log(id);
     this.loading=true
@@ -215,6 +249,7 @@ export class GestorpruebasmovilComponent implements OnInit {
         var i = this.machines.indexOf( id );
         this.machines.splice(index, 1 );
         this.toastr.success("maquina eliminada")
+        this.loading=false;
         // console.log(this.users);
         // console.log(i);
       });
@@ -233,7 +268,23 @@ export class GestorpruebasmovilComponent implements OnInit {
    
       
   }
+  powerServer(id){    
+    this.loading=true
+    this._server.actionsServer(id,'on/off')
+      .subscribe( data =>{
+        this.loading=false;
+        if (data['action']== 'off') {
+          this.toastr.success('La mv se ha apagado correctamente')
+          
+        }else{
+          this.toastr.success('La mv se ha encendido correctamente')
 
+        }
+      }, error=>{
+        this.loading=false;
+        this.toastr.error('Error al apagar la máquina')
+      })
+  }
   consoleServer(id){
     this.loading=true;
     this.messageLoading="Creando consola; recuerde que se habilita por 1 hora"
