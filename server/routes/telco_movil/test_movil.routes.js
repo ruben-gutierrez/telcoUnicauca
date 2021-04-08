@@ -7,12 +7,12 @@ const testMovilController = require('../../controllers/telco_movil/testMovil.con
 
 
 router.post('/mtest',testMovilController.executeTest); 
+router.get('/mtests',testMovilController.getTests); 
 router.get('/datatest/:id',testMovilController.getDataTest);
-router.get('/tests',testMovilController.getTests);
 // router.post('/',testMovilController.createTest);
-// router.get('/:id',testMovilController.showTest);
+router.get('/mtest/:id',testMovilController.getTest);
 // router.put('/:id',testMovilController.updateTest);
-// router.delete('/:id',testMovilController.deleteTest);
+ router.delete('/mtest/:id',testMovilController.deleteTest);
 
 
 

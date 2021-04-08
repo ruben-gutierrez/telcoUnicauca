@@ -1,6 +1,6 @@
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { TestsMovilService, ServerService,ArquitecturesService, OpenstackQueriesService, MachinesMovilService } from 'src/app/services/services.index';
+import { TestsMovilService, ResultMovilService, ServerService,ArquitecturesService, OpenstackQueriesService, MachinesMovilService } from 'src/app/services/services.index';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm, FormGroup, FormControl, Validators, Form, FormsModule } from "@angular/forms";
 
@@ -26,7 +26,11 @@ export class Escenario1movilComponent implements OnInit {
   //maquina virtual
   loading=false;
   formNewTest: FormGroup
-
+  machines:any;
+  modal:NgbModalRef;
+  ipMv="0";
+  optionSelect;
+  address:any;
   closeResult = '';
   images: object;
   tramas;
@@ -46,27 +50,40 @@ export class Escenario1movilComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private _testsMovil: TestsMovilService,
+    private _resultMovil: ResultMovilService,
+    private _server: ServerService,
+    private _openstack: OpenstackQueriesService,
+    private _machineMovil: MachinesMovilService,
     private modalService: NgbModal) {
-    _config.closeOthers = true;
+    _config.closeOthers = true;    
+    this.getMachines();
 
   }
 
   ngOnInit(): void {
     this.formNewTest = new FormGroup({
-      idArq: new FormControl( 1),
-      canal: new FormControl(null, Validators.required),
-      simsnr: new FormControl(null, Validators.required),
-      trama: new FormControl(null, Validators.required),
-      inisnr: new FormControl(null, Validators.required),
-      modotx: new FormControl(null, Validators.required),
-      mcs : new FormControl(null, Validators.required),
-      modelocanal : new FormControl(null, Validators.required),
-      bloquerecu : new FormControl(null, Validators.required),
-      antenasue : new FormControl(null, Validators.required),
-      antenasenb : new FormControl(null, Validators.required),
-      puerenb : new FormControl(null, Validators.required),
+      // idArq: new FormControl( 1),
+      idMv: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
+      ipFlotante: new FormControl(null, Validators.required),
+      tramas: new FormControl(null, Validators.required),
+      inisnr: new FormControl(null),
+      canal: new FormControl(null),
+      // canal: new FormControl(null, Validators.required),
+      modotx: new FormControl(null),
+      antenasue : new FormControl(null),
+      modelocanal : new FormControl(null),
+      mcs : new FormControl(null, Validators.max(28)),
+      bloquerecu : new FormControl(null),
+      simsnr: new FormControl(null),
+      antenasenb : new FormControl(null),
+      puerenb : new FormControl(null),
+
     })
   }
+
+
+
   open(content) {
     this.modalService.open(content, {size:'lg', windowClass: 'modal-img',ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
@@ -79,32 +96,69 @@ export class Escenario1movilComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' });
   }
 
+
+
   newPrueba(){
 
     console.log(this.formNewTest.value)
-    // this.loading=true;
-    // this.messageLoading="Creando Servidor"
+    this.loading=true;
+    this.messageLoading="Creando Prueba"
     // // this.modalService.open(content, { size: 'sm' })
     // document.getElementById('btnclose').click();
      this._testsMovil.executeTest(this.formNewTest.value)
     .subscribe(async response =>{
       console.log(response);
-    //   this.loading=false
-    //   if(response['status']==200){
-    //     this.toastr.success('Prueba virtual creada')
-    //     this.ngOnInit();
-    //     this.modalService.dismissAll();
-    //     //this.arquitecture.vmAditionals.push(response['content'])
-    //     //this.core=this.arquitecture.vmAditionals;
+      this.loading=false
+       if(response['code']==200){
+         this.toastr.success('Prueba virtual creada')
+        //  this.ngOnInit();
+        //  this.modalService.dismissAll();
+         //this.arquitecture.vmAditionals.push(response['content'])
+         //this.core=this.arquitecture.vmAditionals;
     //     //this.resourcesDisp=await this.resourceDisp(this.arquitecture);
     //     //this._location.back();
-    //   }
-    //   else{
-    //     this.toastr.success('Error al crear la máquina virtual')  
-    //   }
+       }
+       else{
+         this.toastr.success('Error al crear Prueba Virtual')  
+       }
     })
-
+    // this._resultMovil.createResult(this.formNewTest.value)
+    // .subscribe(async response =>{
+    //   console.log("resultadooooo",response);
+    //   this.loading=false
+    //    if(response['code']==200){
+    //      this.toastr.success('Resultado prueba virtual creada')
+    //    }
+    //    else{
+    //      this.toastr.success('Error al crear Resultado Virtual')  
+    //    }
+    // })
   }
+
+  getIpfloatMv(id){
+    let add;
+   this._machineMovil.getServer(id)
+    .subscribe((data: any) => {
+    add=data.content.infoServer.addresses["movil-net"][1].addr
+    this.formNewTest.controls['ipFlotante'].setValue(add)
+  }, error=>{
+    this.toastr.error("Error al obtener las ipFlotante")
+  })
+  }
+      
+  ipFloat(){
+    this.ipMv=this.optionSelect;
+    this.getIpfloatMv(this.ipMv)
+  }
+
+  getMachines(){
+    this._machineMovil.getMachines()
+      .subscribe((data: any) => {
+        this.machines = data;
+      
+    });  
+  }
+
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

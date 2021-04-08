@@ -19,7 +19,7 @@ export class TestsMovilService {
     
    }
 
-   readonly URL_API_OAI:string = `http://10.55.6.171:3000/telco_movil/mtest`;
+   readonly URL_API_TEST:string = `http://10.55.6.171:3000/telco_movil/mtest`;
    readonly URL_API:string = `http://10.55.6.171:3000/telco_movil/`;
 
   
@@ -28,13 +28,28 @@ export class TestsMovilService {
     let data={
       'dataForm': dataForm
     }
-    return this.http.post(this.URL_API_OAI, data)
+    return this.http.post(this.URL_API_TEST, data)
   }
+
+  createTest(data:any){
+    return this.http.post(this.URL_API_TEST, data)
+  }
+
 
   getdata(id){
     return this.http.get(this.URL_API+`datatest/`+id)
   }
+  getTests(){
+    return this.http.get(this.URL_API_TEST+'s');
+  }
+  getTest(idTest){
+    return this.http.get(this.URL_API_TEST+'/'+idTest);
+}
 
+
+deleteTest(_id: string){
+  return this.http.delete(this.URL_API_TEST + `/${_id}`);
+}
 
   
 }

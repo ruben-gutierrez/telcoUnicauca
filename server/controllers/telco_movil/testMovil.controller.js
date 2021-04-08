@@ -7,16 +7,13 @@ const testMovilController={};
 
 testMovilController.executeTest= async(req, res) => {
 
-    let ssh= await openstack.executeComandVM('192.168.40.229', 'oai', 'oai', 'cat /home/oai/Escritorio/test.');
-     var test = new TestMovil();
-    //  console.log(req.body.dataForm.canal)
-     test.canal =req.body.dataForm.canal
-    // // server1.infoServer = server.content;
-    // server1.infoServer = consServer;
-    // server1.idArquitecture = req.body.idArq
-    // console.log(server.content.id);                
-    // // server1.infoServer.address=consServer.content;
-    // // console.log(server1)
+   // let ssh= await openstack.executeComandVM('192.168.40.229', 'oai', 'oai', 'cat /home/oai/Escritorio/test.');
+     var test = new TestMovil(req.body.dataForm);
+    var ipFlotant= req.body.dataForm.ipFlotante;
+    let ssh= await openstack.executeComandVM(ipFlotant, 'oaim', 'oai', 'cat /home/oaim/Descargas/A.csv');
+    
+    let dataj=cvsJSON(ssh);
+    test.infoResult=dataj
     
 
     await test.save();
@@ -24,7 +21,7 @@ testMovilController.executeTest= async(req, res) => {
         {
             code:"200",
             status: 'ok',
-            content: ssh
+            content: test
         }
     );
 };
@@ -119,14 +116,34 @@ testMovilController.getTests=async(req, res)=>{
 testMovilController.createTest=async()=>{
 
 }
-testMovilController.showTest=async()=>{
+testMovilController.getTest=async(req, res)=>{
+    try{        
+        const test = await TestMovil.findById(req.params.id)
+        if(!test){
+            res.json({status:404,
+                content:test
+            })
+        }else{
+            res.json({status:200,
+                content:test
+            })
+        }
+    }catch(error){
+        res.json({status:400,
+            content:error
 
+        })
+    }
 }
 testMovilController.updateTest=async()=>{
 
 }
-testMovilController.deleteTest=async()=>{
-
+testMovilController.deleteTest=async(req, res)=>{
+    await TestMovil.findByIdAndDelete(req.params.id);
+    res.json({
+        status:'200',
+        answer:"Server Delete"
+    });
 }
 
 

@@ -1,3 +1,36 @@
-<p>resultadomovil works2!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-11 col-sm-5">
+           
+            <div class="row">
+                 <!-- <p>graph {{test.name}}</p> -->
+            <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tableData"><i
+                class="fa fa-table" aria-hidden="true"></i> </button>
+        <button class="btn btn-outline-success" (click)="downloadChart()"> <i class="fa fa-download"
+                aria-hidden="true"></i> </button>
+        <button style="float:right" class="btn btn-outline-primary" (click)="resetZoom()"> <i
+                class="fa fa-search-minus" aria-hidden="true"></i> </button>
+        <!-- <button style="float:right" class="btn btn-outline-danger" (click)="deleteGraph(test._id)"> <i
+    class="fa fa-trash" aria-hidden="true"></i> </button> -->
 
-<app-graphmovil-template></app-graphmovil-template>
+            </div>           
+        </div>
+
+        <div class="col-12 col-md-11 col-sm-5">
+            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+
+            </canvas>
+        </div>
+
+
+    </div>
+    <!-- <div class="seccion-contenido"> -->
+
+    <!-- <ng-template #graphError>
+                Error Graph
+                 </ng-template> -->
+
+    <!-- <div class="container" *ngIf="graph._id ; else graphError">    
+    </div> -->

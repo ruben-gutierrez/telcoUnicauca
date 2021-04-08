@@ -32,6 +32,7 @@
     "file-saver": "^2.0.2",
     "fs": "0.0.1-security",
     "hammerjs": "^2.0.8",
+    "jspdf": "^2.3.1",
     "ng2-accordion": "0.0.15",
     "ng2-charts": "^2.3.2",
     "ngb-modal": "^2.0.3",

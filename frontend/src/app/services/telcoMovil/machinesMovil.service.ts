@@ -20,6 +20,9 @@ export class MachinesMovilService {
    }
    readonly URL_API_ARQUTIECTURE:string = `http://10.55.6.171:3000/telco_movil/mserver`;
    readonly URL_API_OAI:string = `http://10.55.6.171:3000/telco_movil/mtest`;
+   readonly URL_API_MV:string = `http://10.55.6.171:3000/ims/server`;
+
+
 
    //readonly URL_API_ARQUTIECTURE:string = `http://localhost:3000/telco_movil/mserver`;
 
@@ -46,7 +49,7 @@ export class MachinesMovilService {
   }
 
   getServer(idMachine){
-    return this.http.get(this.URL_API_ARQUTIECTURE+'/'+idMachine)
+    return this.http.get(this.URL_API_MV+'/'+idMachine)
   }
   
    updateMachinE(machine:any){

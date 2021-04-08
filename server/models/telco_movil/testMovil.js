@@ -3,22 +3,21 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const TestMovilSchema = new Schema ({
-    // tramas:{ type: String, required:true},
-    // inisnr:{ type: String, required:true},
-    canal :{ type: String, required:true},
-    // modotx :{ type: String, required:true},
-    // antenasenb : { type: String, required:true},
-    // modelocanal: { type: String, required:true},
-    // mcs: { type: String, required:true},
-    // bloquerecu:{ type: String, required:true},
-    // simsnr:{ type: String, required:true},
-    // antenasue:{ type: String, required:true},
-    // puerenb:{ type: String, required:true}
-
-
-
-
-    
+    idMv:{ type: String, required:true},
+    name:{type: String, required:true},
+    ipFlotante:{type: String, required:true},
+    tramas:{ type: String, required:true},
+    inisnr:{ type: String},
+    canal :{ type: String},
+    modotx :{ type: String},
+    antenasenb : { type: String},
+    modelocanal: { type: String},
+    mcs: { type: String},
+    bloquerecu:{ type: String},
+    simsnr:{ type: String},
+    antenasue:{ type: String},
+    puerenb:{ type: String},
+    infoResult: { type: Object},   
 });
 
 

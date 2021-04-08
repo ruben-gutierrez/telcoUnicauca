@@ -11,7 +11,7 @@ module.exports={
         idFlavor1: '4',//flavor aio
         nameKey:'ims'
     }, 
-    idNetPublic:'19f3d07d-97b2-4d5b-a092-3ef0b4f03ff1',  
+    idNetPublic:'20cbf36b-da4e-4b82-99e1-446c11256248',  
     VMcoreIMS:{
         aio:[
             'aio',
@@ -59,10 +59,10 @@ module.exports={
             nameKey:'oaimovil'
         }, 
         // idImageOAI: 'a429c7ae-9eb6-4ab0-bf9e-7a58ee70c766',
-        idImageOAI: 'a467188e-d5ec-48dc-aab6-d63287815e23',        
+        idImageOAI: '1dcedbc1-48a9-4cb4-81b5-8323253be41f',        
         //idFlavorOAI: 'c1',
-        idFlavorOAI: 'f1bde321-7221-4b4b-a907-5140abac1b82',
-        idNetworkProjectMovil:'ab24189c-8647-4279-b5d8-2168fc03e0df'
+        idFlavorOAI: '70bffa61-2770-4896-9dc5-bdc617c6dd86',
+        idNetworkProjectMovil:'bfc48fa4-99b0-441c-8868-e0eae192a709'
     }
     
     

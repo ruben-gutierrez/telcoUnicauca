@@ -260,13 +260,13 @@ export class GestorpruebasmovilComponent implements OnInit {
       nameVm:"",      
       index:index
     }
+    console.log("va a eliminar")
     
     this._machineMovil.getServer(idVm).subscribe( 
       data =>{
         this.vmDelete.nameVm=data['content'].name
-      })
-   
-      
+        console.log("elimino")
+      })      
   }
   powerServer(id){    
     this.loading=true

@@ -60,8 +60,8 @@
                     <!-- <a class="icon-col-con" title="Dar click en la sección negra luego la tecla enter" -->
                       <!-- (click)="[consoleServer(machine._id)]"><i class="fas fa-terminal"></i></a> -->
                     <!-- <a class="icon-col"><i class="fas fa-expand-arrows-alt"></i></a> -->
-                    <!-- <a class=" icon-col" type="button" (click)="setInfoVmDelete(machine._id, i)" data-toggle="modal" -->
-                      <!-- title="Eliminar" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></a> -->
+                    <!-- <a class=" icon-col" type="button" (click)="setInfoVmDelete(machine._id, i)" data-toggle="modal"
+                      title="Eliminar" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></a>  -->
                     <!-- <button class="btn btn-success" title="Dar click en la sección negra luego la tecla enter" (click)="[consoleServer(machine._id)]"> <i class="fa fa-desktop fa-2x" aria-hidden="true"></i> </button> -->
                     <td class="overflow-hidden">
                       <div ngbDropdown container="body">
@@ -74,7 +74,8 @@
                           <button ngbDropdownItem (click)="[consoleServer(machine._id)]"><i class="fas fa-expand"></i> Abrir</button>
                           <button ngbDropdownItem><i class="fas fa-expand-arrows-alt"></i> Editar</button>
                           <div class="dropdown-divider"></div>
-                          <button ngbDropdownItem (click)="setInfoVmDelete(machine._id, i)"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                          <button ngbDropdownItem type="button" (click)="setInfoVmDelete(machine._id, i)"  data-toggle="modal"
+                          title="Eliminar" data-target="#exampleModal"><i class="fas fa-trash-alt"></i> Eliminar</button>
                         </div>
                       </div>                    
                   </td>

@@ -9,11 +9,12 @@
             <div class="container">
               <div>
                 Prueba 1 permite la ejecución de pruebas en el sistema LTE centralizado mediante la utilización de un
-                 formulario con el fin de configurar los parámetros para la realización de las pruebas en el sistema LTE.
-                  Las pruebas son realizadas sobre los canales físicos y de transporte de la red del sistema LTE por medio del
-                   simulador DLSIM de OAI, los resultados obtenidos permiten comparar la FER vs la SNR.
+                formulario con el fin de configurar los parámetros para la realización de las pruebas en el sistema LTE.
+                Las pruebas son realizadas sobre los canales físicos y de transporte de la red del sistema LTE por medio
+                del
+                simulador DLSIM de OAI, los resultados obtenidos permiten comparar la FER vs la SNR.
 
-                 <button class="btn btn-fig mb-2 mr-2" (click)="open(content)">INFORMACION DE LA
+                <button class="btn btn-fig mb-2 mr-2" (click)="open(content)">INFORMACION DE LA
                   PRUEBA</button>
               </div>
 
@@ -23,125 +24,182 @@
               <section id="wrapper">
                 <!-- class="form-horizontal form-material" id="loginform"  -->
                 <form [formGroup]="formNewTest" (ngSubmit)="newPrueba()" ngNativeValidate>
-                  <input type="hidden" class="form-control" formControlName="idArq" name="idArq">
+                  <!-- <input type="hidden" class="form-control" formControlName="idArq" name="idArq"> -->
                   <h3 class="box-title m-t-40 m-b-0">crear una prueba</h3>
                   <div class="container">
-                    <div class="row row-cols-xs-1 row-cols-md-2 align-items-start">
-                      <div class="col-6">
-                      <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="trama">Numero de tramas a simular</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <input class="form-control" type="number" id="trama" name="trama" formControlName="trama" required>
-                                    </div>
-                                  </div>  
-                      <div class="row m-3 row-col-xs-1">
-                        <label class="col-md-9 col-xs-12 col-12" for="canal">Modelo del canal</label>
-                        <div class="col-md-3 col-xs-12 col-12">
 
-                          <!-- <select name="canal" class="form-control" formControlName="canal" placeholder="Ubuntu 14">
-                            <option value="A">SCM-A</option>
-                            <option value="B">SCM-B</option>
-                            <option value="C">SCM-C</option>
-                            <option value="D">SCM-D</option>
-                            <option value="E">EPA</option>
-                            <option value="F">EVA</option>
-                            <option value="G">ETU</option>
-                            <option value="H">RAYLEIGH8</option>
-                            <option value="I">RAYLEIGH1</option>
+                    <div>
+                      <h1>Información Basica</h1>
+                      <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-6 col-xs-12 col-12" for="name">Nombre de la prueba</label>
+                            <div class="col-md-6 col-xs-12 col-12">
+                              <input class="form-control" type="text" id="name" name="name" formControlName="name"
+                                required>
+                            </div>
+                          </div>
 
-                          </select> -->
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                          <div class="row m-3 row-col-sm-1">
+                            <!-- <div class="form-group"> -->
+                            <label class="col-md-6 col-sm-12 col-12" for="idMv">Maquina virtual</label>
+                            <div class="col-md-6 col-sm-12 col-12">
+                              <select name="idMv"  class="form-control" 
+                              (change)="ipFloat()"
+                              [(ngModel)]="optionSelect"
+                              formControlName="idMv"
+                                required>
+                                <!-- <option value="ubuntu14">Ubuntu14</option> -->
+                                <option *ngFor="let machine of machines; let i = index" [value]="machine._id">{{
+                                  machine.name }} 
+                                  
+                                </option>
+                              </select>
+                               <!-- <span   *ngFor="let address of machine.infoServer.addressesmachine.infoServer.addresses | keyvalue">
+                                  <input type="text" [(ngModel)]="address.value[1].addr"
+                                  name="ipFlotante" id="ipFlotante" class="form-control"
+                                   formControlName="ipFlotante" value="1">                                 
+                                  </span>  -->
+                            </div>
+                            
+                          </div>
                         </div>
                       </div>
-                      <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="inisnr">Valor inicial de SNR</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <input class="form-control" type="number" id="inisnr" name="inisnr" formControlName="inisnr" required>
-                                    </div>
-                                  </div> 
-                      <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="simsnr">Simulacion de SNR</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <input class="form-control" type="number" id="simsnr" name="simsnr" formControlName="simsnr" required>
-                                    </div>
-                                  </div>
-                      <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="name">Modo de transmision</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <select name="modotx" class="form-control" formControlName="modotx" placeholder="Ubuntu 14">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
+                      <hr>
+                    </div>
+                    <div>
+                      <h1>Información de la Prueba</h1>
+                      <div class="row row-cols-1 row-cols-md-2 align-items-start">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="tramas">Numero de tramas a simular</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <input class="form-control" type="number" min="1" max="10000" id="tramas" name="tramas"
+                                formControlName="tramas" required>
+                            </div>
+                          </div>
+
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-xs-12 col-12" for="canal">Modelo del canal</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+
+                              <select name="canal" class="form-control" formControlName="canal" placeholder="Ubuntu 14">
+                                <option value="A">SCM-A</option>
+                                <option value="B">SCM-B</option>
+                                <option value="C">SCM-C</option>
+                                <option value="D">SCM-D</option>
+                                <option value="E">EPA</option>
+                                <option value="F">EVA</option>
+                                <option value="G">ETU</option>
+                                <option value="H">RAYLEIGH8</option>
+                                <option value="I">RAYLEIGH1</option>
+
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="inisnr">Valor inicial de SNR</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <input class="form-control" type="number" id="inisnr" name="inisnr"
+                                formControlName="inisnr">
+                            </div>
+                          </div>
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="simsnr">Simulacion de SNR</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <input class="form-control" type="number" id="simsnr" name="simsnr"
+                                formControlName="simsnr">
+                            </div>
+                          </div>
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="name">Modo de transmision</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <select name="modotx" class="form-control" formControlName="modotx"
+                                placeholder="Ubuntu 14">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
 
 
-                                      </select>
-                                    </div>
-                                  </div>  
-                      <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="name">MCS(0-28)</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <input class="form-control" type="number" id="mcs" name="mcs" formControlName="mcs" required>
-                                    </div>
-                                  </div>  
-                      <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="name">Modelo de canal AWGN</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <input class="form-control" type="number" id="modelocanal" name="modelocanal" formControlName="modelocanal" required>
-                                    </div>
-                                  </div> 
-                                </div>
-
-                      <div class="col-6">
-
-
-                        <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="name">Numero de bloques de recursos</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <select name="bloquerecu" class="form-control" formControlName="bloquerecu" placeholder="Ubuntu 14">
-                                        <option value="6">6</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-
-                                      </select>
-                                    </div>
-                                  </div>     
-                        <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="antenasue">Numero de antenas en el UE</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <select name="antenasue" class="form-control" formControlName="antenasue" placeholder="Ubuntu 14">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-
-                                      </select>
-                                    </div>
-                                  </div>                           
-                        <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="name">Numero de antenas en el eNB</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <input class="form-control" type="number" id="antenasenb" name="antenasenb" formControlName="antenasenb" required>
-                                    </div>
-                                  </div>                       
-                        <div class="row m-3 row-col-xs-1">
-                                    <label class="col-md-9 col-xs-12 col-12" for="name">Numero de puerto antenas del eNB</label>
-                                    <div class="col-md-3 col-xs-12 col-12">
-                                      <select name="puerenb" class="form-control" formControlName="puerenb" placeholder="Ubuntu 14">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-
-                                      </select>
-                                    </div>
-                                  </div> 
-                        <div class="row m-3 row-col-xs-1 justify-content-center">
-                          <div class="col d-flex justify-content-end">
-                            <button class="btn btn-fig mb-2 mr-2 p-2 " type="submit"><i class="fas fa-cog"></i> Crear
-                              prueba
-                            </button>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="name">MCS(0-28)</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <input class="form-control" type="number" min="0" max="28" id="mcs" name="mcs"
+                                formControlName="mcs">
+                            </div>
                           </div>
                         </div>
 
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="name">Modelo de canal AWGN</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <input class="form-control" type="number" id="modelocanal" name="modelocanal"
+                                formControlName="modelocanal">
+                            </div>
+                          </div>
+
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="name">Numero de bloques de recursos</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <select name="bloquerecu" class="form-control" formControlName="bloquerecu"
+                                placeholder="Ubuntu 14">
+                                <option value="6">6</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="antenasue">Numero de antenas en el UE</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <select name="antenasue" class="form-control" formControlName="antenasue"
+                                placeholder="Ubuntu 14">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="name">Numero de antenas en el eNB</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <input class="form-control" type="number" id="antenasenb" name="antenasenb"
+                                formControlName="antenasenb">
+                            </div>
+                          </div>
+                          <div class="row m-3 row-col-sm-1">
+                            <label class="col-md-8 col-sm-12 col-12" for="name">Numero de puerto antenas del eNB</label>
+                            <div class="col-md-4 col-sm-12 col-12">
+                              <select name="puerenb" class="form-control" formControlName="puerenb"
+                                placeholder="Ubuntu 14">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row m-3 row-col-sm-1 justify-content-center">
+                            <div class="col d-flex justify-content-end">
+                              <button class="btn btn-fig mb-2 mr-2 p-2 " type="submit"><i class="fas fa-cog"></i> Crear
+                                prueba
+                              </button>
+                            </div>
+                          </div>
+
+                        </div>
                       </div>
+
                     </div>
+
                   </div>
                 </form>
 
@@ -174,27 +232,38 @@
       </button>
 
     </div>
-    <div class="loading" *ngIf="loading">
-      <ng-template #await>
-        <app-loading [message]="messageLoading"></app-loading>
-      </ng-template>
-
-    </div>
-
-
     <div class="modal-body">
       <div class="lte-img">
         <!-- </select> -->
-
         <div class="container">
-          <img  src="/assets/telcomovil/img/info-prueba.png" alt="">
+          <img src="../../../../../assets/telcomovil/img/info-prueba.png" alt="">
         </div>
 
 
       </div>
     </div>
-
   </ng-template>
+  <!-- <div class="loading" *ngIf="loading">
+      <ng-template #await>
+        <app-loading [message]="messageLoading"></app-loading>
+      </ng-template>
+
+    </div> -->
+
+  <!-- loadIng -->
+
+
+  <div *ngIf="loading">
+    <app-loading [message]="messageLoading"></app-loading>
+  </div>
+
+
+
+
+  <ng-template #await>
+    <app-loading [message]="messageLoading"></app-loading>
+  </ng-template>
+
 
 
   <footer class="footer page-footer fixed-bottom">

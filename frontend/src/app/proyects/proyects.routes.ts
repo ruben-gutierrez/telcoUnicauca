@@ -140,7 +140,7 @@ const proyectsRoutes: Routes = [
              { path: 'escenario2', component: Escenario2movilComponent, data : {titlePage:'Pruebas escenario2'} },
            { path: 'gestorPruebas', component: GestorpruebasmovilComponent,data : {titlePage:'Pruebas'} },
            { path: 'gestorResultados', component: GestorresultadosmovilComponent,data : {titlePage:'Resultados'} },
-           { path: 'resultados', component: ResultadomovilComponent,data : {titlePage:'resultado'} },
+           { path: 'resultados/:id', component: ResultadomovilComponent,data : {titlePage:'resultado'} },
            { path: 'graficasm', component: GraficastelcomovilComponent,data : {titlePage:'graficas'} },
             { path: 'graficasm-new', component: GraphmovilNewComponent,data : {titlePage:'graficasnew'} },
              { path: 'graficasm/:id', component: GraphmovilComponent, data : {titlePage:'Gráfica'} },

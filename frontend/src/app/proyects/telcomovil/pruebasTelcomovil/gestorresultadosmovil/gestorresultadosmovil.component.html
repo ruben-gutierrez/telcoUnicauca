@@ -11,12 +11,13 @@
               <div class="field-items">
                 <div class="field-item even">
                   <div class="info-principal">
-                    <ngb-accordion>                     
-                      <ngb-panel>
-                        <ng-template ngbPanelHeader id="accor-header">                                       
-                          <button ngbPanelToggle class="btn btn-link container-fluid text-left pl-0">
-                             <div class="col d-flex justify-content-between align-items-center">                                                         
-                              maquina oai 2 
+                    <ngb-accordion [closeOthers]="true">                     
+                      <ngb-panel  *ngFor="let machine of machines; let i = index">
+                        <ng-template ngbPanelHeader id="accor-header" >                                       
+                          <button  ngbPanelToggle class="btn btn-link container-fluid text-left pl-0">
+                             <div class="col d-flex justify-content-between align-items-center">
+                                                         
+                              MÁQUINA VIRTUAL {{machine.name}}
                                     <a><i id="flecha" class="fas fa-angle-down rotate-icon"></i></a>    
                         </div>
                           </button>
@@ -25,35 +26,39 @@
                           <table class="table table-striped">
                             <thead>
                             <tr class="table-sup">
-                              <th scope="col">Nro.</th>
-                              <th scope="col">Tipo Prueba</th>
-                              <th scope="col">BW</th>
+                              <th scope="col">Nombre.</th>
+                              <th scope="col">MaquinaPrueba</th>
+                              <th scope="col">InformaciónPrueba</th>
                               <th scope="col">Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td> Escenario 1</td>
-                              <td>10</td>
-                              <!-- <td> 
-                                
-                                <a class="icon-col" [routerLink]="['/telcomovil/resultados']" routerLinkActive="active"><i class="fas fa-chart-pie"></i></a>
-                                <a class="icon-col"><i class="fas fa-download"></i></a>
-                                <a class="icon-col"><i class="fas fa-trash-alt"></i></a> -->
-                                <td class="overflow-hidden">
-                                  <div ngbDropdown container="body">
-                                    <!-- <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Actions</button> -->
-                                    <a class="nav-link selec-color" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
-                                      Acción
-                                    </a>
-                                    <div ngbDropdownMenu>
-                                      <button ngbDropdownItem [routerLink]="['/telcomovil/resultados']" routerLinkActive="active"><i class="fas fa-chart-pie"></i> Graficar</button>                          
-                                      <div class="dropdown-divider"></div>
-                                      <button ngbDropdownItem ><i class="fas fa-trash-alt"></i> Eliminar</button>
-                                    </div>
-                                  </div>  
-                              </td> 
+                            <tr  *ngFor="let test of tests; let i = index" > 
+                         <ng-template [ngIf]="test.idMv[0]==machine._id">
+                          <th scope="row">{{test.name}}</th>                         
+                          <td>{{test.idMv[1]}}</td>
+                          <td> {{test.tramas}}</td>
+                          <!-- <td> 
+                            
+                            <a class="icon-col" [routerLink]="['/telcomovil/resultados']" routerLinkActive="active"><i class="fas fa-chart-pie"></i></a>
+                            <a class="icon-col"><i class="fas fa-download"></i></a>
+                            <a class="icon-col"><i class="fas fa-trash-alt"></i></a> -->
+                            <td class="overflow-hidden">
+                              <div ngbDropdown container="body">
+                                <!-- <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Actions</button> -->
+                                <a class="nav-link selec-color" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
+                                  Acción
+                                </a>
+                                <div ngbDropdownMenu>
+                                  <button ngbDropdownItem [routerLink]="['/telcomovil/resultados',test._id]" routerLinkActive="active"><i class="fas fa-chart-pie"></i> Graficar</button>                          
+                                  <div class="dropdown-divider"></div>
+                                  <button ngbDropdownItem (click)="setInfoVmDelete(test._id, i)"  data-toggle="modal"
+                                  title="Eliminar" data-target="#exampleModal" ><i class="fas fa-trash-alt"></i> Eliminar</button>
+                                </div>
+                              </div>  
+                          </td> 
+                        </ng-template>
+                              
                             </tr>
                             
                             </tbody>
@@ -64,6 +69,97 @@
                  
 
                     </ngb-accordion>
+
+
+                    <!-- sin maquina -->
+
+                    <ngb-accordion [closeOthers]="true">                     
+                      <ngb-panel>
+                        <ng-template ngbPanelHeader id="accor-header" >                                       
+                          <button  ngbPanelToggle class="btn btn-link container-fluid text-left pl-0">
+                             <div class="col d-flex justify-content-between align-items-center">
+                                                         
+                              MÁQUINA VIRTUAL
+                                    <a><i id="flecha" class="fas fa-angle-down rotate-icon"></i></a>    
+                        </div>
+                          </button>
+                        </ng-template>
+                        <ng-template ngbPanelContent  *ngFor="let machine of machines; let i = index">
+                          <table class="table table-striped">
+                            <thead>
+                            <tr class="table-sup">
+                              <th scope="col">Nombre.</th>
+                              <th scope="col">MaquinaPrueba</th>
+                              <th scope="col">InformaciónPrueba</th>
+                              <th scope="col">Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            
+                                <tr  *ngFor="let test of tests; let i = index" > 
+                                  <ng-template [ngIf]="test.idMv[0]==machine._id.IsEmpty">
+                                   <th scope="row">{{test.name}}</th>                         
+                                   <td>{{test.idMv[1]}}</td>
+                                   <td> {{test.tramas}}</td>
+                                   <!-- <td> 
+                                     
+                                     <a class="icon-col" [routerLink]="['/telcomovil/resultados']" routerLinkActive="active"><i class="fas fa-chart-pie"></i></a>
+                                     <a class="icon-col"><i class="fas fa-download"></i></a>
+                                     <a class="icon-col"><i class="fas fa-trash-alt"></i></a> -->
+                                     <td class="overflow-hidden">
+                                       <div ngbDropdown container="body">
+                                         <!-- <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Actions</button> -->
+                                         <a class="nav-link selec-color" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
+                                           Acción
+                                         </a>
+                                         <div ngbDropdownMenu>
+                                           <button ngbDropdownItem [routerLink]="['/telcomovil/resultados',test._id]"><i class="fas fa-chart-pie"></i> Graficar</button>
+                                            <div class="dropdown-divider">
+                                           </div>
+                                           <button ngbDropdownItem (click)="setInfoVmDelete(test._id, i)"  data-toggle="modal"
+                                           title="Eliminar" data-target="#exampleModal" ><i class="fas fa-trash-alt"></i> Eliminar</button>
+                                         </div>
+                                       </div>  
+                                   </td> 
+                                 </ng-template>
+                                       
+                                     </tr>
+                             
+                          
+                            
+                            </tbody>
+                          </table>
+
+                        </ng-template>
+                      </ngb-panel>
+                 
+
+                    </ngb-accordion>
+                  
+
+                     <!-- modal de seguridad para eliminar-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar vm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estas seguro que deseas Eliminar la prueba  <strong>{{testDelete.nametest}}</strong> de la mv?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn-danger" data-dismiss="modal"
+        (click)="deletePrueba(testDelete.idtest, testDelete.index)" >Eliminar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
 
                   </div>
                   <div>
