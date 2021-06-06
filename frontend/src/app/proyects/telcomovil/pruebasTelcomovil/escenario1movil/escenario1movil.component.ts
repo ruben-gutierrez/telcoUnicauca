@@ -139,7 +139,8 @@ export class Escenario1movilComponent implements OnInit {
     let add;
    this._machineMovil.getServer(id)
     .subscribe((data: any) => {
-    add=data.content.infoServer.addresses["movil-net"][1].addr
+    add=data.content.infoServer.addresses["shared"][1].addr
+    console.log("la ipflot es ", add)
     this.formNewTest.controls['ipFlotante'].setValue(add)
   }, error=>{
     this.toastr.error("Error al obtener las ipFlotante")

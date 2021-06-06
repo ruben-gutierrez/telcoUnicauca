@@ -18,7 +18,7 @@
           <li class="nav-devider"></li>
           <li class="nav-small-cap">Telomóvil</li>
 
-          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['info']"  routerLinkActive="active"    aria-expanded="false"><i class="fas fa-info-circle"></i><span class="hide-menu">Información </span></a>
+          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['info']"  routerLinkActive="active"    aria-expanded="false"><i class="fas fa-info text-center"></i><span class="hide-menu">Información </span></a>
             <ul aria-expanded="false" class="collapse ">
         
                 <li>
@@ -29,8 +29,14 @@
                         <li><a [routerLink]="['/telcomovil/protocolosm']"  routerLinkActive="active" >Arquitectura de protocolos</a></li>                        
                     </ul>
                 </li> 
+                
+                
+            </ul>  
+        </li>  
+       <!--  <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['info']"  routerLinkActive="active"    aria-expanded="false"><i class="fas fa-info-circle"></i><span class="hide-menu">Guias </span></a>
+            <ul aria-expanded="false" class="collapse "> -->
                 <li>
-                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Guias </span></a>
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i class="fas fa-scroll"></i><span class="hide-menu">  Guias </span></a>
                     <!-- https://es.wikipedia.org/wiki/Open_Source_IMS_Core -->
                     <ul aria-expanded="false" class="collapse">
                         <li><a [routerLink]="['']"  routerLinkActive="active" >Instalacion OAI</a></li>
@@ -38,12 +44,10 @@
                         <li><a [routerLink]="['/telcomovil/guiasopen']"  routerLinkActive="active" >Guias de OpenStack</a></li>                        
                     </ul>
                 </li> 
-                <li>
-                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><span class="hide-menu">Trabajos relacionados </span></a>         
-                </li>  
-            </ul>  
-        </li>  
-          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['testmovil']" routerLinkActive="active"  aria-expanded="false"><i class="fas fa-cog"></i><span class="hide-menu">Pruebas y Conexiones </span></a>
+
+<!--             </ul>        
+        </li>
+ -->          <li> <a class="has-arrow waves-effect waves-dark" [routerLink]="['testmovil']" routerLinkActive="active"  aria-expanded="false"><i class="fas fa-cog"></i><span class="hide-menu">Pruebas y Conexiones </span></a>
               <ul aria-expanded="false" class="collapse ">
                   <li><a [routerLink]="['escenario1']" routerLinkActive="active" >Prueba 1</a></li>
                   <li><a [routerLink]="['escenario2']" routerLinkActive="active" >Conexion Remota</a></li>

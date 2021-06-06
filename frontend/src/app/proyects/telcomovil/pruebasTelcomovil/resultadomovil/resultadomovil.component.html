@@ -1,5 +1,15 @@
-<div class="container">
-    <div class="row">
+<div class="container" id="informe">
+
+   <div class="seccion-contenido">
+    <div class="titulo">Informe</div>
+    <div class="info-principal">                              
+      <p> la informacion es proporcionada para fines educativos             
+      </p>  
+    </div>
+
+   </div>   
+
+    <div class="row m-3">
         <div class="col-12 col-md-11 col-sm-5">
            
             <div class="row">
@@ -10,14 +20,14 @@
                 aria-hidden="true"></i> </button>
         <button style="float:right" class="btn btn-outline-primary" (click)="resetZoom()"> <i
                 class="fa fa-search-minus" aria-hidden="true"></i> </button>
-        <!-- <button style="float:right" class="btn btn-outline-danger" (click)="deleteGraph(test._id)"> <i
-    class="fa fa-trash" aria-hidden="true"></i> </button> -->
+        <button style="float:right" class="btn btn-outline-danger" (click)="downloadPDF()"> 
+            <i class="fas fa-chart-pie"></i></button>
 
             </div>           
         </div>
 
         <div class="col-12 col-md-11 col-sm-5">
-            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+            <canvas id="canvash"  baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
                 [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
                 [plugins]="lineChartPlugins">
 
@@ -26,11 +36,40 @@
 
 
     </div>
+    
+
+    <div class="row m-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SNR</th>
+                    <th>MCS</th>
+                    <th>err0</th>
+                    <th>err1</th>
+                    <th>err2</th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr *ngFor="let tes of test; index i">
+                    <td>{{tes.SNR}}</td>
+                    <td>{{tes[' MCS']}}</td>
+                    <td>{{tes[' err0']}}</td>
+                    <td>{{tes[' err1']}}</td>
+                    <td>{{tes[' err2']}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div> 
     <!-- <div class="seccion-contenido"> -->
 
     <!-- <ng-template #graphError>
                 Error Graph
                  </ng-template> -->
 
-    <!-- <div class="container" *ngIf="graph._id ; else graphError">    
-    </div> -->
+    <!-- <div class="container" *ngIf="graph._id ; else graphError">  -->  

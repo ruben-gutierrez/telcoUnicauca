@@ -5,9 +5,9 @@ const ResultMovil = require('../../models/telco_movil/resultMovil');
 const resultMovilController={};
 
 resultMovilController.createResult=async(req, res)=>{
-    // console.log("resultad", req.body.ipFlotante)
-    // let ssh= await openstack.executeComandVM('192.168.40.222', 'oaim', 'oai', 'cat /home/oaim/oai/openairinterface5g/cmake_targets/build/bler_tx2_chan5_nrx2__mcs20.csv');
-     let ssh= await openstack.executeComandVM('192.168.40.182', 'oaim', 'oai', 'cat /home/oaim/Descargas/A.csv');
+     console.log("resultad", req.body.ipFlotante)
+     let ssh= await openstack.executeComandVM(req.body.ipFlotante, 'oai', 'oai', 'cat /home/oai/openairinterface5g/cmake_targets/lte-simulators/build/*.csv');
+    //  let ssh= await openstack.executeComandVM('192.168.40.182', 'oai', 'oai', 'cat /home/oaim/Descargas/A.csv');
     
     let dataj=cvsJSON(ssh);
     var result = new ResultMovil(req.body);    

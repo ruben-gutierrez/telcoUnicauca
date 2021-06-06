@@ -19,6 +19,7 @@ import { ChartsModule } from 'ng2-charts';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { jsPDF } from "jspdf";
 
 
 // import { HeaderUserComponent } from './telco/shared/header-user/header-user.component';

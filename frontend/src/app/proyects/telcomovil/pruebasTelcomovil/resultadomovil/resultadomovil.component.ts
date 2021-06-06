@@ -18,8 +18,10 @@ import { getLocaleDateFormat } from '@angular/common';
 import { PreloadingStrategy } from '@angular/router';
 import 'chartjs-plugin-zoom';
 import { ToastrService } from 'ngx-toastr';
-
-
+// import { jsPDF } from "jspdf";
+import *as jspdf from 'jspdf';
+//import *as  html2canvas from 'html2canvas';
+import  html2canvas from 'html2canvas';
 @Component({
   selector: 'app-resultadomovil',
   templateUrl: './resultadomovil.component.html',
@@ -66,7 +68,8 @@ export class ResultadomovilComponent implements OnInit {
 console.log(data['status'])
         if(data['status']==200){
           this.dataExport=data['content']
-          this.test=data['content'].content;
+          // this.test=data['content'].content;
+          
         this.name=data['content'].name;
         console.log("datos de la bd", this.name)
         data = data['content'].infoResult
@@ -74,7 +77,8 @@ console.log(data['status'])
         let tbdatos = " err0"
         let tbdatos1 = " err1"
         let tbdatos2 = " err2"
-        console.log("datoosxx", data)
+        this.test=data
+          console.log("TABLA",this.test)
 
         for (let index in data) {
           const dato = data[index];
@@ -242,8 +246,51 @@ console.log(data['status'])
     saveAs(file, "DataExport.json");
   }
 
-  tableChart(){
-
+  downnloadJPG(){
+      var d = new Date();
+      var n = d.toISOString();
+      // only jpeg is supported by jsPDF
+      var canvas = document.getElementById('canvas');      
+      // "image/png", 1.0
+      // var imgData = canvas.toDataURL();
+      // var pdf = new jsPDF();
+      // this._pdf.addImage(imgData, "JPEG", 0, 0);
+      // this._pdf.save(n+"-graf01.pdf");
+    // }
+  
   }
+  public downloadPDF(){
+    var canvas = document.getElementById('informe');      
+    const doc = new jspdf('p', 'pt', 'letter');
+    const option={
+      background:'white',
+      
+
+    }
+    html2canvas(canvas).then((canvas)=>{
+      var imgData = canvas.toDataURL("image/png");
+      const bufferX=15;
+      var bufferY=15;
+      const imgProp=(doc as any).getImageProperties(imgData)
+      const pdfWidth=doc.internal.pageSize.getWidth()-2*bufferX;
+      const pdfHeight= (imgProp.height*pdfWidth)/imgProp.width;
+
+      // doc.text('Informe', 10,10);
+      doc.addImage(imgData, "JPEG", bufferX, bufferY,pdfWidth,pdfHeight, undefined, 'FAST');
+      // while(pdfHeight>=0){
+      //   // bufferY=pdfHeight-pdfHeight;
+      //   doc.addPage();
+      //   doc.addImage(imgData, "JPEG", bufferX, bufferY,pdfWidth,pdfHeight, undefined, 'FAST');
+
+
+      // }
+
+      return doc
+    }).then((docResult)=>{
+      docResult.save("-graf01.pdf")
+    })    
+  }
+
+ 
 
 }

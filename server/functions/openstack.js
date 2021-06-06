@@ -383,22 +383,29 @@ async function asingIpFloat(idServer){
 
 
 async function executeComandVM(hostIp, user, pass, comand){
-    
 
     var ssh = new SSH({
             host: hostIp,
             user: user,
-            pass: pass
+            pass: pass,
+            timeout: 20000,
+            // pty: true         
+ 
+
         });
+        // console.log(ssh)       
+        
     return new Promise((resolve, reject) => {
 
          ssh.exec(comand, {
+                pty:true,
+
                 out: function(stdout) {
                     // console.log('ok')
                     resolve (stdout)
                 },
                 err: function(stderr) {
-                    // console.log('fail')
+                    //   console.log('fail')
                     return reject (stdout)
                 }
             }).start();
