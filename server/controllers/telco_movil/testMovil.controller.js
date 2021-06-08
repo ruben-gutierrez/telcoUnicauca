@@ -8,9 +8,8 @@ const testMovilController = {};
 testMovilController.executeTest = async (req, res) => {
 
     //variables de entrada
-    var ipFlotant = req.body.dataForm.ipFlotante;   
-    console.log("la ip flotante", ipFlotant)
-    let snr = req.body.dataForm.tramas;
+    var ipFlotant = req.body.dataForm.ipFlotante;
+    let snr = req.body.dataForm.snr;
     let tramas = req.body.dataForm.tramas;
     let inisnr = req.body.dataForm.tramas;
     let canal = req.body.dataForm.tramas;
@@ -22,68 +21,58 @@ testMovilController.executeTest = async (req, res) => {
     let simsnr = req.body.dataForm.tramas;
     let antenasue = req.body.dataForm.tramas;
     let puerenb = req.body.dataForm.tramas;
-    let ssh;
+    
+ 
+
+    testDel(ipFlotant).then(val => {
+        console.log("eliminoooooooooooooooo dir prueba", val)
+    })
 
     
     
-    //clearAll(ipFlotant);
-    // let eliminarDir =  openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'rm -rf /home/telcoims/prueba/');
-    // let crearDir =   openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'mkdir /home/oai/prueba');
+    testExec(ipFlotant, tramas).then(val => {
+        console.log("prueba", val)
+    })
 
-    //let crearPruebas= await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'cd /home/oai/pruebas')
-    // let crearPruebas= await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'cd /home/oai/pruebas')
-    //  let ssh = await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'cat /home/oai/*.csv');
-    //  console.log("hhh",ssh)
-    // var test = new TestMovil(req.body.dataForm);
-
-    // guardarBD(ssh)    
-    // let ='Promise { <pending> }'
-    // var test = new TestMovil(req.body.dataForm);
-    // console.log("ejecutar prueba",exe_prueba ) 
-    //  cccccccccccccccclet ssh= 0;
     let contador = 0;
-
+    let ssh = 0
+    var test = new TestMovil(req.body.dataForm);
     var intevalId = setInterval(() => {
-        // let findCSV = openstack.executeComandVM(ipFlotant, 'oai', 'oai', '/home/oai/prueba/ -name *csv');
-        nombre(ipFlotant).then(val => {
-            console.log("fiiiiiiiiin proemasa",val) 
-                           })
-
-                           console.log("afuera de val", val)
-
-
-        findCSV= testconsul(ipFlotant)
-         console.log("find es nn", findCSV)
-        console.log("no encuentra archivo")
-        //if(findCSV=''){
-        // let mov = openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'mv /home/oai/*csv /home/oai/prueba');
-        
-        console.log("encontro algo", findCSV)
-
-        console.log("contador", contador);
-        if (findCSV != null) {
-            
-            // ssh=testconsul(ipFlotant)
-            // let ssh =  openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'cat /home/oai/prueba/*.csv');
-     
-            clearInterval(intevalId)
-        }
+        testCre(ipFlotant).then(val => {
+            console.log("creo dir", val)
+        })
+        testmv(ipFlotant).then(val => {
+            console.log("movio la prueba", val)
+        })
+        testFind(ipFlotant).then(val => {
+            console.log("fiiiiiiiiin proemasa", val)
+            if (val != 1) {
+                console.log("entro")
+                testconsul(ipFlotant).then(val => {
+                    console.log("LO QUE HAY EN SSH ", val)
+                    ssh=val
+                    let dataj = cvsJSON(ssh);
+                    test.infoResult = dataj;
+                    test.save();
+                    
+                })
+                
+                clearInterval(intevalId)
+            }
+        })
         contador++;
     }, 1000)
-    ssh =1
-    console.log("lo que tiene el ssh", ssh)
-    let dataj = cvsJSON(ssh);
-    test.infoResult = dataj;
-    console.log("loque hay en la prueba", ssh)
-    var test = new TestMovil(req.body.dataForm);
-     test.save();
-     res.json(
-         {
-             code: "200",
-             status: 'ok',
-             content: test
-         }
-     );
+    
+    
+   
+   
+    res.json(
+        {
+            code: "200",
+            status: 'ok',
+            content: test
+        }
+    );
 
 
 };
@@ -102,27 +91,47 @@ function guardarBD(ssh) {
         }
     );
 }
-var testExec = async function (ipFlotant){
-    let exe_prueba = openstack.executeComandVM(ipFlotant, 'oai', 'oai', '/home/oai/openairinterface5g/cmake_targets/lte-simulators/build/./dlsim -n100');
-    return exe_prueba;       
-    // let  findCSV = await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'ls /home/oai/prueba');
-    //  console.log("encontrar en find ",findCSV) 
+
+var testExec = async function (ipFlotant, tramas) {
+    let tram= '-n'+tramas
+    // let comando='/home/oai/openairinterface5g/cmake_targets/lte-simulators/build/./dlsim -n100 -m20 -gE -f0.1 -x2 -q2 -y2 -z2 -R3'
+    let comando='/home/oai/openairinterface5g/cmake_targets/lte-simulators/build/./dlsim -n100 -m20'
+    console.log("tipo",typeof(comando))
+    let stringomando=comando.toString()
+    console.log(stringomando)
+    let exe_prueba = await openstack.executeComandVM(ipFlotant, 'oai', 'oai', comando);
+    return exe_prueba;
 }
-var testFind = async function (ipFlotant){
-    let  findCSV = await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'ls /home/oai/prueba');
-    return findCSV;        
+var testFind = async function (ipFlotant) {
+    let findCSV = await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'ls /home/oai/prueba');
+    return findCSV;
+}
+var testmv = async function (ipFlotant) {
+    let findCSV = await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'mv *csv /home/oai/prueba');
+    return findCSV;
+}
+var testCre = async function (ipFlotant) {
+    // let eliminarDir = await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'rm -rf /home/telcoims/prueba/');
+    let crearDir =  await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'mkdir prueba');
+    return crearDir;
+}
+var testDel = async function (ipFlotant) {
+    
+    let eliminarDir = openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'rm -r prueba');
+console.log("eliminooooo")
+
+    return eliminarDir;
 }
 async function testconsul(ipFlotant) {
     // let  findCSV = openstack.executeComandVM(ipFlotant, 'oai', 'oai', '/home/oai/prueba/ -name *csv');
-
-    let ssh =  await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'cat /home/oai/prueba/*.csv');
+    // let ssh =  openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'cat /home/oai/prueba/*.csv');
+    let ssh = await openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'cat /home/oai/prueba/*.csv');
     return ssh
-    
 }
 
 function clearAll(ipFlotant) {
     let eliminarDir = openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'rm -rf /home/telcoims/prueba/');
-    let crearDir = openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'mkdir /home/oai/prueba');
+    // let crearDir = openstack.executeComandVM(ipFlotant, 'oai', 'oai', 'mkdir /home/oai/prueba');
 
 }
 function cvsJSON(data) {
@@ -298,7 +307,7 @@ module.exports = testMovilController;
     // await new Promise(function(resolve, reject){
     //     resolve('somethin')
     // }).then(res=>{         
-        
+
 
     // }).catch(error=>{
     //     console.log("error consultar prueba")

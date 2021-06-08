@@ -119,7 +119,7 @@
                 <div class="mb-3">
                   <div class="form-group">
                     <label for="idArquitecture">Sistema Operativo con OAI</label>                   
-                    <select name="image" class="form-control" formControlName="image" placeholder="Ubuntu 14">
+                    <select name="image" class="form-control" formControlName="image" placeholder="Ubuntu 14" required>
                       <option value="ubuntu14">Ubuntu14</option>
                       <option *ngFor="let image of images" [value]="image.id">{{ image.name }}</option>
                     </select>
@@ -136,7 +136,7 @@
                 </div> -->
                 <div class="mb-3">
                   <label for="name">Descripcion</label>
-                  <input type="area"  name="description" formControlName="description"  class="form-control"> 
+                  <input type="area"  name="description" formControlName="description"  class="form-control" required> 
                 </div>
                 
               </div>
@@ -145,7 +145,7 @@
                 <div class="mb-3">
                   <label for="name">Procesadores</label>
                   <div class="row">
-                    <input class="col-10 slider" name="cpu" formControlName="cpu" type="range" min=1 max=4 [value]="procesador"
+                    <input class="col-10 slider" name="cpu" formControlName="cpu" type="range" min=1 max=4 [value]="procesador" required
                       (change)="updateProc($event)">
                     <span class="col-2" style="font-size: 14px;">{{procesador}}</span>
 
@@ -160,17 +160,17 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="name">RAM [Gb ]</label>
+                  <label for="name">RAM [GB ]</label>
                   <div class="row">
-                    <input class="col-10  slider" name="ram" formControlName="ram" type="range" min=1 max=4 [value]="ram"
+                    <input class="col-10  slider" name="ram" formControlName="ram" type="range" min="2" max="4" [value]="ram" required
                       (change)="updateRam($event)">
                     <span class="col-2" style="font-size: 14px;">{{ram}}</span>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="name">Almacenamiento [Gb]</label>
+                  <label for="name">Almacenamiento [GB]</label>
                   <div class="row">
-                    <input class="col-10 slider" name="disk" formControlName="disk" type="range" min=20 max=50 [value]="almacenamiento"
+                    <input class="col-10 slider" name="disk" formControlName="disk" type="range" min="20" max="50" [value]="almacenamiento" required
                       (change)="updateAlm($event)">
                     <span class="col-2" style="font-size: 14px;">{{almacenamiento}}</span>
                   </div>

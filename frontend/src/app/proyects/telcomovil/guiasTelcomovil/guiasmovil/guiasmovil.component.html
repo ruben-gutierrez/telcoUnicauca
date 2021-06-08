@@ -5,124 +5,26 @@
             <div class="region region-content">
               <div id="block-system-main">
                 <div>
-                  <div class="titulo">Guias</div>
+                  <div class="titulo">Guía para la instalación yconfiguración del sistema LTEcentralizado</div>
                   <p></p>
                   <div class="field field-name-field-resumen-programa field-type-text-long field-label-hidden">
                     <div class="field-items">
                       <div class="field-item even">  
                          
-                          <p>La tecnología LTE es un estándar para redes de comunicaciones de teléfonos móviles para la transmisión de altas velocidades.
-                             3GPP(3rd Generation Partnership Project) desarrolla la primera definición de LTE en el realease 8 como una mejora a la tecnología UMTS.
-                             <br>
-                             La tecnología móvil de 4G o IMT-advanced, está fundamentada en un estándar definido por la ITU-R (International Telecommunications Union – Radiocommunications Sector)
-                             que describe los requisitos, como son las mejoras en velocidad de datos, alta eficiencia espectral, baja latencia, recursos radio como ancho de banda y tecnología MIMO (Multiple-Input Multiple-Output).
-                             La tecnología LTE comercialmente es conocida como 4G-LTE de acuerdo al release 10 del 2010.
+                          <p>
+                            La instalación llevada a cabo es realizada sobre un único equipo el cual contará 
+                            conlos diferentes módulos de OAI, para implementar un escenario con interfaz S1 
+                            sobreun mismo equipo.
+
                           </p>
                          
                              
-                          <div class="accordion" id="accordionExample">
-                            <div class="card">
-                              <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Equipo de usuario, UE
-                                  </button>
-                                </h5>
-                              </div>
-                          
-                              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                  <p>El UE permite a los usuarios acceder a los servicios de la red que dispone el sistema LTE a través de la interfaz radio. Un UE es cualquier terminal que pueda ser utilizado para conectarse a la red y proveer de comunicaciones al usuario. Los UE pueden ser representados por un dispositivo móvil comercial,un ordenador portátil con un adaptador de banda ancha móvil o pueden ser emulados mediante un ordenador portátil. La arquitectura de los UE para sistemas de LTE puede observarse en la Figura 2.4. 
-                                    Los elementos que componen la arquitectura de los UE son:</p>
-                                    <ul>
-                                      <li><h2>ME (Mobile Equipment):</h2> 
-                                        <p>es el dispositivo móvil encargado de realizar las conexiones de radiofrecuencia, la codificación, decodificación y correcciónde errores
-                                         </p></li>
-                                       
-                                      <li><h2>UICC(Universal Integrated Circuit Card): </h2>
-                                        <p>es el encargado de identificaral dispositivo con el proveedor de telecomunicaciones que presta el serviciocon el fin de reconocer su número y los servicios disponibles. El UICCpermite guardar contactos y realizar conexiones de voz, multimedia y
-                                          datos. Los diferentes procesos de identificación se realizan por medio de 3 parámetros importantes:
-                                        </p>
-                                      </li>
-                                      <ul>
-                                        <li><h2>IMEI(International Mobile Equipment Identity): </h2>
-                                          <p>es el identificador del equipo móvil a nivel mundial y sirve al operador para identificar terminales válidos y denegar el acceso a los dispositivos con IMEI bloqueados o irregulares</p></li>
-                                          <li><h2>IMSI(International Mobile Subscriber Identity):</h2><p> es la identidad internacional del abonado móvil, y constituye un código de identificación único de la línea o servicio y sirve para enrutar las llamadas</p></li>
-                                          <li><h2>USIM(Universal Subscriber Identity Module):</h2><p>es una tarjeta inteligente que almacena la clave de servicio del suscriptor, la cuales usada para identificarse ante la red. La USIM está compuesta por MCC(Mobile Country Code), MNC(Mobile Network Code)y MSIN(Mobile Subscription Identification Number</p></li>
-                                      </ul>
-                                   
-                                    </ul>
-                                    <div class="lte-img">
-                                      <img class="center-block"  src="/assets/telcomovil/img/arqm-ue.png" alt="">
-                                      <span>Figura x.x UE </span>
-                                     </div>
-                                  
-                                                       
-                                  
-                                </div>
-                              </div>
-                            </div>
-                            <div class="card">
-                              <div class="card-header" id="headingTwo">
-                                <h5 class="mb-0">
-                                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Red de acceso radio, E-UTRAN
-                                  </button>
-                                </h5>
-                              </div>
-                              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                <div class="card-body">
-                                  <p>La E-UTRAN controla las comunicaciones radio entre el UE y el EPC. Además
-                                    está constituida por una red distribuida de estaciones base, denominadas eNB(envolved NodeB), como puede observarse en la Figura 2.3.  Los eNB son interconectados entre sí a través de la interfaz X2 y están conectados con el EPC mediante la interfaz S1. La interfaz S1 está divida en, una interfaz S1-MME para el plano de control y una interfaz S1-U para el plano de usuario. Los UE están conectados a los eNB a través de la interfaz radio Uu. los UE solamente pueden mantener una comunicación con un único eNB, por lo que no es posible realizar soft handover 1. Los eNB realizan diversas tareas como:
-
-                                  </p>
-                                  <ul>
-                                    <li>Administración de portador radio </li>
-                                    <li>La recepción y envío de trasmisiones radio a todos los UE.</li>
-                                    <li>Gestión dinámica de los recursos radio de acceso de enlace UL y DL </li>
-                                    <li>Gestión de movilidad radio.</li>
-                                    <li>Planificación y trasmisión de información radio y mensajes de paging2</li>
-                                    <li>Seguridad de señalización de red.</li>
-                                                                      
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                             <div class="card">
-                              <div class="card-header" id="headingThree">
-                                <h5 class="mb-0">
-                                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Núcleo de red evolucionado, EPC
-                                  </button>
-                                </h5>
-                              </div>
-                              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                  <p>EPC está compuesto por diferentes nodos lógicos encargados de la gestión del tráfico de la red. El EPC utiliza la conmutación de paquetes, empleando el protocolo IP, lo que permite explotar las capacidades proporcionadas por la red de acceso. El núcleo del sistema EPC está compuesto de tres nodos lógicos y una base de datos; además de un servidor de gestión de las políticas del servicio, como se observa en la Figura 2.3. Estos nodos son descritos acontinuación:</p>
-                                  <ul>
-                                    <li><h2>MME(Mobility Management Entity):</h2><p> este nodo es el encargado de las funciones del plano de control, procesa la señalización entre el núcleo de red y el UE. Además, gestiona la movilidad, las sesiones y la seguridad. La MME está conectada a E-UTRAN mediante la interfaz S1-MME y al HSS mediante la interfaz S6, al S-GW mediante la interfaz S11.</p></li>
-                                    <li><h2>SGW(Serving Gateway): </h2><p>este nodo actúa como enrutador y trabaja sobreel plano de usuario, transportando tráfico IP entre UE y las diferentesredes externas. La SGW es el punto que interconecta la parte radio conEPC, gestionando los procedimientos de la movilidad y el encaminamientode paquetes hacia eNB; además, permite la interconexión con redes 2G y3G. La SGW está conectada a E-UTRAN mediante la interfaz S1-U y alP-GW por las interfaces s5 O S8.</p></li>
-                                    <li><h2>P-GW(Packet Data Network Gateway):</h2><p>es el nodo que permite accedera internet o a otras redes de paquetes de datos.  La P-GW asigna la QoS(Quality of Service)y la facturación del flujo de datos trasmitidode acuerdo a las políticas establecidas por el nodo PCRF(Policy andCharging Rules Function). La P-GW está conectada a la S-GW mediante las interfaces S5-S8, al PCFR mediante la interfaz S7 y a la PDN mediante la interfaz SGi
-                                    </p></li>
-                                    <li><h2>HSS(Home Subscriber Server):</h2><p>concatena dos funciones presentes en las redes 2G y 3G, las cuales son el AuC(Authentication center)y el HLR(Home Location Register), y está conectado al MME mediante la interfazS6. El HSS es una base de datos central que contiene toda la informaciónde la suscripción de los usuarios como:</p>                      </li>
-                                    <li><h2>Servidor PCRF:</h2><p>el servidor PCFR es el encargado de gestionar las políticas del servicio por ejemplo, la tarificación y de asignar los parámetrosde calidad del servicio para las diferentes sesiones de los usuario</p></li>
-
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                           </div>
+                        
 
                            <!-- img -->
                          
                            <br>
-                           <div>
-                             <h2>Red lte interactiva</h2>
-                             <br>
-                              <div style="width: 100%;"><div style="position: relative; padding-bottom: 34.60%; padding-top: 0; height: 0;"><iframe frameborder="0" width="552" height="191" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genial.ly/5f94545b388fc60d2b022e7c" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>
-                           
-                           </div>
-                        
+                          
                                              
                       
               </div>
