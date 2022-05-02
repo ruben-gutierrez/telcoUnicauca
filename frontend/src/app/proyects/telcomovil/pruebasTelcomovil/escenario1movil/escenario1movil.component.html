@@ -76,7 +76,7 @@
                           <div class="row m-3 row-col-sm-1">
                             <label class="col-md-8 col-sm-12 col-12" for="tramas">Numero de tramas a simular</label>
                             <div class="col-md-4 col-sm-12 col-12">
-                              <input class="form-control" type="number" min="1" max="10000" id="tramas" name="tramas"
+                              <input class="form-control" type="number" min="0" max="10000" id="tramas" name="tramas"
                                 formControlName="tramas" required>
                             </div>
                           </div>
@@ -102,14 +102,14 @@
                           <div class="row m-3 row-col-sm-1">
                             <label class="col-md-8 col-sm-12 col-12" for="inisnr">Valor inicial de SNR</label>
                             <div class="col-md-4 col-sm-12 col-12">
-                              <input class="form-control" type="number" id="inisnr" name="inisnr"
+                              <input class="form-control" type="number" min="0" max="10000" id="inisnr" name="inisnr"
                                 formControlName="inisnr">
                             </div>
                           </div>
                           <div class="row m-3 row-col-sm-1">
-                            <label class="col-md-8 col-sm-12 col-12" for="simsnr">Simulacion de SNR</label>
+                            <label class="col-md-8 col-sm-12 col-12" for="simsnr">Pasos de simulacion de SNR</label>
                             <div class="col-md-4 col-sm-12 col-12">
-                              <input class="form-control" type="number" id="simsnr" name="simsnr"
+                              <input class="form-control" type="number" min="0" max="10000" id="simsnr" name="simsnr"
                                 formControlName="simsnr">
                             </div>
                           </div>
@@ -140,7 +140,7 @@
                           <div class="row m-3 row-col-sm-1">
                             <label class="col-md-8 col-sm-12 col-12" for="name">Modelo de canal AWGN</label>
                             <div class="col-md-4 col-sm-12 col-12">
-                              <input class="form-control" type="number" id="modelocanal" name="modelocanal"
+                              <input class="form-control" type="number" min="0" max="10000" id="modelocanal" name="modelocanal"
                                 formControlName="modelocanal">
                             </div>
                           </div>
@@ -172,15 +172,22 @@
                           <div class="row m-3 row-col-sm-1">
                             <label class="col-md-8 col-sm-12 col-12" for="name">Numero de antenas en el eNB</label>
                             <div class="col-md-4 col-sm-12 col-12">
-                              <input class="form-control" type="number" id="antenasenb" name="antenasenb"
-                                formControlName="antenasenb">
+                              <!-- <input class="form-control" type="number" id="antenasenb" name="antenasenb"
+                                formControlName="antenasenb"> -->
+                                <select name="antenasenb" class="form-control" formControlName="antenasenb"
+                                placeholder="antenas">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+
+                              </select>
+
                             </div>
                           </div>
                           <div class="row m-3 row-col-sm-1">
                             <label class="col-md-8 col-sm-12 col-12" for="name">Numero de puerto antenas del eNB</label>
                             <div class="col-md-4 col-sm-12 col-12">
                               <select name="puerenb" class="form-control" formControlName="puerenb"
-                                placeholder="Ubuntu 14">
+                                placeholder="puerto">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
 
@@ -236,7 +243,9 @@
       <div class="lte-img">
         <!-- </select> -->
         <div class="container">
-          <img src="../../../../../assets/telcomovil/img/info-prueba.png" alt="">
+          
+          <div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe frameborder="0" width="1200" height="675" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genial.ly/60c02a8ed887580d3dddd4ce" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>
+          <!-- <img src="../../../../../assets/telcomovil/img/info-prueba.png" alt=""> -->
         </div>
 
 

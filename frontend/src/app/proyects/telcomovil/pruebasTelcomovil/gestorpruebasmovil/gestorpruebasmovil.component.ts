@@ -76,9 +76,9 @@ export class GestorpruebasmovilComponent implements OnInit {
       image: new FormControl(null, Validators.required),
       flavor:new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
-      cpu: new FormControl(null, Validators.required),
-      ram: new FormControl(null, Validators.required),
-      disk : new FormControl(null, Validators.required),
+      cpu: new FormControl('1', Validators.required),
+      ram: new FormControl('4', Validators.required),
+      disk : new FormControl('40', Validators.required),
 
     })
      //await this.getMachine(this.idMachine);

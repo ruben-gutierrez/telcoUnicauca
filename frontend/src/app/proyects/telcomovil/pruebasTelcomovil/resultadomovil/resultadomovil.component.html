@@ -3,7 +3,7 @@
    <div class="seccion-contenido">
     <div class="titulo">Informe</div>
     <div class="info-principal">                              
-      <p> la informacion es proporcionada para fines educativos             
+      <p> la información es proporcionada para fines educativos             
       </p>  
     </div>
 
@@ -14,14 +14,17 @@
            
             <div class="row">
                  <!-- <p>graph {{test.name}}</p> -->
-            <button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#tableData"><i
+            <button class="btn btn-outline-info"  popoverClass="my-custom-class" 
+            type="button" data-toggle="modal"  ngbPopover="tabla" data-target="#tableData"><i
                 class="fa fa-table" aria-hidden="true"></i> </button>
-        <button class="btn btn-outline-success" (click)="downloadChart()"> <i class="fa fa-download"
+        <button class="btn btn-outline-success" popoverClass="my-custom-class" ngbPopover="Descargar json"
+         (click)="downloadChart()"> <i class="fa fa-download"
                 aria-hidden="true"></i> </button>
-        <button style="float:right" class="btn btn-outline-primary" (click)="resetZoom()"> <i
-                class="fa fa-search-minus" aria-hidden="true"></i> </button>
-        <button style="float:right" class="btn btn-outline-danger" (click)="downloadPDF()"> 
-            <i class="fas fa-chart-pie"></i></button>
+        <button style="float:right" class="btn btn-outline-primary" popoverClass="my-custom-class" ngbPopover="Zoom"
+        (click)="resetZoom()"> <i class="fa fa-search-minus" aria-hidden="true"></i> </button>
+        <button style="float:right" class="btn btn-outline-danger" popoverClass="my-custom-class" ngbPopover="Descargar informe"
+        (click)="downloadPDF()"> 
+            <i class="far fa-file-pdf"></i></button>
 
             </div>           
         </div>
@@ -33,7 +36,6 @@
 
             </canvas>
         </div>
-
 
     </div>
     
@@ -66,6 +68,13 @@
     </div>
 
 </div> 
+
+<!-- <button class="btn btn-prueb btn-size"  popoverClass="my-custom-class"
+triggers="mouseenter:mouseleave"  (click)="[returnServer(machine._id)]"
+ ngbPopover="Regresar instantanea" placement="bottom"><i
+  class="fas fa-undo-alt"></i></button> -->
+
+
     <!-- <div class="seccion-contenido"> -->
 
     <!-- <ng-template #graphError>

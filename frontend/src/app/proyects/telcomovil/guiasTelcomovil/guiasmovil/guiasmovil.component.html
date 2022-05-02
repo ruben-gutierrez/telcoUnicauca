@@ -1,40 +1,286 @@
+
+
+
+
 <div class="container">
-    <section class="section contenido">
-      <!-- CONTENIDO -->
-      <div class="seccion-contenido">
-            <div class="region region-content">
-              <div id="block-system-main">
-                <div>
-                  <div class="titulo">Guía para la instalación yconfiguración del sistema LTEcentralizado</div>
-                  <p></p>
-                  <div class="field field-name-field-resumen-programa field-type-text-long field-label-hidden">
-                    <div class="field-items">
-                      <div class="field-item even">  
-                         
-                          <p>
-                            La instalación llevada a cabo es realizada sobre un único equipo el cual contará 
-                            conlos diferentes módulos de OAI, para implementar un escenario con interfaz S1 
-                            sobreun mismo equipo.
-
-                          </p>
-                         
-                             
-                        
-
-                           <!-- img -->
-                         
-                           <br>
+  <section class="section contenido">
+    <!-- CONTENIDO -->
+    <div class="seccion-contenido">
+          <div class="region region-content">
+            <div id="block-system-main">
+              <div>
+                <div class="titulo">Guias de OpenStack</div>
+                <p></p>
+                <div class="field field-name-field-resumen-programa field-type-text-long field-label-hidden">
+                  <div class="field-items">
+                    <div class="field-item even">
+                        <div class="info-principal">                              
+                          <p>El objetivo de la guía es utilizar la plataforma de  OPENSTACK instalada en la universidad del Cauca,  
+                            crear una maquina virtual para instalar el OAI.
                           
-                                             
-                      
-              </div>
+                          </p>    
+                            
+                           <div class="idc-box">                               
+                           <!-- <i class="fas fa-list"></i> -->
+                           <p class="idc-titulo"> <i class="fas fa-th-list"></i> Subsecciones:</p>
+                           <!-- > -->
+                           <hr>   
+                           <ul class="idc-lista">                                                                   
+                                 <li>1. Introducción a OpenStack
+                                 <ul>
+                                  <li><a (click)='scroll(openstack1)'>1.1. ¿Qué es OpenStack?</a></li>
+                                  <li><a (click)='scroll(componentes)'>1.2. Componentes de openStack</a></li>
+                                 </ul>
+                               </li>                            
+                                   <li>2. Configuración en OpenStack                                  
+                                   <ul>                                      
+                                     <li><a (click)='scroll(entornoOpenstack)' >2.1. Entorno de OpenStack</a></li>
+                                     <li><a (click)='scroll(crearMaquinas)'> 2.2. Crear maquinas en OpenStack</a></li>
+                                     <li><a (click)='scroll(crearFlavor)'> 2.3. Crear flavor en OpenStack</a></li>
+                                     <li><a (click)='scroll(crearImagen)'> 2.3. Crear imagen en OpenStack</a></li>
+                                   </ul>
+                                  </li>                          
+                               </ul>                  
+                              </div>                                            
+                        </div>
+                        <div class="info-guias">
+                          <div class="introduccion">
+                            <h1>Introducción a OpenStack</h1>
+                              <hr>
+                            <div>
+                              <h2 #openstack1>1.1. ¿Qué es OpenStack?</h2>                              
+                              <p>OpenStack es una plataforma de tecnología open source que usa recursos virtuales
+                                agrupados para diseñar y gestionar nubes privadas y públicas por lo que es conocida 
+                                como la plataforma Cloud Computing de software libre que ofrece infraestructura como 
+                                servicios (IasS). los servicios cloud computing que se encarga openStack son los siguientes: computación, 
+                                redes, almacenamiento, identidad e imagen que son los servicios. OpenStack es la suma de 
+                                varios componentes se pueden instalar juntos o por separado</p>
+                              
+                            </div>
+                            <div id="componentes">
+                              <h2  #componentes> 1.2. Componentes de openstack</h2>
+                              <ul>
+                                <li>
+                                  <p>Nova – proporciona máquinas virtuales (VM) también llamadas instancias sobre demanda.
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    Swift – proporciona un sistema de almacenamiento escalable que soporta almacenamiento de objetos. Los objetos es una entidad única contiene información, tienen un identificador único que sirve para solicitarlo el servidor o el usuario cuando lo requiere. Swift es el que gestiona los contenedores para estos objetos
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    Cinder – proporciona almacenamiento de bloques persistente para alojamiento de máquinas virtuales.
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    Glance – ofrece un catálogo y repositorio de imágenes de disco virtuales.
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    Keystone – proporciona autenticación y autorización de todos los servicios de OpenStack.
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    Horizon – proporciona una interfaz modular basada en la web de usuario (UI) para los servicios de OpenStack.
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    Neutron – proporciona conectividad de red como servicio entre dispositivos de interfaz que gestionan los servicios de OpenStack.
+                                  </p>
+                                </li>
+                                <li>
+                                  <p>
+                                    Ceilometer – proporciona un único punto de contacto para los sistemas de facturación.
+                                  </p>
+                                </li>
+                                <li>
+                                  Heat – proporciona servicios de orquestación para múltiples aplicaciones en la nube de material compuesto.
+                                </li>
+                                <li>
+                                  <p>
+                                    Sahara – ofrece servicios de procesamiento de datos para los recursos gestionados por OpenStack.
+                                  </p>
+                                </li>
+                              </ul>
+                            </div>
+
+                          </div>
+                          <div class="configu">
+                            <h1> 2. Configuración en OpenStack</h1>
+                            <hr>
+                                                        
+                            <div id="entornoOpenstack">
+                              <h2  #entornoOpenstack>2.1 Entorno de OpenStack en la red de Unicauca</h2>
+                              <p>1. ingresar la siguiente url <kbd>10.55.2.20</kbd>  para acceder a openstack, debe tener en cuenta que para acceder debe estar en la red de la universidad del cauca.
+                              </p>
+                              <div class="open-img">                                          
+                                <img class="center-block"  src="/assets/telcomovil/openstack/1.1.png" alt="">
+                                <span>Figura 1 </span>
+                               </div>  
+                               <p>
+                                 2. Especifique el usuario y contraseña de su cuenta creada en openstack y finalice dándole clic en <strong>INICIAR SESIÓN</strong> 
+                                 para la cuenta de movil:
+                                 <br>
+                                <samp>
+                                  USUARIO: móvil<br>
+                                  CONTRASEÑA 123
+                                </samp>
+                                <br>
+                                para la cuenta de administrador:
+                                <br>
+                                <samp>
+                                  USUARIO: admin<br>
+                                  CONTRASEÑA: 3rootbl
+                                </samp>
+
+                               </p> 
+                               <div class="open-img">                                          
+                                <img class="center-block"  src="/assets/telcomovil/openstack/1.3.png" alt="">
+                                <span>Figura 2.1 </span>
+                               </div>  
+                              
+
+                               <p>
+                                3. Entorno principal de openstack 
+                               </p>     
+                               <div class="open-img">                                          
+                                <img class="center-block"  src="/assets/telcomovil/openstack/2.png" alt="">
+                                <span>Figura 3 </span>
+                               </div> 
+                               
+                            </div>
+                            <div id="crearMaquinas">
+                              <h2 #crearMaquinas>2.2 Crear maquinas en OpenStack </h2>                                
+                              <p>
+                               1. Se inicia sesion en la cuenta movil, en el panel de navegación izquierdo, se selecciona la parte de <STRONG>INSTANCIAS </STRONG>  
+                               <kbd>http://10.55.2.20/dashboard/project/instances/</kbd> y luego le da clic en el botón lanzar instancia.
+                              </p> 
+                              <div class="open-img">                                          
+                               <img class="center-block"  src="/assets/telcomovil/openstack/3.png" alt="">
+                               <span>Figura 4 </span>
+                              </div>      
+                              <p>
+                               2. Deben especificar los datos para crear la máquina virtual o instancia llenando el formulario que se visualiza en la Figura 5.
+                              </p>        
+                              
+                              <P>
+                               2.1 En la seccion de <strong>DETAILS</strong>  se encuentra la información principal de la máquina completa los siguientes campos:
+                               <br>
+                               <samp>
+                               <br>
+                               NOMBRE: indique el nombre deseado para su máquina virtual <br>
+                               DESCRIPCIÓN: indique una descripción corta sobre el contenido de su máquina virtual <br>
+                               ZONA DE DISPONIBILIDAD: nova <br>
+                               NÚMERO: número de instancias para colocar <br>
+                               </samp></P> 
+                               <div class="open-img">                                          
+                                 <img class="center-block"  src="/assets/telcomovil/openstack/4.png" alt="">
+                                 <span>Figura 5 </span>
+                                </div>
+                                <p>
+                                 2.2 en la seccion <strong>SOURCE</strong> se agrega el sistema operativo 
+                                </p>
+                                <div class="open-img">                                          
+                                 <img class="center-block"  src="/assets/telcomovil/openstack/5.png" alt="">
+                                 <span>Figura 6 </span>
+                                </div>
+                                <p>
+                                  2.3 La sección de <strong>FLAVOR</strong> se agrega los recursos como el número de VCPUS, RAM, TOTAL DISK, ROOT DISK, EPHEMERAL DISK, PUBLIC, para la selección debe darle clic en AVAILABLE y escoger el pull más adecuado para tu maquina.
+                                </p>
+                                <div class="open-img">                                          
+                                 <img class="center-block"  src="/assets/telcomovil/openstack/6.png" alt="">
+                                 <span>Figura 7 </span>
+                                </div>
+                                <p>
+                                  2.4 en la sección de <strong>NETWORK</strong>  agregamos en disponible la red para permitir que la máquina cuente con internet 
+                               </p>
+                               <div class="open-img">                                          
+                                 <img class="center-block"  src="/assets/telcomovil/openstack/7.png" alt="">
+                                 <span>Figura 8 </span>
+                                </div>
+                                <p>
+                                 2.5 en la seccion de KEY PAIR damos clic al botón <strong>CREAR PAR DE CLAVES</strong>  para añadir una nueva, 
+                                 se indica el nombre y el tipo en este caso <kbd>ssh</kbd>
+                                                            
+                                </p>
+                                <div class="open-img">                                          
+                                 <img class="center-block"  src="/assets/telcomovil/openstack/8.png" alt="">
+                                 <span>Figura 9 </span>
+                                </div>
+
+                            </div>
+                            <div id="crearFlavor">
+                              <h2 #crearFlavor>2.2 Crear flavor en OpenStack </h2>   
+                              <p>
+                                1. Se inicia sesión con la cuenta del administrador, en el panel izquierdo se dirije a la seccion de administrador y luego flavors. 
+                                <kbd>http://10.55.2.20/dashboard/admin/flavors/</kbd>  y le da clic en el botón lanzar instancia.
+                              </p>
+                              <div class="open-img">                                          
+                                <img class="center-block"  src="/assets/telcomovil/openstack/17.png" alt="">
+                                <span>Figura 10 </span>
+                               </div>
+                               <p>
+                                2. Especifiquen los datos para crear el flavor o recursos para su maquina virtual llenando el siguiente formulario 
+                                al finalizar damos clic en <strong>CREAR FLAVOR</strong>
+                              <br>
+                              <samp>
+                                NOMBRE: indique el nombre deseado para su flavor <br>
+                                ID: identifique el id de su flavor, por defecto esta auto <br>
+                                VCPUS: indique el numero de CPUs <br>
+                                RAM:: indique la RAM para su maquina virtual <br>
+                                ROOTDISK: identifique el numero de almacenamiento de su maquina virtual <br>
+
+                              </samp> 
+                              </p>
+                              <div class="open-img">                                          
+                                <img class="center-block"  src="/assets/telcomovil/openstack/18.png" alt="">
+                                <span>Figura 10 </span>
+                               </div>
+                            </div>  
+                            <div id="crearImagen">
+                              <h2 #crearImagen>2.3 Crear imagen en OpenStack </h2> 
+                              <p>
+                                1. Se inicia sesión con la cuenta del administrador, en el panel izquierdo se dirije a la seccion de <strong>administrador</strong> y luego a <strong>IMAGES</strong>. 
+                                <kbd>http://10.55.2.20/dashboard/admin/images</kbd>  y se debe dar clic en el botón lanzar instancia.
+                              </p>
+                              <div class="open-img">                                          
+                                <img class="center-block"  src="/assets/telcomovil/openstack/21.png" alt="">
+                                <span>Figura 10 </span>
+                               </div>
+                               <p>
+                                2. Debe seleccionarse y completarse los datos para crear la imagen o el sistema operativo que tendrá la máquina virtual, llenando el formulario que puede observase en la Figura 10,
+                                al finalizar damos clic en <strong>CREAR IMAGEN</strong>.
+
+                                <samp>
+                                  <br>
+                                  NOMBRE DE LA IMAGEN: indique el nombre de la imagen o sistema operativo <br>
+                                  ARCHIVO DONDE SE ENCUENTRA: seleccione la ruta donde se encuentra su archivo <br>
+                                  FORMATO: la extension de su sistema operativo en nuestro caso <br>
+                                  VISIBILIDAD: para obtener privacidad sobre el manejo de la máquina se recomienda la opcion private
+
+                                </samp>
+                               </p>
+                               <div class="open-img">                                          
+                                <img class="center-block"  src="/assets/telcomovil/openstack/22.png" alt="">
+                                <span>Figura 10 </span>
+                               </div>
+
+                            </div>  
+                          </div> 
+                        </div>
             </div>
           </div>
-         <p></p>
         </div>
+       <p></p>
       </div>
     </div>
   </div>
-  </section>
+</div>
+</section>
 </div>  
-
